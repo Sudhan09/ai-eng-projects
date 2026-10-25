@@ -18,10 +18,19 @@ def is_transient_status(status, body=""):
     return status in (408, 409, 429) or status >= 500
 
 
+def retry_after(value):
+    if value is None:
+        return None
+    if value.strip().isdigit():
+        return float(value)
+    return None
+
+
 def error_for(url, response):
     reason = f"{response.status_code} {response.reason_phrase}"
     if is_transient_status(response.status_code, response.text):
-        return TransientError(url, reason)
+        hint = retry_after(response.headers.get("Retry-After"))
+        return TransientError(url, reason, retry_after=hint)
     return PermanentError(url, reason)
 
 
