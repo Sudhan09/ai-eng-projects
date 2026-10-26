@@ -3,6 +3,7 @@ import time
 from dataclasses import dataclass
 
 from .errors import FetchError, TransientError
+from .limiter import DualLimiter
 from .results import Result
 from .retry import retrying
 from .transport import get_json, make_client
@@ -21,10 +22,13 @@ class AiofetchClient:
         *,
         max_concurrency=20,
         attempts=4,
+        requests_per_minute=None,
+        tokens_per_minute=None,
         timeout=10.0,
         backoff_base=0.5,
         backoff_cap=30.0,
         transport=None,
+        clock=time.monotonic,
         sleep=asyncio.sleep,
         logger=None,
     ):
@@ -39,6 +43,14 @@ class AiofetchClient:
         self.logger = logger
         self.stats = Stats()
         self.http = None
+        if requests_per_minute is None:
+            self.limiter = None
+        else:
+            if tokens_per_minute is None:
+                tokens_per_minute = requests_per_minute
+            self.limiter = DualLimiter(
+                requests_per_minute, tokens_per_minute, clock=clock, sleep=sleep
+            )
         self.sem = asyncio.BoundedSemaphore(max_concurrency)
 
     async def __aenter__(self):
@@ -61,8 +73,10 @@ class AiofetchClient:
         except TimeoutError:
             raise TransientError(path, "timeout") from None
 
-    async def get_json(self, path, params=None):
+    async def get_json(self, path, params=None, *, tokens=1):
         async with self.sem:
+            if self.limiter is not None:
+                await self.limiter.acquire(tokens)
             return await self._with_retries(path, params)
 
     async def _with_retries(self, path, params):
