@@ -20,3 +20,7 @@ class TransientError(FetchError):
 
 class PermanentError(FetchError):
     transient = False
+
+
+class CircuitOpenError(FetchError):
+    transient = False

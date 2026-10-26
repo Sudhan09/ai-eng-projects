@@ -2,6 +2,7 @@ import asyncio
 import time
 from dataclasses import dataclass
 
+from .breaker import CircuitBreaker
 from .errors import FetchError, TransientError
 from .limiter import DualLimiter
 from .results import Result
@@ -13,6 +14,7 @@ from .transport import get_json, make_client
 class Stats:
     attempts: int = 0
     retries: int = 0
+    breaker_state: str = "CLOSED"
 
 
 class AiofetchClient:
@@ -24,6 +26,8 @@ class AiofetchClient:
         attempts=4,
         requests_per_minute=None,
         tokens_per_minute=None,
+        failure_threshold=5,
+        reset_timeout=30.0,
         timeout=10.0,
         backoff_base=0.5,
         backoff_cap=30.0,
@@ -51,6 +55,7 @@ class AiofetchClient:
             self.limiter = DualLimiter(
                 requests_per_minute, tokens_per_minute, clock=clock, sleep=sleep
             )
+        self.breaker = CircuitBreaker(failure_threshold, reset_timeout, clock=clock)
         self.sem = asyncio.BoundedSemaphore(max_concurrency)
 
     async def __aenter__(self):
@@ -77,7 +82,14 @@ class AiofetchClient:
         async with self.sem:
             if self.limiter is not None:
                 await self.limiter.acquire(tokens)
-            return await self._with_retries(path, params)
+
+            async def retried_call():
+                return await self._with_retries(path, params)
+
+            try:
+                return await self.breaker.call(retried_call, path)
+            finally:
+                self.stats.breaker_state = self.breaker.state
 
     async def _with_retries(self, path, params):
         policy = retrying(

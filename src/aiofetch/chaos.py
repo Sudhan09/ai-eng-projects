@@ -1,12 +1,20 @@
 import asyncio
 import random
+import zlib
 
 import httpx
 
 
 def payload(path):
-    item_id = path.split("/")[-1]  # "/items/7" -> "7"
-    return {"id": item_id, "name": f"item {item_id}"}
+    kind = path.split("/")[1]  # "/embed/refund" -> "embed"
+    name = path.split("/")[-1]  # "/embed/refund" -> "refund"
+    if kind == "embed":
+        rng = random.Random(zlib.crc32(name.encode()))  # same text, same numbers
+        vector = []
+        for _ in range(8):
+            vector.append(round(rng.gauss(0, 1), 4))
+        return {"text": name, "vector": vector}
+    return {"id": name, "name": f"item {name}"}
 
 
 class ChaosAPI:
