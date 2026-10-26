@@ -8,8 +8,9 @@ from typing import Concatenate, Protocol, Self
 from tenacity import RetryCallState
 
 from .breaker import CircuitBreaker, State
-from .errors import FetchError, TransientError
+from .errors import FetchError, PermanentError, TransientError
 from .limiter import Clock, DualLimiter, Sleep
+from .models import ITEM_RESPONSE, ApiError, ItemFound, ItemMissing, ItemMoved
 from .results import Result
 from .retry import retrying
 from .transport import HttpTransport, HttpxTransport, get_json, make_client
@@ -124,6 +125,17 @@ class AiofetchClient:
                 return await self.breaker.call(retried_call, path)
             finally:
                 self.stats.breaker_state = self.breaker.state
+
+    async def get_item(self, item_id: int) -> ItemFound | ItemMissing | ApiError:
+        path = f"/v2/items/{item_id}"
+        data = await self.get_json(path)
+        answer = ITEM_RESPONSE.validate_python(data)
+        if isinstance(answer, ItemMoved):
+            data = await self.get_json(f"/v2/items/{answer.moved_to}")
+            answer = ITEM_RESPONSE.validate_python(data)
+            if isinstance(answer, ItemMoved):
+                raise PermanentError(path, "moved twice")
+        return answer
 
     async def _with_retries(self, path: str, params: Mapping[str, str] | None) -> object:
         policy = retrying(

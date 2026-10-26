@@ -12,9 +12,56 @@ from .transport import Response
 Answer = int | str  # a status code like 503, or a word like "timeout"
 
 
+def tagged(item_id: int) -> dict[str, object]:
+    if item_id >= 3000:
+        return {"status": "moved", "id": item_id, "movedTo": item_id - 3000}
+    if item_id < 1000:
+        item = {"id": item_id, "name": f"item {item_id}", "priceCents": 250 + item_id}
+        return {"status": "ok", "item": item}
+    if item_id < 2000:
+        return {"status": "not_found", "id": item_id}
+    return {"status": "error", "code": "bad_id", "message": f"no id {item_id}"}
+
+
+def broken(answer: dict[str, object], rng: random.Random) -> dict[str, object]:
+    damage = rng.choice(["no tag", "unknown tag", "extra field", "renamed field"])
+    if damage == "no tag":
+        del answer["status"]
+    elif damage == "unknown tag":
+        answer["status"] = "pending"
+    elif damage == "extra field":
+        answer["debug"] = True
+    elif answer["status"] == "ok":
+        item = answer["item"]
+        if isinstance(item, dict):
+            item["price"] = item.pop("priceCents")
+    elif answer["status"] == "not_found":
+        answer["itemId"] = answer.pop("id")
+    else:
+        answer["msg"] = answer.pop("message")
+    return answer
+
+
+def seeded_answers(
+    size: int = 10_000, bad_share: float = 0.2, seed: int = 4
+) -> list[tuple[dict[str, object], str | None]]:
+    rng = random.Random(seed)
+    pairs: list[tuple[dict[str, object], str | None]] = []
+    for n in range(size):
+        answer = tagged(n % 3000)
+        if rng.random() < bad_share:
+            pairs.append((broken(answer, rng), None))
+        else:
+            status = answer["status"]
+            pairs.append((answer, str(status)))
+    return pairs
+
+
 def payload(path: str) -> dict[str, object]:
     kind = path.split("/")[1]
     name = path.split("/")[-1]
+    if kind == "v2":
+        return tagged(int(name))
     if kind == "embed":
         rng = random.Random(zlib.crc32(name.encode()))
         vector: list[float] = []
