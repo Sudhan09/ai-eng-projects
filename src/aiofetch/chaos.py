@@ -6,10 +6,10 @@ import httpx
 
 
 def payload(path):
-    kind = path.split("/")[1]  # "/embed/refund" -> "embed"
-    name = path.split("/")[-1]  # "/embed/refund" -> "refund"
+    kind = path.split("/")[1]
+    name = path.split("/")[-1]
     if kind == "embed":
-        rng = random.Random(zlib.crc32(name.encode()))  # same text, same numbers
+        rng = random.Random(zlib.crc32(name.encode()))
         vector = []
         for _ in range(8):
             vector.append(round(rng.gauss(0, 1), 4))
