@@ -3,9 +3,10 @@ import asyncio
 import httpx
 from test_part4_bucket import FakeClock  # Step 4.1's fake clock
 
-from aiofetch.chaos import ChaosAPI
 from aiofetch.client import AiofetchClient
+from aiofetch.flaky import FlakyAPI
 from aiofetch.limiter import max_in_window
+from aiofetch.transport import HttpxTransport
 
 
 def two_requests(**options):
@@ -15,7 +16,7 @@ def two_requests(**options):
     async def main():
         async with AiofetchClient(
             "http://api.test",
-            transport=httpx.MockTransport(ChaosAPI()),
+            transport=FlakyAPI(),
             clock=clock,
             sleep=clock.sleep,
             **options,
@@ -47,7 +48,11 @@ def test_200_requests_never_put_more_than_60_in_a_minute():
     async def main():
         async with AiofetchClient(
             "http://api.test",
-            transport=httpx.MockTransport(handler),
+            transport=HttpxTransport(
+                httpx.AsyncClient(
+                    base_url="http://api.test", transport=httpx.MockTransport(handler)
+                )
+            ),
             requests_per_minute=60,
             clock=clock,
             sleep=clock.sleep,

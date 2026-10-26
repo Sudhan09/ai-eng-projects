@@ -2,7 +2,7 @@ import asyncio
 
 import httpx
 
-from aiofetch.chaos import ChaosAPI
+from aiofetch.flaky import FlakyAPI
 
 
 def answers(chaos, paths):
@@ -21,7 +21,7 @@ def answers(chaos, paths):
 
 
 def test_the_fake_follows_its_script_then_answers_200():
-    chaos = ChaosAPI(script={"/items/7": [503]})
+    chaos = FlakyAPI(script={"/items/7": [503]})
     assert answers(chaos, ["/items/7", "/items/7"]) == [
         (503, {"error": "busy"}),
         (200, {"id": "7", "name": "item 7"}),
@@ -30,14 +30,14 @@ def test_the_fake_follows_its_script_then_answers_200():
 
 
 def test_an_outage_answers_503_everywhere():
-    chaos = ChaosAPI()
+    chaos = FlakyAPI()
     chaos.down = True
     statuses = [status for status, _ in answers(chaos, ["/items/1", "/items/2"])]
     assert statuses == [503, 503]
 
 
 def test_two_requests_at_once_peak_at_2_and_leave_none_in_flight():
-    chaos = ChaosAPI(latency=0.01)
+    chaos = FlakyAPI(latency=0.01)
 
     async def main():
         transport = httpx.MockTransport(chaos)

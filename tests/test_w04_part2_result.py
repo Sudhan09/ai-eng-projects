@@ -1,1 +1,6 @@
-# Week 4 Step 2.7 tests: copied in from the practical when we reach this step
+from aiofetch.results import Result
+
+
+def test_result_is_generic_in_its_value():
+    found: Result[int] = Result("/count", value=3)
+    assert found.ok and found.value == 3

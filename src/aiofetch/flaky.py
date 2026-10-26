@@ -1,9 +1,13 @@
 import asyncio
+import json
 import random
 import zlib
 from collections.abc import Iterable, Mapping
 
 import httpx
+
+from .errors import TransientError
+from .transport import Response
 
 Answer = int | str  # a status code like 503, or a word like "timeout"
 
@@ -20,7 +24,14 @@ def payload(path: str) -> dict[str, object]:
     return {"id": name, "name": f"item {name}"}
 
 
-class ChaosAPI:
+def json_response(status: int, data: object, headers: Mapping[str, str] | None = None) -> Response:
+    all_headers = {"content-type": "application/json"}
+    if headers is not None:
+        all_headers.update(headers)
+    return Response(status, json.dumps(data).encode(), all_headers)
+
+
+class FlakyAPI:
     def __init__(
         self,
         *,
@@ -56,8 +67,7 @@ class ChaosAPI:
             return 429
         return 200
 
-    async def __call__(self, request: httpx.Request) -> httpx.Response:
-        path = request.url.path
+    async def get(self, path: str, params: Mapping[str, str] | None = None) -> Response:
         self.calls[path] = self.calls.get(path, 0) + 1
         self.total += 1
         self.in_flight += 1
@@ -67,22 +77,39 @@ class ChaosAPI:
             answer = self.next_answer(path)
 
             if answer == "timeout":
-                raise httpx.ReadTimeout("chaos: no answer", request=request)
+                raise TransientError(path, "timeout (ReadTimeout)")
             if answer == "reset":
-                raise httpx.ReadError("chaos: connection reset", request=request)
+                raise TransientError(path, "ReadError")
             if answer == "refused":
-                raise httpx.ConnectError("chaos: connection refused", request=request)
+                raise TransientError(path, "ConnectError")
             if answer == "hang":
                 await asyncio.sleep(3600)
             if answer == "quota":
-                return httpx.Response(429, json={"error": {"code": "insufficient_quota"}})
+                return json_response(429, {"error": {"code": "insufficient_quota"}})
             if answer == 429:
-                headers = {"Retry-After": self.retry_after}
-                return httpx.Response(429, headers=headers, json={"error": "slow down"})
+                headers = {"retry-after": self.retry_after}
+                return json_response(429, {"error": "slow down"}, headers)
+            if answer == 404:
+                return json_response(404, {"error": "no such item"})
             if answer == 200:
-                return httpx.Response(200, json=payload(path))
+                return json_response(200, payload(path))
             if isinstance(answer, str):
-                raise ValueError(f"chaos: unknown scripted answer {answer!r}")
-            return httpx.Response(answer, json={"error": "busy"})
+                raise ValueError(f"flaky: unknown scripted answer {answer!r}")
+            return json_response(answer, {"error": "busy"})
         finally:
             self.in_flight -= 1
+
+    async def aclose(self) -> None:
+        pass
+
+    async def __call__(self, request: httpx.Request) -> httpx.Response:
+        try:
+            response = await self.get(request.url.path)
+        except TransientError as exc:
+            message = f"flaky: {exc.reason}"
+            if exc.reason == "timeout (ReadTimeout)":
+                raise httpx.ReadTimeout(message, request=request) from exc
+            if exc.reason == "ReadError":
+                raise httpx.ReadError(message, request=request) from exc
+            raise httpx.ConnectError(message, request=request) from exc
+        return httpx.Response(response.status, content=response.body, headers=response.headers)

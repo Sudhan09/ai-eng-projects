@@ -1,18 +1,17 @@
 import asyncio
 
-import httpx
 import numpy as np
 
-from aiofetch.chaos import ChaosAPI
 from aiofetch.client import AiofetchClient
 from aiofetch.embed import cosine_matrix, to_matrix
+from aiofetch.flaky import FlakyAPI
 
 
 def test_fetched_embeddings_stack_into_float32_rows_with_self_similarity_one():
     texts = ["refund", "invoice", "shipping", "refund"]
 
     async def main():
-        transport = httpx.MockTransport(ChaosAPI())
+        transport = FlakyAPI()
         async with AiofetchClient("http://api.test", transport=transport) as client:
             return await client.fetch_many([f"/embed/{t}" for t in texts])
 

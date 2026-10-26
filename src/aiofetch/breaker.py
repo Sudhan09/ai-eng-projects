@@ -1,8 +1,11 @@
 import time
 from collections.abc import Awaitable, Callable
+from typing import Literal
 
 from .errors import CircuitOpenError, FetchError
 from .limiter import Clock
+
+State = Literal["CLOSED", "OPEN", "HALF_OPEN"]  # the only three states a breaker can be in
 
 
 class CircuitBreaker:
@@ -16,7 +19,7 @@ class CircuitBreaker:
         self.failure_threshold = failure_threshold
         self.reset_timeout = reset_timeout
         self.clock = clock
-        self.state = "CLOSED"
+        self.state: State = "CLOSED"
         self.failures = 0
         self.opened_at = 0.0
         self.short_circuits = 0

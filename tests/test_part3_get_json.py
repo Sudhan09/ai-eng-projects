@@ -1,18 +1,17 @@
 import asyncio
 
-import httpx
 import pytest
 
-from aiofetch.chaos import ChaosAPI
 from aiofetch.client import AiofetchClient
 from aiofetch.errors import TransientError
+from aiofetch.flaky import FlakyAPI
 
 
 def test_a_hung_attempt_times_out_and_the_retry_succeeds():
-    chaos = ChaosAPI(script={"/items/1": ["hang"]})
+    chaos = FlakyAPI(script={"/items/1": ["hang"]})
 
     async def main():
-        transport = httpx.MockTransport(chaos)
+        transport = chaos
         async with AiofetchClient(
             "http://api.test", transport=transport, timeout=0.05, backoff_base=0.001
         ) as client:
@@ -23,10 +22,10 @@ def test_a_hung_attempt_times_out_and_the_retry_succeeds():
 
 
 def test_a_call_that_never_succeeds_still_gives_its_permit_back():
-    chaos = ChaosAPI(script={"/items/7": [503] * 4})
+    chaos = FlakyAPI(script={"/items/7": [503] * 4})
 
     async def main():
-        transport = httpx.MockTransport(chaos)
+        transport = chaos
         async with AiofetchClient(
             "http://api.test", transport=transport, backoff_base=0.001
         ) as client:

@@ -3,9 +3,9 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class Result:
+class Result[T]:
     url: str
-    value: object = None
+    value: T | None = None
     error: object = None
     seconds: float = 0.0
 

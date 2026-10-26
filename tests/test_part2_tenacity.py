@@ -2,15 +2,15 @@ import asyncio
 
 import httpx
 
-from aiofetch.chaos import ChaosAPI
 from aiofetch.errors import FetchError, TransientError
+from aiofetch.flaky import FlakyAPI
 from aiofetch.retry import retrying
-from aiofetch.transport import get_json, make_client
+from aiofetch.transport import HttpxTransport, get_json, make_client
 
 
 def run_tenacity(answers, retry_after="1"):
     """Fetch /items/1 through the tenacity policy: (outcome, chaos, sleeps)."""
-    chaos = ChaosAPI(script={"/items/1": answers}, retry_after=retry_after)
+    chaos = FlakyAPI(script={"/items/1": answers}, retry_after=retry_after)
     sleeps = []
 
     async def fake_sleep(seconds):
@@ -21,7 +21,7 @@ def run_tenacity(answers, retry_after="1"):
         async with make_client("http://api.test", transport=transport) as client:
             async for attempt in retrying(4, sleep=fake_sleep):
                 with attempt:
-                    return await get_json(client, "/items/1")
+                    return await get_json(HttpxTransport(client), "/items/1")
 
     try:
         outcome = asyncio.run(main())

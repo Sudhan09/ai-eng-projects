@@ -1,6 +1,4 @@
-import httpx
-
-from aiofetch.transport import error_for, retry_after
+from aiofetch.transport import Response, error_for, retry_after
 
 
 def test_retry_after_reads_seconds_and_fails_closed():
@@ -9,8 +7,7 @@ def test_retry_after_reads_seconds_and_fails_closed():
 
 
 def test_error_for_puts_the_hint_on_the_error():
-    request = httpx.Request("GET", "http://api.test/items/7")
-    busy = httpx.Response(429, headers={"Retry-After": "10"}, request=request)
+    busy = Response(429, headers={"retry-after": "10"})
     assert error_for("/items/7", busy).retry_after == 10.0
-    vague = httpx.Response(429, headers={"Retry-After": "soon"}, request=request)
+    vague = Response(429, headers={"retry-after": "soon"})
     assert error_for("/items/7", vague).retry_after is None

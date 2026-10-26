@@ -1,23 +1,22 @@
 import asyncio
 
-import httpx
 import pytest
 
-from aiofetch.chaos import ChaosAPI
 from aiofetch.client import AiofetchClient
 from aiofetch.errors import FetchError, TransientError
+from aiofetch.flaky import FlakyAPI
 
 
 def client_for(chaos, **options):
     options.setdefault("backoff_base", 0.001)
     options.setdefault("requests_per_minute", 60_000)
-    transport = httpx.MockTransport(chaos)
+    transport = chaos
     return AiofetchClient("http://api.test", transport=transport, **options)
 
 
 def test_stats_count_attempts_retries_and_the_breaker_state():
     async def main():
-        async with client_for(ChaosAPI(script={"/items/1": [503, 503, 200]})) as client:
+        async with client_for(FlakyAPI(script={"/items/1": [503, 503, 200]})) as client:
             await client.get_json("/items/1")
             return client.stats
 
@@ -27,7 +26,7 @@ def test_stats_count_attempts_retries_and_the_breaker_state():
 
 def test_a_retried_blip_is_one_breaker_failure_not_four():
     async def main():
-        async with client_for(ChaosAPI(script={"/items/1": [503] * 4})) as client:
+        async with client_for(FlakyAPI(script={"/items/1": [503] * 4})) as client:
             with pytest.raises(TransientError):
                 await client.get_json("/items/1")
             return client.breaker.failures, client.stats.attempts
@@ -36,7 +35,7 @@ def test_a_retried_blip_is_one_breaker_failure_not_four():
 
 
 def test_an_outage_opens_the_breaker_and_then_spends_no_network():
-    chaos = ChaosAPI()
+    chaos = FlakyAPI()
     chaos.down = True
 
     async def main():

@@ -4,15 +4,15 @@ import random
 import httpx
 import pytest
 
-from aiofetch.chaos import ChaosAPI
 from aiofetch.errors import FetchError, PermanentError, TransientError
+from aiofetch.flaky import FlakyAPI
 from aiofetch.retry import retry_call
-from aiofetch.transport import get_json, make_client
+from aiofetch.transport import HttpxTransport, get_json, make_client
 
 
 def run_loop(answers, retry_after="1"):
     """Fetch /items/1 through retry_call: (outcome, chaos, sleeps)."""
-    chaos = ChaosAPI(script={"/items/1": answers}, retry_after=retry_after)
+    chaos = FlakyAPI(script={"/items/1": answers}, retry_after=retry_after)
     sleeps = []
 
     async def fake_sleep(seconds):
@@ -23,7 +23,7 @@ def run_loop(answers, retry_after="1"):
         async with make_client("http://api.test", transport=transport) as client:
 
             async def call():
-                return await get_json(client, "/items/1")
+                return await get_json(HttpxTransport(client), "/items/1")
 
             return await retry_call(call, sleep=fake_sleep, rng=random.Random(1))
 
