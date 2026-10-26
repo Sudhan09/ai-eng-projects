@@ -1,16 +1,19 @@
 import asyncio
 import random
 import zlib
+from collections.abc import Iterable, Mapping
 
 import httpx
 
+Answer = int | str  # a status code like 503, or a word like "timeout"
 
-def payload(path):
+
+def payload(path: str) -> dict[str, object]:
     kind = path.split("/")[1]
     name = path.split("/")[-1]
     if kind == "embed":
         rng = random.Random(zlib.crc32(name.encode()))
-        vector = []
+        vector: list[float] = []
         for _ in range(8):
             vector.append(round(rng.gauss(0, 1), 4))
         return {"text": name, "vector": vector}
@@ -21,14 +24,14 @@ class ChaosAPI:
     def __init__(
         self,
         *,
-        script=None,
-        fail_rate=0.0,
-        limit_rate=0.0,
-        latency=0.0,
-        retry_after="1",
-        seed=0,
-        down=False,
-    ):
+        script: Mapping[str, Iterable[Answer]] | None = None,
+        fail_rate: float = 0.0,
+        limit_rate: float = 0.0,
+        latency: float = 0.0,
+        retry_after: str = "1",
+        seed: int = 0,
+        down: bool = False,
+    ) -> None:
         self.script = {path: list(answers) for path, answers in (script or {}).items()}
         self.fail_rate = fail_rate
         self.limit_rate = limit_rate
@@ -36,12 +39,12 @@ class ChaosAPI:
         self.retry_after = retry_after
         self.down = down
         self.rng = random.Random(seed)
-        self.calls = {}
+        self.calls: dict[str, int] = {}
         self.total = 0
         self.in_flight = 0
         self.peak = 0
 
-    def next_answer(self, path):
+    def next_answer(self, path: str) -> Answer:
         if self.script.get(path):
             return self.script[path].pop(0)
         if self.down:
@@ -53,7 +56,7 @@ class ChaosAPI:
             return 429
         return 200
 
-    async def __call__(self, request):
+    async def __call__(self, request: httpx.Request) -> httpx.Response:
         path = request.url.path
         self.calls[path] = self.calls.get(path, 0) + 1
         self.total += 1
@@ -78,6 +81,8 @@ class ChaosAPI:
                 return httpx.Response(429, headers=headers, json={"error": "slow down"})
             if answer == 200:
                 return httpx.Response(200, json=payload(path))
+            if isinstance(answer, str):
+                raise ValueError(f"chaos: unknown scripted answer {answer!r}")
             return httpx.Response(answer, json={"error": "busy"})
         finally:
             self.in_flight -= 1

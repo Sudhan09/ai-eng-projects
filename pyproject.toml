@@ -19,7 +19,9 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "mypy>=2.4.0",
     "openai>=3.35.1",
+    "pyright>=1.1.414",
     "pytest>=9.1.1",
     "ruff>=0.17.1",
 ]
@@ -33,3 +35,11 @@ select = ["E", "F", "I", "B", "UP", "BLE"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.mypy]
+files = ["src"]
+strict = true
+enable_error_code = ["ignore-without-code"]
+
+[tool.pyright]
+include = ["src"]

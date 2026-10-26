@@ -12,3 +12,4 @@ wheels/
 # study
 drills/
 docs/
+/*.jsonl

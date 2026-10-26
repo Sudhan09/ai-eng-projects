@@ -1,10 +1,18 @@
 import time
+from collections.abc import Awaitable, Callable
 
 from .errors import CircuitOpenError, FetchError
+from .limiter import Clock
 
 
 class CircuitBreaker:
-    def __init__(self, failure_threshold=5, reset_timeout=30.0, *, clock=time.monotonic):
+    def __init__(
+        self,
+        failure_threshold: int = 5,
+        reset_timeout: float = 30.0,
+        *,
+        clock: Clock = time.monotonic,
+    ) -> None:
         self.failure_threshold = failure_threshold
         self.reset_timeout = reset_timeout
         self.clock = clock
@@ -13,7 +21,7 @@ class CircuitBreaker:
         self.opened_at = 0.0
         self.short_circuits = 0
 
-    async def call(self, fn, url=""):
+    async def call[T](self, fn: Callable[[], Awaitable[T]], url: str = "") -> T:
         if self.state == "OPEN" and self.clock() - self.opened_at >= self.reset_timeout:
             self.state = "HALF_OPEN"
         elif self.state != "CLOSED":
@@ -35,15 +43,15 @@ class CircuitBreaker:
         self._succeeded()
         return result
 
-    def _failed(self):
+    def _failed(self) -> None:
         self.failures += 1
         if self.state == "HALF_OPEN" or self.failures >= self.failure_threshold:
             self._open()
 
-    def _succeeded(self):
+    def _succeeded(self) -> None:
         self.state = "CLOSED"
         self.failures = 0
 
-    def _open(self):
+    def _open(self) -> None:
         self.state = "OPEN"
         self.opened_at = self.clock()

@@ -1,10 +1,16 @@
 import asyncio
+import logging
 import time
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from typing import Self
+
+import httpx
+from tenacity import RetryCallState
 
 from .breaker import CircuitBreaker
 from .errors import FetchError, TransientError
-from .limiter import DualLimiter
+from .limiter import Clock, DualLimiter, Sleep
 from .results import Result
 from .retry import retrying
 from .transport import get_json, make_client
@@ -20,22 +26,22 @@ class Stats:
 class AiofetchClient:
     def __init__(
         self,
-        base_url,
+        base_url: str,
         *,
-        max_concurrency=20,
-        attempts=4,
-        requests_per_minute=None,
-        tokens_per_minute=None,
-        failure_threshold=5,
-        reset_timeout=30.0,
-        timeout=10.0,
-        backoff_base=0.5,
-        backoff_cap=30.0,
-        transport=None,
-        clock=time.monotonic,
-        sleep=asyncio.sleep,
-        logger=None,
-    ):
+        max_concurrency: int = 20,
+        attempts: int = 4,
+        requests_per_minute: float | None = None,
+        tokens_per_minute: float | None = None,
+        failure_threshold: int = 5,
+        reset_timeout: float = 30.0,
+        timeout: float = 10.0,
+        backoff_base: float = 0.5,
+        backoff_cap: float = 30.0,
+        transport: httpx.AsyncBaseTransport | None = None,
+        clock: Clock = time.monotonic,
+        sleep: Sleep = asyncio.sleep,
+        logger: logging.Logger | None = None,
+    ) -> None:
         self.base_url = base_url
         self.max_concurrency = max_concurrency
         self.attempts = attempts
@@ -46,9 +52,9 @@ class AiofetchClient:
         self.sleep = sleep
         self.logger = logger
         self.stats = Stats()
-        self.http = None
+        self.http: httpx.AsyncClient | None = None
         if requests_per_minute is None:
-            self.limiter = None
+            self.limiter: DualLimiter | None = None
         else:
             if tokens_per_minute is None:
                 tokens_per_minute = requests_per_minute
@@ -58,7 +64,12 @@ class AiofetchClient:
         self.breaker = CircuitBreaker(failure_threshold, reset_timeout, clock=clock)
         self.sem = asyncio.BoundedSemaphore(max_concurrency)
 
-    async def __aenter__(self):
+    def _client(self) -> httpx.AsyncClient:
+        if self.http is None:
+            raise RuntimeError("use AiofetchClient inside 'async with'")
+        return self.http
+
+    async def __aenter__(self) -> Self:
         self.http = make_client(
             self.base_url,
             max_connections=self.max_concurrency,
@@ -67,23 +78,25 @@ class AiofetchClient:
         )
         return self
 
-    async def __aexit__(self, *exc):
-        await self.http.aclose()
+    async def __aexit__(self, *exc: object) -> None:
+        await self._client().aclose()
 
-    async def _attempt(self, path, params):
+    async def _attempt(self, path: str, params: Mapping[str, str] | None) -> object:
         self.stats.attempts += 1
         try:
             async with asyncio.timeout(self.timeout):
-                return await get_json(self.http, path, params)
+                return await get_json(self._client(), path, params)
         except TimeoutError:
             raise TransientError(path, "timeout") from None
 
-    async def get_json(self, path, params=None, *, tokens=1):
+    async def get_json(
+        self, path: str, params: Mapping[str, str] | None = None, *, tokens: float = 1
+    ) -> object:
         async with self.sem:
             if self.limiter is not None:
                 await self.limiter.acquire(tokens)
 
-            async def retried_call():
+            async def retried_call() -> object:
                 return await self._with_retries(path, params)
 
             try:
@@ -91,7 +104,7 @@ class AiofetchClient:
             finally:
                 self.stats.breaker_state = self.breaker.state
 
-    async def _with_retries(self, path, params):
+    async def _with_retries(self, path: str, params: Mapping[str, str] | None) -> object:
         policy = retrying(
             self.attempts,
             base=self.backoff_base,
@@ -103,21 +116,22 @@ class AiofetchClient:
         async for attempt in policy:
             with attempt:
                 return await self._attempt(path, params)
+        raise RuntimeError("the retry policy always returns or raises before this")
 
-    def _count_retry(self, state):
+    def _count_retry(self, state: RetryCallState) -> None:
         self.stats.retries += 1
 
-    async def fetch_many(self, paths):
-        tasks = []
+    async def fetch_many(self, paths: Iterable[str]) -> list[Result]:
+        tasks: list[asyncio.Task[Result]] = []
         async with asyncio.TaskGroup() as tg:
             for path in paths:
                 tasks.append(tg.create_task(self._one(path)))
-        results = []
+        results: list[Result] = []
         for task in tasks:
             results.append(task.result())
         return results
 
-    async def _one(self, path):
+    async def _one(self, path: str) -> Result:
         start = time.perf_counter()
         try:
             value = await self.get_json(path)

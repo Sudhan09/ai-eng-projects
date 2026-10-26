@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from dataclasses import dataclass
 
 
@@ -9,11 +10,11 @@ class Result:
     seconds: float = 0.0
 
     @property
-    def ok(self):
+    def ok(self) -> bool:
         return self.error is None
 
 
-def percentile(values, pct):
+def percentile(values: Iterable[float], pct: float) -> float:
     ordered = sorted(values)
     rank = round(pct / 100 * len(ordered))
     if rank < 1:
