@@ -114,8 +114,13 @@ def checksum(payload: str, rounds: int = 2_000) -> str:  # GIVEN
 async def guarded(
     fetcher: Fetcher, job_id: int, timeout: float, strict: bool, sums: dict[int, str]
 ) -> Result:
-    # TODO (you write this) - plan in plain English first
-    raise NotImplementedError
+    result = await fetcher.fetch(job_id, timeout)
+    if strict and isinstance(result.error, PermanentError):
+        raise result.error  # a 404 in strict mode stops the whole group
+    if result.value is not None:
+        # the slow, blocking checksum runs in a thread so the event loop stays free
+        sums[job_id] = await asyncio.to_thread(checksum, result.value)
+    return result
 
 
 async def run_group(
@@ -125,5 +130,12 @@ async def run_group(
     timeout: float = 1.0,
     strict: bool = False,
 ) -> tuple[list[Result], dict[int, str], int]:
-    # TODO (you write this) - plan in plain English first
-    raise NotImplementedError
+    fetcher = Fetcher(port, concurrency)
+    sums: dict[int, str] = {}
+    # the TaskGroup owns every task: the first fatal error cancels the rest
+    async with asyncio.TaskGroup() as group:
+        tasks = [
+            group.create_task(guarded(fetcher, job_id, timeout, strict, sums))
+            for job_id in job_ids
+        ]
+    return [task.result() for task in tasks], sums, fetcher.peak
