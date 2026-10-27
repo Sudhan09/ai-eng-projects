@@ -1,0 +1,12 @@
+# local only
+.venv/
+__pycache__/
+.env
+*.pyc
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+# flowmap: generated files (rebuild with flowmap/tools/flowmap.py build)
+flowmap/exports/
+flowmap/build/*
+!flowmap/build/flowmap.html
