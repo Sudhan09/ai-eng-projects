@@ -1,0 +1,594 @@
+{
+"run": "tests/test_part2.py::test_merge_with_itself_changes_nothing",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part2.test_merge_with_itself_changes_nothing",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part2.py",
+"line": 60
+},
+"task": "sync",
+"i": 0,
+"t": 0.136
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "config.ParserConfig.from_lists",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"cls",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'logparse.config.ParserConfig'>"
+}
+],
+[
+"levels",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "ERROR"
+}
+]
+}
+],
+[
+"patterns",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part2.py",
+"line": 61,
+"text": "cfg = ParserConfig.from_lists(levels=[\"ERROR\"], patterns=[\"timeout\"])"
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 15
+},
+"task": "sync",
+"i": 1,
+"t": 0.364
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "config.ParserConfig.from_lists.<<genexpr>>",
+"parent": "c2",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "list_iterator",
+"lib": "builtins",
+"v": "<list_iterator object at 0x7fabe8de0400>"
+}
+]
+],
+"site": {
+"file": "src/logparse/config.py",
+"line": 20,
+"text": "level_set = frozenset(LogLevel[name] for name in levels)"
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 20
+},
+"task": "sync",
+"i": 2,
+"t": 0.477
+},
+{
+"k": "pause",
+"id": "c3",
+"fn": "config.ParserConfig.from_lists.<<genexpr>>",
+"at": {
+"file": "src/logparse/config.py",
+"line": 20,
+"text": "level_set = frozenset(LogLevel[name] for name in levels)"
+},
+"task": "sync",
+"i": 3,
+"t": 0.497
+},
+{
+"k": "resume",
+"id": "c3",
+"fn": "config.ParserConfig.from_lists.<<genexpr>>",
+"task": "sync",
+"i": 4,
+"t": 0.504
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "config.ParserConfig.from_lists.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"name",
+{
+"t": "str",
+"v": "ERROR"
+}
+]
+],
+"task": "sync",
+"i": 5,
+"t": 0.888
+},
+{
+"k": "new",
+"id": "c4",
+"fn": "config.ParserConfig",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/config.py",
+"line": 23,
+"text": "return cls(levels=level_set, patterns=tuple(patterns))"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o1",
+"task": "sync",
+"i": 6,
+"t": 0.972
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "config.ParserConfig.__post_init__",
+"parent": "c4",
+"via": null,
+"args": [],
+"site": {
+"file": "<string>",
+"line": 5,
+"text": ""
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 11
+},
+"self": "o1",
+"task": "sync",
+"i": 7,
+"t": 1.018
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "config.ParserConfig.__post_init__",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "sync",
+"i": 8,
+"t": 1.031
+},
+{
+"k": "born",
+"id": "c4",
+"fn": "config.ParserConfig",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+]
+},
+"task": "sync",
+"i": 9,
+"t": 1.091
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "config.ParserConfig.from_lists",
+"value": {
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+]
+},
+"locals": [
+[
+"level_set",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+]
+],
+"task": "sync",
+"i": 10,
+"t": 1.139
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "config.ParserConfig.merge",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"other",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part2.py",
+"line": 62,
+"text": "assert cfg.merge(cfg) == cfg"
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 25
+},
+"self": "o1",
+"task": "sync",
+"i": 11,
+"t": 1.2
+},
+{
+"k": "new",
+"id": "c7",
+"fn": "config.ParserConfig",
+"parent": "c6",
+"via": null,
+"args": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/config.py",
+"line": 28,
+"text": "return ParserConfig(levels=levels, patterns=patterns)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o2",
+"task": "sync",
+"i": 12,
+"t": 1.268
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "config.ParserConfig.__post_init__",
+"parent": "c7",
+"via": null,
+"args": [],
+"site": {
+"file": "<string>",
+"line": 5,
+"text": ""
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 11
+},
+"self": "o2",
+"task": "sync",
+"i": 13,
+"t": 1.312
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "config.ParserConfig.__post_init__",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "sync",
+"i": 14,
+"t": 1.334
+},
+{
+"k": "born",
+"id": "c7",
+"fn": "config.ParserConfig",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "ParserConfig",
+"obj": "o2",
+"name": "ParserConfig#2",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+]
+},
+"task": "sync",
+"i": 15,
+"t": 1.37
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "config.ParserConfig.merge",
+"value": {
+"t": "ParserConfig",
+"obj": "o2",
+"name": "ParserConfig#2",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+]
+},
+"locals": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 16,
+"t": 1.417
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part2.test_merge_with_itself_changes_nothing",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"cfg",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.ERROR: 40>})"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "timeout"
+}
+]
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 17,
+"t": 1.45
+}
+],
+"objects": {
+"o1": {
+"cls": "config.ParserConfig",
+"name": "ParserConfig#1",
+"born": "c2"
+},
+"o2": {
+"cls": "config.ParserConfig",
+"name": "ParserConfig#2",
+"born": "c6"
+}
+},
+"tasks": []
+}

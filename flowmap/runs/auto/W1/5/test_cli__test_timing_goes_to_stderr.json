@@ -1,0 +1,8030 @@
+{
+"run": "tests/test_cli.py::test_timing_goes_to_stderr",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_cli.test_timing_goes_to_stderr",
+"parent": null,
+"via": null,
+"args": [
+[
+"capsys",
+{
+"t": "CaptureFixture",
+"lib": "_pytest",
+"v": "<_pytest.capture.CaptureFixture object at 0x7f98a8c9acf0>"
+}
+]
+],
+"site": null,
+"def": {
+"file": "tests/test_cli.py",
+"line": 34
+},
+"task": "sync",
+"i": 0,
+"t": 0.153
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "cli.main",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"argv",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "\u2026/sample.log"
+},
+{
+"t": "str",
+"v": "--timing"
+}
+]
+}
+]
+],
+"site": {
+"file": "tests/test_cli.py",
+"line": 35,
+"text": "assert main([SAMPLE, \"--timing\"]) == 0"
+},
+"def": {
+"file": "src/logparse/cli.py",
+"line": 55
+},
+"task": "sync",
+"i": 1,
+"t": 0.309
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "cli.build_parser",
+"parent": "c2",
+"via": null,
+"args": [],
+"site": {
+"file": "src/logparse/cli.py",
+"line": 56,
+"text": "parser = build_parser()"
+},
+"def": {
+"file": "src/logparse/cli.py",
+"line": 14
+},
+"task": "sync",
+"i": 2,
+"t": 0.381
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "cli.build_parser",
+"value": {
+"t": "ArgumentParser",
+"lib": "argparse",
+"v": "ArgumentParser(prog='logparse', usage=None, description='Count log lines by lev\u2026"
+},
+"locals": [
+[
+"parser",
+{
+"t": "ArgumentParser",
+"lib": "argparse",
+"v": "ArgumentParser(prog='logparse', usage=None, description='Count log lines by lev\u2026"
+}
+]
+],
+"task": "sync",
+"i": 3,
+"t": 0.775
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "cli.make_config",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"args",
+{
+"t": "Namespace",
+"lib": "argparse",
+"v": "Namespace(paths=['\u2026/sample.log'], level=None, pattern=None, json=False, timing=\u2026"
+}
+]
+],
+"site": {
+"file": "src/logparse/cli.py",
+"line": 63,
+"text": "config = make_config(args)"
+},
+"def": {
+"file": "src/logparse/cli.py",
+"line": 46
+},
+"task": "sync",
+"i": 4,
+"t": 0.975
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "config.ParserConfig.from_lists",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"cls",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'logparse.config.ParserConfig'>"
+}
+],
+[
+"levels",
+{
+"t": "None"
+}
+],
+[
+"patterns",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/logparse/cli.py",
+"line": 52,
+"text": "return ParserConfig.from_lists(levels=levels, patterns=patterns)"
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 15
+},
+"task": "sync",
+"i": 5,
+"t": 1.013
+},
+{
+"k": "new",
+"id": "c6",
+"fn": "config.ParserConfig",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/logparse/config.py",
+"line": 27,
+"text": "return cls(levels=level_set, patterns=tuple(patterns))"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o1",
+"task": "sync",
+"i": 6,
+"t": 1.125
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "config.ParserConfig.__post_init__",
+"parent": "c6",
+"via": null,
+"args": [],
+"site": {
+"file": "<string>",
+"line": 5,
+"text": ""
+},
+"def": {
+"file": "src/logparse/config.py",
+"line": 11
+},
+"self": "o1",
+"task": "sync",
+"i": 7,
+"t": 1.161
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "config.ParserConfig.__post_init__",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "sync",
+"i": 8,
+"t": 1.171
+},
+{
+"k": "born",
+"id": "c6",
+"fn": "config.ParserConfig",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"task": "sync",
+"i": 9,
+"t": 1.233
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "config.ParserConfig.from_lists",
+"value": {
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"locals": [
+[
+"level_set",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+]
+],
+"task": "sync",
+"i": 10,
+"t": 1.291
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "cli.make_config",
+"value": {
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"locals": [
+[
+"levels",
+{
+"t": "None"
+}
+],
+[
+"patterns",
+{
+"t": "None"
+}
+]
+],
+"task": "sync",
+"i": 11,
+"t": 1.33
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "filters.timed",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "run"
+}
+]
+],
+"site": {
+"file": "src/logparse/cli.py",
+"line": 64,
+"text": "do_run = timed(run) if args.timing else run"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 37
+},
+"task": "sync",
+"i": 12,
+"t": 1.377
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "filters.timed",
+"value": {
+"t": "function",
+"v": "run"
+},
+"locals": [
+[
+"wrapper",
+{
+"t": "function",
+"v": "run"
+}
+]
+],
+"task": "sync",
+"i": 13,
+"t": 1.411
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "filters.timed.<wrapper>",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"args",
+{
+"t": "tuple",
+"n": 2,
+"items": [
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+]
+},
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+}
+],
+[
+"kwargs",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/logparse/cli.py",
+"line": 66,
+"text": "report = do_run(args.paths, config)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 38
+},
+"task": "sync",
+"i": 14,
+"t": 1.511
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "pipeline.run",
+"parent": "c9",
+"via": null,
+"args": [
+[
+"paths",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+]
+}
+],
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0,
+"items": []
+}
+]
+]
+}
+],
+[
+"head",
+{
+"t": "None"
+}
+],
+[
+"max_errors",
+{
+"t": "int",
+"v": 1000
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 42,
+"text": "return fn(*args, **kwargs)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 70
+},
+"task": "sync",
+"i": 15,
+"t": 1.64
+},
+{
+"k": "new",
+"id": "c11",
+"fn": "pipeline.CappedList",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"limit",
+{
+"t": "int",
+"v": 1000
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 76,
+"text": "errors = CappedList(max_errors)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 123
+},
+"self": "o2",
+"task": "sync",
+"i": 16,
+"t": 1.737
+},
+{
+"k": "born",
+"id": "c11",
+"fn": "pipeline.CappedList",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "CappedList",
+"obj": "o2",
+"name": "CappedList#1",
+"fields": [
+[
+"limit",
+{
+"t": "int",
+"v": 1000
+}
+],
+[
+"items",
+{
+"t": "list",
+"n": 0,
+"items": []
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"task": "sync",
+"i": 17,
+"t": 1.779
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "files.open_log",
+"parent": "c10",
+"via": "contextlib",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 81,
+"text": "f = sys.stdin if p == \"-\" else stack.enter_context(open_log(p))"
+},
+"def": {
+"file": "src/logparse/files.py",
+"line": 6
+},
+"task": "sync",
+"i": 18,
+"t": 1.943
+},
+{
+"k": "yield",
+"id": "c12",
+"fn": "files.open_log",
+"value": {
+"t": "TextIOWrapper",
+"lib": "_io",
+"v": "<_io.TextIOWrapper name='\u2026/sample.log' mode='r' encoding='utf-8'>"
+},
+"at": {
+"file": "src/logparse/files.py",
+"line": 10,
+"text": "yield f"
+},
+"task": "sync",
+"i": 19,
+"t": 2.079
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "files.open_log",
+"at": {
+"file": "src/logparse/files.py",
+"line": 10,
+"text": "yield f"
+},
+"task": "sync",
+"i": 20,
+"t": 2.086
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "pipeline.read_source",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 83,
+"text": "source = read_source(p) if p != \"-\" else None"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 114
+},
+"task": "sync",
+"i": 21,
+"t": 2.167
+},
+{
+"k": "throw",
+"id": "c13",
+"fn": "pipeline.read_source",
+"exc": {
+"t": "FileNotFoundError",
+"msg": "[Errno 2] No such file or directory: '\u2026/sample.log.meta.json'",
+"lib": "builtins"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 116,
+"text": "with open(f\"{path}.meta.json\", encoding=\"utf-8\") as f:"
+},
+"task": "sync",
+"i": 22,
+"t": 2.226
+},
+{
+"k": "catch",
+"id": "c13",
+"fn": "pipeline.read_source",
+"exc": {
+"t": "FileNotFoundError",
+"msg": "[Errno 2] No such file or directory: '\u2026/sample.log.meta.json'",
+"lib": "builtins"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 116,
+"text": "with open(f\"{path}.meta.json\", encoding=\"utf-8\") as f:"
+},
+"task": "sync",
+"i": 23,
+"t": 2.269
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "pipeline.read_source",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "sync",
+"i": 24,
+"t": 2.299
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "filters.all_of",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 90,
+"text": "kept = keep(records, all_of(*preds))"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 30
+},
+"task": "sync",
+"i": 25,
+"t": 2.35
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "filters.all_of",
+"value": {
+"t": "function",
+"v": "all_of.<locals>.check"
+},
+"locals": [
+[
+"check",
+{
+"t": "function",
+"v": "all_of.<locals>.check"
+}
+]
+],
+"task": "sync",
+"i": 26,
+"t": 2.378
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "pipeline.keep",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"records",
+{
+"t": "chain",
+"lib": "itertools",
+"v": "<itertools.chain object at 0x7f98a8afcb20>"
+}
+],
+[
+"pred",
+{
+"t": "function",
+"v": "all_of.<locals>.check"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 96,
+"text": "for minute, group in itertools.groupby(kept, key=lambda r: r.timestamp[:16]):"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 48
+},
+"task": "sync",
+"i": 27,
+"t": 2.442
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "pipeline.parse",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"lines",
+{
+"t": "generator",
+"lib": "builtins",
+"v": "<generator object lines_from at 0x7f98a8afaf80>"
+}
+],
+[
+"errors",
+{
+"t": "CappedList",
+"obj": "o2",
+"name": "CappedList#1",
+"fields": [
+[
+"limit",
+{
+"t": "int",
+"v": 1000
+}
+],
+[
+"items",
+{
+"t": "list",
+"n": 0,
+"items": []
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"file",
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 51,
+"text": "for r in records:"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 28
+},
+"task": "sync",
+"i": 28,
+"t": 2.535
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"f",
+{
+"t": "TextIOWrapper",
+"lib": "_io",
+"v": "<_io.TextIOWrapper name='\u2026/sample.log' mode='r' encoding='utf-8'>"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 31,
+"text": "for line_no, line in enumerate(lines, start=1):"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 23
+},
+"task": "sync",
+"i": 29,
+"t": 2.613
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:15:01Z DEBUG cache: warming up"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 30,
+"t": 2.656
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 31,
+"t": 2.661
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z DEBUG cache: warming up"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 32,
+"t": 2.706
+},
+{
+"k": "new",
+"id": "c19",
+"fn": "record.LogRecord",
+"parent": "c18",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 36,
+"text": "return LogRecord(timestamp, lvl, component, message)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o3",
+"task": "sync",
+"i": 33,
+"t": 2.819
+},
+{
+"k": "born",
+"id": "c19",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+},
+"task": "sync",
+"i": 34,
+"t": 2.882
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "cache: warming up"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+],
+[
+"lvl",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 35,
+"t": 2.941
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 36,
+"t": 2.99
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "pipeline.parse",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 37,
+"t": 2.996
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "filters.all_of.<check>",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 52,
+"text": "if pred(r):"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 31
+},
+"task": "sync",
+"i": 38,
+"t": 3.062
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"parent": "c20",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "tuple_iterator",
+"lib": "builtins",
+"v": "<tuple_iterator object at 0x7f98aa560460>"
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 32
+},
+"task": "sync",
+"i": 39,
+"t": 3.123
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c21",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 87
+},
+"task": "sync",
+"i": 40,
+"t": 3.186
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 41,
+"t": 3.24
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"at": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"task": "sync",
+"i": 42,
+"t": 3.275
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"task": "sync",
+"i": 43,
+"t": 3.28
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"p",
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 44,
+"t": 3.323
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "filters.all_of.<check>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 45,
+"t": 3.36
+},
+{
+"k": "yield",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 46,
+"t": 3.406
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "pipeline.keep",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 47,
+"t": 3.411
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:01Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o4",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "DEBUG"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "warming up"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 96,
+"text": "for minute, group in itertools.groupby(kept, key=lambda r: r.timestamp[:16]):"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 96
+},
+"task": "sync",
+"i": 48,
+"t": 3.483
+},
+{
+"k": "return",
+"id": "c23",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:15"
+},
+"locals": [],
+"task": "sync",
+"i": 49,
+"t": 3.519
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "pipeline.keep",
+"task": "sync",
+"i": 50,
+"t": 3.529
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "pipeline.parse",
+"task": "sync",
+"i": 51,
+"t": 3.532
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 52,
+"t": 3.534
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:15:02Z INFO auth: user login ok"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 53,
+"t": 3.576
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 54,
+"t": 3.581
+},
+{
+"k": "call",
+"id": "c24",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z INFO auth: user login ok"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 55,
+"t": 3.635
+},
+{
+"k": "new",
+"id": "c25",
+"fn": "record.LogRecord",
+"parent": "c24",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 36,
+"text": "return LogRecord(timestamp, lvl, component, message)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o5",
+"task": "sync",
+"i": 56,
+"t": 3.711
+},
+{
+"k": "born",
+"id": "c25",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"task": "sync",
+"i": 57,
+"t": 3.775
+},
+{
+"k": "return",
+"id": "c24",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "auth: user login ok"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+],
+[
+"lvl",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 58,
+"t": 3.84
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 59,
+"t": 3.895
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "pipeline.parse",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 60,
+"t": 3.9
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "filters.all_of.<check>",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 52,
+"text": "if pred(r):"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 31
+},
+"task": "sync",
+"i": 61,
+"t": 3.97
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"parent": "c26",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "tuple_iterator",
+"lib": "builtins",
+"v": "<tuple_iterator object at 0x7f98aa5b2890>"
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 32
+},
+"task": "sync",
+"i": 62,
+"t": 4.034
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c27",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 87
+},
+"task": "sync",
+"i": 63,
+"t": 4.097
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 64,
+"t": 4.155
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"at": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"task": "sync",
+"i": 65,
+"t": 4.2
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"task": "sync",
+"i": 66,
+"t": 4.202
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"p",
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 67,
+"t": 4.25
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "filters.all_of.<check>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 68,
+"t": 4.291
+},
+{
+"k": "yield",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 69,
+"t": 4.346
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "pipeline.keep",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 70,
+"t": 4.354
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o5",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:02Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o6",
+"name": "LogLevel#2",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 98,
+"text": "for r in group:"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 96
+},
+"task": "sync",
+"i": 71,
+"t": 4.429
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:15"
+},
+"locals": [],
+"task": "sync",
+"i": 72,
+"t": 4.478
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "pipeline.keep",
+"task": "sync",
+"i": 73,
+"t": 4.485
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "pipeline.parse",
+"task": "sync",
+"i": 74,
+"t": 4.487
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 75,
+"t": 4.489
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:15:03Z WARNING cache: hit rate low"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 76,
+"t": 4.539
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 77,
+"t": 4.546
+},
+{
+"k": "call",
+"id": "c30",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z WARNING cache: hit rate low"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 78,
+"t": 4.606
+},
+{
+"k": "new",
+"id": "c31",
+"fn": "record.LogRecord",
+"parent": "c30",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 36,
+"text": "return LogRecord(timestamp, lvl, component, message)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o7",
+"task": "sync",
+"i": 79,
+"t": 4.692
+},
+{
+"k": "born",
+"id": "c31",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+},
+"task": "sync",
+"i": 80,
+"t": 4.757
+},
+{
+"k": "return",
+"id": "c30",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "cache: hit rate low"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+],
+[
+"lvl",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 81,
+"t": 4.83
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 82,
+"t": 4.89
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "pipeline.parse",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 83,
+"t": 4.896
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "filters.all_of.<check>",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 52,
+"text": "if pred(r):"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 31
+},
+"task": "sync",
+"i": 84,
+"t": 4.972
+},
+{
+"k": "call",
+"id": "c33",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"parent": "c32",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "tuple_iterator",
+"lib": "builtins",
+"v": "<tuple_iterator object at 0x7f98a9a2f280>"
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 32
+},
+"task": "sync",
+"i": 85,
+"t": 5.041
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c33",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 87
+},
+"task": "sync",
+"i": 86,
+"t": 5.112
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 87,
+"t": 5.178
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"at": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"task": "sync",
+"i": 88,
+"t": 5.231
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"task": "sync",
+"i": 89,
+"t": 5.234
+},
+{
+"k": "return",
+"id": "c33",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"p",
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 90,
+"t": 5.294
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "filters.all_of.<check>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 91,
+"t": 5.346
+},
+{
+"k": "yield",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 92,
+"t": 5.406
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "pipeline.keep",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 93,
+"t": 5.413
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o7",
+"name": "LogRecord#3",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o8",
+"name": "LogLevel#3",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 30
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "WARNING"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 2
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "cache"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "hit rate low"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 98,
+"text": "for r in group:"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 96
+},
+"task": "sync",
+"i": 94,
+"t": 5.508
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:15"
+},
+"locals": [],
+"task": "sync",
+"i": 95,
+"t": 5.577
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "pipeline.keep",
+"task": "sync",
+"i": 96,
+"t": 5.584
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "pipeline.parse",
+"task": "sync",
+"i": 97,
+"t": 5.587
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 98,
+"t": 5.59
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "this line is not a log line"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 99,
+"t": 5.674
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 100,
+"t": 5.68
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "this line is not a log line"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 101,
+"t": 5.765
+},
+{
+"k": "throw",
+"id": "c36",
+"fn": "record.parse_line",
+"exc": {
+"t": "ValueError",
+"msg": "not enough values to unpack (expected 2, got 1)",
+"lib": "builtins"
+},
+"at": {
+"file": "src/logparse/record.py",
+"line": 29,
+"text": "component, message = rest.split(\": \", 1)"
+},
+"task": "sync",
+"i": 102,
+"t": 5.789
+},
+{
+"k": "catch",
+"id": "c36",
+"fn": "record.parse_line",
+"exc": {
+"t": "ValueError",
+"msg": "not enough values to unpack (expected 2, got 1)",
+"lib": "builtins"
+},
+"at": {
+"file": "src/logparse/record.py",
+"line": 29,
+"text": "component, message = rest.split(\": \", 1)"
+},
+"task": "sync",
+"i": 103,
+"t": 5.801
+},
+{
+"k": "throw",
+"id": "c36",
+"fn": "record.parse_line",
+"exc": {
+"t": "MalformedLineError",
+"obj": "o9",
+"name": "MalformedLineError#1",
+"msg": "bad shape: this line is not a log line",
+"fields": [
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/record.py",
+"line": 31,
+"text": "raise MalformedLineError(f\"bad shape: {line}\") from exc"
+},
+"task": "sync",
+"i": 104,
+"t": 5.829
+},
+{
+"k": "catch",
+"id": "c36",
+"fn": "record.parse_line",
+"exc": {
+"t": "MalformedLineError",
+"obj": "o9",
+"name": "MalformedLineError#1",
+"msg": "bad shape: this line is not a log line",
+"fields": [
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/record.py",
+"line": 31,
+"text": "raise MalformedLineError(f\"bad shape: {line}\") from exc"
+},
+"task": "sync",
+"i": 105,
+"t": 5.844
+},
+{
+"k": "catch",
+"id": "c36",
+"fn": "record.parse_line",
+"exc": {
+"t": "MalformedLineError",
+"obj": "o9",
+"name": "MalformedLineError#1",
+"msg": "bad shape: this line is not a log line",
+"fields": [
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/record.py",
+"line": 31,
+"text": "raise MalformedLineError(f\"bad shape: {line}\") from exc"
+},
+"task": "sync",
+"i": 106,
+"t": 5.855
+},
+{
+"k": "raise",
+"id": "c36",
+"fn": "record.parse_line",
+"exc": {
+"t": "MalformedLineError",
+"obj": "o9",
+"name": "MalformedLineError#1",
+"msg": "bad shape: this line is not a log line",
+"fields": [
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "this"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "line"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "is not a log line"
+}
+]
+],
+"task": "sync",
+"i": 107,
+"t": 5.92
+},
+{
+"k": "throw",
+"id": "c16",
+"fn": "pipeline.parse",
+"exc": {
+"t": "MalformedLineError",
+"obj": "o9",
+"name": "MalformedLineError#1",
+"msg": "bad shape: this line is not a log line",
+"fields": [
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"task": "sync",
+"i": 108,
+"t": 5.935
+},
+{
+"k": "catch",
+"id": "c16",
+"fn": "pipeline.parse",
+"exc": {
+"t": "MalformedLineError",
+"obj": "o9",
+"name": "MalformedLineError#1",
+"msg": "bad shape: this line is not a log line",
+"fields": [
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"task": "sync",
+"i": 109,
+"t": 5.949
+},
+{
+"k": "call",
+"id": "c37",
+"fn": "pipeline.CappedList.append",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"item",
+{
+"t": "dict",
+"n": 4,
+"items": [
+[
+"file",
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+],
+[
+"line_no",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"error",
+{
+"t": "str",
+"v": "MalformedLineError"
+}
+],
+[
+"cause",
+{
+"t": "str",
+"v": "not enough values to unpack (expected 2, got 1)"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 36,
+"text": "errors.append("
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 128
+},
+"self": "o2",
+"task": "sync",
+"i": 110,
+"t": 6.061
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "items",
+"old": "[]",
+"new": "[{'file': '\u2026/sample.log', 'line_no': 4, 'error': 'MalformedLineError', 'cause':\u2026",
+"by": "c37",
+"task": "sync",
+"i": 111,
+"t": 6.129
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "count",
+"old": "0",
+"new": "1",
+"by": "c37",
+"task": "sync",
+"i": 112,
+"t": 6.133
+},
+{
+"k": "return",
+"id": "c37",
+"fn": "pipeline.CappedList.append",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "sync",
+"i": 113,
+"t": 6.159
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 114,
+"t": 6.163
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:16:04Z ERROR db: connection refused"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 115,
+"t": 6.265
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 116,
+"t": 6.272
+},
+{
+"k": "call",
+"id": "c38",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z ERROR db: connection refused"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 117,
+"t": 6.386
+},
+{
+"k": "new",
+"id": "c39",
+"fn": "record.LogRecord",
+"parent": "c38",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 36,
+"text": "return LogRecord(timestamp, lvl, component, message)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o10",
+"task": "sync",
+"i": 118,
+"t": 6.53
+},
+{
+"k": "born",
+"id": "c39",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+},
+"task": "sync",
+"i": 119,
+"t": 6.647
+},
+{
+"k": "return",
+"id": "c38",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "db: connection refused"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+],
+[
+"lvl",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 120,
+"t": 6.761
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 121,
+"t": 6.869
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "pipeline.parse",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 122,
+"t": 6.877
+},
+{
+"k": "call",
+"id": "c40",
+"fn": "filters.all_of.<check>",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 52,
+"text": "if pred(r):"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 31
+},
+"task": "sync",
+"i": 123,
+"t": 7.0
+},
+{
+"k": "call",
+"id": "c41",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"parent": "c40",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "tuple_iterator",
+"lib": "builtins",
+"v": "<tuple_iterator object at 0x7f98a9ae84f0>"
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 32
+},
+"task": "sync",
+"i": 124,
+"t": 7.119
+},
+{
+"k": "call",
+"id": "c42",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c41",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 87
+},
+"task": "sync",
+"i": 125,
+"t": 7.243
+},
+{
+"k": "return",
+"id": "c42",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 126,
+"t": 7.355
+},
+{
+"k": "pause",
+"id": "c41",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"at": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"task": "sync",
+"i": 127,
+"t": 7.452
+},
+{
+"k": "resume",
+"id": "c41",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"task": "sync",
+"i": 128,
+"t": 7.455
+},
+{
+"k": "return",
+"id": "c41",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"p",
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 129,
+"t": 7.568
+},
+{
+"k": "return",
+"id": "c40",
+"fn": "filters.all_of.<check>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 130,
+"t": 7.667
+},
+{
+"k": "yield",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 131,
+"t": 7.779
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "pipeline.keep",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 132,
+"t": 7.785
+},
+{
+"k": "call",
+"id": "c43",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o10",
+"name": "LogRecord#4",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:04Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection refused"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 98,
+"text": "for r in group:"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 96
+},
+"task": "sync",
+"i": 133,
+"t": 7.915
+},
+{
+"k": "return",
+"id": "c43",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:16"
+},
+"locals": [],
+"task": "sync",
+"i": 134,
+"t": 8.012
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "pipeline.keep",
+"task": "sync",
+"i": 135,
+"t": 8.019
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "pipeline.parse",
+"task": "sync",
+"i": 136,
+"t": 8.022
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 137,
+"t": 8.024
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:16:05Z CRITICAL disk: full"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 138,
+"t": 8.126
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 139,
+"t": 8.132
+},
+{
+"k": "call",
+"id": "c44",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z CRITICAL disk: full"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 140,
+"t": 8.251
+},
+{
+"k": "new",
+"id": "c45",
+"fn": "record.LogRecord",
+"parent": "c44",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 36,
+"text": "return LogRecord(timestamp, lvl, component, message)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o12",
+"task": "sync",
+"i": 141,
+"t": 8.388
+},
+{
+"k": "born",
+"id": "c45",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+},
+"task": "sync",
+"i": 142,
+"t": 8.519
+},
+{
+"k": "return",
+"id": "c44",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "disk: full"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+],
+[
+"lvl",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 143,
+"t": 8.648
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 144,
+"t": 8.763
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "pipeline.parse",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 145,
+"t": 8.769
+},
+{
+"k": "call",
+"id": "c46",
+"fn": "filters.all_of.<check>",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 52,
+"text": "if pred(r):"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 31
+},
+"task": "sync",
+"i": 146,
+"t": 8.901
+},
+{
+"k": "call",
+"id": "c47",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"parent": "c46",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "tuple_iterator",
+"lib": "builtins",
+"v": "<tuple_iterator object at 0x7f98a974ed10>"
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 32
+},
+"task": "sync",
+"i": 147,
+"t": 9.031
+},
+{
+"k": "call",
+"id": "c48",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c47",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 87
+},
+"task": "sync",
+"i": 148,
+"t": 9.162
+},
+{
+"k": "return",
+"id": "c48",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 149,
+"t": 9.287
+},
+{
+"k": "pause",
+"id": "c47",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"at": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"task": "sync",
+"i": 150,
+"t": 9.399
+},
+{
+"k": "resume",
+"id": "c47",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"task": "sync",
+"i": 151,
+"t": 9.402
+},
+{
+"k": "return",
+"id": "c47",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"p",
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 152,
+"t": 9.517
+},
+{
+"k": "return",
+"id": "c46",
+"fn": "filters.all_of.<check>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 153,
+"t": 9.621
+},
+{
+"k": "yield",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 154,
+"t": 9.739
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "pipeline.keep",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 155,
+"t": 9.747
+},
+{
+"k": "call",
+"id": "c49",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o12",
+"name": "LogRecord#5",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:05Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o13",
+"name": "LogLevel#5",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 50
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 4
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "disk"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "full"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 98,
+"text": "for r in group:"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 96
+},
+"task": "sync",
+"i": 156,
+"t": 9.886
+},
+{
+"k": "return",
+"id": "c49",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:16"
+},
+"locals": [],
+"task": "sync",
+"i": 157,
+"t": 9.994
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "pipeline.keep",
+"task": "sync",
+"i": 158,
+"t": 10.001
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "pipeline.parse",
+"task": "sync",
+"i": 159,
+"t": 10.003
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 160,
+"t": 10.005
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:16:06Z ERROR db: connection timeout"
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 161,
+"t": 10.117
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 25,
+"text": "yield line.rstrip(\"\\n\")"
+},
+"task": "sync",
+"i": 162,
+"t": 10.123
+},
+{
+"k": "call",
+"id": "c50",
+"fn": "record.parse_line",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z ERROR db: connection timeout"
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 33,
+"text": "record = parse_line(line)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 26
+},
+"task": "sync",
+"i": 163,
+"t": 10.248
+},
+{
+"k": "new",
+"id": "c51",
+"fn": "record.LogRecord",
+"parent": "c50",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 36,
+"text": "return LogRecord(timestamp, lvl, component, message)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o14",
+"task": "sync",
+"i": 164,
+"t": 10.594
+},
+{
+"k": "born",
+"id": "c51",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+},
+"task": "sync",
+"i": 165,
+"t": 10.734
+},
+{
+"k": "return",
+"id": "c50",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "db: connection timeout"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+],
+[
+"lvl",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 166,
+"t": 10.87
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 167,
+"t": 11.002
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "pipeline.parse",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 45,
+"text": "yield record"
+},
+"task": "sync",
+"i": 168,
+"t": 11.008
+},
+{
+"k": "call",
+"id": "c52",
+"fn": "filters.all_of.<check>",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 52,
+"text": "if pred(r):"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 31
+},
+"task": "sync",
+"i": 169,
+"t": 11.149
+},
+{
+"k": "call",
+"id": "c53",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"parent": "c52",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "tuple_iterator",
+"lib": "builtins",
+"v": "<tuple_iterator object at 0x7f98a8afdc90>"
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/filters.py",
+"line": 32
+},
+"task": "sync",
+"i": 170,
+"t": 11.288
+},
+{
+"k": "call",
+"id": "c54",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c53",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 87
+},
+"task": "sync",
+"i": 171,
+"t": 11.436
+},
+{
+"k": "return",
+"id": "c54",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 172,
+"t": 11.58
+},
+{
+"k": "pause",
+"id": "c53",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"at": {
+"file": "src/logparse/filters.py",
+"line": 32,
+"text": "return all(p(record) for p in preds)"
+},
+"task": "sync",
+"i": 173,
+"t": 11.695
+},
+{
+"k": "resume",
+"id": "c53",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"task": "sync",
+"i": 174,
+"t": 11.699
+},
+{
+"k": "return",
+"id": "c53",
+"fn": "filters.all_of.<check>.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"p",
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 175,
+"t": 11.822
+},
+{
+"k": "return",
+"id": "c52",
+"fn": "filters.all_of.<check>",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [
+[
+"preds",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 176,
+"t": 11.941
+},
+{
+"k": "yield",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+},
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 177,
+"t": 12.07
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "pipeline.keep",
+"at": {
+"file": "src/logparse/pipeline.py",
+"line": 53,
+"text": "yield r"
+},
+"task": "sync",
+"i": 178,
+"t": 12.081
+},
+{
+"k": "call",
+"id": "c55",
+"fn": "pipeline.run.<<lambda>>",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 40
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "ERROR"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/pipeline.py",
+"line": 98,
+"text": "for r in group:"
+},
+"def": {
+"file": "src/logparse/pipeline.py",
+"line": 96
+},
+"task": "sync",
+"i": 179,
+"t": 12.227
+},
+{
+"k": "return",
+"id": "c55",
+"fn": "pipeline.run.<<lambda>>",
+"value": {
+"t": "str",
+"v": "2026-10-02T09:16"
+},
+"locals": [],
+"task": "sync",
+"i": 180,
+"t": 12.345
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "pipeline.keep",
+"task": "sync",
+"i": 181,
+"t": 12.351
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "pipeline.parse",
+"task": "sync",
+"i": 182,
+"t": 12.353
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"task": "sync",
+"i": 183,
+"t": 12.355
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "pipeline.lines_from",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z ERROR db: connection timeout\n"
+}
+]
+],
+"task": "sync",
+"i": 184,
+"t": 12.497
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "pipeline.parse",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"line_no",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z ERROR db: connection timeout"
+}
+],
+[
+"record",
+{
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 185,
+"t": 12.626
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "pipeline.keep",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"r",
+{
+"t": "LogRecord",
+"obj": "o14",
+"name": "LogRecord#6",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:16:06Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o11",
+"name": "LogLevel#4"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "db"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "connection timeout"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 186,
+"t": 12.748
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "files.open_log",
+"task": "sync",
+"i": 187,
+"t": 12.765
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "files.open_log",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"f",
+{
+"t": "TextIOWrapper",
+"lib": "_io",
+"v": "<_io.TextIOWrapper name='\u2026/sample.log' mode='r' encoding='utf-8'>"
+}
+]
+],
+"task": "sync",
+"i": 188,
+"t": 12.929
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "pipeline.run",
+"value": {
+"t": "dict",
+"n": 5,
+"items": [
+[
+"total",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"by_level",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"DEBUG",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"INFO",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"WARNING",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"ERROR",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"CRITICAL",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"per_minute",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"2026-10-02T09:15",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"2026-10-02T09:16",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"error_count",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"errors",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "dict",
+"n": 4
+}
+]
+}
+]
+]
+},
+"locals": [
+[
+"errors",
+{
+"t": "CappedList",
+"obj": "o2",
+"name": "CappedList#1",
+"fields": [
+[
+"limit",
+{
+"t": "int",
+"v": 1000
+}
+],
+[
+"items",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"stack",
+{
+"t": "ExitStack",
+"lib": "contextlib",
+"v": "<contextlib.ExitStack object at 0x7f98a8c6eb10>"
+}
+],
+[
+"streams",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "generator",
+"lib": "builtins",
+"v": "<generator object parse at 0x7f98a8c9b220>"
+}
+]
+}
+],
+[
+"sources",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"p",
+{
+"t": "str",
+"v": "\u2026/sample.log"
+}
+],
+[
+"f",
+{
+"t": "TextIOWrapper",
+"lib": "_io",
+"v": "<_io.TextIOWrapper name='\u2026/sample.log' mode='r' encoding='utf-8'>"
+}
+],
+[
+"source",
+{
+"t": "None"
+}
+],
+[
+"records",
+{
+"t": "chain",
+"lib": "itertools",
+"v": "<itertools.chain object at 0x7f98a8afcb20>"
+}
+],
+[
+"preds",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "function",
+"v": "run.<locals>.<lambda>"
+}
+]
+}
+],
+[
+"kept",
+{
+"t": "generator",
+"lib": "builtins",
+"v": "<generator object keep at 0x7f98a8afb140>"
+}
+]
+],
+"task": "sync",
+"i": 189,
+"t": 13.219
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "filters.timed.<wrapper>",
+"value": {
+"t": "dict",
+"n": 5,
+"items": [
+[
+"total",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"by_level",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"DEBUG",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"INFO",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"WARNING",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"ERROR",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"CRITICAL",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"per_minute",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"2026-10-02T09:15",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"2026-10-02T09:16",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"error_count",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"errors",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "dict",
+"n": 4
+}
+]
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 127128.758051
+}
+],
+[
+"elapsed",
+{
+"t": "float",
+"v": 0.01171
+}
+],
+[
+"fn",
+{
+"t": "function",
+"v": "run"
+}
+]
+],
+"task": "sync",
+"i": 190,
+"t": 13.364
+},
+{
+"k": "call",
+"id": "c56",
+"fn": "cli.print_report",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"report",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"total",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"by_level",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"DEBUG",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"INFO",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"WARNING",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"ERROR",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"CRITICAL",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"per_minute",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"2026-10-02T09:15",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"2026-10-02T09:16",
+{
+"t": "int",
+"v": 3
+}
+]
+]
+}
+],
+[
+"error_count",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"errors",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "dict",
+"n": 4
+}
+]
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/logparse/cli.py",
+"line": 73,
+"text": "print_report(report)"
+},
+"def": {
+"file": "src/logparse/cli.py",
+"line": 77
+},
+"task": "sync",
+"i": 191,
+"t": 13.515
+},
+{
+"k": "return",
+"id": "c56",
+"fn": "cli.print_report",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"level",
+{
+"t": "str",
+"v": "CRITICAL"
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"task": "sync",
+"i": 192,
+"t": 13.649
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "cli.main",
+"value": {
+"t": "int",
+"v": 0
+},
+"locals": [
+[
+"parser",
+{
+"t": "ArgumentParser",
+"lib": "argparse",
+"v": "ArgumentParser(prog='logparse', usage=None, description='Count log lines by lev\u2026"
+}
+],
+[
+"args",
+{
+"t": "Namespace",
+"lib": "argparse",
+"v": "Namespace(paths=['\u2026/sample.log'], level=None, pattern=None, json=False, timing=\u2026"
+}
+],
+[
+"config",
+{
+"t": "ParserConfig",
+"obj": "o1",
+"name": "ParserConfig#1",
+"fields": [
+[
+"levels",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({<LogLevel.CRITICAL: 50>, <LogLevel.INFO: 20>, <LogLevel.WARNING: 30>\u2026"
+}
+],
+[
+"patterns",
+{
+"t": "tuple",
+"n": 0
+}
+]
+]
+}
+],
+[
+"do_run",
+{
+"t": "function",
+"v": "run"
+}
+],
+[
+"report",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"total",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"by_level",
+{
+"t": "dict",
+"n": 5
+}
+],
+[
+"per_minute",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error_count",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"errors",
+{
+"t": "list",
+"n": 1
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 193,
+"t": 13.859
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_cli.test_timing_goes_to_stderr",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"out",
+{
+"t": "str",
+"v": "total    6\nDEBUG    1\nINFO     1\nWARNING  1\nERROR    2\nCRITICAL 1\nerrors   1\n"
+}
+],
+[
+"err",
+{
+"t": "str",
+"v": "run took 0.011710s\n"
+}
+]
+],
+"task": "sync",
+"i": 194,
+"t": 14.012
+}
+],
+"objects": {
+"o1": {
+"cls": "config.ParserConfig",
+"name": "ParserConfig#1",
+"born": "c5"
+},
+"o2": {
+"cls": "pipeline.CappedList",
+"name": "CappedList#1",
+"born": "c10"
+},
+"o3": {
+"cls": "record.LogRecord",
+"name": "LogRecord#1",
+"born": "c18"
+},
+"o4": {
+"cls": "record.LogLevel",
+"name": "LogLevel#1",
+"born": null
+},
+"o5": {
+"cls": "record.LogRecord",
+"name": "LogRecord#2",
+"born": "c24"
+},
+"o6": {
+"cls": "record.LogLevel",
+"name": "LogLevel#2",
+"born": null
+},
+"o7": {
+"cls": "record.LogRecord",
+"name": "LogRecord#3",
+"born": "c30"
+},
+"o8": {
+"cls": "record.LogLevel",
+"name": "LogLevel#3",
+"born": null
+},
+"o9": {
+"cls": "errors.MalformedLineError",
+"name": "MalformedLineError#1",
+"born": null
+},
+"o10": {
+"cls": "record.LogRecord",
+"name": "LogRecord#4",
+"born": "c38"
+},
+"o11": {
+"cls": "record.LogLevel",
+"name": "LogLevel#4",
+"born": null
+},
+"o12": {
+"cls": "record.LogRecord",
+"name": "LogRecord#5",
+"born": "c44"
+},
+"o13": {
+"cls": "record.LogLevel",
+"name": "LogLevel#5",
+"born": null
+},
+"o14": {
+"cls": "record.LogRecord",
+"name": "LogRecord#6",
+"born": "c50"
+}
+},
+"tasks": []
+}

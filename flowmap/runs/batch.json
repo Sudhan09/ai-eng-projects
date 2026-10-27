@@ -1,0 +1,12558 @@
+{
+"run": "test_part3_fetch_many::test_one_failing_url_is_one_failed_result",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part3_fetch_many.test_one_failing_url_is_one_failed_result",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 26
+},
+"i": 0,
+"t": 0.231,
+"task": "sync"
+},
+{
+"k": "new",
+"id": "c2",
+"fn": "chaos.ChaosAPI",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"script",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"/items/3",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "int",
+"v": 404
+}
+]
+}
+]
+]
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+]
+],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 27,
+"text": "chaos = ChaosAPI(script={\"/items/3\": [404]})"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 21
+},
+"self": "o1",
+"i": 1,
+"t": 0.382,
+"task": "sync"
+},
+{
+"k": "born",
+"id": "c2",
+"fn": "chaos.ChaosAPI",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"/items/3",
+{
+"t": "list",
+"n": 1
+}
+]
+]
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x2856a780>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"i": 2,
+"t": 0.463,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "test_part3_fetch_many.test_one_failing_url_is_one_failed_result.<main>",
+"parent": "c1",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 33,
+"text": "results = asyncio.run(main())"
+},
+"def": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 29
+},
+"async": true,
+"i": 3,
+"t": 0.752,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "test_part3_fetch_many.client_for",
+"parent": "c3",
+"via": null,
+"args": [
+[
+"chaos",
+{
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"/items/3",
+{
+"t": "list",
+"n": 1
+}
+]
+]
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x2856a780>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"options",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 30,
+"text": "async with client_for(chaos) as client:"
+},
+"def": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 10
+},
+"i": 4,
+"t": 0.807,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c5",
+"fn": "client.AiofetchClient",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"requests_per_minute",
+{
+"t": "None"
+}
+],
+[
+"tokens_per_minute",
+{
+"t": "None"
+}
+],
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+],
+[
+"clock",
+{
+"t": "function",
+"v": "monotonic"
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 13,
+"text": "return AiofetchClient(\"http://api.test\", transport=transport, **options)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 21
+},
+"self": "o2",
+"i": 5,
+"t": 0.869,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c6",
+"fn": "client.Stats",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 48,
+"text": "self.stats = Stats()"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o3",
+"i": 6,
+"t": 0.965,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c6",
+"fn": "client.Stats",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+]
+]
+},
+"i": 7,
+"t": 1.005,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c7",
+"fn": "breaker.CircuitBreaker",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"clock",
+{
+"t": "function",
+"v": "monotonic"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 58,
+"text": "self.breaker = CircuitBreaker(failure_threshold, reset_timeout, clock=clock)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 7
+},
+"self": "o4",
+"i": 8,
+"t": 1.058,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c7",
+"fn": "breaker.CircuitBreaker",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"i": 9,
+"t": 1.094,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c5",
+"fn": "client.AiofetchClient",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+]
+]
+}
+],
+[
+"http",
+{
+"t": "None"
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+},
+"i": 10,
+"t": 1.359,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "test_part3_fetch_many.client_for",
+"value": {
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+]
+]
+}
+],
+[
+"http",
+{
+"t": "None"
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+},
+"locals": [
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+]
+],
+"i": 11,
+"t": 1.418,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "client.AiofetchClient.__aenter__",
+"parent": "c3",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 30,
+"text": "async with client_for(chaos) as client:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 61
+},
+"self": "o2",
+"async": true,
+"i": 12,
+"t": 1.478,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "transport.make_client",
+"parent": "c8",
+"via": null,
+"args": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_connections",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 62,
+"text": "self.http = make_client("
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 6
+},
+"i": 13,
+"t": 1.533,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "transport.make_client",
+"value": {
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+},
+"locals": [],
+"i": 14,
+"t": 1.74,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "http",
+"old": "None",
+"new": "AsyncClient(base_url='http://api.test')",
+"by": "c8",
+"i": 15,
+"t": 1.774,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "client.AiofetchClient.__aenter__",
+"value": {
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+]
+]
+}
+],
+[
+"http",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+},
+"locals": [],
+"i": 16,
+"t": 1.804,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "client.AiofetchClient.fetch_many",
+"parent": "c3",
+"via": null,
+"args": [
+[
+"paths",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "str",
+"v": "/items/0"
+},
+{
+"t": "str",
+"v": "/items/1"
+},
+{
+"t": "str",
+"v": "/items/2"
+},
+{
+"t": "str",
+"v": "/items/3"
+},
+{
+"t": "str",
+"v": "/items/4"
+},
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 31,
+"text": "return await client.fetch_many([f\"/items/{n}\" for n in range(6)])"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 110
+},
+"self": "o2",
+"async": true,
+"i": 17,
+"t": 1.864,
+"task": "main"
+},
+{
+"k": "task",
+"task": "main",
+"label": "T1",
+"by": "c10",
+"coro": {
+"fn": "client.AiofetchClient._one",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+]
+]
+},
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 114,
+"text": "tasks.append(tg.create_task(self._one(path)))"
+},
+"i": 18,
+"t": 1.903
+},
+{
+"k": "task",
+"task": "main",
+"label": "T2",
+"by": "c10",
+"coro": {
+"fn": "client.AiofetchClient._one",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+]
+]
+},
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 114,
+"text": "tasks.append(tg.create_task(self._one(path)))"
+},
+"i": 19,
+"t": 1.926
+},
+{
+"k": "task",
+"task": "main",
+"label": "T3",
+"by": "c10",
+"coro": {
+"fn": "client.AiofetchClient._one",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+]
+]
+},
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 114,
+"text": "tasks.append(tg.create_task(self._one(path)))"
+},
+"i": 20,
+"t": 1.942
+},
+{
+"k": "task",
+"task": "main",
+"label": "T4",
+"by": "c10",
+"coro": {
+"fn": "client.AiofetchClient._one",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+]
+]
+},
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 114,
+"text": "tasks.append(tg.create_task(self._one(path)))"
+},
+"i": 21,
+"t": 1.955
+},
+{
+"k": "task",
+"task": "main",
+"label": "T5",
+"by": "c10",
+"coro": {
+"fn": "client.AiofetchClient._one",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+]
+]
+},
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 114,
+"text": "tasks.append(tg.create_task(self._one(path)))"
+},
+"i": 22,
+"t": 1.967
+},
+{
+"k": "task",
+"task": "main",
+"label": "T6",
+"by": "c10",
+"coro": {
+"fn": "client.AiofetchClient._one",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+]
+},
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 114,
+"text": "tasks.append(tg.create_task(self._one(path)))"
+},
+"i": 23,
+"t": 1.98
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "client.AiofetchClient.fetch_many",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"i": 24,
+"t": 2.034,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c3",
+"fn": "test_part3_fetch_many.test_one_failing_url_is_one_failed_result.<main>",
+"at": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 31,
+"text": "return await client.fetch_many([f\"/items/{n}\" for n in range(6)])"
+},
+"i": 25,
+"t": 2.071,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "client.AiofetchClient._one",
+"parent": "c10",
+"via": "asyncio",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 120
+},
+"self": "o2",
+"async": true,
+"i": 26,
+"t": 2.137,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 81
+},
+"self": "o2",
+"async": true,
+"i": 27,
+"t": 2.199,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "20 permits free",
+"new": "19 permits free",
+"by": "c12",
+"i": 28,
+"t": 2.241,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c12",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 16
+},
+"self": "o4",
+"async": true,
+"i": 29,
+"t": 2.259,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c13",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"async": true,
+"i": 30,
+"t": 2.353,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c14",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 94
+},
+"self": "o2",
+"async": true,
+"i": 31,
+"t": 2.415,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "retry.retrying",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 95,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 65
+},
+"i": 32,
+"t": 2.474,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "retry.wait_with_retry_after",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x742e71207380>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 78,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 54
+},
+"i": 33,
+"t": 2.575,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 34,
+"t": 2.619,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e71207620 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 35,
+"t": 2.682,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 73
+},
+"self": "o2",
+"async": true,
+"i": 36,
+"t": 2.786,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "0",
+"new": "1",
+"by": "c18",
+"i": 37,
+"t": 2.827,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "transport.get_json",
+"parent": "c18",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 37
+},
+"async": true,
+"i": 38,
+"t": 2.861,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c19",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/0"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 56
+},
+"self": "o1",
+"async": true,
+"i": 39,
+"t": 3.198,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{}",
+"new": "{'/items/0': 1}",
+"by": "c20",
+"i": 40,
+"t": 3.219,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "0",
+"new": "1",
+"by": "c20",
+"i": 41,
+"t": 3.221,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c20",
+"i": 42,
+"t": 3.223,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "0",
+"new": "1",
+"by": "c20",
+"i": 43,
+"t": 3.224,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 63,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 44,
+"t": 3.289,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 45,
+"t": 3.326,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 46,
+"t": 3.36,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 47,
+"t": 3.389,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 48,
+"t": 3.418,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 49,
+"t": 3.447,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 50,
+"t": 3.477,
+"task": "T1"
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "client.AiofetchClient._one",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 51,
+"t": 3.505,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "client.AiofetchClient._one",
+"parent": "c10",
+"via": "asyncio",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 120
+},
+"self": "o2",
+"async": true,
+"i": 52,
+"t": 3.564,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c21",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 81
+},
+"self": "o2",
+"async": true,
+"i": 53,
+"t": 3.61,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "18 permits free",
+"by": "c22",
+"i": 54,
+"t": 3.649,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c22",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 16
+},
+"self": "o4",
+"async": true,
+"i": 55,
+"t": 3.665,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c24",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c23",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"async": true,
+"i": 56,
+"t": 3.71,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c25",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c24",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 94
+},
+"self": "o2",
+"async": true,
+"i": 57,
+"t": 3.751,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "retry.retrying",
+"parent": "c25",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 95,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 65
+},
+"i": 58,
+"t": 3.806,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "retry.wait_with_retry_after",
+"parent": "c26",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x742e7126d950>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 78,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 54
+},
+"i": 59,
+"t": 3.865,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 60,
+"t": 3.901,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7126df90 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 61,
+"t": 3.952,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c25",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 73
+},
+"self": "o2",
+"async": true,
+"i": 62,
+"t": 4.034,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "1",
+"new": "2",
+"by": "c28",
+"i": 63,
+"t": 4.068,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "transport.get_json",
+"parent": "c28",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 37
+},
+"async": true,
+"i": 64,
+"t": 4.109,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c30",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c29",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/1"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 56
+},
+"self": "o1",
+"async": true,
+"i": 65,
+"t": 4.335,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/items/0': 1}",
+"new": "{'/items/0': 1, '/items/1': 1}",
+"by": "c30",
+"i": 66,
+"t": 4.353,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "1",
+"new": "2",
+"by": "c30",
+"i": 67,
+"t": 4.354,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "2",
+"by": "c30",
+"i": 68,
+"t": 4.355,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "1",
+"new": "2",
+"by": "c30",
+"i": 69,
+"t": 4.356,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 63,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 70,
+"t": 4.38,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 71,
+"t": 4.414,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 72,
+"t": 4.444,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 73,
+"t": 4.472,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 74,
+"t": 4.5,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 75,
+"t": 4.53,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 76,
+"t": 4.558,
+"task": "T2"
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "client.AiofetchClient._one",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 77,
+"t": 4.592,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c31",
+"fn": "client.AiofetchClient._one",
+"parent": "c10",
+"via": "asyncio",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 120
+},
+"self": "o2",
+"async": true,
+"i": 78,
+"t": 4.649,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c31",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 81
+},
+"self": "o2",
+"async": true,
+"i": 79,
+"t": 4.693,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "18 permits free",
+"new": "17 permits free",
+"by": "c32",
+"i": 80,
+"t": 4.727,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c33",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c32",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 16
+},
+"self": "o4",
+"async": true,
+"i": 81,
+"t": 4.741,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c33",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"async": true,
+"i": 82,
+"t": 4.788,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c34",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 94
+},
+"self": "o2",
+"async": true,
+"i": 83,
+"t": 4.829,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "retry.retrying",
+"parent": "c35",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 95,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 65
+},
+"i": 84,
+"t": 4.881,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c37",
+"fn": "retry.wait_with_retry_after",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x742e7126ec10>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 78,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 54
+},
+"i": 85,
+"t": 4.933,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c37",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 86,
+"t": 4.971,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c36",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7126ee90 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 87,
+"t": 5.017,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c38",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c35",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 73
+},
+"self": "o2",
+"async": true,
+"i": 88,
+"t": 5.094,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "2",
+"new": "3",
+"by": "c38",
+"i": 89,
+"t": 5.122,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c39",
+"fn": "transport.get_json",
+"parent": "c38",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 37
+},
+"async": true,
+"i": 90,
+"t": 5.154,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c40",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c39",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/2"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 56
+},
+"self": "o1",
+"async": true,
+"i": 91,
+"t": 5.318,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/items/0': 1, '/items/1': 1}",
+"new": "{'/items/0': 1, '/items/1': 1, '/items/2': 1}",
+"by": "c40",
+"i": 92,
+"t": 5.333,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "2",
+"new": "3",
+"by": "c40",
+"i": 93,
+"t": 5.335,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "2",
+"new": "3",
+"by": "c40",
+"i": 94,
+"t": 5.336,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "2",
+"new": "3",
+"by": "c40",
+"i": 95,
+"t": 5.337,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c40",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 63,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 96,
+"t": 5.36,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c39",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 97,
+"t": 5.392,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c38",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 98,
+"t": 5.42,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 99,
+"t": 5.451,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 100,
+"t": 5.483,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 101,
+"t": 5.512,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 102,
+"t": 5.54,
+"task": "T3"
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "client.AiofetchClient._one",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 103,
+"t": 5.569,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c41",
+"fn": "client.AiofetchClient._one",
+"parent": "c10",
+"via": "asyncio",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 120
+},
+"self": "o2",
+"async": true,
+"i": 104,
+"t": 5.62,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c41",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 81
+},
+"self": "o2",
+"async": true,
+"i": 105,
+"t": 5.663,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "17 permits free",
+"new": "16 permits free",
+"by": "c42",
+"i": 106,
+"t": 5.698,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c42",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 16
+},
+"self": "o4",
+"async": true,
+"i": 107,
+"t": 5.713,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c44",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c43",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"async": true,
+"i": 108,
+"t": 5.756,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c44",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 94
+},
+"self": "o2",
+"async": true,
+"i": 109,
+"t": 5.796,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c46",
+"fn": "retry.retrying",
+"parent": "c45",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 95,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 65
+},
+"i": 110,
+"t": 5.844,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c47",
+"fn": "retry.wait_with_retry_after",
+"parent": "c46",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x742e7120e650>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 78,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 54
+},
+"i": 111,
+"t": 5.895,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c47",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 112,
+"t": 5.929,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c46",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7120e8b0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 113,
+"t": 5.973,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c45",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 73
+},
+"self": "o2",
+"async": true,
+"i": 114,
+"t": 6.041,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "3",
+"new": "4",
+"by": "c48",
+"i": 115,
+"t": 6.067,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c49",
+"fn": "transport.get_json",
+"parent": "c48",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 37
+},
+"async": true,
+"i": 116,
+"t": 6.097,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c50",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c49",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/3"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 56
+},
+"self": "o1",
+"async": true,
+"i": 117,
+"t": 6.258,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/items/0': 1, '/items/1': 1, '/items/2': 1}",
+"new": "{'/items/0': 1, '/items/1': 1, '/items/2': 1, '/items/3': 1}",
+"by": "c50",
+"i": 118,
+"t": 6.272,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "3",
+"new": "4",
+"by": "c50",
+"i": 119,
+"t": 6.273,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "3",
+"new": "4",
+"by": "c50",
+"i": 120,
+"t": 6.275,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "3",
+"new": "4",
+"by": "c50",
+"i": 121,
+"t": 6.276,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c50",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 63,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 122,
+"t": 6.299,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c49",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 123,
+"t": 6.33,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 124,
+"t": 6.361,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 125,
+"t": 6.392,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c44",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 126,
+"t": 6.421,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 127,
+"t": 6.45,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 128,
+"t": 6.478,
+"task": "T4"
+},
+{
+"k": "pause",
+"id": "c41",
+"fn": "client.AiofetchClient._one",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 129,
+"t": 6.507,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c51",
+"fn": "client.AiofetchClient._one",
+"parent": "c10",
+"via": "asyncio",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 120
+},
+"self": "o2",
+"async": true,
+"i": 130,
+"t": 6.56,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c52",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c51",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 81
+},
+"self": "o2",
+"async": true,
+"i": 131,
+"t": 6.605,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "16 permits free",
+"new": "15 permits free",
+"by": "c52",
+"i": 132,
+"t": 6.639,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c53",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c52",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 16
+},
+"self": "o4",
+"async": true,
+"i": 133,
+"t": 6.654,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c54",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c53",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"async": true,
+"i": 134,
+"t": 6.698,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c55",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c54",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 94
+},
+"self": "o2",
+"async": true,
+"i": 135,
+"t": 6.738,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c56",
+"fn": "retry.retrying",
+"parent": "c55",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 95,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 65
+},
+"i": 136,
+"t": 6.789,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c57",
+"fn": "retry.wait_with_retry_after",
+"parent": "c56",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x742e7120f360>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 78,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 54
+},
+"i": 137,
+"t": 6.838,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c57",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 138,
+"t": 6.871,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c56",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7120f5c0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 139,
+"t": 6.916,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c58",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c55",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 73
+},
+"self": "o2",
+"async": true,
+"i": 140,
+"t": 6.984,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "4",
+"new": "5",
+"by": "c58",
+"i": 141,
+"t": 7.013,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c59",
+"fn": "transport.get_json",
+"parent": "c58",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 37
+},
+"async": true,
+"i": 142,
+"t": 7.046,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c60",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c59",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/4"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 56
+},
+"self": "o1",
+"async": true,
+"i": 143,
+"t": 7.203,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/items/0': 1, '/items/1': 1, '/items/2': 1, '/items/3': 1}",
+"new": "{'/items/0': 1, '/items/1': 1, '/items/2': 1, '/items/3': 1, '/items/4': 1}",
+"by": "c60",
+"i": 144,
+"t": 7.218,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "4",
+"new": "5",
+"by": "c60",
+"i": 145,
+"t": 7.22,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "4",
+"new": "5",
+"by": "c60",
+"i": 146,
+"t": 7.221,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "4",
+"new": "5",
+"by": "c60",
+"i": 147,
+"t": 7.222,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c60",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 63,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 148,
+"t": 7.245,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c59",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 149,
+"t": 7.275,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c58",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 150,
+"t": 7.309,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 151,
+"t": 7.338,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c54",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 152,
+"t": 7.369,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c53",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 153,
+"t": 7.398,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c52",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 154,
+"t": 7.426,
+"task": "T5"
+},
+{
+"k": "pause",
+"id": "c51",
+"fn": "client.AiofetchClient._one",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 155,
+"t": 7.455,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c61",
+"fn": "client.AiofetchClient._one",
+"parent": "c10",
+"via": "asyncio",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 112,
+"text": "async with asyncio.TaskGroup() as tg:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 120
+},
+"self": "o2",
+"async": true,
+"i": 156,
+"t": 7.506,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c62",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c61",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 81
+},
+"self": "o2",
+"async": true,
+"i": 157,
+"t": 7.55,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "15 permits free",
+"new": "14 permits free",
+"by": "c62",
+"i": 158,
+"t": 7.584,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c63",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c62",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 16
+},
+"self": "o4",
+"async": true,
+"i": 159,
+"t": 7.599,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c64",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c63",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"async": true,
+"i": 160,
+"t": 7.642,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c65",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c64",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 94
+},
+"self": "o2",
+"async": true,
+"i": 161,
+"t": 7.685,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c66",
+"fn": "retry.retrying",
+"parent": "c65",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 95,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 65
+},
+"i": 162,
+"t": 7.734,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c67",
+"fn": "retry.wait_with_retry_after",
+"parent": "c66",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x742e712932f0>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 78,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 54
+},
+"i": 163,
+"t": 7.786,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c67",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 164,
+"t": 7.82,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c66",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e71293530 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 165,
+"t": 7.866,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c68",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c65",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 73
+},
+"self": "o2",
+"async": true,
+"i": 166,
+"t": 7.933,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "5",
+"new": "6",
+"by": "c68",
+"i": 167,
+"t": 7.959,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c69",
+"fn": "transport.get_json",
+"parent": "c68",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 37
+},
+"async": true,
+"i": 168,
+"t": 7.99,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c70",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c69",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/5"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 56
+},
+"self": "o1",
+"async": true,
+"i": 169,
+"t": 8.286,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/items/0': 1, '/items/1': 1, '/items/2': 1, '/items/3': 1, '/items/4': 1}",
+"new": "{'/items/0': 1, '/items/1': 1, '/items/2': 1, '/items/3': 1, '/items/4': 1, '/i\u2026",
+"by": "c70",
+"i": 170,
+"t": 8.304,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "5",
+"new": "6",
+"by": "c70",
+"i": 171,
+"t": 8.305,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "5",
+"new": "6",
+"by": "c70",
+"i": 172,
+"t": 8.306,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "5",
+"new": "6",
+"by": "c70",
+"i": 173,
+"t": 8.308,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c70",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 63,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 174,
+"t": 8.335,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c69",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 39,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 175,
+"t": 8.367,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c68",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 176,
+"t": 8.397,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c65",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 177,
+"t": 8.425,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c64",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 178,
+"t": 8.455,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c63",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 179,
+"t": 8.486,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c62",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 180,
+"t": 8.516,
+"task": "T6"
+},
+{
+"k": "pause",
+"id": "c61",
+"fn": "client.AiofetchClient._one",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 181,
+"t": 8.545,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "client.AiofetchClient._one",
+"i": 182,
+"t": 8.56,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json",
+"i": 183,
+"t": 8.564,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "breaker.CircuitBreaker.call",
+"i": 184,
+"t": 8.565,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 185,
+"t": 8.566,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "client.AiofetchClient._with_retries",
+"i": 186,
+"t": 8.568,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "client.AiofetchClient._attempt",
+"i": 187,
+"t": 8.569,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "transport.get_json",
+"i": 188,
+"t": 8.57,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 189,
+"t": 8.571,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c71",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c20",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 64,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 44
+},
+"self": "o1",
+"i": 190,
+"t": 8.621,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c71",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.844422
+}
+]
+],
+"i": 191,
+"t": 8.658,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c72",
+"fn": "chaos.payload",
+"parent": "c20",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 80,
+"text": "return httpx.Response(200, json=payload(path))"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 8
+},
+"i": 192,
+"t": 8.707,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c72",
+"fn": "chaos.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "items"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "0"
+}
+]
+],
+"i": 193,
+"t": 8.742,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "6",
+"new": "5",
+"by": "c20",
+"i": 194,
+"t": 8.852,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 195,
+"t": 8.887,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+}
+]
+],
+"i": 196,
+"t": 9.263,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [],
+"i": 197,
+"t": 9.31,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e71207620 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x742e71207a10>"
+}
+]
+],
+"i": 198,
+"t": 9.383,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/0"
+}
+]
+],
+"i": 199,
+"t": 9.418,
+"task": "T1"
+},
+{
+"k": "call",
+"id": "c73",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c13",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 43
+},
+"self": "o4",
+"i": 200,
+"t": 9.473,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c73",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 201,
+"t": 9.511,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+}
+]
+],
+"i": 202,
+"t": 9.545,
+"task": "T1"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "14 permits free",
+"new": "15 permits free",
+"by": "c12",
+"i": 203,
+"t": 9.581,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 204,
+"t": 9.589,
+"task": "T1"
+},
+{
+"k": "new",
+"id": "c74",
+"fn": "results.Result",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007452
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 126,
+"text": "return Result(path, value=value, seconds=time.perf_counter() - start)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o5",
+"i": 205,
+"t": 9.649,
+"task": "T1"
+},
+{
+"k": "born",
+"id": "c74",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o5",
+"name": "Result#1",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007452
+}
+]
+]
+},
+"i": 206,
+"t": 9.702,
+"task": "T1"
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "client.AiofetchClient._one",
+"value": {
+"t": "Result",
+"obj": "o5",
+"name": "Result#1",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007452
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 93354.828977
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+}
+]
+],
+"i": 207,
+"t": 9.751,
+"task": "T1"
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "client.AiofetchClient._one",
+"i": 208,
+"t": 9.759,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "client.AiofetchClient.get_json",
+"i": 209,
+"t": 9.761,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "breaker.CircuitBreaker.call",
+"i": 210,
+"t": 9.762,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 211,
+"t": 9.764,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "client.AiofetchClient._with_retries",
+"i": 212,
+"t": 9.765,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "client.AiofetchClient._attempt",
+"i": 213,
+"t": 9.766,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "transport.get_json",
+"i": 214,
+"t": 9.767,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 215,
+"t": 9.769,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c75",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c30",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 64,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 44
+},
+"self": "o1",
+"i": 216,
+"t": 9.829,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c75",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.757954
+}
+]
+],
+"i": 217,
+"t": 9.868,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c76",
+"fn": "chaos.payload",
+"parent": "c30",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 80,
+"text": "return httpx.Response(200, json=payload(path))"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 8
+},
+"i": 218,
+"t": 9.919,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c76",
+"fn": "chaos.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "items"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "1"
+}
+]
+],
+"i": 219,
+"t": 9.958,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "5",
+"new": "4",
+"by": "c30",
+"i": 220,
+"t": 10.033,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c30",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 221,
+"t": 10.066,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+}
+]
+],
+"i": 222,
+"t": 10.213,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [],
+"i": 223,
+"t": 10.264,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c25",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7126df90 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x742e7126e350>"
+}
+]
+],
+"i": 224,
+"t": 10.324,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c24",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/1"
+}
+]
+],
+"i": 225,
+"t": 10.36,
+"task": "T2"
+},
+{
+"k": "call",
+"id": "c77",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c23",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 43
+},
+"self": "o4",
+"i": 226,
+"t": 10.414,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c77",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 227,
+"t": 10.448,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c23",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+}
+]
+],
+"i": 228,
+"t": 10.489,
+"task": "T2"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "15 permits free",
+"new": "16 permits free",
+"by": "c22",
+"i": 229,
+"t": 10.519,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 230,
+"t": 10.531,
+"task": "T2"
+},
+{
+"k": "new",
+"id": "c78",
+"fn": "results.Result",
+"parent": "c21",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006967
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 126,
+"text": "return Result(path, value=value, seconds=time.perf_counter() - start)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o6",
+"i": 231,
+"t": 10.59,
+"task": "T2"
+},
+{
+"k": "born",
+"id": "c78",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o6",
+"name": "Result#2",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006967
+}
+]
+]
+},
+"i": 232,
+"t": 10.646,
+"task": "T2"
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "client.AiofetchClient._one",
+"value": {
+"t": "Result",
+"obj": "o6",
+"name": "Result#2",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006967
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 93354.830404
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+}
+]
+],
+"i": 233,
+"t": 10.693,
+"task": "T2"
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "client.AiofetchClient._one",
+"i": 234,
+"t": 10.7,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json",
+"i": 235,
+"t": 10.702,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "breaker.CircuitBreaker.call",
+"i": 236,
+"t": 10.703,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 237,
+"t": 10.705,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "client.AiofetchClient._with_retries",
+"i": 238,
+"t": 10.706,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c38",
+"fn": "client.AiofetchClient._attempt",
+"i": 239,
+"t": 10.707,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c39",
+"fn": "transport.get_json",
+"i": 240,
+"t": 10.708,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c40",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 241,
+"t": 10.71,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c79",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c40",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 64,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 44
+},
+"self": "o1",
+"i": 242,
+"t": 10.769,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c79",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.420572
+}
+]
+],
+"i": 243,
+"t": 10.811,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c80",
+"fn": "chaos.payload",
+"parent": "c40",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 80,
+"text": "return httpx.Response(200, json=payload(path))"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 8
+},
+"i": 244,
+"t": 10.865,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c80",
+"fn": "chaos.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "items"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "2"
+}
+]
+],
+"i": 245,
+"t": 10.908,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "4",
+"new": "3",
+"by": "c40",
+"i": 246,
+"t": 10.969,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c40",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 247,
+"t": 11.005,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c39",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+}
+]
+],
+"i": 248,
+"t": 11.123,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c38",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [],
+"i": 249,
+"t": 11.174,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7126ee90 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x742e7126f250>"
+}
+]
+],
+"i": 250,
+"t": 11.233,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/2"
+}
+]
+],
+"i": 251,
+"t": 11.274,
+"task": "T3"
+},
+{
+"k": "call",
+"id": "c81",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c33",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 43
+},
+"self": "o4",
+"i": 252,
+"t": 11.328,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c81",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 253,
+"t": 11.365,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c33",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+}
+]
+],
+"i": 254,
+"t": 11.406,
+"task": "T3"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "16 permits free",
+"new": "17 permits free",
+"by": "c32",
+"i": 255,
+"t": 11.436,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 256,
+"t": 11.451,
+"task": "T3"
+},
+{
+"k": "new",
+"id": "c82",
+"fn": "results.Result",
+"parent": "c31",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006802
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 126,
+"text": "return Result(path, value=value, seconds=time.perf_counter() - start)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o7",
+"i": 257,
+"t": 11.508,
+"task": "T3"
+},
+{
+"k": "born",
+"id": "c82",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o7",
+"name": "Result#3",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006802
+}
+]
+]
+},
+"i": 258,
+"t": 11.561,
+"task": "T3"
+},
+{
+"k": "return",
+"id": "c31",
+"fn": "client.AiofetchClient._one",
+"value": {
+"t": "Result",
+"obj": "o7",
+"name": "Result#3",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006802
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 93354.831489
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+}
+]
+],
+"i": 259,
+"t": 11.612,
+"task": "T3"
+},
+{
+"k": "resume",
+"id": "c41",
+"fn": "client.AiofetchClient._one",
+"i": 260,
+"t": 11.619,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"i": 261,
+"t": 11.62,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"i": 262,
+"t": 11.621,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c44",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 263,
+"t": 11.623,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"i": 264,
+"t": 11.624,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"i": 265,
+"t": 11.625,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c49",
+"fn": "transport.get_json",
+"i": 266,
+"t": 11.626,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c50",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 267,
+"t": 11.627,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c83",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c50",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 64,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 44
+},
+"self": "o1",
+"i": 268,
+"t": 11.688,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "script",
+"old": "{'/items/3': [404]}",
+"new": "{'/items/3': []}",
+"by": "c83",
+"i": 269,
+"t": 11.702,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c83",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 404
+},
+"locals": [],
+"i": 270,
+"t": 11.733,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "3",
+"new": "2",
+"by": "c50",
+"i": 271,
+"t": 11.789,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c50",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [404 Not Found]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 404
+}
+]
+],
+"i": 272,
+"t": 11.827,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "HTTPStatusError",
+"msg": "Client error '404 Not Found' for url 'http://api.test/items/3'\nFor more information check\u2026",
+"lib": "httpx"
+},
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 40,
+"text": "response.raise_for_status()"
+},
+"i": 273,
+"t": 11.921,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "HTTPStatusError",
+"msg": "Client error '404 Not Found' for url 'http://api.test/items/3'\nFor more information check\u2026",
+"lib": "httpx"
+},
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 40,
+"text": "response.raise_for_status()"
+},
+"i": 274,
+"t": 11.933,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c84",
+"fn": "transport.error_for",
+"parent": "c49",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [404 Not Found]>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 42,
+"text": "raise error_for(path, exc.response) from exc"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 29
+},
+"i": 275,
+"t": 12.002,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c85",
+"fn": "transport.is_transient_status",
+"parent": "c84",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 404
+}
+],
+[
+"body",
+{
+"t": "str",
+"v": "{\"error\":\"busy\"}"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 31,
+"text": "if is_transient_status(response.status_code, response.text):"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 15
+},
+"i": 276,
+"t": 12.115,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c85",
+"fn": "transport.is_transient_status",
+"value": {
+"t": "bool",
+"v": false
+},
+"locals": [],
+"i": 277,
+"t": 12.159,
+"task": "T4"
+},
+{
+"k": "new",
+"id": "c86",
+"fn": "errors.PermanentError",
+"parent": "c84",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 34,
+"text": "return PermanentError(url, reason)"
+},
+"def": {
+"file": "src/aiofetch/errors.py",
+"line": 4
+},
+"self": "o8",
+"i": 278,
+"t": 12.233,
+"task": "T4"
+},
+{
+"k": "born",
+"id": "c86",
+"fn": "errors.PermanentError",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"i": 279,
+"t": 12.291,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c84",
+"fn": "transport.error_for",
+"value": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+]
+],
+"i": 280,
+"t": 12.339,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 42,
+"text": "raise error_for(path, exc.response) from exc"
+},
+"i": 281,
+"t": 12.355,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 42,
+"text": "raise error_for(path, exc.response) from exc"
+},
+"i": 282,
+"t": 12.365,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 42,
+"text": "raise error_for(path, exc.response) from exc"
+},
+"i": 283,
+"t": 12.374,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 42,
+"text": "raise error_for(path, exc.response) from exc"
+},
+"i": 284,
+"t": 12.382,
+"task": "T4"
+},
+{
+"k": "raise",
+"id": "c49",
+"fn": "transport.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [404 Not Found]>"
+}
+]
+],
+"i": 285,
+"t": 12.435,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 286,
+"t": 12.449,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 287,
+"t": 12.459,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 288,
+"t": 12.47,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 77,
+"text": "return await get_json(self.http, path, params)"
+},
+"i": 289,
+"t": 12.478,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 78,
+"text": "except TimeoutError:"
+},
+"i": 290,
+"t": 12.487,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 78,
+"text": "except TimeoutError:"
+},
+"i": 291,
+"t": 12.497,
+"task": "T4"
+},
+{
+"k": "raise",
+"id": "c48",
+"fn": "client.AiofetchClient._attempt",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [],
+"i": 292,
+"t": 12.546,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 293,
+"t": 12.559,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 105,
+"text": "return await self._attempt(path, params)"
+},
+"i": 294,
+"t": 12.568,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c87",
+"fn": "retry.is_transient",
+"parent": "c45",
+"via": "tenacity",
+"args": [
+[
+"exc",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 103,
+"text": "async for attempt in policy:"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 18
+},
+"i": 295,
+"t": 12.686,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c87",
+"fn": "retry.is_transient",
+"value": {
+"t": "bool",
+"v": false
+},
+"locals": [],
+"i": 296,
+"t": 12.736,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 103,
+"text": "async for attempt in policy:"
+},
+"i": 297,
+"t": 12.775,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 103,
+"text": "async for attempt in policy:"
+},
+"i": 298,
+"t": 12.786,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 103,
+"text": "async for attempt in policy:"
+},
+"i": 299,
+"t": 12.795,
+"task": "T4"
+},
+{
+"k": "raise",
+"id": "c45",
+"fn": "client.AiofetchClient._with_retries",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7120e8b0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x742e7120ec40>"
+}
+]
+],
+"i": 300,
+"t": 12.854,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c44",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 301,
+"t": 12.865,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c44",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 87,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 302,
+"t": 12.875,
+"task": "T4"
+},
+{
+"k": "raise",
+"id": "c44",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/3"
+}
+]
+],
+"i": 303,
+"t": 12.924,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 304,
+"t": 12.935,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 24,
+"text": "result = await fn()"
+},
+"i": 305,
+"t": 12.944,
+"task": "T4"
+},
+{
+"k": "call",
+"id": "c88",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c43",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 29,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 43
+},
+"self": "o4",
+"i": 306,
+"t": 13.003,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c88",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 307,
+"t": 13.049,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 30,
+"text": "raise"
+},
+"i": 308,
+"t": 13.061,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 30,
+"text": "raise"
+},
+"i": 309,
+"t": 13.07,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 30,
+"text": "raise"
+},
+"i": 310,
+"t": 13.078,
+"task": "T4"
+},
+{
+"k": "raise",
+"id": "c43",
+"fn": "breaker.CircuitBreaker.call",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [],
+"i": 311,
+"t": 13.134,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 312,
+"t": 13.145,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 90,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 313,
+"t": 13.154,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 92,
+"text": "self.stats.breaker_state = self.breaker.state"
+},
+"i": 314,
+"t": 13.169,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 92,
+"text": "self.stats.breaker_state = self.breaker.state"
+},
+"i": 315,
+"t": 13.177,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 92,
+"text": "self.stats.breaker_state = self.breaker.state"
+},
+"i": 316,
+"t": 13.187,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 92,
+"text": "self.stats.breaker_state = self.breaker.state"
+},
+"i": 317,
+"t": 13.195,
+"task": "T4"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "17 permits free",
+"new": "18 permits free",
+"by": "c42",
+"i": 318,
+"t": 13.226,
+"task": "T4"
+},
+{
+"k": "raise",
+"id": "c42",
+"fn": "client.AiofetchClient.get_json",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 319,
+"t": 13.247,
+"task": "T4"
+},
+{
+"k": "throw",
+"id": "c41",
+"fn": "client.AiofetchClient._one",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 320,
+"t": 13.259,
+"task": "T4"
+},
+{
+"k": "catch",
+"id": "c41",
+"fn": "client.AiofetchClient._one",
+"exc": {
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 123,
+"text": "value = await self.get_json(path)"
+},
+"i": 321,
+"t": 13.267,
+"task": "T4"
+},
+{
+"k": "new",
+"id": "c89",
+"fn": "results.Result",
+"parent": "c41",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007646
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return Result(path, error=exc, seconds=time.perf_counter() - start)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o9",
+"i": 322,
+"t": 13.334,
+"task": "T4"
+},
+{
+"k": "born",
+"id": "c89",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o9",
+"name": "Result#4",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007646
+}
+]
+]
+},
+"i": 323,
+"t": 13.4,
+"task": "T4"
+},
+{
+"k": "return",
+"id": "c41",
+"fn": "client.AiofetchClient._one",
+"value": {
+"t": "Result",
+"obj": "o9",
+"name": "Result#4",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007646
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 93354.83246
+}
+]
+],
+"i": 324,
+"t": 13.454,
+"task": "T4"
+},
+{
+"k": "resume",
+"id": "c51",
+"fn": "client.AiofetchClient._one",
+"i": 325,
+"t": 13.461,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c52",
+"fn": "client.AiofetchClient.get_json",
+"i": 326,
+"t": 13.463,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c53",
+"fn": "breaker.CircuitBreaker.call",
+"i": 327,
+"t": 13.464,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c54",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 328,
+"t": 13.466,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "client.AiofetchClient._with_retries",
+"i": 329,
+"t": 13.467,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c58",
+"fn": "client.AiofetchClient._attempt",
+"i": 330,
+"t": 13.469,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c59",
+"fn": "transport.get_json",
+"i": 331,
+"t": 13.473,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c60",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 332,
+"t": 13.475,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c90",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c60",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 64,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 44
+},
+"self": "o1",
+"i": 333,
+"t": 13.54,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c90",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.258917
+}
+]
+],
+"i": 334,
+"t": 13.588,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c91",
+"fn": "chaos.payload",
+"parent": "c60",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 80,
+"text": "return httpx.Response(200, json=payload(path))"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 8
+},
+"i": 335,
+"t": 13.653,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c91",
+"fn": "chaos.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "items"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "4"
+}
+]
+],
+"i": 336,
+"t": 13.703,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "2",
+"new": "1",
+"by": "c60",
+"i": 337,
+"t": 13.767,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c60",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 338,
+"t": 13.81,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c59",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+}
+]
+],
+"i": 339,
+"t": 13.945,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c58",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [],
+"i": 340,
+"t": 13.998,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c55",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e7120f5c0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x742e7120f950>"
+}
+]
+],
+"i": 341,
+"t": 14.064,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c54",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/4"
+}
+]
+],
+"i": 342,
+"t": 14.114,
+"task": "T5"
+},
+{
+"k": "call",
+"id": "c92",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c53",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 43
+},
+"self": "o4",
+"i": 343,
+"t": 14.182,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c92",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 344,
+"t": 14.229,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c53",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+}
+]
+],
+"i": 345,
+"t": 14.277,
+"task": "T5"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "18 permits free",
+"new": "19 permits free",
+"by": "c52",
+"i": 346,
+"t": 14.307,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c52",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 347,
+"t": 14.33,
+"task": "T5"
+},
+{
+"k": "new",
+"id": "c93",
+"fn": "results.Result",
+"parent": "c51",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.00777
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 126,
+"text": "return Result(path, value=value, seconds=time.perf_counter() - start)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o10",
+"i": 348,
+"t": 14.4,
+"task": "T5"
+},
+{
+"k": "born",
+"id": "c93",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o10",
+"name": "Result#5",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.00777
+}
+]
+]
+},
+"i": 349,
+"t": 14.461,
+"task": "T5"
+},
+{
+"k": "return",
+"id": "c51",
+"fn": "client.AiofetchClient._one",
+"value": {
+"t": "Result",
+"obj": "o10",
+"name": "Result#5",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.00777
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 93354.8334
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+}
+]
+],
+"i": 350,
+"t": 14.521,
+"task": "T5"
+},
+{
+"k": "resume",
+"id": "c61",
+"fn": "client.AiofetchClient._one",
+"i": 351,
+"t": 14.528,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c62",
+"fn": "client.AiofetchClient.get_json",
+"i": 352,
+"t": 14.53,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c63",
+"fn": "breaker.CircuitBreaker.call",
+"i": 353,
+"t": 14.531,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c64",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 354,
+"t": 14.533,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c65",
+"fn": "client.AiofetchClient._with_retries",
+"i": 355,
+"t": 14.536,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c68",
+"fn": "client.AiofetchClient._attempt",
+"i": 356,
+"t": 14.538,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c69",
+"fn": "transport.get_json",
+"i": 357,
+"t": 14.539,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c70",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 358,
+"t": 14.541,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c94",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c70",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 64,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 44
+},
+"self": "o1",
+"i": 359,
+"t": 14.612,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c94",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.511275
+}
+]
+],
+"i": 360,
+"t": 14.665,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c95",
+"fn": "chaos.payload",
+"parent": "c70",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 80,
+"text": "return httpx.Response(200, json=payload(path))"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 8
+},
+"i": 361,
+"t": 14.73,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c95",
+"fn": "chaos.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "items"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "5"
+}
+]
+],
+"i": 362,
+"t": 14.784,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c70",
+"i": 363,
+"t": 14.843,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c70",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 364,
+"t": 14.892,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c69",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+}
+]
+],
+"i": 365,
+"t": 15.022,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c68",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [],
+"i": 366,
+"t": 15.076,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c65",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x742e71293530 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x742e71293890>"
+}
+]
+],
+"i": 367,
+"t": 15.144,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c64",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+]
+],
+"i": 368,
+"t": 15.218,
+"task": "T6"
+},
+{
+"k": "call",
+"id": "c96",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c63",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 43
+},
+"self": "o4",
+"i": 369,
+"t": 15.285,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c96",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 370,
+"t": 15.338,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c63",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+}
+]
+],
+"i": 371,
+"t": 15.388,
+"task": "T6"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "20 permits free",
+"by": "c62",
+"i": 372,
+"t": 15.418,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c62",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 373,
+"t": 15.444,
+"task": "T6"
+},
+{
+"k": "new",
+"id": "c97",
+"fn": "results.Result",
+"parent": "c61",
+"via": null,
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007937
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 126,
+"text": "return Result(path, value=value, seconds=time.perf_counter() - start)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o11",
+"i": 374,
+"t": 15.514,
+"task": "T6"
+},
+{
+"k": "born",
+"id": "c97",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o11",
+"name": "Result#6",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007937
+}
+]
+]
+},
+"i": 375,
+"t": 15.581,
+"task": "T6"
+},
+{
+"k": "return",
+"id": "c61",
+"fn": "client.AiofetchClient._one",
+"value": {
+"t": "Result",
+"obj": "o11",
+"name": "Result#6",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007937
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 93354.834346
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+}
+]
+],
+"i": 376,
+"t": 15.641,
+"task": "T6"
+},
+{
+"k": "resume",
+"id": "c3",
+"fn": "test_part3_fetch_many.test_one_failing_url_is_one_failed_result.<main>",
+"i": 377,
+"t": 15.675,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "client.AiofetchClient.fetch_many",
+"i": 378,
+"t": 15.677,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "client.AiofetchClient.fetch_many",
+"value": {
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#1",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007452
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#2",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006967
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#3",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006802
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#4",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007646
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o10",
+"name": "Result#5",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.00777
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o11",
+"name": "Result#6",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007937
+}
+]
+]
+}
+]
+},
+"locals": [
+[
+"tasks",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T1"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T2"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T3"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T4"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T5"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T6"
+}
+]
+}
+],
+[
+"tg",
+{
+"t": "TaskGroup",
+"lib": "asyncio",
+"v": "<TaskGroup entered>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"results",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#1"
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#2"
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#3"
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#4"
+},
+{
+"t": "Result",
+"obj": "o10",
+"name": "Result#5"
+},
+{
+"t": "Result",
+"obj": "o11",
+"name": "Result#6"
+}
+]
+}
+],
+[
+"task",
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T6"
+}
+]
+],
+"i": 379,
+"t": 15.789,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c98",
+"fn": "client.AiofetchClient.__aexit__",
+"parent": "c3",
+"via": null,
+"args": [
+[
+"exc",
+{
+"t": "tuple",
+"n": 3,
+"items": [
+{
+"t": "None"
+},
+{
+"t": "None"
+},
+{
+"t": "None"
+}
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 30,
+"text": "async with client_for(chaos) as client:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 70
+},
+"self": "o2",
+"async": true,
+"i": 380,
+"t": 15.869,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c98",
+"fn": "client.AiofetchClient.__aexit__",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 381,
+"t": 15.929,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "test_part3_fetch_many.test_one_failing_url_is_one_failed_result.<main>",
+"value": {
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#1",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007452
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#2",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006967
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#3",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006802
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#4",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007646
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o10",
+"name": "Result#5",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.00777
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o11",
+"name": "Result#6",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007937
+}
+]
+]
+}
+]
+},
+"locals": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.001
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1"
+}
+],
+[
+"http",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1"
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+}
+],
+[
+"chaos",
+{
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 1
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x2856a780>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 6
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 6
+}
+]
+]
+}
+]
+],
+"i": 382,
+"t": 16.025,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c99",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 35,
+"text": "assert [r.url for r in results if not r.ok] == [\"/items/3\"]"
+},
+"def": {
+"file": "src/aiofetch/results.py",
+"line": 11
+},
+"self": "o5",
+"i": 383,
+"t": 16.269,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c99",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"i": 384,
+"t": 16.328,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c100",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 35,
+"text": "assert [r.url for r in results if not r.ok] == [\"/items/3\"]"
+},
+"def": {
+"file": "src/aiofetch/results.py",
+"line": 11
+},
+"self": "o6",
+"i": 385,
+"t": 16.396,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c100",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"i": 386,
+"t": 16.45,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c101",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 35,
+"text": "assert [r.url for r in results if not r.ok] == [\"/items/3\"]"
+},
+"def": {
+"file": "src/aiofetch/results.py",
+"line": 11
+},
+"self": "o7",
+"i": 387,
+"t": 16.516,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c101",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"i": 388,
+"t": 16.569,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c102",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 35,
+"text": "assert [r.url for r in results if not r.ok] == [\"/items/3\"]"
+},
+"def": {
+"file": "src/aiofetch/results.py",
+"line": 11
+},
+"self": "o9",
+"i": 389,
+"t": 16.637,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c102",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": false
+},
+"locals": [],
+"i": 390,
+"t": 16.691,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c103",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 35,
+"text": "assert [r.url for r in results if not r.ok] == [\"/items/3\"]"
+},
+"def": {
+"file": "src/aiofetch/results.py",
+"line": 11
+},
+"self": "o10",
+"i": 391,
+"t": 16.757,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c103",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"i": 392,
+"t": 16.81,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c104",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part3_fetch_many.py",
+"line": 35,
+"text": "assert [r.url for r in results if not r.ok] == [\"/items/3\"]"
+},
+"def": {
+"file": "src/aiofetch/results.py",
+"line": 11
+},
+"self": "o11",
+"i": 393,
+"t": 16.873,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c104",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"i": 394,
+"t": 16.924,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part3_fetch_many.test_one_failing_url_is_one_failed_result",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"main",
+{
+"t": "function",
+"v": "test_one_failing_url_is_one_failed_result.<locals>.main"
+}
+],
+[
+"results",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#1",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/0"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 0"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007452
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#2",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/1"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 1"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006967
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#3",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/2"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 2"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.006802
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#4",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "PermanentError",
+"obj": "o8",
+"name": "PermanentError#1",
+"msg": "/items/3: 404 Not Found",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/3"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "404 Not Found"
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007646
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o10",
+"name": "Result#5",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/4"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 4"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.00777
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o11",
+"name": "Result#6",
+"fields": [
+[
+"url",
+{
+"t": "str",
+"v": "/items/5"
+}
+],
+[
+"value",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 5"
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.007937
+}
+]
+]
+}
+]
+}
+],
+[
+"chaos",
+{
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"/items/3",
+{
+"t": "list",
+"n": 0,
+"items": []
+}
+]
+]
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x2856a780>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 6,
+"items": [
+[
+"/items/0",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/items/1",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/items/2",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/items/3",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/items/4",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/items/5",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 6
+}
+]
+]
+}
+]
+],
+"i": 395,
+"t": 17.027,
+"task": "sync"
+}
+],
+"objects": {
+"o1": {
+"cls": "chaos.ChaosAPI",
+"name": "ChaosAPI#1",
+"born": "c1"
+},
+"o2": {
+"cls": "client.AiofetchClient",
+"name": "AiofetchClient#1",
+"born": "c4"
+},
+"o3": {
+"cls": "client.Stats",
+"name": "Stats#1",
+"born": "c5"
+},
+"o4": {
+"cls": "breaker.CircuitBreaker",
+"name": "CircuitBreaker#1",
+"born": "c5"
+},
+"o5": {
+"cls": "results.Result",
+"name": "Result#1",
+"born": "c11"
+},
+"o6": {
+"cls": "results.Result",
+"name": "Result#2",
+"born": "c21"
+},
+"o7": {
+"cls": "results.Result",
+"name": "Result#3",
+"born": "c31"
+},
+"o8": {
+"cls": "errors.PermanentError",
+"name": "PermanentError#1",
+"born": "c84"
+},
+"o9": {
+"cls": "results.Result",
+"name": "Result#4",
+"born": "c41"
+},
+"o10": {
+"cls": "results.Result",
+"name": "Result#5",
+"born": "c51"
+},
+"o11": {
+"cls": "results.Result",
+"name": "Result#6",
+"born": "c61"
+}
+},
+"tasks": [
+"T1",
+"T2",
+"T3",
+"T4",
+"T5",
+"T6",
+"main"
+]
+}

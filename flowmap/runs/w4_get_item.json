@@ -1,0 +1,7947 @@
+{
+"run": "test_w04_part3_get_item::test_get_item_returns_the_shape_the_server_sent",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 8
+},
+"i": 0,
+"t": 0.243,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"parent": "c1",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 13,
+"text": "found, missing, error = asyncio.run(main())"
+},
+"def": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 9
+},
+"async": true,
+"i": 1,
+"t": 0.574,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c3",
+"fn": "flaky.FlakyAPI",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"script",
+{
+"t": "None"
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 10,
+"text": "async with AiofetchClient(\"http://api.test\", transport=FlakyAPI()) as client:"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 82
+},
+"self": "o1",
+"i": 2,
+"t": 0.631,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c3",
+"fn": "flaky.FlakyAPI",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"i": 3,
+"t": 0.702,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c4",
+"fn": "client.AiofetchClient",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"requests_per_minute",
+{
+"t": "None"
+}
+],
+[
+"tokens_per_minute",
+{
+"t": "None"
+}
+],
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"transport",
+{
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+],
+[
+"clock",
+{
+"t": "function",
+"v": "monotonic"
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 10,
+"text": "async with AiofetchClient(\"http://api.test\", transport=FlakyAPI()) as client:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 45
+},
+"self": "o2",
+"i": 4,
+"t": 0.775,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c5",
+"fn": "client.Stats",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"seconds",
+{
+"t": "_HAS_DEFAULT_FACTORY_CLASS",
+"lib": "dataclasses",
+"v": "<factory>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 74,
+"text": "self.stats = Stats()"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o3",
+"i": 5,
+"t": 0.867,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c5",
+"fn": "client.Stats",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"seconds",
+{
+"t": "list",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"i": 6,
+"t": 0.912,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c6",
+"fn": "breaker.CircuitBreaker",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"clock",
+{
+"t": "function",
+"v": "monotonic"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 83,
+"text": "self.breaker = CircuitBreaker(failure_threshold, reset_timeout, clock=clock)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 12
+},
+"self": "o4",
+"i": 7,
+"t": 0.959,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c6",
+"fn": "breaker.CircuitBreaker",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"i": 8,
+"t": 0.993,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c4",
+"fn": "client.AiofetchClient",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"seconds",
+{
+"t": "list",
+"n": 0
+}
+]
+]
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+},
+"i": 9,
+"t": 1.059,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "client.AiofetchClient.__aenter__",
+"parent": "c2",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 10,
+"text": "async with AiofetchClient(\"http://api.test\", transport=FlakyAPI()) as client:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 91
+},
+"self": "o2",
+"async": true,
+"i": 10,
+"t": 1.109,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "client.AiofetchClient.__aenter__",
+"value": {
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1",
+"fields": [
+[
+"attempts",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"seconds",
+{
+"t": "list",
+"n": 0
+}
+]
+]
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1",
+"fields": [
+[
+"failure_threshold",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"reset_timeout",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"failures",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"opened_at",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"short_circuits",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+},
+"locals": [],
+"i": 11,
+"t": 1.154,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "client.AiofetchClient.get_item",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"item_id",
+{
+"t": "int",
+"v": 7
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 11,
+"text": "return [await client.get_item(n) for n in (7, 1500, 2500)]"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 129
+},
+"self": "o2",
+"async": true,
+"i": 12,
+"t": 1.2,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "client.timed.<wrapper>",
+"parent": "c8",
+"via": null,
+"args": [
+[
+"args",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+]
+}
+],
+[
+"kwargs",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 131,
+"text": "data = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 34
+},
+"self": "o2",
+"async": true,
+"i": 13,
+"t": 1.25,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c9",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 37,
+"text": "return await fn(self, *args, **kwargs)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 113
+},
+"self": "o2",
+"async": true,
+"i": 14,
+"t": 1.295,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "20 permits free",
+"new": "19 permits free",
+"by": "c10",
+"i": 15,
+"t": 1.332,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 27
+},
+"self": "o4",
+"async": true,
+"i": 16,
+"t": 1.352,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c11",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 121
+},
+"self": "o2",
+"async": true,
+"i": 17,
+"t": 1.44,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c12",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 122,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 140
+},
+"self": "o2",
+"async": true,
+"i": 18,
+"t": 1.49,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "retry.retrying",
+"parent": "c13",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 141,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 80
+},
+"i": 19,
+"t": 1.542,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "retry.wait_with_retry_after",
+"parent": "c14",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x74d7ed26ea50>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 100,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 66
+},
+"i": 20,
+"t": 1.641,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 21,
+"t": 1.678,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x74d7ed26ecf0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 22,
+"t": 1.732,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c13",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 151,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 105
+},
+"self": "o2",
+"async": true,
+"i": 23,
+"t": 1.833,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "0",
+"new": "1",
+"by": "c16",
+"i": 24,
+"t": 1.874,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "client.AiofetchClient._transport",
+"parent": "c16",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"i": 25,
+"t": 1.901,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "client.AiofetchClient._transport",
+"value": {
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"locals": [],
+"i": 26,
+"t": 1.94,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "transport.get_json",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"transport",
+{
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 86
+},
+"async": true,
+"i": 27,
+"t": 1.994,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "flaky.FlakyAPI.get",
+"parent": "c18",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 89,
+"text": "response = await transport.get(path, params)"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 117
+},
+"self": "o1",
+"async": true,
+"i": 28,
+"t": 2.082,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{}",
+"new": "{'/v2/items/7': 1}",
+"by": "c19",
+"i": 29,
+"t": 2.101,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "0",
+"new": "1",
+"by": "c19",
+"i": 30,
+"t": 2.103,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c19",
+"i": 31,
+"t": 2.104,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "0",
+"new": "1",
+"by": "c19",
+"i": 32,
+"t": 2.105,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "flaky.FlakyAPI.get",
+"at": {
+"file": "src/aiofetch/flaky.py",
+"line": 123,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 33,
+"t": 2.167,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 89,
+"text": "response = await transport.get(path, params)"
+},
+"i": 34,
+"t": 2.201,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"i": 35,
+"t": 2.23,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 151,
+"text": "return await self._attempt(path, params)"
+},
+"i": 36,
+"t": 2.256,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 122,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 37,
+"t": 2.282,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "result = await fn()"
+},
+"i": 38,
+"t": 2.309,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 39,
+"t": 2.336,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "client.timed.<wrapper>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 37,
+"text": "return await fn(self, *args, **kwargs)"
+},
+"i": 40,
+"t": 2.363,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c8",
+"fn": "client.AiofetchClient.get_item",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 131,
+"text": "data = await self.get_json(path)"
+},
+"i": 41,
+"t": 2.39,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"at": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 11,
+"text": "return [await client.get_item(n) for n in (7, 1500, 2500)]"
+},
+"i": 42,
+"t": 2.417,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"i": 43,
+"t": 2.436,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c8",
+"fn": "client.AiofetchClient.get_item",
+"i": 44,
+"t": 2.44,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "client.timed.<wrapper>",
+"i": 45,
+"t": 2.441,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "client.AiofetchClient.get_json",
+"i": 46,
+"t": 2.444,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "breaker.CircuitBreaker.call",
+"i": 47,
+"t": 2.445,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 48,
+"t": 2.446,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "client.AiofetchClient._with_retries",
+"i": 49,
+"t": 2.448,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "client.AiofetchClient._attempt",
+"i": 50,
+"t": 2.449,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "transport.get_json",
+"i": 51,
+"t": 2.45,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "flaky.FlakyAPI.get",
+"i": 52,
+"t": 2.451,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "flaky.FlakyAPI.next_answer",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 124,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 105
+},
+"self": "o1",
+"i": 53,
+"t": 2.497,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "flaky.FlakyAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.844422
+}
+]
+],
+"i": 54,
+"t": 2.529,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "flaky.payload",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 142,
+"text": "return json_response(200, payload(path))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 60
+},
+"i": 55,
+"t": 2.572,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "flaky.tagged",
+"parent": "c21",
+"via": null,
+"args": [
+[
+"item_id",
+{
+"t": "int",
+"v": 7
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 64,
+"text": "return tagged(int(name))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 15
+},
+"i": 56,
+"t": 2.611,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "flaky.tagged",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+],
+"i": 57,
+"t": 2.648,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "flaky.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "v2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "7"
+}
+]
+],
+"i": 58,
+"t": 2.678,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "flaky.json_response",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 142,
+"text": "return json_response(200, payload(path))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 74
+},
+"i": 59,
+"t": 2.723,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c24",
+"fn": "transport.Response",
+"parent": "c23",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"ok\", \"item\": {\"id\": 7, \"name\": \"item 7\", \"priceCents\": 257}}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 78,
+"text": "return Response(status, json.dumps(data).encode(), all_headers)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o5",
+"i": 60,
+"t": 2.793,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c24",
+"fn": "transport.Response",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Response",
+"obj": "o5",
+"name": "Response#1",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"ok\", \"item\": {\"id\": 7, \"name\": \"item 7\", \"priceCents\": 257}}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"i": 61,
+"t": 2.84,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c23",
+"fn": "flaky.json_response",
+"value": {
+"t": "Response",
+"obj": "o5",
+"name": "Response#1",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"ok\", \"item\": {\"id\": 7, \"name\": \"item 7\", \"priceCents\": 257}}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"all_headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+],
+"i": 62,
+"t": 2.879,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c19",
+"i": 63,
+"t": 2.89,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "flaky.FlakyAPI.get",
+"value": {
+"t": "Response",
+"obj": "o5",
+"name": "Response#1",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"ok\", \"item\": {\"id\": 7, \"name\": \"item 7\", \"priceCents\": 257}}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 64,
+"t": 3.138,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c25",
+"fn": "transport.Response.json",
+"parent": "c18",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 92,
+"text": "return response.json()"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 18
+},
+"self": "o5",
+"i": 65,
+"t": 3.2,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c25",
+"fn": "transport.Response.json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3
+}
+]
+]
+}
+]
+],
+"i": 66,
+"t": 3.259,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"obj": "o5",
+"name": "Response#1",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"ok\", \"item\": {\"id\": 7, \"name\": \"item 7\", \"priceCents\": 257}}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1
+}
+]
+]
+}
+]
+],
+"i": 67,
+"t": 3.299,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [],
+"i": 68,
+"t": 3.343,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x74d7ed26ecf0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x74d7ed26f0e0>"
+}
+]
+],
+"i": 69,
+"t": 3.418,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+]
+],
+"i": 70,
+"t": 3.452,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c11",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 46,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 54
+},
+"self": "o4",
+"i": 71,
+"t": 3.504,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 72,
+"t": 3.536,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3
+}
+]
+]
+}
+]
+],
+"i": 73,
+"t": 3.57,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "20 permits free",
+"by": "c10",
+"i": 74,
+"t": 3.604,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 75,
+"t": 3.616,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "seconds",
+"old": "[]",
+"new": "[0.0023655709956074134]",
+"by": "c9",
+"i": 76,
+"t": 3.632,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "client.timed.<wrapper>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"priceCents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 92218.601226
+}
+],
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json"
+}
+]
+],
+"i": 77,
+"t": 3.661,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "models.Item.tidy_name",
+"parent": "c8",
+"via": "pydantic",
+"args": [
+[
+"cls",
+{
+"t": "ModelMetaclass",
+"lib": "pydantic",
+"v": "<class 'aiofetch.models.Item'>"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 132,
+"text": "answer = ITEM_RESPONSE.validate_python(data)"
+},
+"def": {
+"file": "src/aiofetch/models.py",
+"line": 15
+},
+"i": 78,
+"t": 3.74,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "models.Item.tidy_name",
+"value": {
+"t": "str",
+"v": "item 7"
+},
+"locals": [],
+"i": 79,
+"t": 3.776,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "client.AiofetchClient.get_item",
+"value": {
+"t": "ItemFound",
+"obj": "o6",
+"name": "ItemFound#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "Item",
+"obj": "o7",
+"name": "Item#1",
+"fields": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"price_cents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/7"
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "dict",
+"n": 3
+}
+]
+]
+}
+],
+[
+"answer",
+{
+"t": "ItemFound",
+"obj": "o6",
+"name": "ItemFound#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "Item",
+"obj": "o7",
+"name": "Item#1"
+}
+]
+]
+}
+]
+],
+"i": 80,
+"t": 3.845,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "client.AiofetchClient.get_item",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"item_id",
+{
+"t": "int",
+"v": 1500
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 11,
+"text": "return [await client.get_item(n) for n in (7, 1500, 2500)]"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 129
+},
+"self": "o2",
+"async": true,
+"i": 81,
+"t": 3.898,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "client.timed.<wrapper>",
+"parent": "c28",
+"via": null,
+"args": [
+[
+"args",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+]
+}
+],
+[
+"kwargs",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 131,
+"text": "data = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 34
+},
+"self": "o2",
+"async": true,
+"i": 82,
+"t": 3.954,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c30",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c29",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 37,
+"text": "return await fn(self, *args, **kwargs)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 113
+},
+"self": "o2",
+"async": true,
+"i": 83,
+"t": 4.003,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "20 permits free",
+"new": "19 permits free",
+"by": "c30",
+"i": 84,
+"t": 4.045,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c31",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c30",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 27
+},
+"self": "o4",
+"async": true,
+"i": 85,
+"t": 4.066,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c31",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 121
+},
+"self": "o2",
+"async": true,
+"i": 86,
+"t": 4.111,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c33",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c32",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 122,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 140
+},
+"self": "o2",
+"async": true,
+"i": 87,
+"t": 4.159,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "retry.retrying",
+"parent": "c33",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 141,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 80
+},
+"i": 88,
+"t": 4.216,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "retry.wait_with_retry_after",
+"parent": "c34",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x74d7ed100a50>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 100,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 66
+},
+"i": 89,
+"t": 4.284,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 90,
+"t": 4.324,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x74d7ed100cd0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 91,
+"t": 4.378,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c33",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 151,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 105
+},
+"self": "o2",
+"async": true,
+"i": 92,
+"t": 4.47,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "1",
+"new": "2",
+"by": "c36",
+"i": 93,
+"t": 4.507,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c37",
+"fn": "client.AiofetchClient._transport",
+"parent": "c36",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"i": 94,
+"t": 4.54,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c37",
+"fn": "client.AiofetchClient._transport",
+"value": {
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"/v2/items/7",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+"locals": [],
+"i": 95,
+"t": 4.587,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c38",
+"fn": "transport.get_json",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"transport",
+{
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"/v2/items/7",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 86
+},
+"async": true,
+"i": 96,
+"t": 4.648,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c39",
+"fn": "flaky.FlakyAPI.get",
+"parent": "c38",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 89,
+"text": "response = await transport.get(path, params)"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 117
+},
+"self": "o1",
+"async": true,
+"i": 97,
+"t": 4.695,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/v2/items/7': 1}",
+"new": "{'/v2/items/7': 1, '/v2/items/1500': 1}",
+"by": "c39",
+"i": 98,
+"t": 4.71,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "1",
+"new": "2",
+"by": "c39",
+"i": 99,
+"t": 4.713,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c39",
+"i": 100,
+"t": 4.714,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c39",
+"fn": "flaky.FlakyAPI.get",
+"at": {
+"file": "src/aiofetch/flaky.py",
+"line": 123,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 101,
+"t": 4.743,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c38",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 89,
+"text": "response = await transport.get(path, params)"
+},
+"i": 102,
+"t": 4.777,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c36",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"i": 103,
+"t": 4.809,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 151,
+"text": "return await self._attempt(path, params)"
+},
+"i": 104,
+"t": 4.842,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 122,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 105,
+"t": 4.874,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "result = await fn()"
+},
+"i": 106,
+"t": 4.908,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 107,
+"t": 4.943,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "client.timed.<wrapper>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 37,
+"text": "return await fn(self, *args, **kwargs)"
+},
+"i": 108,
+"t": 4.975,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "client.AiofetchClient.get_item",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 131,
+"text": "data = await self.get_json(path)"
+},
+"i": 109,
+"t": 5.006,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"at": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 11,
+"text": "return [await client.get_item(n) for n in (7, 1500, 2500)]"
+},
+"i": 110,
+"t": 5.049,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"i": 111,
+"t": 5.064,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "client.AiofetchClient.get_item",
+"i": 112,
+"t": 5.066,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "client.timed.<wrapper>",
+"i": 113,
+"t": 5.067,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "client.AiofetchClient.get_json",
+"i": 114,
+"t": 5.069,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "breaker.CircuitBreaker.call",
+"i": 115,
+"t": 5.07,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 116,
+"t": 5.071,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "client.AiofetchClient._with_retries",
+"i": 117,
+"t": 5.072,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c36",
+"fn": "client.AiofetchClient._attempt",
+"i": 118,
+"t": 5.073,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c38",
+"fn": "transport.get_json",
+"i": 119,
+"t": 5.076,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c39",
+"fn": "flaky.FlakyAPI.get",
+"i": 120,
+"t": 5.077,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c40",
+"fn": "flaky.FlakyAPI.next_answer",
+"parent": "c39",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 124,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 105
+},
+"self": "o1",
+"i": 121,
+"t": 5.129,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c40",
+"fn": "flaky.FlakyAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.757954
+}
+]
+],
+"i": 122,
+"t": 5.165,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c41",
+"fn": "flaky.payload",
+"parent": "c39",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 142,
+"text": "return json_response(200, payload(path))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 60
+},
+"i": 123,
+"t": 5.213,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c42",
+"fn": "flaky.tagged",
+"parent": "c41",
+"via": null,
+"args": [
+[
+"item_id",
+{
+"t": "int",
+"v": 1500
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 64,
+"text": "return tagged(int(name))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 15
+},
+"i": 124,
+"t": 5.261,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c42",
+"fn": "flaky.tagged",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [],
+"i": 125,
+"t": 5.296,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c41",
+"fn": "flaky.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "v2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "1500"
+}
+]
+],
+"i": 126,
+"t": 5.329,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c43",
+"fn": "flaky.json_response",
+"parent": "c39",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 142,
+"text": "return json_response(200, payload(path))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 74
+},
+"i": 127,
+"t": 5.383,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c44",
+"fn": "transport.Response",
+"parent": "c43",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"not_found\", \"id\": 1500}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 78,
+"text": "return Response(status, json.dumps(data).encode(), all_headers)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o8",
+"i": 128,
+"t": 5.449,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c44",
+"fn": "transport.Response",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Response",
+"obj": "o8",
+"name": "Response#2",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"not_found\", \"id\": 1500}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"i": 129,
+"t": 5.501,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c43",
+"fn": "flaky.json_response",
+"value": {
+"t": "Response",
+"obj": "o8",
+"name": "Response#2",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"not_found\", \"id\": 1500}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"all_headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+],
+"i": 130,
+"t": 5.545,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c39",
+"i": 131,
+"t": 5.556,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c39",
+"fn": "flaky.FlakyAPI.get",
+"value": {
+"t": "Response",
+"obj": "o8",
+"name": "Response#2",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"not_found\", \"id\": 1500}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 132,
+"t": 5.587,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c45",
+"fn": "transport.Response.json",
+"parent": "c38",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 92,
+"text": "return response.json()"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 18
+},
+"self": "o8",
+"i": 133,
+"t": 5.638,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c45",
+"fn": "transport.Response.json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+}
+]
+],
+"i": 134,
+"t": 5.69,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c38",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"obj": "o8",
+"name": "Response#2",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"not_found\", \"id\": 1500}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1
+}
+]
+]
+}
+]
+],
+"i": 135,
+"t": 5.731,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c36",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [],
+"i": 136,
+"t": 5.775,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c33",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x74d7ed100cd0 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x74d7ed101090>"
+}
+]
+],
+"i": 137,
+"t": 5.834,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+]
+],
+"i": 138,
+"t": 5.872,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c46",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c31",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 46,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 54
+},
+"self": "o4",
+"i": 139,
+"t": 5.922,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c46",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 140,
+"t": 5.964,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c31",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+}
+]
+],
+"i": 141,
+"t": 6.002,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "20 permits free",
+"by": "c30",
+"i": 142,
+"t": 6.041,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c30",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 143,
+"t": 6.055,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "seconds",
+"old": "[0.0023655709956074134]",
+"new": "[0.0023655709956074134, 0.0021019510022597387]",
+"by": "c29",
+"i": 144,
+"t": 6.072,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "client.timed.<wrapper>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 92218.603929
+}
+],
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json"
+}
+]
+],
+"i": 145,
+"t": 6.1,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "client.AiofetchClient.get_item",
+"value": {
+"t": "ItemMissing",
+"obj": "o9",
+"name": "ItemMissing#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/1500"
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+}
+],
+[
+"answer",
+{
+"t": "ItemMissing",
+"obj": "o9",
+"name": "ItemMissing#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+}
+]
+],
+"i": 146,
+"t": 6.164,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c47",
+"fn": "client.AiofetchClient.get_item",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"item_id",
+{
+"t": "int",
+"v": 2500
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 11,
+"text": "return [await client.get_item(n) for n in (7, 1500, 2500)]"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 129
+},
+"self": "o2",
+"async": true,
+"i": 147,
+"t": 6.223,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c48",
+"fn": "client.timed.<wrapper>",
+"parent": "c47",
+"via": null,
+"args": [
+[
+"args",
+{
+"t": "tuple",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+]
+}
+],
+[
+"kwargs",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 131,
+"text": "data = await self.get_json(path)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 34
+},
+"self": "o2",
+"async": true,
+"i": 148,
+"t": 6.282,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c49",
+"fn": "client.AiofetchClient.get_json",
+"parent": "c48",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 37,
+"text": "return await fn(self, *args, **kwargs)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 113
+},
+"self": "o2",
+"async": true,
+"i": 149,
+"t": 6.339,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "20 permits free",
+"new": "19 permits free",
+"by": "c49",
+"i": 150,
+"t": 6.374,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c50",
+"fn": "breaker.CircuitBreaker.call",
+"parent": "c49",
+"via": null,
+"args": [
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+],
+[
+"url",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 27
+},
+"self": "o4",
+"async": true,
+"i": 151,
+"t": 6.397,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c51",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"parent": "c50",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "result = await fn()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 121
+},
+"self": "o2",
+"async": true,
+"i": 152,
+"t": 6.446,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c52",
+"fn": "client.AiofetchClient._with_retries",
+"parent": "c51",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 122,
+"text": "return await self._with_retries(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 140
+},
+"self": "o2",
+"async": true,
+"i": 153,
+"t": 6.494,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c53",
+"fn": "retry.retrying",
+"parent": "c52",
+"via": null,
+"args": [
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"sleep",
+{
+"t": "function",
+"v": "sleep"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"on_retry",
+{
+"t": "function",
+"v": "AiofetchClient._count_retry"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 141,
+"text": "policy = retrying("
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 80
+},
+"i": 154,
+"t": 6.551,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c54",
+"fn": "retry.wait_with_retry_after",
+"parent": "c53",
+"via": null,
+"args": [
+[
+"fallback",
+{
+"t": "wait_random_exponential",
+"lib": "tenacity",
+"v": "<tenacity.wait.wait_random_exponential object at 0x74d7ed1016d0>"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/retry.py",
+"line": 100,
+"text": "wait=wait_with_retry_after(wait_random_exponential(multiplier=base, max=cap)),"
+},
+"def": {
+"file": "src/aiofetch/retry.py",
+"line": 66
+},
+"i": 155,
+"t": 6.612,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c54",
+"fn": "retry.wait_with_retry_after",
+"value": {
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+},
+"locals": [
+[
+"wait",
+{
+"t": "function",
+"v": "wait_with_retry_after.<locals>.wait"
+}
+]
+],
+"i": 156,
+"t": 6.654,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c53",
+"fn": "retry.retrying",
+"value": {
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x74d7ed101950 (stop=<tenacity.stop.stop_after_attempt\u2026"
+},
+"locals": [
+[
+"before_sleep",
+{
+"t": "function",
+"v": "retrying.<locals>.before_sleep"
+}
+],
+[
+"log_warning",
+{
+"t": "function",
+"v": "before_sleep_log.<locals>.log_it"
+}
+]
+],
+"i": 157,
+"t": 6.704,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c55",
+"fn": "client.AiofetchClient._attempt",
+"parent": "c52",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 151,
+"text": "return await self._attempt(path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 105
+},
+"self": "o2",
+"async": true,
+"i": 158,
+"t": 6.788,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "attempts",
+"old": "2",
+"new": "3",
+"by": "c55",
+"i": 159,
+"t": 6.816,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c56",
+"fn": "client.AiofetchClient._transport",
+"parent": "c55",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"i": 160,
+"t": 6.848,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c56",
+"fn": "client.AiofetchClient._transport",
+"value": {
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"/v2/items/7",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/v2/items/1500",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+"locals": [],
+"i": 161,
+"t": 6.898,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c57",
+"fn": "transport.get_json",
+"parent": "c55",
+"via": null,
+"args": [
+[
+"transport",
+{
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"/v2/items/7",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/v2/items/1500",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 86
+},
+"async": true,
+"i": 162,
+"t": 6.962,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c58",
+"fn": "flaky.FlakyAPI.get",
+"parent": "c57",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 89,
+"text": "response = await transport.get(path, params)"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 117
+},
+"self": "o1",
+"async": true,
+"i": 163,
+"t": 7.015,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{'/v2/items/7': 1, '/v2/items/1500': 1}",
+"new": "{'/v2/items/7': 1, '/v2/items/1500': 1, '/v2/items/2500': 1}",
+"by": "c58",
+"i": 164,
+"t": 7.035,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "2",
+"new": "3",
+"by": "c58",
+"i": 165,
+"t": 7.037,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c58",
+"i": 166,
+"t": 7.038,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c58",
+"fn": "flaky.FlakyAPI.get",
+"at": {
+"file": "src/aiofetch/flaky.py",
+"line": 123,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 167,
+"t": 7.073,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c57",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 89,
+"text": "response = await transport.get(path, params)"
+},
+"i": 168,
+"t": 7.111,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "client.AiofetchClient._attempt",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 109,
+"text": "return await get_json(self._transport(), path, params)"
+},
+"i": 169,
+"t": 7.148,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c52",
+"fn": "client.AiofetchClient._with_retries",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 151,
+"text": "return await self._attempt(path, params)"
+},
+"i": 170,
+"t": 7.184,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c51",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 122,
+"text": "return await self._with_retries(path, params)"
+},
+"i": 171,
+"t": 7.223,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c50",
+"fn": "breaker.CircuitBreaker.call",
+"at": {
+"file": "src/aiofetch/breaker.py",
+"line": 35,
+"text": "result = await fn()"
+},
+"i": 172,
+"t": 7.261,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c49",
+"fn": "client.AiofetchClient.get_json",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 125,
+"text": "return await self.breaker.call(retried_call, path)"
+},
+"i": 173,
+"t": 7.299,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c48",
+"fn": "client.timed.<wrapper>",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 37,
+"text": "return await fn(self, *args, **kwargs)"
+},
+"i": 174,
+"t": 7.335,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c47",
+"fn": "client.AiofetchClient.get_item",
+"at": {
+"file": "src/aiofetch/client.py",
+"line": 131,
+"text": "data = await self.get_json(path)"
+},
+"i": 175,
+"t": 7.371,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"at": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 11,
+"text": "return [await client.get_item(n) for n in (7, 1500, 2500)]"
+},
+"i": 176,
+"t": 7.41,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"i": 177,
+"t": 7.423,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c47",
+"fn": "client.AiofetchClient.get_item",
+"i": 178,
+"t": 7.425,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c48",
+"fn": "client.timed.<wrapper>",
+"i": 179,
+"t": 7.427,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c49",
+"fn": "client.AiofetchClient.get_json",
+"i": 180,
+"t": 7.428,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c50",
+"fn": "breaker.CircuitBreaker.call",
+"i": 181,
+"t": 7.429,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c51",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"i": 182,
+"t": 7.43,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c52",
+"fn": "client.AiofetchClient._with_retries",
+"i": 183,
+"t": 7.431,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "client.AiofetchClient._attempt",
+"i": 184,
+"t": 7.433,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c57",
+"fn": "transport.get_json",
+"i": 185,
+"t": 7.434,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c58",
+"fn": "flaky.FlakyAPI.get",
+"i": 186,
+"t": 7.435,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c59",
+"fn": "flaky.FlakyAPI.next_answer",
+"parent": "c58",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 124,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 105
+},
+"self": "o1",
+"i": 187,
+"t": 7.492,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c59",
+"fn": "flaky.FlakyAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.420572
+}
+]
+],
+"i": 188,
+"t": 7.532,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c60",
+"fn": "flaky.payload",
+"parent": "c58",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 142,
+"text": "return json_response(200, payload(path))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 60
+},
+"i": 189,
+"t": 7.586,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c61",
+"fn": "flaky.tagged",
+"parent": "c60",
+"via": null,
+"args": [
+[
+"item_id",
+{
+"t": "int",
+"v": 2500
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 64,
+"text": "return tagged(int(name))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 15
+},
+"i": 190,
+"t": 7.636,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c61",
+"fn": "flaky.tagged",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [],
+"i": 191,
+"t": 7.676,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c60",
+"fn": "flaky.payload",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"kind",
+{
+"t": "str",
+"v": "v2"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "2500"
+}
+]
+],
+"i": 192,
+"t": 7.717,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c62",
+"fn": "flaky.json_response",
+"parent": "c58",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 142,
+"text": "return json_response(200, payload(path))"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 74
+},
+"i": 193,
+"t": 7.773,
+"task": "main"
+},
+{
+"k": "new",
+"id": "c63",
+"fn": "transport.Response",
+"parent": "c62",
+"via": null,
+"args": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"error\", \"code\": \"bad_id\", \"message\": \"no id 2500\"}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/aiofetch/flaky.py",
+"line": 78,
+"text": "return Response(status, json.dumps(data).encode(), all_headers)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o10",
+"i": 194,
+"t": 7.839,
+"task": "main"
+},
+{
+"k": "born",
+"id": "c63",
+"fn": "transport.Response",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Response",
+"obj": "o10",
+"name": "Response#3",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"error\", \"code\": \"bad_id\", \"message\": \"no id 2500\"}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"i": 195,
+"t": 7.896,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c62",
+"fn": "flaky.json_response",
+"value": {
+"t": "Response",
+"obj": "o10",
+"name": "Response#3",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"error\", \"code\": \"bad_id\", \"message\": \"no id 2500\"}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"all_headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+],
+"i": 196,
+"t": 7.947,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c58",
+"i": 197,
+"t": 7.958,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c58",
+"fn": "flaky.FlakyAPI.get",
+"value": {
+"t": "Response",
+"obj": "o10",
+"name": "Response#3",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"error\", \"code\": \"bad_id\", \"message\": \"no id 2500\"}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"content-type",
+{
+"t": "str",
+"v": "application/json"
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 198,
+"t": 7.993,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c64",
+"fn": "transport.Response.json",
+"parent": "c57",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 92,
+"text": "return response.json()"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 18
+},
+"self": "o10",
+"i": 199,
+"t": 8.052,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c64",
+"fn": "transport.Response.json",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"data",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+]
+],
+"i": 200,
+"t": 8.106,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c57",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"obj": "o10",
+"name": "Response#3",
+"fields": [
+[
+"status",
+{
+"t": "int",
+"v": 200
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"status\": \"error\", \"code\": \"bad_id\", \"message\": \"no id 2500\"}'"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1
+}
+]
+]
+}
+]
+],
+"i": 201,
+"t": 8.154,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c55",
+"fn": "client.AiofetchClient._attempt",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [],
+"i": 202,
+"t": 8.202,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c52",
+"fn": "client.AiofetchClient._with_retries",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"policy",
+{
+"t": "AsyncRetrying",
+"lib": "tenacity",
+"v": "<AsyncRetrying object at 0x74d7ed101950 (stop=<tenacity.stop.stop_after_attempt\u2026"
+}
+],
+[
+"attempt",
+{
+"t": "AttemptManager",
+"lib": "tenacity",
+"v": "<tenacity.AttemptManager object at 0x74d7ed101d10>"
+}
+]
+],
+"i": 203,
+"t": 8.264,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c51",
+"fn": "client.AiofetchClient.get_json.<retried_call>",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"params",
+{
+"t": "None"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+]
+],
+"i": 204,
+"t": 8.308,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c65",
+"fn": "breaker.CircuitBreaker._succeeded",
+"parent": "c50",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/breaker.py",
+"line": 46,
+"text": "self._succeeded()"
+},
+"def": {
+"file": "src/aiofetch/breaker.py",
+"line": 54
+},
+"self": "o4",
+"i": 205,
+"t": 8.364,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c65",
+"fn": "breaker.CircuitBreaker._succeeded",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 206,
+"t": 8.408,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c50",
+"fn": "breaker.CircuitBreaker.call",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+]
+],
+"i": 207,
+"t": 8.454,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "20 permits free",
+"by": "c49",
+"i": 208,
+"t": 8.484,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c49",
+"fn": "client.AiofetchClient.get_json",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"retried_call",
+{
+"t": "function",
+"v": "AiofetchClient.get_json.<locals>.retried_call"
+}
+]
+],
+"i": 209,
+"t": 8.501,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o3",
+"field": "seconds",
+"old": "[0.0023655709956074134, 0.0021019510022597387]",
+"new": "[0.0023655709956074134, 0.0021019510022597387, 0.002218877008999698]",
+"by": "c48",
+"i": 210,
+"t": 8.517,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c48",
+"fn": "client.timed.<wrapper>",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 92218.606258
+}
+],
+[
+"fn",
+{
+"t": "function",
+"v": "AiofetchClient.get_json"
+}
+]
+],
+"i": 211,
+"t": 8.548,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c47",
+"fn": "client.AiofetchClient.get_item",
+"value": {
+"t": "ApiError",
+"obj": "o11",
+"name": "ApiError#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/v2/items/2500"
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+],
+[
+"answer",
+{
+"t": "ApiError",
+"obj": "o11",
+"name": "ApiError#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+]
+],
+"i": 212,
+"t": 8.619,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c66",
+"fn": "client.AiofetchClient.__aexit__",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"exc",
+{
+"t": "tuple",
+"n": 3,
+"items": [
+{
+"t": "None"
+},
+{
+"t": "None"
+},
+{
+"t": "None"
+}
+]
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 10,
+"text": "async with AiofetchClient(\"http://api.test\", transport=FlakyAPI()) as client:"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 102
+},
+"self": "o2",
+"async": true,
+"i": 213,
+"t": 8.685,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c67",
+"fn": "client.AiofetchClient._transport",
+"parent": "c66",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 103,
+"text": "await self._transport().aclose()"
+},
+"def": {
+"file": "src/aiofetch/client.py",
+"line": 86
+},
+"self": "o2",
+"i": 214,
+"t": 8.739,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c67",
+"fn": "client.AiofetchClient._transport",
+"value": {
+"t": "FlakyAPI",
+"obj": "o1",
+"name": "FlakyAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x405e1c40>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"/v2/items/7",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/v2/items/1500",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"/v2/items/2500",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+"locals": [],
+"i": 215,
+"t": 8.792,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c68",
+"fn": "flaky.FlakyAPI.aclose",
+"parent": "c66",
+"via": null,
+"args": [],
+"site": {
+"file": "src/aiofetch/client.py",
+"line": 103,
+"text": "await self._transport().aclose()"
+},
+"def": {
+"file": "src/aiofetch/flaky.py",
+"line": 149
+},
+"self": "o1",
+"async": true,
+"i": 216,
+"t": 8.846,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c68",
+"fn": "flaky.FlakyAPI.aclose",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 217,
+"t": 8.886,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c66",
+"fn": "client.AiofetchClient.__aexit__",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 218,
+"t": 8.924,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent.<main>",
+"value": {
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "ItemFound",
+"obj": "o6",
+"name": "ItemFound#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "Item",
+"obj": "o7",
+"name": "Item#1"
+}
+]
+]
+},
+{
+"t": "ItemMissing",
+"obj": "o9",
+"name": "ItemMissing#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+},
+{
+"t": "ApiError",
+"obj": "o11",
+"name": "ApiError#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+]
+},
+"locals": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"obj": "o2",
+"name": "AiofetchClient#1",
+"fields": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"backoff_base",
+{
+"t": "float",
+"v": 0.5
+}
+],
+[
+"backoff_cap",
+{
+"t": "float",
+"v": 30.0
+}
+],
+[
+"headers",
+{
+"t": "None"
+}
+],
+[
+"logger",
+{
+"t": "None"
+}
+],
+[
+"stats",
+{
+"t": "Stats",
+"obj": "o3",
+"name": "Stats#1"
+}
+],
+[
+"limiter",
+{
+"t": "None"
+}
+],
+[
+"breaker",
+{
+"t": "CircuitBreaker",
+"obj": "o4",
+"name": "CircuitBreaker#1"
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+]
+]
+}
+]
+],
+"i": 219,
+"t": 8.992,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c69",
+"fn": "models.Item.tidy_name",
+"parent": "c1",
+"via": "pydantic",
+"args": [
+[
+"cls",
+{
+"t": "ModelMetaclass",
+"lib": "pydantic",
+"v": "<class 'aiofetch.models.Item'>"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+]
+],
+"site": {
+"file": "tests/test_w04_part3_get_item.py",
+"line": 14,
+"text": "assert found == ItemFound(status=\"ok\", item=Item(id=7, name=\"item 7\", priceCents=257))"
+},
+"def": {
+"file": "src/aiofetch/models.py",
+"line": 15
+},
+"i": 220,
+"t": 9.224,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c69",
+"fn": "models.Item.tidy_name",
+"value": {
+"t": "str",
+"v": "item 7"
+},
+"locals": [],
+"i": 221,
+"t": 9.272,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_w04_part3_get_item.test_get_item_returns_the_shape_the_server_sent",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"main",
+{
+"t": "function",
+"v": "test_get_item_returns_the_shape_the_server_sent.<locals>.main"
+}
+],
+[
+"found",
+{
+"t": "ItemFound",
+"obj": "o6",
+"name": "ItemFound#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"item",
+{
+"t": "Item",
+"obj": "o7",
+"name": "Item#1",
+"fields": [
+[
+"id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+],
+[
+"price_cents",
+{
+"t": "int",
+"v": 257
+}
+]
+]
+}
+]
+]
+}
+],
+[
+"missing",
+{
+"t": "ItemMissing",
+"obj": "o9",
+"name": "ItemMissing#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "not_found"
+}
+],
+[
+"id",
+{
+"t": "int",
+"v": 1500
+}
+]
+]
+}
+],
+[
+"error",
+{
+"t": "ApiError",
+"obj": "o11",
+"name": "ApiError#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "error"
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "bad_id"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "no id 2500"
+}
+]
+]
+}
+]
+],
+"i": 222,
+"t": 9.362,
+"task": "sync"
+}
+],
+"objects": {
+"o1": {
+"cls": "flaky.FlakyAPI",
+"name": "FlakyAPI#1",
+"born": "c2"
+},
+"o2": {
+"cls": "client.AiofetchClient",
+"name": "AiofetchClient#1",
+"born": "c2"
+},
+"o3": {
+"cls": "client.Stats",
+"name": "Stats#1",
+"born": "c4"
+},
+"o4": {
+"cls": "breaker.CircuitBreaker",
+"name": "CircuitBreaker#1",
+"born": "c4"
+},
+"o5": {
+"cls": "transport.Response",
+"name": "Response#1",
+"born": "c23"
+},
+"o6": {
+"cls": "models.ItemFound",
+"name": "ItemFound#1",
+"born": null
+},
+"o7": {
+"cls": "models.Item",
+"name": "Item#1",
+"born": null
+},
+"o8": {
+"cls": "transport.Response",
+"name": "Response#2",
+"born": "c43"
+},
+"o9": {
+"cls": "models.ItemMissing",
+"name": "ItemMissing#1",
+"born": null
+},
+"o10": {
+"cls": "transport.Response",
+"name": "Response#3",
+"born": "c62"
+},
+"o11": {
+"cls": "models.ApiError",
+"name": "ApiError#1",
+"born": null
+}
+},
+"tasks": [
+"main"
+]
+}

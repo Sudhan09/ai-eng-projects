@@ -1,0 +1,20 @@
+{
+ "commit": "8e91bdf",
+ "picked": [
+  {
+   "file": "auto/W1/2/test_part2__test_merge_with_itself_changes_nothing.json",
+   "test": "tests/test_part2.py",
+   "fn": "test_merge_with_itself_changes_nothing",
+   "title": "Merge with itself changes nothing",
+   "score": 5
+  },
+  {
+   "file": "auto/W1/2/test_part2__test_from_lists_defaults_are_fresh.json",
+   "test": "tests/test_part2.py",
+   "fn": "test_from_lists_defaults_are_fresh",
+   "title": "From lists defaults are fresh",
+   "score": 4
+  }
+ ],
+ "recorder": 4
+}

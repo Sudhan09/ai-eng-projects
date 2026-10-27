@@ -1,0 +1,20 @@
+{
+ "commit": "1da8fcc",
+ "picked": [
+  {
+   "file": "auto/W2/1/test_part1__test_failing_jobs_raise_typed_errors.json",
+   "test": "tests/test_part1.py",
+   "fn": "test_failing_jobs_raise_typed_errors",
+   "title": "Failing jobs raise typed errors",
+   "score": 8
+  },
+  {
+   "file": "auto/W2/1/test_part1__test_serial_waits_once_per_job.json",
+   "test": "tests/test_part1.py",
+   "fn": "test_serial_waits_once_per_job",
+   "title": "Serial waits once per job",
+   "score": 7
+  }
+ ],
+ "recorder": 4
+}

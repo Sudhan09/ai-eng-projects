@@ -1,0 +1,1216 @@
+{
+"run": "tests/test_part1.py::test_record_works_as_dict_key",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part1.test_record_works_as_dict_key",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part1.py",
+"line": 52
+},
+"task": "sync",
+"i": 0,
+"t": 0.092
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "record.parse_line",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z INFO auth: user login ok"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 53,
+"text": "a, b = parse_line(LINE), parse_line(LINE)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 42
+},
+"task": "sync",
+"i": 1,
+"t": 0.212
+},
+{
+"k": "new",
+"id": "c3",
+"fn": "record.LogRecord",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 45,
+"text": "return LogRecord(timestamp, LogLevel[level], component, message)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 13
+},
+"self": "o1",
+"task": "sync",
+"i": 2,
+"t": 0.316
+},
+{
+"k": "born",
+"id": "c3",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o1",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"task": "sync",
+"i": 3,
+"t": 0.359
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o1",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "auth: user login ok"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+],
+"task": "sync",
+"i": 4,
+"t": 0.397
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "record.parse_line",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"line",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z INFO auth: user login ok"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 53,
+"text": "a, b = parse_line(LINE), parse_line(LINE)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 42
+},
+"task": "sync",
+"i": 5,
+"t": 0.435
+},
+{
+"k": "new",
+"id": "c5",
+"fn": "record.LogRecord",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+],
+"site": {
+"file": "src/logparse/record.py",
+"line": 45,
+"text": "return LogRecord(timestamp, LogLevel[level], component, message)"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 13
+},
+"self": "o3",
+"task": "sync",
+"i": 6,
+"t": 0.49
+},
+{
+"k": "born",
+"id": "c5",
+"fn": "record.LogRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"task": "sync",
+"i": 7,
+"t": 0.518
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "record.parse_line",
+"value": {
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+},
+"locals": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"rest",
+{
+"t": "str",
+"v": "auth: user login ok"
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+],
+"task": "sync",
+"i": 8,
+"t": 0.545
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "record.LogRecord.__hash__",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part1.py",
+"line": 54,
+"text": "d = {a: 1}"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 29
+},
+"self": "o1",
+"task": "sync",
+"i": 9,
+"t": 0.576
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "record.LogRecord._key",
+"parent": "c6",
+"via": null,
+"args": [],
+"site": {
+"file": "src/logparse/record.py",
+"line": 30,
+"text": "return hash(self._key())"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 21
+},
+"self": "o1",
+"task": "sync",
+"i": 10,
+"t": 0.599
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "record.LogRecord._key",
+"value": {
+"t": "tuple",
+"n": 4,
+"items": [
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+},
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+{
+"t": "str",
+"v": "auth"
+},
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+},
+"locals": [],
+"task": "sync",
+"i": 11,
+"t": 0.619
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "record.LogRecord.__hash__",
+"value": {
+"t": "int",
+"v": -763575282145110569
+},
+"locals": [],
+"task": "sync",
+"i": 12,
+"t": 0.63
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "record.LogRecord.__hash__",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part1.py",
+"line": 55,
+"text": "assert d[b] == 1"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 29
+},
+"self": "o3",
+"task": "sync",
+"i": 13,
+"t": 0.653
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "record.LogRecord._key",
+"parent": "c8",
+"via": null,
+"args": [],
+"site": {
+"file": "src/logparse/record.py",
+"line": 30,
+"text": "return hash(self._key())"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 21
+},
+"self": "o3",
+"task": "sync",
+"i": 14,
+"t": 0.674
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "record.LogRecord._key",
+"value": {
+"t": "tuple",
+"n": 4,
+"items": [
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+},
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+{
+"t": "str",
+"v": "auth"
+},
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+},
+"locals": [],
+"task": "sync",
+"i": 15,
+"t": 0.696
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "record.LogRecord.__hash__",
+"value": {
+"t": "int",
+"v": -763575282145110569
+},
+"locals": [],
+"task": "sync",
+"i": 16,
+"t": 0.881
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "record.LogRecord.__eq__",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"other",
+{
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 55,
+"text": "assert d[b] == 1"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 24
+},
+"self": "o1",
+"task": "sync",
+"i": 17,
+"t": 0.924
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "record.LogRecord._key",
+"parent": "c10",
+"via": null,
+"args": [],
+"site": {
+"file": "src/logparse/record.py",
+"line": 27,
+"text": "return self._key() == other._key()"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 21
+},
+"self": "o1",
+"task": "sync",
+"i": 18,
+"t": 0.949
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "record.LogRecord._key",
+"value": {
+"t": "tuple",
+"n": 4,
+"items": [
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+},
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+{
+"t": "str",
+"v": "auth"
+},
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+},
+"locals": [],
+"task": "sync",
+"i": 19,
+"t": 0.969
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "record.LogRecord._key",
+"parent": "c10",
+"via": null,
+"args": [],
+"site": {
+"file": "src/logparse/record.py",
+"line": 27,
+"text": "return self._key() == other._key()"
+},
+"def": {
+"file": "src/logparse/record.py",
+"line": 21
+},
+"self": "o3",
+"task": "sync",
+"i": 20,
+"t": 0.993
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "record.LogRecord._key",
+"value": {
+"t": "tuple",
+"n": 4,
+"items": [
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+},
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+{
+"t": "str",
+"v": "auth"
+},
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+},
+"locals": [],
+"task": "sync",
+"i": 21,
+"t": 1.01
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "record.LogRecord.__eq__",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"task": "sync",
+"i": 22,
+"t": 1.02
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part1.test_record_works_as_dict_key",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"a",
+{
+"t": "LogRecord",
+"obj": "o1",
+"name": "LogRecord#1",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+],
+[
+"b",
+{
+"t": "LogRecord",
+"obj": "o3",
+"name": "LogRecord#2",
+"fields": [
+[
+"timestamp",
+{
+"t": "str",
+"v": "2026-10-02T09:15:03Z"
+}
+],
+[
+"level",
+{
+"t": "LogLevel",
+"obj": "o2",
+"name": "LogLevel#1",
+"fields": [
+[
+"_value_",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"_name_",
+{
+"t": "str",
+"v": "INFO"
+}
+],
+[
+"_sort_order_",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"component",
+{
+"t": "str",
+"v": "auth"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "user login ok"
+}
+]
+]
+}
+],
+[
+"d",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"INFO auth: user login ok",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 23,
+"t": 1.053
+}
+],
+"objects": {
+"o1": {
+"cls": "record.LogRecord",
+"name": "LogRecord#1",
+"born": "c2"
+},
+"o2": {
+"cls": "record.LogLevel",
+"name": "LogLevel#1",
+"born": null
+},
+"o3": {
+"cls": "record.LogRecord",
+"name": "LogRecord#2",
+"born": "c4"
+}
+},
+"tasks": []
+}

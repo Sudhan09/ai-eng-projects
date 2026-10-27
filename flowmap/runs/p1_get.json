@@ -1,0 +1,968 @@
+{
+"run": "test_part1_transport::test_get_json_returns_the_decoded_payload",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part1_transport.test_get_json_returns_the_decoded_payload",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part1_transport.py",
+"line": 20
+},
+"i": 0,
+"t": 0.167,
+"task": "sync"
+},
+{
+"k": "new",
+"id": "c2",
+"fn": "chaos.ChaosAPI",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"script",
+{
+"t": "None"
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+]
+],
+"site": {
+"file": "tests/test_part1_transport.py",
+"line": 21,
+"text": "assert fetch(ChaosAPI(), \"/items/7\") == {\"id\": \"7\", \"name\": \"item 7\"}"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 13
+},
+"self": "o1",
+"i": 1,
+"t": 0.3,
+"task": "sync"
+},
+{
+"k": "born",
+"id": "c2",
+"fn": "chaos.ChaosAPI",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x13f1d890>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"i": 2,
+"t": 0.37,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "test_part1_transport.fetch",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"chaos",
+{
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x13f1d890>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/7"
+}
+]
+],
+"site": {
+"file": "tests/test_part1_transport.py",
+"line": 21,
+"text": "assert fetch(ChaosAPI(), \"/items/7\") == {\"id\": \"7\", \"name\": \"item 7\"}"
+},
+"def": {
+"file": "tests/test_part1_transport.py",
+"line": 11
+},
+"i": 3,
+"t": 0.418,
+"task": "sync"
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "test_part1_transport.fetch.<main>",
+"parent": "c3",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "tests/test_part1_transport.py",
+"line": 17,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "tests/test_part1_transport.py",
+"line": 12
+},
+"async": true,
+"i": 4,
+"t": 0.672,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "transport.make_client",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"base_url",
+{
+"t": "str",
+"v": "http://api.test"
+}
+],
+[
+"max_connections",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 10.0
+}
+],
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+]
+],
+"site": {
+"file": "tests/test_part1_transport.py",
+"line": 14,
+"text": "async with make_client(\"http://api.test\", transport=transport) as client:"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 6
+},
+"i": 5,
+"t": 0.71,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "transport.make_client",
+"value": {
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+},
+"locals": [],
+"i": 6,
+"t": 0.876,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "transport.get_json",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/7"
+}
+],
+[
+"params",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_part1_transport.py",
+"line": 15,
+"text": "return await get_json(client, path)"
+},
+"def": {
+"file": "src/aiofetch/transport.py",
+"line": 28
+},
+"async": true,
+"i": 7,
+"t": 0.92,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "chaos.ChaosAPI.__call__",
+"parent": "c6",
+"via": "httpx",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "httpx",
+"v": "GET http://api.test/items/7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/transport.py",
+"line": 30,
+"text": "response = await client.get(path, params=params)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 48
+},
+"self": "o1",
+"async": true,
+"i": 8,
+"t": 1.348,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "{}",
+"new": "{'/items/7': 1}",
+"by": "c7",
+"i": 9,
+"t": 1.369,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "total",
+"old": "0",
+"new": "1",
+"by": "c7",
+"i": 10,
+"t": 1.371,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c7",
+"i": 11,
+"t": 1.372,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "0",
+"new": "1",
+"by": "c7",
+"i": 12,
+"t": 1.373,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "chaos.ChaosAPI.__call__",
+"at": {
+"file": "src/aiofetch/chaos.py",
+"line": 55,
+"text": "await asyncio.sleep(self.latency)"
+},
+"i": 13,
+"t": 1.409,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "transport.get_json",
+"at": {
+"file": "src/aiofetch/transport.py",
+"line": 30,
+"text": "response = await client.get(path, params=params)"
+},
+"i": 14,
+"t": 1.426,
+"task": "main"
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "test_part1_transport.fetch.<main>",
+"at": {
+"file": "tests/test_part1_transport.py",
+"line": 15,
+"text": "return await get_json(client, path)"
+},
+"i": 15,
+"t": 1.439,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "test_part1_transport.fetch.<main>",
+"i": 16,
+"t": 1.455,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "transport.get_json",
+"i": 17,
+"t": 1.458,
+"task": "main"
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "chaos.ChaosAPI.__call__",
+"i": 18,
+"t": 1.46,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "chaos.ChaosAPI.next_answer",
+"parent": "c7",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 56,
+"text": "answer = self.next_answer(path)"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 36
+},
+"self": "o1",
+"i": 19,
+"t": 1.49,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "chaos.ChaosAPI.next_answer",
+"value": {
+"t": "int",
+"v": 200
+},
+"locals": [
+[
+"roll",
+{
+"t": "float",
+"v": 0.844422
+}
+]
+],
+"i": 20,
+"t": 1.507,
+"task": "main"
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "chaos.payload",
+"parent": "c7",
+"via": null,
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/7"
+}
+]
+],
+"site": {
+"file": "src/aiofetch/chaos.py",
+"line": 72,
+"text": "return httpx.Response(200, json=payload(path))"
+},
+"def": {
+"file": "src/aiofetch/chaos.py",
+"line": 7
+},
+"i": 21,
+"t": 1.535,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "chaos.payload",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "7"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+]
+]
+},
+"locals": [
+[
+"item_id",
+{
+"t": "str",
+"v": "7"
+}
+]
+],
+"i": 22,
+"t": 1.552,
+"task": "main"
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c7",
+"i": 23,
+"t": 1.642,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "chaos.ChaosAPI.__call__",
+"value": {
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+},
+"locals": [
+[
+"path",
+{
+"t": "str",
+"v": "/items/7"
+}
+],
+[
+"answer",
+{
+"t": "int",
+"v": 200
+}
+]
+],
+"i": 24,
+"t": 1.656,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "transport.get_json",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "7"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+]
+]
+},
+"locals": [
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx",
+"v": "<Response [200 OK]>"
+}
+]
+],
+"i": 25,
+"t": 1.929,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "test_part1_transport.fetch.<main>",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "7"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+]
+]
+},
+"locals": [
+[
+"transport",
+{
+"t": "MockTransport",
+"lib": "httpx",
+"v": "MockTransport(handler=ChaosAPI)"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx",
+"v": "AsyncClient(base_url='http://api.test')"
+}
+],
+[
+"chaos",
+{
+"t": "ChaosAPI",
+"obj": "o1",
+"name": "ChaosAPI#1",
+"fields": [
+[
+"script",
+{
+"t": "dict",
+"n": 0
+}
+],
+[
+"fail_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"limit_rate",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"latency",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"retry_after",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"down",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x13f1d890>"
+}
+],
+[
+"calls",
+{
+"t": "dict",
+"n": 1
+}
+],
+[
+"total",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/items/7"
+}
+]
+],
+"i": 26,
+"t": 1.961,
+"task": "main"
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "test_part1_transport.fetch",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "7"
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "item 7"
+}
+]
+]
+},
+"locals": [
+[
+"main",
+{
+"t": "function",
+"v": "fetch.<locals>.main"
+}
+]
+],
+"i": 27,
+"t": 2.092,
+"task": "sync"
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part1_transport.test_get_json_returns_the_decoded_payload",
+"value": {
+"t": "None"
+},
+"locals": [],
+"i": 28,
+"t": 2.105,
+"task": "sync"
+}
+],
+"objects": {
+"o1": {
+"cls": "chaos.ChaosAPI",
+"name": "ChaosAPI#1",
+"born": "c1"
+}
+},
+"tasks": [
+"main"
+]
+}

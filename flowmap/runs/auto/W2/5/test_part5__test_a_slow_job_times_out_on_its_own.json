@@ -1,0 +1,9883 @@
+{
+"run": "tests/test_part5.py::test_a_slow_job_times_out_on_its_own",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part5.test_a_slow_job_times_out_on_its_own",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part5.py",
+"line": 23
+},
+"task": "sync",
+"i": 0,
+"t": 0.086
+},
+{
+"k": "new",
+"id": "c2",
+"fn": "server.MockServer",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.01
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({3})"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 1.0
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 24,
+"text": "server = MockServer(delay=0.01, slow=frozenset({3}), slow_delay=1.0)"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 10
+},
+"self": "o1",
+"task": "sync",
+"i": 1,
+"t": 0.242
+},
+{
+"k": "born",
+"id": "c2",
+"fn": "server.MockServer",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "MockServer",
+"obj": "o1",
+"name": "MockServer#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.01
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({3})"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 1.0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"served",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"server",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "sync",
+"i": 2,
+"t": 0.294
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "test_part5.run_against",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"server",
+{
+"t": "MockServer",
+"obj": "o1",
+"name": "MockServer#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.01
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({3})"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 1.0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"served",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"server",
+{
+"t": "None"
+}
+]
+]
+}
+],
+[
+"make_batch",
+{
+"t": "function",
+"v": "test_a_slow_job_times_out_on_its_own.<locals>.<lambda>"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 25,
+"text": "results, sums, peak = run_against("
+},
+"def": {
+"file": "tests/test_part5.py",
+"line": 12
+},
+"task": "sync",
+"i": 3,
+"t": 0.349
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"parent": "c3",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "tests/test_part5.py",
+"line": 13
+},
+"async": true,
+"task": "main",
+"i": 4,
+"t": 0.649
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "server.MockServer.start",
+"parent": "c4",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 14,
+"text": "port = await server.start()"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 58
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 5,
+"t": 0.697
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "server.MockServer.start",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 59,
+"text": "self.server = await asyncio.start_server(self.handle, HOST, 0, backlog=1024)"
+},
+"task": "main",
+"i": 6,
+"t": 0.991
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"at": {
+"file": "tests/test_part5.py",
+"line": 14,
+"text": "port = await server.start()"
+},
+"task": "main",
+"i": 7,
+"t": 1.016
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"task": "main",
+"i": 8,
+"t": 1.058
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "server.MockServer.start",
+"task": "main",
+"i": 9,
+"t": 1.062
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "server.MockServer.start",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 59,
+"text": "self.server = await asyncio.start_server(self.handle, HOST, 0, backlog=1024)"
+},
+"task": "main",
+"i": 10,
+"t": 1.141
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"at": {
+"file": "tests/test_part5.py",
+"line": 14,
+"text": "port = await server.start()"
+},
+"task": "main",
+"i": 11,
+"t": 1.158
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"task": "main",
+"i": 12,
+"t": 1.165
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "server.MockServer.start",
+"task": "main",
+"i": 13,
+"t": 1.167
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "server",
+"old": "None",
+"new": "<Server sockets=(<asyncio.TransportSocket fd=14, family=2, type=1, proto=6, lad\u2026",
+"by": "c5",
+"task": "main",
+"i": 14,
+"t": 1.222
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "server.MockServer.start",
+"value": {
+"t": "int",
+"v": 40989
+},
+"locals": [],
+"task": "main",
+"i": 15,
+"t": 1.228
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "test_part5.test_a_slow_job_times_out_on_its_own.<<lambda>>",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 16,
+"text": "return await make_batch(port)"
+},
+"def": {
+"file": "tests/test_part5.py",
+"line": 26
+},
+"task": "main",
+"i": 16,
+"t": 1.282
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "test_part5.test_a_slow_job_times_out_on_its_own.<<lambda>>",
+"value": {
+"t": "coroutine",
+"v": "<coroutine run_group>"
+},
+"locals": [],
+"task": "main",
+"i": 17,
+"t": 1.319
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "batch.run_group",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"job_ids",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "int",
+"v": 0
+},
+{
+"t": "int",
+"v": 1
+},
+{
+"t": "int",
+"v": 2
+},
+{
+"t": "int",
+"v": 3
+},
+{
+"t": "int",
+"v": 4
+},
+{
+"t": "int",
+"v": 5
+}
+]
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"concurrency",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 16,
+"text": "return await make_batch(port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 126
+},
+"async": true,
+"task": "main",
+"i": 18,
+"t": 1.369
+},
+{
+"k": "new",
+"id": "c8",
+"fn": "batch.Fetcher",
+"parent": "c7",
+"via": null,
+"args": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"concurrency",
+{
+"t": "int",
+"v": 20
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 133,
+"text": "fetcher = Fetcher(port, concurrency)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 68
+},
+"self": "o2",
+"task": "main",
+"i": 19,
+"t": 1.476
+},
+{
+"k": "born",
+"id": "c8",
+"fn": "batch.Fetcher",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+},
+"task": "main",
+"i": 20,
+"t": 1.535
+},
+{
+"k": "task",
+"task": "main",
+"label": "T1",
+"by": "c7",
+"coro": {
+"fn": "batch.guarded",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 138,
+"text": "group.create_task(guarded(fetcher, job_id, timeout, strict, sums))"
+},
+"i": 21,
+"t": 1.583
+},
+{
+"k": "task",
+"task": "main",
+"label": "T2",
+"by": "c7",
+"coro": {
+"fn": "batch.guarded",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 138,
+"text": "group.create_task(guarded(fetcher, job_id, timeout, strict, sums))"
+},
+"i": 22,
+"t": 1.614
+},
+{
+"k": "task",
+"task": "main",
+"label": "T3",
+"by": "c7",
+"coro": {
+"fn": "batch.guarded",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 138,
+"text": "group.create_task(guarded(fetcher, job_id, timeout, strict, sums))"
+},
+"i": 23,
+"t": 1.642
+},
+{
+"k": "task",
+"task": "main",
+"label": "T4",
+"by": "c7",
+"coro": {
+"fn": "batch.guarded",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 138,
+"text": "group.create_task(guarded(fetcher, job_id, timeout, strict, sums))"
+},
+"i": 24,
+"t": 1.674
+},
+{
+"k": "task",
+"task": "main",
+"label": "T5",
+"by": "c7",
+"coro": {
+"fn": "batch.guarded",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 138,
+"text": "group.create_task(guarded(fetcher, job_id, timeout, strict, sums))"
+},
+"i": 25,
+"t": 1.696
+},
+{
+"k": "task",
+"task": "main",
+"label": "T6",
+"by": "c7",
+"coro": {
+"fn": "batch.guarded",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+]
+},
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 138,
+"text": "group.create_task(guarded(fetcher, job_id, timeout, strict, sums))"
+},
+"i": 26,
+"t": 1.718
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "batch.run_group",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"task": "main",
+"i": 27,
+"t": 1.765
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"at": {
+"file": "tests/test_part5.py",
+"line": 16,
+"text": "return await make_batch(port)"
+},
+"task": "main",
+"i": 28,
+"t": 1.799
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "batch.guarded",
+"parent": "c7",
+"via": "asyncio",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 114
+},
+"async": true,
+"task": "T1",
+"i": 29,
+"t": 1.867
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"parent": "c9",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 75
+},
+"self": "o2",
+"async": true,
+"task": "T1",
+"i": 30,
+"t": 1.919
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "20 permits free",
+"new": "19 permits free",
+"by": "c10",
+"task": "T1",
+"i": 31,
+"t": 1.983
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c10",
+"task": "T1",
+"i": 32,
+"t": 1.985
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "peak",
+"old": "0",
+"new": "1",
+"by": "c10",
+"task": "T1",
+"i": 33,
+"t": 1.986
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "batch.fetch_result",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 31
+},
+"async": true,
+"task": "T1",
+"i": 34,
+"t": 1.999
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "client.fetch",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "T1",
+"i": 35,
+"t": 2.05
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T1",
+"i": 36,
+"t": 2.269
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T1",
+"i": 37,
+"t": 2.308
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T1",
+"i": 38,
+"t": 2.341
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T1",
+"i": 39,
+"t": 2.377
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "batch.guarded",
+"parent": "c7",
+"via": "asyncio",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "19 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 114
+},
+"async": true,
+"task": "T2",
+"i": 40,
+"t": 2.441
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"parent": "c13",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 75
+},
+"self": "o2",
+"async": true,
+"task": "T2",
+"i": 41,
+"t": 2.494
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "18 permits free",
+"by": "c14",
+"task": "T2",
+"i": 42,
+"t": 2.547
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "1",
+"new": "2",
+"by": "c14",
+"task": "T2",
+"i": 43,
+"t": 2.548
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "peak",
+"old": "1",
+"new": "2",
+"by": "c14",
+"task": "T2",
+"i": 44,
+"t": 2.549
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "batch.fetch_result",
+"parent": "c14",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 31
+},
+"async": true,
+"task": "T2",
+"i": 45,
+"t": 2.565
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "client.fetch",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "T2",
+"i": 46,
+"t": 2.613
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T2",
+"i": 47,
+"t": 2.745
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T2",
+"i": 48,
+"t": 2.779
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T2",
+"i": 49,
+"t": 2.811
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T2",
+"i": 50,
+"t": 2.84
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "batch.guarded",
+"parent": "c7",
+"via": "asyncio",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "18 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 114
+},
+"async": true,
+"task": "T3",
+"i": 51,
+"t": 2.901
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"parent": "c17",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 75
+},
+"self": "o2",
+"async": true,
+"task": "T3",
+"i": 52,
+"t": 2.948
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "18 permits free",
+"new": "17 permits free",
+"by": "c18",
+"task": "T3",
+"i": 53,
+"t": 2.998
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "2",
+"new": "3",
+"by": "c18",
+"task": "T3",
+"i": 54,
+"t": 2.999
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "peak",
+"old": "2",
+"new": "3",
+"by": "c18",
+"task": "T3",
+"i": 55,
+"t": 3.0
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "batch.fetch_result",
+"parent": "c18",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 31
+},
+"async": true,
+"task": "T3",
+"i": 56,
+"t": 3.011
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "client.fetch",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "T3",
+"i": 57,
+"t": 3.059
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T3",
+"i": 58,
+"t": 3.16
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T3",
+"i": 59,
+"t": 3.192
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T3",
+"i": 60,
+"t": 3.225
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T3",
+"i": 61,
+"t": 3.255
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "batch.guarded",
+"parent": "c7",
+"via": "asyncio",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "17 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 114
+},
+"async": true,
+"task": "T4",
+"i": 62,
+"t": 3.318
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"parent": "c21",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 75
+},
+"self": "o2",
+"async": true,
+"task": "T4",
+"i": 63,
+"t": 3.367
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "17 permits free",
+"new": "16 permits free",
+"by": "c22",
+"task": "T4",
+"i": 64,
+"t": 3.413
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "3",
+"new": "4",
+"by": "c22",
+"task": "T4",
+"i": 65,
+"t": 3.415
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "peak",
+"old": "3",
+"new": "4",
+"by": "c22",
+"task": "T4",
+"i": 66,
+"t": 3.416
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "batch.fetch_result",
+"parent": "c22",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 31
+},
+"async": true,
+"task": "T4",
+"i": 67,
+"t": 3.43
+},
+{
+"k": "call",
+"id": "c24",
+"fn": "client.fetch",
+"parent": "c23",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "T4",
+"i": 68,
+"t": 3.476
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T4",
+"i": 69,
+"t": 3.577
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T4",
+"i": 70,
+"t": 3.609
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T4",
+"i": 71,
+"t": 3.643
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T4",
+"i": 72,
+"t": 3.691
+},
+{
+"k": "call",
+"id": "c25",
+"fn": "batch.guarded",
+"parent": "c7",
+"via": "asyncio",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "16 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 114
+},
+"async": true,
+"task": "T5",
+"i": 73,
+"t": 3.757
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"parent": "c25",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 75
+},
+"self": "o2",
+"async": true,
+"task": "T5",
+"i": 74,
+"t": 3.805
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "16 permits free",
+"new": "15 permits free",
+"by": "c26",
+"task": "T5",
+"i": 75,
+"t": 3.85
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "4",
+"new": "5",
+"by": "c26",
+"task": "T5",
+"i": 76,
+"t": 3.852
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "peak",
+"old": "4",
+"new": "5",
+"by": "c26",
+"task": "T5",
+"i": 77,
+"t": 3.853
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "batch.fetch_result",
+"parent": "c26",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 31
+},
+"async": true,
+"task": "T5",
+"i": 78,
+"t": 3.866
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "client.fetch",
+"parent": "c27",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "T5",
+"i": 79,
+"t": 3.913
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T5",
+"i": 80,
+"t": 4.012
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T5",
+"i": 81,
+"t": 4.048
+},
+{
+"k": "pause",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T5",
+"i": 82,
+"t": 4.084
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T5",
+"i": 83,
+"t": 4.114
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "batch.guarded",
+"parent": "c7",
+"via": "asyncio",
+"args": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "15 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"strict",
+{
+"t": "bool",
+"v": false
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 136,
+"text": "async with asyncio.TaskGroup() as group:"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 114
+},
+"async": true,
+"task": "T6",
+"i": 84,
+"t": 4.177
+},
+{
+"k": "call",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"parent": "c29",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"timeout",
+{
+"t": "float",
+"v": 0.3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 75
+},
+"self": "o2",
+"async": true,
+"task": "T6",
+"i": 85,
+"t": 4.224
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "15 permits free",
+"new": "14 permits free",
+"by": "c30",
+"task": "T6",
+"i": 86,
+"t": 4.267
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "5",
+"new": "6",
+"by": "c30",
+"task": "T6",
+"i": 87,
+"t": 4.268
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "peak",
+"old": "5",
+"new": "6",
+"by": "c30",
+"task": "T6",
+"i": 88,
+"t": 4.269
+},
+{
+"k": "call",
+"id": "c31",
+"fn": "batch.fetch_result",
+"parent": "c30",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 31
+},
+"async": true,
+"task": "T6",
+"i": 89,
+"t": 4.281
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "client.fetch",
+"parent": "c31",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "T6",
+"i": 90,
+"t": 4.332
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T6",
+"i": 91,
+"t": 4.438
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T6",
+"i": 92,
+"t": 4.478
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T6",
+"i": 93,
+"t": 4.513
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T6",
+"i": 94,
+"t": 4.545
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "batch.guarded",
+"task": "T1",
+"i": 95,
+"t": 4.787
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"task": "T1",
+"i": 96,
+"t": 4.79
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "batch.fetch_result",
+"task": "T1",
+"i": 97,
+"t": 4.792
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "T1",
+"i": 98,
+"t": 4.794
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T1",
+"i": 99,
+"t": 4.856
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T1",
+"i": 100,
+"t": 4.891
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T1",
+"i": 101,
+"t": 4.922
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T1",
+"i": 102,
+"t": 4.951
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "batch.guarded",
+"task": "T2",
+"i": 103,
+"t": 4.966
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"task": "T2",
+"i": 104,
+"t": 4.967
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "batch.fetch_result",
+"task": "T2",
+"i": 105,
+"t": 4.968
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "client.fetch",
+"task": "T2",
+"i": 106,
+"t": 4.97
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T2",
+"i": 107,
+"t": 5.022
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T2",
+"i": 108,
+"t": 5.055
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T2",
+"i": 109,
+"t": 5.085
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T2",
+"i": 110,
+"t": 5.116
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "batch.guarded",
+"task": "T3",
+"i": 111,
+"t": 5.125
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"task": "T3",
+"i": 112,
+"t": 5.127
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "batch.fetch_result",
+"task": "T3",
+"i": 113,
+"t": 5.13
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "client.fetch",
+"task": "T3",
+"i": 114,
+"t": 5.132
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T3",
+"i": 115,
+"t": 5.179
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T3",
+"i": 116,
+"t": 5.21
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T3",
+"i": 117,
+"t": 5.24
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T3",
+"i": 118,
+"t": 5.27
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "batch.guarded",
+"task": "T4",
+"i": 119,
+"t": 5.281
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"task": "T4",
+"i": 120,
+"t": 5.283
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "batch.fetch_result",
+"task": "T4",
+"i": 121,
+"t": 5.284
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "T4",
+"i": 122,
+"t": 5.285
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T4",
+"i": 123,
+"t": 5.332
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T4",
+"i": 124,
+"t": 5.363
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T4",
+"i": 125,
+"t": 5.396
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T4",
+"i": 126,
+"t": 5.425
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "batch.guarded",
+"task": "T5",
+"i": 127,
+"t": 5.434
+},
+{
+"k": "resume",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"task": "T5",
+"i": 128,
+"t": 5.435
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "batch.fetch_result",
+"task": "T5",
+"i": 129,
+"t": 5.437
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "client.fetch",
+"task": "T5",
+"i": 130,
+"t": 5.438
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T5",
+"i": 131,
+"t": 5.484
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T5",
+"i": 132,
+"t": 5.515
+},
+{
+"k": "pause",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T5",
+"i": 133,
+"t": 5.545
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T5",
+"i": 134,
+"t": 5.574
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "batch.guarded",
+"task": "T6",
+"i": 135,
+"t": 5.582
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"task": "T6",
+"i": 136,
+"t": 5.584
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "batch.fetch_result",
+"task": "T6",
+"i": 137,
+"t": 5.585
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "client.fetch",
+"task": "T6",
+"i": 138,
+"t": 5.587
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "T6",
+"i": 139,
+"t": 5.632
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T6",
+"i": 140,
+"t": 5.671
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T6",
+"i": 141,
+"t": 5.704
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T6",
+"i": 142,
+"t": 5.735
+},
+{
+"k": "call",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"parent": "c3",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=21 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=21 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 143,
+"t": 5.949
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c33",
+"task": "main",
+"i": 144,
+"t": 5.982
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "0",
+"new": "1",
+"by": "c33",
+"task": "main",
+"i": 145,
+"t": 5.983
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 146,
+"t": 5.995
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"parent": "c3",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=22 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=22 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 147,
+"t": 6.081
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "2",
+"by": "c34",
+"task": "main",
+"i": 148,
+"t": 6.112
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "1",
+"new": "2",
+"by": "c34",
+"task": "main",
+"i": 149,
+"t": 6.114
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 150,
+"t": 6.126
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"parent": "c3",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=23 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=23 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 151,
+"t": 6.21
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "2",
+"new": "3",
+"by": "c35",
+"task": "main",
+"i": 152,
+"t": 6.238
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "2",
+"new": "3",
+"by": "c35",
+"task": "main",
+"i": 153,
+"t": 6.239
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 154,
+"t": 6.251
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"parent": "c3",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=24 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=24 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 155,
+"t": 6.332
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "3",
+"new": "4",
+"by": "c36",
+"task": "main",
+"i": 156,
+"t": 6.36
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "3",
+"new": "4",
+"by": "c36",
+"task": "main",
+"i": 157,
+"t": 6.361
+},
+{
+"k": "pause",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 158,
+"t": 6.375
+},
+{
+"k": "call",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"parent": "c3",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=25 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=25 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 159,
+"t": 6.458
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "4",
+"new": "5",
+"by": "c37",
+"task": "main",
+"i": 160,
+"t": 6.487
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "4",
+"new": "5",
+"by": "c37",
+"task": "main",
+"i": 161,
+"t": 6.489
+},
+{
+"k": "pause",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 162,
+"t": 6.5
+},
+{
+"k": "call",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"parent": "c3",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=26 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=26 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part5.py",
+"line": 20,
+"text": "return asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 163,
+"t": 6.576
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "5",
+"new": "6",
+"by": "c38",
+"task": "main",
+"i": 164,
+"t": 6.603
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "5",
+"new": "6",
+"by": "c38",
+"task": "main",
+"i": 165,
+"t": 6.604
+},
+{
+"k": "pause",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 166,
+"t": 6.615
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "batch.guarded",
+"task": "T1",
+"i": 167,
+"t": 6.621
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"task": "T1",
+"i": 168,
+"t": 6.622
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "batch.fetch_result",
+"task": "T1",
+"i": 169,
+"t": 6.624
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "T1",
+"i": 170,
+"t": 6.625
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T1",
+"i": 171,
+"t": 6.708
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T1",
+"i": 172,
+"t": 6.74
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T1",
+"i": 173,
+"t": 6.771
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T1",
+"i": 174,
+"t": 6.799
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "batch.guarded",
+"task": "T2",
+"i": 175,
+"t": 6.802
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"task": "T2",
+"i": 176,
+"t": 6.803
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "batch.fetch_result",
+"task": "T2",
+"i": 177,
+"t": 6.805
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "client.fetch",
+"task": "T2",
+"i": 178,
+"t": 6.806
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T2",
+"i": 179,
+"t": 6.864
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T2",
+"i": 180,
+"t": 6.897
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T2",
+"i": 181,
+"t": 6.927
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T2",
+"i": 182,
+"t": 6.956
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "batch.guarded",
+"task": "T3",
+"i": 183,
+"t": 6.959
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"task": "T3",
+"i": 184,
+"t": 6.961
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "batch.fetch_result",
+"task": "T3",
+"i": 185,
+"t": 6.962
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "client.fetch",
+"task": "T3",
+"i": 186,
+"t": 6.963
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T3",
+"i": 187,
+"t": 7.014
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T3",
+"i": 188,
+"t": 7.045
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T3",
+"i": 189,
+"t": 7.075
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T3",
+"i": 190,
+"t": 7.103
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "batch.guarded",
+"task": "T4",
+"i": 191,
+"t": 7.107
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"task": "T4",
+"i": 192,
+"t": 7.108
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "batch.fetch_result",
+"task": "T4",
+"i": 193,
+"t": 7.109
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "T4",
+"i": 194,
+"t": 7.11
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T4",
+"i": 195,
+"t": 7.158
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T4",
+"i": 196,
+"t": 7.188
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T4",
+"i": 197,
+"t": 7.217
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T4",
+"i": 198,
+"t": 7.248
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "batch.guarded",
+"task": "T5",
+"i": 199,
+"t": 7.251
+},
+{
+"k": "resume",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"task": "T5",
+"i": 200,
+"t": 7.252
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "batch.fetch_result",
+"task": "T5",
+"i": 201,
+"t": 7.254
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "client.fetch",
+"task": "T5",
+"i": 202,
+"t": 7.255
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T5",
+"i": 203,
+"t": 7.303
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T5",
+"i": 204,
+"t": 7.333
+},
+{
+"k": "pause",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T5",
+"i": 205,
+"t": 7.364
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T5",
+"i": 206,
+"t": 7.393
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "batch.guarded",
+"task": "T6",
+"i": 207,
+"t": 7.395
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"task": "T6",
+"i": 208,
+"t": 7.397
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "batch.fetch_result",
+"task": "T6",
+"i": 209,
+"t": 7.398
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "client.fetch",
+"task": "T6",
+"i": 210,
+"t": 7.4
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T6",
+"i": 211,
+"t": 7.447
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T6",
+"i": 212,
+"t": 7.477
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T6",
+"i": 213,
+"t": 7.506
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T6",
+"i": 214,
+"t": 7.535
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 215,
+"t": 7.583
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 216,
+"t": 7.644
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 217,
+"t": 7.647
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 218,
+"t": 7.71
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 219,
+"t": 7.713
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 220,
+"t": 7.753
+},
+{
+"k": "resume",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 221,
+"t": 7.756
+},
+{
+"k": "pause",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 222,
+"t": 7.795
+},
+{
+"k": "resume",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 223,
+"t": 7.798
+},
+{
+"k": "pause",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 224,
+"t": 7.837
+},
+{
+"k": "resume",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 225,
+"t": 7.84
+},
+{
+"k": "pause",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 226,
+"t": 7.879
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 227,
+"t": 17.991
+},
+{
+"k": "call",
+"id": "c39",
+"fn": "server.MockServer.reply",
+"parent": "c33",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 228,
+"t": 18.082
+},
+{
+"k": "return",
+"id": "c39",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 0 payload-0"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 229,
+"t": 18.12
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "6",
+"new": "5",
+"by": "c33",
+"task": "main",
+"i": 230,
+"t": 18.198
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "0",
+"new": "1",
+"by": "c33",
+"task": "main",
+"i": 231,
+"t": 18.2
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 232,
+"t": 18.213
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 233,
+"t": 18.217
+},
+{
+"k": "call",
+"id": "c40",
+"fn": "server.MockServer.reply",
+"parent": "c34",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 234,
+"t": 18.272
+},
+{
+"k": "return",
+"id": "c40",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 1 payload-1"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 235,
+"t": 18.305
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "5",
+"new": "4",
+"by": "c34",
+"task": "main",
+"i": 236,
+"t": 18.355
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "1",
+"new": "2",
+"by": "c34",
+"task": "main",
+"i": 237,
+"t": 18.357
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 238,
+"t": 18.369
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 239,
+"t": 18.372
+},
+{
+"k": "call",
+"id": "c41",
+"fn": "server.MockServer.reply",
+"parent": "c35",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 240,
+"t": 18.419
+},
+{
+"k": "return",
+"id": "c41",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 2 payload-2"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 241,
+"t": 18.451
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "4",
+"new": "3",
+"by": "c35",
+"task": "main",
+"i": 242,
+"t": 18.492
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "2",
+"new": "3",
+"by": "c35",
+"task": "main",
+"i": 243,
+"t": 18.493
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 244,
+"t": 18.506
+},
+{
+"k": "resume",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 245,
+"t": 18.509
+},
+{
+"k": "call",
+"id": "c42",
+"fn": "server.MockServer.reply",
+"parent": "c37",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 246,
+"t": 18.555
+},
+{
+"k": "return",
+"id": "c42",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 4 payload-4"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 247,
+"t": 18.59
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "3",
+"new": "2",
+"by": "c37",
+"task": "main",
+"i": 248,
+"t": 18.633
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "3",
+"new": "4",
+"by": "c37",
+"task": "main",
+"i": 249,
+"t": 18.634
+},
+{
+"k": "pause",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 250,
+"t": 18.648
+},
+{
+"k": "resume",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 251,
+"t": 18.651
+},
+{
+"k": "call",
+"id": "c43",
+"fn": "server.MockServer.reply",
+"parent": "c38",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 252,
+"t": 18.711
+},
+{
+"k": "return",
+"id": "c43",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 5 payload-5"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 253,
+"t": 18.744
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "2",
+"new": "1",
+"by": "c38",
+"task": "main",
+"i": 254,
+"t": 18.786
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "4",
+"new": "5",
+"by": "c38",
+"task": "main",
+"i": 255,
+"t": 18.788
+},
+{
+"k": "pause",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 256,
+"t": 18.8
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 257,
+"t": 18.889
+},
+{
+"k": "return",
+"id": "c33",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "0"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 258,
+"t": 18.937
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 259,
+"t": 18.942
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "1"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"task": "main",
+"i": 260,
+"t": 18.976
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 261,
+"t": 18.98
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "2"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"task": "main",
+"i": 262,
+"t": 19.011
+},
+{
+"k": "resume",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 263,
+"t": 19.014
+},
+{
+"k": "return",
+"id": "c37",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "4"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+]
+],
+"task": "main",
+"i": 264,
+"t": 19.047
+},
+{
+"k": "resume",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 265,
+"t": 19.05
+},
+{
+"k": "return",
+"id": "c38",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "5"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"task": "main",
+"i": 266,
+"t": 19.084
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "batch.guarded",
+"task": "T1",
+"i": 267,
+"t": 19.087
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"task": "T1",
+"i": 268,
+"t": 19.089
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "batch.fetch_result",
+"task": "T1",
+"i": 269,
+"t": 19.09
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "T1",
+"i": 270,
+"t": 19.092
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T1",
+"i": 271,
+"t": 19.141
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T1",
+"i": 272,
+"t": 19.172
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T1",
+"i": 273,
+"t": 19.2
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T1",
+"i": 274,
+"t": 19.229
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "batch.guarded",
+"task": "T2",
+"i": 275,
+"t": 19.232
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"task": "T2",
+"i": 276,
+"t": 19.233
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "batch.fetch_result",
+"task": "T2",
+"i": 277,
+"t": 19.235
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "client.fetch",
+"task": "T2",
+"i": 278,
+"t": 19.236
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T2",
+"i": 279,
+"t": 19.28
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T2",
+"i": 280,
+"t": 19.309
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T2",
+"i": 281,
+"t": 19.339
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T2",
+"i": 282,
+"t": 19.368
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "batch.guarded",
+"task": "T3",
+"i": 283,
+"t": 19.371
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"task": "T3",
+"i": 284,
+"t": 19.372
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "batch.fetch_result",
+"task": "T3",
+"i": 285,
+"t": 19.373
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "client.fetch",
+"task": "T3",
+"i": 286,
+"t": 19.375
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T3",
+"i": 287,
+"t": 19.416
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T3",
+"i": 288,
+"t": 19.449
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T3",
+"i": 289,
+"t": 19.484
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T3",
+"i": 290,
+"t": 19.519
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "batch.guarded",
+"task": "T5",
+"i": 291,
+"t": 19.522
+},
+{
+"k": "resume",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"task": "T5",
+"i": 292,
+"t": 19.524
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "batch.fetch_result",
+"task": "T5",
+"i": 293,
+"t": 19.525
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "client.fetch",
+"task": "T5",
+"i": 294,
+"t": 19.526
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T5",
+"i": 295,
+"t": 19.568
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T5",
+"i": 296,
+"t": 19.603
+},
+{
+"k": "pause",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T5",
+"i": 297,
+"t": 19.635
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T5",
+"i": 298,
+"t": 19.671
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "batch.guarded",
+"task": "T6",
+"i": 299,
+"t": 19.675
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"task": "T6",
+"i": 300,
+"t": 19.677
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "batch.fetch_result",
+"task": "T6",
+"i": 301,
+"t": 19.679
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "client.fetch",
+"task": "T6",
+"i": 302,
+"t": 19.681
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T6",
+"i": 303,
+"t": 19.724
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "batch.fetch_result",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T6",
+"i": 304,
+"t": 19.753
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T6",
+"i": 305,
+"t": 19.78
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 117,
+"text": "result = await fetcher.fetch(job_id, timeout)"
+},
+"task": "T6",
+"i": 306,
+"t": 19.808
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "batch.guarded",
+"task": "T1",
+"i": 307,
+"t": 19.882
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"task": "T1",
+"i": 308,
+"t": 19.884
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "batch.fetch_result",
+"task": "T1",
+"i": 309,
+"t": 19.886
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "T1",
+"i": 310,
+"t": 19.887
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-0"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 0 payload-0\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "0"
+},
+{
+"t": "str",
+"v": "payload-0"
+}
+]
+}
+]
+],
+"task": "T1",
+"i": 311,
+"t": 19.957
+},
+{
+"k": "new",
+"id": "c44",
+"fn": "results.Result",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 34,
+"text": "return Result(job_id=job_id, value=value)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o3",
+"task": "T1",
+"i": 312,
+"t": 20.023
+},
+{
+"k": "born",
+"id": "c44",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o3",
+"name": "Result#1",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "T1",
+"i": 313,
+"t": 20.074
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "batch.fetch_result",
+"value": {
+"t": "Result",
+"obj": "o3",
+"name": "Result#1",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+]
+],
+"task": "T1",
+"i": 314,
+"t": 20.115
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "14 permits free",
+"new": "15 permits free",
+"by": "c10",
+"task": "T1",
+"i": 315,
+"t": 20.154
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "6",
+"new": "5",
+"by": "c10",
+"task": "T1",
+"i": 316,
+"t": 20.157
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "batch.Fetcher.fetch",
+"value": {
+"t": "Result",
+"obj": "o3",
+"name": "Result#1",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [],
+"task": "T1",
+"i": 317,
+"t": 20.169
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"task": "T1",
+"i": 318,
+"t": 21.006
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "batch.guarded",
+"task": "T2",
+"i": 319,
+"t": 21.011
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"task": "T2",
+"i": 320,
+"t": 21.013
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "batch.fetch_result",
+"task": "T2",
+"i": 321,
+"t": 21.014
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "client.fetch",
+"task": "T2",
+"i": 322,
+"t": 21.015
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-1"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=16>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=16> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 1 payload-1\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "1"
+},
+{
+"t": "str",
+"v": "payload-1"
+}
+]
+}
+]
+],
+"task": "T2",
+"i": 323,
+"t": 21.087
+},
+{
+"k": "new",
+"id": "c45",
+"fn": "results.Result",
+"parent": "c15",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 34,
+"text": "return Result(job_id=job_id, value=value)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o4",
+"task": "T2",
+"i": 324,
+"t": 21.159
+},
+{
+"k": "born",
+"id": "c45",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o4",
+"name": "Result#2",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "T2",
+"i": 325,
+"t": 21.21
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "batch.fetch_result",
+"value": {
+"t": "Result",
+"obj": "o4",
+"name": "Result#2",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+]
+],
+"task": "T2",
+"i": 326,
+"t": 21.254
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "15 permits free",
+"new": "16 permits free",
+"by": "c14",
+"task": "T2",
+"i": 327,
+"t": 21.292
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "5",
+"new": "4",
+"by": "c14",
+"task": "T2",
+"i": 328,
+"t": 21.293
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "batch.Fetcher.fetch",
+"value": {
+"t": "Result",
+"obj": "o4",
+"name": "Result#2",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [],
+"task": "T2",
+"i": 329,
+"t": 21.308
+},
+{
+"k": "call",
+"id": "c46",
+"fn": "batch.checksum",
+"parent": "c9",
+"via": "concurrent",
+"args": [
+[
+"payload",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"rounds",
+{
+"t": "int",
+"v": 2000
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 106
+},
+"task": "TH1",
+"i": 330,
+"t": 21.737
+},
+{
+"k": "call",
+"id": "c47",
+"fn": "batch.checksum",
+"parent": "c13",
+"via": "concurrent",
+"args": [
+[
+"payload",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"rounds",
+{
+"t": "int",
+"v": 2000
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 106
+},
+"task": "TH2",
+"i": 331,
+"t": 23.915
+},
+{
+"k": "return",
+"id": "c47",
+"fn": "batch.checksum",
+"value": {
+"t": "str",
+"v": "ba6fab286506"
+},
+"locals": [
+[
+"digest",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b\"\\xbao\\xab(e\\x06\\x02Z*\\x04%\\xf6\\xe8\\xbbx\\\\\\xbcE[x\\x84|)\\x86'\\xb1\\x0fL\\xad\\xd0K\u2026"
+}
+],
+[
+"_",
+{
+"t": "int",
+"v": 1999
+}
+]
+],
+"task": "TH2",
+"i": 332,
+"t": 24.571
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "batch.guarded",
+"value": {
+"t": "Result",
+"obj": "o4",
+"name": "Result#2",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "Result",
+"obj": "o4",
+"name": "Result#2",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"task": "T2",
+"i": 333,
+"t": 24.954
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "batch.guarded",
+"task": "T3",
+"i": 334,
+"t": 24.966
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"task": "T3",
+"i": 335,
+"t": 24.97
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "batch.fetch_result",
+"task": "T3",
+"i": 336,
+"t": 24.972
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "client.fetch",
+"task": "T3",
+"i": 337,
+"t": 24.978
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-2"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=17>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=17> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 2 payload-2\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "2"
+},
+{
+"t": "str",
+"v": "payload-2"
+}
+]
+}
+]
+],
+"task": "T3",
+"i": 338,
+"t": 25.103
+},
+{
+"k": "new",
+"id": "c48",
+"fn": "results.Result",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 34,
+"text": "return Result(job_id=job_id, value=value)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o5",
+"task": "T3",
+"i": 339,
+"t": 25.24
+},
+{
+"k": "born",
+"id": "c48",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o5",
+"name": "Result#3",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "T3",
+"i": 340,
+"t": 25.328
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "batch.fetch_result",
+"value": {
+"t": "Result",
+"obj": "o5",
+"name": "Result#3",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+]
+],
+"task": "T3",
+"i": 341,
+"t": 25.407
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "16 permits free",
+"new": "17 permits free",
+"by": "c18",
+"task": "T3",
+"i": 342,
+"t": 25.461
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "4",
+"new": "3",
+"by": "c18",
+"task": "T3",
+"i": 343,
+"t": 25.463
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "batch.Fetcher.fetch",
+"value": {
+"t": "Result",
+"obj": "o5",
+"name": "Result#3",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [],
+"task": "T3",
+"i": 344,
+"t": 25.494
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"task": "T3",
+"i": 345,
+"t": 25.603
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "batch.guarded",
+"task": "T5",
+"i": 346,
+"t": 25.609
+},
+{
+"k": "resume",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"task": "T5",
+"i": 347,
+"t": 25.611
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "batch.fetch_result",
+"task": "T5",
+"i": 348,
+"t": 25.613
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "client.fetch",
+"task": "T5",
+"i": 349,
+"t": 25.615
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-4"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=19>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=19> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 4 payload-4\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "4"
+},
+{
+"t": "str",
+"v": "payload-4"
+}
+]
+}
+]
+],
+"task": "T5",
+"i": 350,
+"t": 25.741
+},
+{
+"k": "call",
+"id": "c49",
+"fn": "batch.checksum",
+"parent": "c17",
+"via": "concurrent",
+"args": [
+[
+"payload",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"rounds",
+{
+"t": "int",
+"v": 2000
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 106
+},
+"task": "TH2",
+"i": 351,
+"t": 25.924
+},
+{
+"k": "return",
+"id": "c49",
+"fn": "batch.checksum",
+"value": {
+"t": "str",
+"v": "bc6497790b23"
+},
+"locals": [
+[
+"digest",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'\\xbcd\\x97y\\x0b#\\xebJz1l\\x8d~W\\xc8\\xd1\\x07C\\xaeU\\x17\\xfe\\x0f=\\xbd=.\\xcb\\x9f\\xb\u2026"
+}
+],
+[
+"_",
+{
+"t": "int",
+"v": 1999
+}
+]
+],
+"task": "TH2",
+"i": 352,
+"t": 26.564
+},
+{
+"k": "new",
+"id": "c50",
+"fn": "results.Result",
+"parent": "c27",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 34,
+"text": "return Result(job_id=job_id, value=value)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o6",
+"task": "T5",
+"i": 353,
+"t": 26.694
+},
+{
+"k": "born",
+"id": "c50",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o6",
+"name": "Result#4",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "T5",
+"i": 354,
+"t": 26.801
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "batch.fetch_result",
+"value": {
+"t": "Result",
+"obj": "o6",
+"name": "Result#4",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+]
+],
+"task": "T5",
+"i": 355,
+"t": 26.892
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "17 permits free",
+"new": "18 permits free",
+"by": "c26",
+"task": "T5",
+"i": 356,
+"t": 26.95
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "3",
+"new": "2",
+"by": "c26",
+"task": "T5",
+"i": 357,
+"t": 26.953
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "batch.Fetcher.fetch",
+"value": {
+"t": "Result",
+"obj": "o6",
+"name": "Result#4",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [],
+"task": "T5",
+"i": 358,
+"t": 26.995
+},
+{
+"k": "call",
+"id": "c51",
+"fn": "batch.checksum",
+"parent": "c25",
+"via": "concurrent",
+"args": [
+[
+"payload",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"rounds",
+{
+"t": "int",
+"v": 2000
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 106
+},
+"task": "TH2",
+"i": 359,
+"t": 27.217
+},
+{
+"k": "return",
+"id": "c51",
+"fn": "batch.checksum",
+"value": {
+"t": "str",
+"v": "b86ea90a0d36"
+},
+"locals": [
+[
+"digest",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'\\xb8n\\xa9\\n\\r6\\t\\x91\\xbb\\xfc\\xa3\\xa1\\xbb\\x122\\xda\\x7f\\xea\\x89n\\xe1>\\x85\\xe0\\x\u2026"
+}
+],
+[
+"_",
+{
+"t": "int",
+"v": 1999
+}
+]
+],
+"task": "TH2",
+"i": 360,
+"t": 27.878
+},
+{
+"k": "return",
+"id": "c46",
+"fn": "batch.checksum",
+"value": {
+"t": "str",
+"v": "e761af2ab417"
+},
+"locals": [
+[
+"digest",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'\\xe7a\\xaf*\\xb4\\x17B@\\t\\x9d\\x03\\x86unW!D_\\xfd@\\x90\\xf0\\x9e\\x93\\x1e<F\\xaf\\x90]L\u2026"
+}
+],
+[
+"_",
+{
+"t": "int",
+"v": 1999
+}
+]
+],
+"task": "TH1",
+"i": 361,
+"t": 28.138
+},
+{
+"k": "return",
+"id": "c25",
+"fn": "batch.guarded",
+"value": {
+"t": "Result",
+"obj": "o6",
+"name": "Result#4",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#4",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"task": "T5",
+"i": 362,
+"t": 28.451
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "batch.guarded",
+"task": "T6",
+"i": 363,
+"t": 28.462
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"task": "T6",
+"i": 364,
+"t": 28.465
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "batch.fetch_result",
+"task": "T6",
+"i": 365,
+"t": 28.468
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "client.fetch",
+"task": "T6",
+"i": 366,
+"t": 28.47
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-5"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=20>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=20> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 5 payload-5\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "5"
+},
+{
+"t": "str",
+"v": "payload-5"
+}
+]
+}
+]
+],
+"task": "T6",
+"i": 367,
+"t": 28.604
+},
+{
+"k": "new",
+"id": "c52",
+"fn": "results.Result",
+"parent": "c31",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 34,
+"text": "return Result(job_id=job_id, value=value)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o7",
+"task": "T6",
+"i": 368,
+"t": 28.793
+},
+{
+"k": "born",
+"id": "c52",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o7",
+"name": "Result#5",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "T6",
+"i": 369,
+"t": 28.87
+},
+{
+"k": "return",
+"id": "c31",
+"fn": "batch.fetch_result",
+"value": {
+"t": "Result",
+"obj": "o7",
+"name": "Result#5",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+]
+],
+"task": "T6",
+"i": 370,
+"t": 28.931
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "18 permits free",
+"new": "19 permits free",
+"by": "c30",
+"task": "T6",
+"i": 371,
+"t": 28.968
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "2",
+"new": "1",
+"by": "c30",
+"task": "T6",
+"i": 372,
+"t": 28.969
+},
+{
+"k": "return",
+"id": "c30",
+"fn": "batch.Fetcher.fetch",
+"value": {
+"t": "Result",
+"obj": "o7",
+"name": "Result#5",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [],
+"task": "T6",
+"i": 373,
+"t": 28.998
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "batch.guarded",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"task": "T6",
+"i": 374,
+"t": 29.089
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "batch.guarded",
+"task": "T3",
+"i": 375,
+"t": 29.194
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "batch.guarded",
+"value": {
+"t": "Result",
+"obj": "o5",
+"name": "Result#3",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#3",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"task": "T3",
+"i": 376,
+"t": 29.269
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "batch.guarded",
+"task": "T1",
+"i": 377,
+"t": 29.274
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "batch.guarded",
+"value": {
+"t": "Result",
+"obj": "o3",
+"name": "Result#1",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "Result",
+"obj": "o3",
+"name": "Result#1",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"task": "T1",
+"i": 378,
+"t": 29.336
+},
+{
+"k": "call",
+"id": "c53",
+"fn": "batch.checksum",
+"parent": "c29",
+"via": "concurrent",
+"args": [
+[
+"payload",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"rounds",
+{
+"t": "int",
+"v": 2000
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 122,
+"text": "sums[job_id] = await asyncio.to_thread(checksum, result.value)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 106
+},
+"task": "TH2",
+"i": 379,
+"t": 29.438
+},
+{
+"k": "return",
+"id": "c53",
+"fn": "batch.checksum",
+"value": {
+"t": "str",
+"v": "dbf1226f996d"
+},
+"locals": [
+[
+"digest",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'\\xdb\\xf1\"o\\x99m\\x067\\xc8)\\xb3\\xf0h\\xff.l\\x96/\\xde5\\'C\\xa8\\x18\\xd6}\\xc3\\x1e\\xf\u2026"
+}
+],
+[
+"_",
+{
+"t": "int",
+"v": 1999
+}
+]
+],
+"task": "TH2",
+"i": 380,
+"t": 30.066
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "batch.guarded",
+"task": "T6",
+"i": 381,
+"t": 30.132
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "batch.guarded",
+"value": {
+"t": "Result",
+"obj": "o7",
+"name": "Result#5",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#5",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"task": "T6",
+"i": 382,
+"t": 30.213
+},
+{
+"k": "throw",
+"id": "c24",
+"fn": "client.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T4",
+"i": 383,
+"t": 304.749
+},
+{
+"k": "catch",
+"id": "c24",
+"fn": "client.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T4",
+"i": 384,
+"t": 304.788
+},
+{
+"k": "catch",
+"id": "c24",
+"fn": "client.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "T4",
+"i": 385,
+"t": 304.814
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T4",
+"i": 386,
+"t": 305.083
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "batch.guarded",
+"task": "T4",
+"i": 387,
+"t": 305.19
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"task": "T4",
+"i": 388,
+"t": 305.196
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "batch.fetch_result",
+"task": "T4",
+"i": 389,
+"t": 305.2
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "T4",
+"i": 390,
+"t": 305.203
+},
+{
+"k": "catch",
+"id": "c24",
+"fn": "client.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T4",
+"i": 391,
+"t": 305.23
+},
+{
+"k": "catch",
+"id": "c24",
+"fn": "client.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "T4",
+"i": 392,
+"t": 305.247
+},
+{
+"k": "raise",
+"id": "c24",
+"fn": "client.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=18>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=18> reader=<StreamR\u2026"
+}
+]
+],
+"task": "T4",
+"i": 393,
+"t": 305.461
+},
+{
+"k": "throw",
+"id": "c23",
+"fn": "batch.fetch_result",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T4",
+"i": 394,
+"t": 305.489
+},
+{
+"k": "catch",
+"id": "c23",
+"fn": "batch.fetch_result",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 33,
+"text": "value = await fetch(job_id, port)"
+},
+"task": "T4",
+"i": 395,
+"t": 305.504
+},
+{
+"k": "catch",
+"id": "c23",
+"fn": "batch.fetch_result",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 35,
+"text": "except FetchError as e:"
+},
+"task": "T4",
+"i": 396,
+"t": 305.518
+},
+{
+"k": "catch",
+"id": "c23",
+"fn": "batch.fetch_result",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 35,
+"text": "except FetchError as e:"
+},
+"task": "T4",
+"i": 397,
+"t": 305.529
+},
+{
+"k": "raise",
+"id": "c23",
+"fn": "batch.fetch_result",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"locals": [],
+"task": "T4",
+"i": 398,
+"t": 305.676
+},
+{
+"k": "throw",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T4",
+"i": 399,
+"t": 305.7
+},
+{
+"k": "catch",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"exc": {
+"t": "CancelledError",
+"msg": "",
+"lib": "asyncio"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 82,
+"text": "return await fetch_result(job_id, self.port)"
+},
+"task": "T4",
+"i": 400,
+"t": 305.717
+},
+{
+"k": "throw",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"exc": {
+"t": "TimeoutError",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 81,
+"text": "async with asyncio.timeout(timeout):"
+},
+"task": "T4",
+"i": 401,
+"t": 305.762
+},
+{
+"k": "catch",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"exc": {
+"t": "TimeoutError",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 81,
+"text": "async with asyncio.timeout(timeout):"
+},
+"task": "T4",
+"i": 402,
+"t": 305.776
+},
+{
+"k": "catch",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"exc": {
+"t": "TimeoutError",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 81,
+"text": "async with asyncio.timeout(timeout):"
+},
+"task": "T4",
+"i": 403,
+"t": 305.79
+},
+{
+"k": "new",
+"id": "c54",
+"fn": "errors.TransientError",
+"parent": "c22",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 84,
+"text": "return Result(job_id=job_id, error=TransientError(job_id, \"timeout\"))"
+},
+"def": {
+"file": "src/async_batch_fetcher/errors.py",
+"line": 9
+},
+"self": "o8",
+"task": "T4",
+"i": 404,
+"t": 306.002
+},
+{
+"k": "born",
+"id": "c54",
+"fn": "errors.TransientError",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout",
+"fields": [
+[
+"url",
+{
+"t": "None"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+},
+"task": "T4",
+"i": 405,
+"t": 306.16
+},
+{
+"k": "new",
+"id": "c55",
+"fn": "results.Result",
+"parent": "c22",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout",
+"fields": [
+[
+"url",
+{
+"t": "None"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 84,
+"text": "return Result(job_id=job_id, error=TransientError(job_id, \"timeout\"))"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o9",
+"task": "T4",
+"i": 406,
+"t": 306.314
+},
+{
+"k": "born",
+"id": "c55",
+"fn": "results.Result",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "Result",
+"obj": "o9",
+"name": "Result#6",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout",
+"fields": [
+[
+"url",
+{
+"t": "None"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+]
+]
+},
+"task": "T4",
+"i": 407,
+"t": 306.423
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "sem",
+"old": "19 permits free",
+"new": "20 permits free",
+"by": "c22",
+"task": "T4",
+"i": 408,
+"t": 306.478
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c22",
+"task": "T4",
+"i": 409,
+"t": 306.48
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "batch.Fetcher.fetch",
+"value": {
+"t": "Result",
+"obj": "o9",
+"name": "Result#6",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout",
+"fields": [
+[
+"url",
+{
+"t": "None"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+]
+]
+},
+"locals": [],
+"task": "T4",
+"i": 410,
+"t": 306.536
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "batch.guarded",
+"value": {
+"t": "Result",
+"obj": "o9",
+"name": "Result#6",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout",
+"fields": [
+[
+"url",
+{
+"t": "None"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"result",
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#6",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout"
+}
+]
+]
+}
+]
+],
+"task": "T4",
+"i": 411,
+"t": 306.645
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"task": "main",
+"i": 412,
+"t": 306.698
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "batch.run_group",
+"task": "main",
+"i": 413,
+"t": 306.703
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "batch.run_group",
+"value": {
+"t": "tuple",
+"n": 3,
+"items": [
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o3",
+"name": "Result#1"
+},
+{
+"t": "Result",
+"obj": "o4",
+"name": "Result#2"
+},
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#3"
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#6"
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#4"
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#5"
+}
+]
+},
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"1",
+{
+"t": "str",
+"v": "ba6fab286506"
+}
+],
+[
+"4",
+{
+"t": "str",
+"v": "b86ea90a0d36"
+}
+],
+[
+"2",
+{
+"t": "str",
+"v": "bc6497790b23"
+}
+],
+[
+"0",
+{
+"t": "str",
+"v": "e761af2ab417"
+}
+],
+[
+"5",
+{
+"t": "str",
+"v": "dbf1226f996d"
+}
+]
+]
+},
+{
+"t": "int",
+"v": 6
+}
+]
+},
+"locals": [
+[
+"fetcher",
+{
+"t": "Fetcher",
+"obj": "o2",
+"name": "Fetcher#1",
+"fields": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"sem",
+{
+"t": "BoundedSemaphore",
+"lib": "asyncio",
+"v": "20 permits free"
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"tasks",
+{
+"t": "set",
+"lib": "builtins",
+"v": "set()"
+}
+]
+]
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"1",
+{
+"t": "str",
+"v": "ba6fab286506"
+}
+],
+[
+"4",
+{
+"t": "str",
+"v": "b86ea90a0d36"
+}
+],
+[
+"2",
+{
+"t": "str",
+"v": "bc6497790b23"
+}
+],
+[
+"0",
+{
+"t": "str",
+"v": "e761af2ab417"
+}
+],
+[
+"5",
+{
+"t": "str",
+"v": "dbf1226f996d"
+}
+]
+]
+}
+],
+[
+"group",
+{
+"t": "TaskGroup",
+"lib": "asyncio",
+"v": "<TaskGroup entered>"
+}
+],
+[
+"tasks",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T1"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T2"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T3"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T4"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T5"
+},
+{
+"t": "Task",
+"lib": "asyncio",
+"v": "T6"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 414,
+"t": 306.878
+},
+{
+"k": "call",
+"id": "c56",
+"fn": "server.MockServer.stop",
+"parent": "c4",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 18,
+"text": "await server.stop()"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 62
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 415,
+"t": 307.003
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "server",
+"old": "<Server sockets=(<asyncio.TransportSocket fd=14, family=2, type=1, proto=6, lad\u2026",
+"new": "<Server sockets=()>",
+"by": "c56",
+"task": "main",
+"i": 416,
+"t": 307.06
+},
+{
+"k": "pause",
+"id": "c56",
+"fn": "server.MockServer.stop",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 65,
+"text": "await self.server.wait_closed()"
+},
+"task": "main",
+"i": 417,
+"t": 307.121
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"at": {
+"file": "tests/test_part5.py",
+"line": 18,
+"text": "await server.stop()"
+},
+"task": "main",
+"i": 418,
+"t": 307.195
+},
+{
+"k": "resume",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 419,
+"t": 1009.77
+},
+{
+"k": "call",
+"id": "c57",
+"fn": "server.MockServer.reply",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 420,
+"t": 1010.117
+},
+{
+"k": "return",
+"id": "c57",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 3 payload-3"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 421,
+"t": 1010.264
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c36",
+"task": "main",
+"i": 422,
+"t": 1010.425
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "5",
+"new": "6",
+"by": "c36",
+"task": "main",
+"i": 423,
+"t": 1010.429
+},
+{
+"k": "pause",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 424,
+"t": 1010.538
+},
+{
+"k": "resume",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 425,
+"t": 1010.614
+},
+{
+"k": "return",
+"id": "c36",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "3"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"task": "main",
+"i": 426,
+"t": 1010.782
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"task": "main",
+"i": 427,
+"t": 1010.798
+},
+{
+"k": "resume",
+"id": "c56",
+"fn": "server.MockServer.stop",
+"task": "main",
+"i": 428,
+"t": 1010.804
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "server",
+"old": "<Server sockets=()>",
+"new": "None",
+"by": "c56",
+"task": "main",
+"i": 429,
+"t": 1010.851
+},
+{
+"k": "return",
+"id": "c56",
+"fn": "server.MockServer.stop",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "main",
+"i": 430,
+"t": 1010.952
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "test_part5.run_against.<main>",
+"value": {
+"t": "tuple",
+"n": 3,
+"items": [
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o3",
+"name": "Result#1"
+},
+{
+"t": "Result",
+"obj": "o4",
+"name": "Result#2"
+},
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#3"
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#6"
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#4"
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#5"
+}
+]
+},
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"1",
+{
+"t": "str",
+"v": "ba6fab286506"
+}
+],
+[
+"4",
+{
+"t": "str",
+"v": "b86ea90a0d36"
+}
+],
+[
+"2",
+{
+"t": "str",
+"v": "bc6497790b23"
+}
+],
+[
+"0",
+{
+"t": "str",
+"v": "e761af2ab417"
+}
+],
+[
+"5",
+{
+"t": "str",
+"v": "dbf1226f996d"
+}
+]
+]
+},
+{
+"t": "int",
+"v": 6
+}
+]
+},
+"locals": [
+[
+"port",
+{
+"t": "int",
+"v": 40989
+}
+],
+[
+"make_batch",
+{
+"t": "function",
+"v": "test_a_slow_job_times_out_on_its_own.<locals>.<lambda>"
+}
+],
+[
+"server",
+{
+"t": "MockServer",
+"obj": "o1",
+"name": "MockServer#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.01
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({3})"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 1.0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"served",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"server",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"task": "main",
+"i": 431,
+"t": 1011.158
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "test_part5.run_against",
+"value": {
+"t": "tuple",
+"n": 3,
+"items": [
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o3",
+"name": "Result#1"
+},
+{
+"t": "Result",
+"obj": "o4",
+"name": "Result#2"
+},
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#3"
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#6"
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#4"
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#5"
+}
+]
+},
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"1",
+{
+"t": "str",
+"v": "ba6fab286506"
+}
+],
+[
+"4",
+{
+"t": "str",
+"v": "b86ea90a0d36"
+}
+],
+[
+"2",
+{
+"t": "str",
+"v": "bc6497790b23"
+}
+],
+[
+"0",
+{
+"t": "str",
+"v": "e761af2ab417"
+}
+],
+[
+"5",
+{
+"t": "str",
+"v": "dbf1226f996d"
+}
+]
+]
+},
+{
+"t": "int",
+"v": 6
+}
+]
+},
+"locals": [
+[
+"main",
+{
+"t": "function",
+"v": "run_against.<locals>.main"
+}
+]
+],
+"task": "sync",
+"i": 432,
+"t": 1013.264
+},
+{
+"k": "call",
+"id": "c58",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 30,
+"text": "assert [r.ok for r in results] == [True, True, True, False, True, True]"
+},
+"def": {
+"file": "src/async_batch_fetcher/results.py",
+"line": 16
+},
+"self": "o3",
+"task": "sync",
+"i": 433,
+"t": 1013.658
+},
+{
+"k": "return",
+"id": "c58",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"task": "sync",
+"i": 434,
+"t": 1013.906
+},
+{
+"k": "call",
+"id": "c59",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 30,
+"text": "assert [r.ok for r in results] == [True, True, True, False, True, True]"
+},
+"def": {
+"file": "src/async_batch_fetcher/results.py",
+"line": 16
+},
+"self": "o4",
+"task": "sync",
+"i": 435,
+"t": 1014.222
+},
+{
+"k": "return",
+"id": "c59",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"task": "sync",
+"i": 436,
+"t": 1014.45
+},
+{
+"k": "call",
+"id": "c60",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 30,
+"text": "assert [r.ok for r in results] == [True, True, True, False, True, True]"
+},
+"def": {
+"file": "src/async_batch_fetcher/results.py",
+"line": 16
+},
+"self": "o5",
+"task": "sync",
+"i": 437,
+"t": 1014.746
+},
+{
+"k": "return",
+"id": "c60",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"task": "sync",
+"i": 438,
+"t": 1014.956
+},
+{
+"k": "call",
+"id": "c61",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 30,
+"text": "assert [r.ok for r in results] == [True, True, True, False, True, True]"
+},
+"def": {
+"file": "src/async_batch_fetcher/results.py",
+"line": 16
+},
+"self": "o9",
+"task": "sync",
+"i": 439,
+"t": 1015.224
+},
+{
+"k": "return",
+"id": "c61",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": false
+},
+"locals": [],
+"task": "sync",
+"i": 440,
+"t": 1015.43
+},
+{
+"k": "call",
+"id": "c62",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 30,
+"text": "assert [r.ok for r in results] == [True, True, True, False, True, True]"
+},
+"def": {
+"file": "src/async_batch_fetcher/results.py",
+"line": 16
+},
+"self": "o6",
+"task": "sync",
+"i": 441,
+"t": 1015.634
+},
+{
+"k": "return",
+"id": "c62",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"task": "sync",
+"i": 442,
+"t": 1015.757
+},
+{
+"k": "call",
+"id": "c63",
+"fn": "results.Result.ok",
+"parent": "c1",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part5.py",
+"line": 30,
+"text": "assert [r.ok for r in results] == [True, True, True, False, True, True]"
+},
+"def": {
+"file": "src/async_batch_fetcher/results.py",
+"line": 16
+},
+"self": "o7",
+"task": "sync",
+"i": 443,
+"t": 1015.907
+},
+{
+"k": "return",
+"id": "c63",
+"fn": "results.Result.ok",
+"value": {
+"t": "bool",
+"v": true
+},
+"locals": [],
+"task": "sync",
+"i": 444,
+"t": 1016.022
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part5.test_a_slow_job_times_out_on_its_own",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"server",
+{
+"t": "MockServer",
+"obj": "o1",
+"name": "MockServer#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.01
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset({3})"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 1.0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"served",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"server",
+{
+"t": "None"
+}
+]
+]
+}
+],
+[
+"results",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "Result",
+"obj": "o3",
+"name": "Result#1",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-0"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o4",
+"name": "Result#2",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-1"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o5",
+"name": "Result#3",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-2"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o9",
+"name": "Result#6",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"value",
+{
+"t": "None"
+}
+],
+[
+"error",
+{
+"t": "TransientError",
+"obj": "o8",
+"name": "TransientError#1",
+"msg": "job 3: timeout",
+"fields": [
+[
+"url",
+{
+"t": "None"
+}
+],
+[
+"reason",
+{
+"t": "str",
+"v": "timeout"
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"transient",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o6",
+"name": "Result#4",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-4"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+},
+{
+"t": "Result",
+"obj": "o7",
+"name": "Result#5",
+"fields": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": "payload-5"
+}
+],
+[
+"error",
+{
+"t": "None"
+}
+]
+]
+}
+]
+}
+],
+[
+"sums",
+{
+"t": "dict",
+"n": 5,
+"items": [
+[
+"1",
+{
+"t": "str",
+"v": "ba6fab286506"
+}
+],
+[
+"4",
+{
+"t": "str",
+"v": "b86ea90a0d36"
+}
+],
+[
+"2",
+{
+"t": "str",
+"v": "bc6497790b23"
+}
+],
+[
+"0",
+{
+"t": "str",
+"v": "e761af2ab417"
+}
+],
+[
+"5",
+{
+"t": "str",
+"v": "dbf1226f996d"
+}
+]
+]
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 6
+}
+]
+],
+"task": "sync",
+"i": 445,
+"t": 1016.271
+}
+],
+"objects": {
+"o1": {
+"cls": "server.MockServer",
+"name": "MockServer#1",
+"born": "c1"
+},
+"o2": {
+"cls": "batch.Fetcher",
+"name": "Fetcher#1",
+"born": "c7"
+},
+"o3": {
+"cls": "results.Result",
+"name": "Result#1",
+"born": "c11"
+},
+"o4": {
+"cls": "results.Result",
+"name": "Result#2",
+"born": "c15"
+},
+"o5": {
+"cls": "results.Result",
+"name": "Result#3",
+"born": "c19"
+},
+"o6": {
+"cls": "results.Result",
+"name": "Result#4",
+"born": "c27"
+},
+"o7": {
+"cls": "results.Result",
+"name": "Result#5",
+"born": "c31"
+},
+"o8": {
+"cls": "errors.TransientError",
+"name": "TransientError#1",
+"born": "c22"
+},
+"o9": {
+"cls": "results.Result",
+"name": "Result#6",
+"born": "c22"
+}
+},
+"tasks": [
+"T1",
+"T2",
+"T3",
+"T4",
+"T5",
+"T6",
+"TH1",
+"TH2",
+"main"
+]
+}
