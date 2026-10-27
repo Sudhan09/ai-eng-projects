@@ -22,8 +22,9 @@ async def run_serial(job_ids: Iterable[int], port: int) -> list[str]:
 
 # ---- Part 2 ---------------------------------------------------------------
 async def run_gather(job_ids: Iterable[int], port: int) -> list[str]:
-    # TODO (you write this) - plan in plain English first
-    raise NotImplementedError
+    coros = [fetch(job_id, port) for job_id in job_ids]
+    payloads = await asyncio.gather(*coros)
+    return payloads
 
 
 # ---- Part 3 ---------------------------------------------------------------
