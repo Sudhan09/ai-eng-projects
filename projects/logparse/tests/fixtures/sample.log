@@ -1,0 +1,7 @@
+2026-10-02T09:15:01Z DEBUG cache: warming up
+2026-10-02T09:15:02Z INFO auth: user login ok
+2026-10-02T09:15:03Z WARNING cache: hit rate low
+this line is not a log line
+2026-10-02T09:16:04Z ERROR db: connection refused
+2026-10-02T09:16:05Z CRITICAL disk: full
+2026-10-02T09:16:06Z ERROR db: connection timeout

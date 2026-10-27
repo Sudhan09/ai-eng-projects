@@ -1,0 +1,6 @@
+.venv/
+drills/
+/*.log
+__pycache__/
+.*_cache/
+big.log
