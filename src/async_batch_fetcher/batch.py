@@ -73,20 +73,33 @@ class Fetcher:
         self.tasks: set[asyncio.Task[Result]] = set()
 
     async def fetch(self, job_id: int, timeout: float | None = None) -> Result:
-        # TODO (you write this) - plan in plain English first
-        raise NotImplementedError
+        async with self.sem:
+            self.in_flight += 1
+            self.peak = max(self.peak, self.in_flight)
+            try:
+                # the deadline starts only once the permit is in hand
+                async with asyncio.timeout(timeout):
+                    return await fetch_result(job_id, self.port)
+            except TimeoutError:
+                return Result(job_id=job_id, error=TransientError(job_id, "timeout"))
+            finally:
+                self.in_flight -= 1
 
     async def stream(self, job_ids: Iterable[int]) -> AsyncIterator[Result]:
-        # TODO (you write this) - plan in plain English first
-        raise NotImplementedError
+        for job_id in job_ids:
+            task = asyncio.create_task(self.fetch(job_id))
+            self.tasks.add(task)
+        for next_done in asyncio.as_completed(self.tasks):
+            yield await next_done
 
     async def __aenter__(self) -> "Fetcher":  # GIVEN
         return self
 
     async def __aexit__(self, *exc: object) -> None:
         # cancel whatever is still running, then wait until every task is gone
-        # TODO (you write this) - plan in plain English first
-        raise NotImplementedError
+        for task in self.tasks:
+            task.cancel()
+        await asyncio.gather(*self.tasks, return_exceptions=True)
 
 
 # ---- Part 5 ---------------------------------------------------------------
