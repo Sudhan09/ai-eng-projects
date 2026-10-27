@@ -29,20 +29,36 @@ async def run_gather(job_ids: Iterable[int], port: int) -> list[str]:
 
 # ---- Part 3 ---------------------------------------------------------------
 async def fetch_result(job_id: int, port: int) -> Result:
-    # TODO (you write this) - plan in plain English first
-    raise NotImplementedError
+    try:
+        value = await fetch(job_id, port)
+        return Result(job_id=job_id, value=value)
+    except FetchError as e:
+        return Result(job_id=job_id, error=e)
 
 
 async def run_all(job_ids: list[int], port: int) -> list[Result]:
-    # TODO (you write this) - plan in plain English first
-    raise NotImplementedError
+    coros = [fetch_result(job_id, port) for job_id in job_ids]
+    results = await asyncio.gather(*coros)
+    return results
 
 
 async def run_with_progress(
     job_ids: list[int], port: int, out: TextIO = sys.stderr
 ) -> list[Result]:
-    # TODO (you write this) - plan in plain English first
-    raise NotImplementedError
+    finished = {}
+    failures = 0
+    coros = [fetch_result(job_id, port) for job_id in job_ids]
+    for n, next_done in enumerate(asyncio.as_completed(coros), 1):
+        result = await next_done
+        finished[result.job_id] = result
+        if not result.ok:
+            failures += 1
+        print(
+            f"done {n}/{len(job_ids)} job {result.job_id} {status(result)}"
+            f" ({failures} failed so far)",
+            file=out,
+        )
+    return [finished[job_id] for job_id in job_ids]
 
 
 # ---- Part 4 ---------------------------------------------------------------
