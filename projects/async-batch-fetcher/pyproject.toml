@@ -1,0 +1,28 @@
+[project]
+name = "async-batch-fetcher"
+version = "0.1.0"
+description = "Fetch many jobs concurrently with asyncio, capped at 20 in flight."
+readme = "README.md"
+authors = [
+    { name = "Hari", email = "sudhan.hari690@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+async-batch-fetcher = "async_batch_fetcher.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.1",
+]
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "BLE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
