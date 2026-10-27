@@ -3,7 +3,7 @@ import logging
 import time
 from collections.abc import Awaitable, Callable, Iterable, Mapping
 from dataclasses import dataclass, field
-from typing import Concatenate, Protocol, Self
+from typing import TYPE_CHECKING, Concatenate, Protocol, Self
 
 from tenacity import RetryCallState
 
@@ -14,6 +14,9 @@ from .models import ITEM_RESPONSE, ApiError, ItemFound, ItemMissing, ItemMoved
 from .results import Result
 from .retry import retrying
 from .transport import HttpTransport, HttpxTransport, get_json, make_client
+
+if TYPE_CHECKING:
+    from .settings import Settings
 
 
 @dataclass
@@ -82,6 +85,27 @@ class AiofetchClient:
             )
         self.breaker = CircuitBreaker(failure_threshold, reset_timeout, clock=clock)
         self.sem = asyncio.BoundedSemaphore(max_concurrency)
+
+    @classmethod
+    def from_settings(cls, settings: "Settings", *, transport: HttpTransport | None = None) -> Self:
+        url = str(settings.base_url)
+        if transport is None:
+            key = settings.api_key.get_secret_value()
+            client = make_client(
+                url,
+                max_connections=settings.max_concurrency,
+                timeout=settings.timeout,
+                headers={"authorization": f"Bearer {key}"},
+            )
+            transport = HttpxTransport(client)
+        return cls(
+            url,
+            max_concurrency=settings.max_concurrency,
+            attempts=settings.attempts,
+            requests_per_minute=settings.requests_per_minute,
+            timeout=settings.timeout,
+            transport=transport,
+        )
 
     def _transport(self) -> HttpTransport:
         if self.transport is None:

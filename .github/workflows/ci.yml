@@ -18,4 +18,6 @@ jobs:
       - run: uv run ruff format --check
       - run: uv run mypy
       - run: uv run pyright
+      - name: Scan for API keys
+        run: "! git grep -nE 'sk-[A-Za-z0-9_-]{16,}'"
       - run: uv run pytest
