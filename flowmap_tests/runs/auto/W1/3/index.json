@@ -1,0 +1,20 @@
+{
+ "commit": "e9e19d7",
+ "picked": [
+  {
+   "file": "auto/W1/3/test_part3__test_all_of_needs_every_filter.json",
+   "test": "tests/test_part3.py",
+   "fn": "test_all_of_needs_every_filter",
+   "title": "All of needs every filter",
+   "score": 8
+  },
+  {
+   "file": "auto/W1/3/test_part3__test_matches_word_in_middle.json",
+   "test": "tests/test_part3.py",
+   "fn": "test_matches_word_in_middle",
+   "title": "Matches word in middle",
+   "score": 5
+  }
+ ],
+ "recorder": 6
+}

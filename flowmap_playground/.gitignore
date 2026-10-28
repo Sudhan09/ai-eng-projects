@@ -1,0 +1,4 @@
+# your runs and the built page stay on your machine
+runs/
+build/
+__pycache__/

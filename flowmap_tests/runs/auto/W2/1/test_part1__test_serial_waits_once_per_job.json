@@ -1,0 +1,6553 @@
+{
+"run": "tests/test_part1.py::test_serial_waits_once_per_job",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part1.test_serial_waits_once_per_job",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part1.py",
+"line": 46
+},
+"task": "sync",
+"i": 0,
+"t": 0.093
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"parent": "c1",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "tests/test_part1.py",
+"line": 47
+},
+"async": true,
+"task": "main",
+"i": 1,
+"t": 0.485
+},
+{
+"k": "new",
+"id": "c3",
+"fn": "server.MockServer",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.05
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset()"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 5.0
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 48,
+"text": "server = MockServer(delay=0.05)"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 10
+},
+"self": "o1",
+"task": "main",
+"i": 2,
+"t": 0.587
+},
+{
+"k": "born",
+"id": "c3",
+"fn": "server.MockServer",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "MockServer",
+"obj": "o1",
+"name": "MockServer#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.05
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset()"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 5.0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"served",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"server",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "main",
+"i": 3,
+"t": 0.642
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "server.MockServer.start",
+"parent": "c2",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part1.py",
+"line": 49,
+"text": "port = await server.start()"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 58
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 4,
+"t": 0.687
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "server.MockServer.start",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 59,
+"text": "self.server = await asyncio.start_server(self.handle, HOST, 0, backlog=1024)"
+},
+"task": "main",
+"i": 5,
+"t": 0.801
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 49,
+"text": "port = await server.start()"
+},
+"task": "main",
+"i": 6,
+"t": 0.827
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 7,
+"t": 0.873
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "server.MockServer.start",
+"task": "main",
+"i": 8,
+"t": 0.877
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "server.MockServer.start",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 59,
+"text": "self.server = await asyncio.start_server(self.handle, HOST, 0, backlog=1024)"
+},
+"task": "main",
+"i": 9,
+"t": 0.967
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 49,
+"text": "port = await server.start()"
+},
+"task": "main",
+"i": 10,
+"t": 0.986
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 11,
+"t": 0.994
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "server.MockServer.start",
+"task": "main",
+"i": 12,
+"t": 0.996
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "server",
+"old": "None",
+"new": "<Server sockets=(<asyncio.TransportSocket fd=14, family=2, type=1, proto=6, lad\u2026",
+"by": "c4",
+"task": "main",
+"i": 13,
+"t": 1.064
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "server.MockServer.start",
+"value": {
+"t": "int",
+"v": 35317
+},
+"locals": [],
+"task": "main",
+"i": 14,
+"t": 1.071
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "batch.run_serial",
+"parent": "c2",
+"via": null,
+"args": [
+[
+"job_ids",
+{
+"t": "range",
+"lib": "builtins",
+"v": "range(0, 10)"
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 15
+},
+"async": true,
+"task": "main",
+"i": 15,
+"t": 1.143
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 16,
+"t": 1.241
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 17,
+"t": 1.462
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 18,
+"t": 1.502
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 19,
+"t": 1.534
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 20,
+"t": 1.664
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 21,
+"t": 1.667
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "client.fetch",
+"task": "main",
+"i": 22,
+"t": 1.668
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 23,
+"t": 1.737
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 24,
+"t": 1.771
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 25,
+"t": 1.803
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 26,
+"t": 1.977
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c7",
+"task": "main",
+"i": 27,
+"t": 2.017
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "peak",
+"old": "0",
+"new": "1",
+"by": "c7",
+"task": "main",
+"i": 28,
+"t": 2.019
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 29,
+"t": 2.027
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 30,
+"t": 2.035
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 31,
+"t": 2.037
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "client.fetch",
+"task": "main",
+"i": 32,
+"t": 2.038
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 33,
+"t": 2.119
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 34,
+"t": 2.151
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 35,
+"t": 2.18
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 36,
+"t": 2.205
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 37,
+"t": 2.265
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 38,
+"t": 52.421
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "server.MockServer.reply",
+"parent": "c7",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 39,
+"t": 52.667
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 0 payload-0"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 40,
+"t": 52.736
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c7",
+"task": "main",
+"i": 41,
+"t": 52.913
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "0",
+"new": "1",
+"by": "c7",
+"task": "main",
+"i": 42,
+"t": 52.917
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 43,
+"t": 52.935
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 44,
+"t": 53.039
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "0"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 45,
+"t": 53.114
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 46,
+"t": 53.123
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 47,
+"t": 53.127
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "client.fetch",
+"task": "main",
+"i": 48,
+"t": 53.13
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 49,
+"t": 53.218
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 50,
+"t": 53.266
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 51,
+"t": 53.312
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 52,
+"t": 53.371
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 53,
+"t": 53.374
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "client.fetch",
+"task": "main",
+"i": 54,
+"t": 53.377
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-0"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 0 payload-0\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "0"
+},
+{
+"t": "str",
+"v": "payload-0"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 55,
+"t": 53.481
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 56,
+"t": 53.559
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 57,
+"t": 53.757
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 58,
+"t": 53.798
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 59,
+"t": 53.837
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 60,
+"t": 53.963
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 61,
+"t": 53.966
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "client.fetch",
+"task": "main",
+"i": 62,
+"t": 53.969
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 63,
+"t": 54.043
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 64,
+"t": 54.086
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 65,
+"t": 54.132
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 66,
+"t": 54.326
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c10",
+"task": "main",
+"i": 67,
+"t": 54.379
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 68,
+"t": 54.389
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 69,
+"t": 54.398
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 70,
+"t": 54.4
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "client.fetch",
+"task": "main",
+"i": 71,
+"t": 54.402
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 72,
+"t": 54.479
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 73,
+"t": 54.519
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 74,
+"t": 54.556
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 75,
+"t": 54.576
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 76,
+"t": 54.646
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 77,
+"t": 104.809
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "server.MockServer.reply",
+"parent": "c10",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 78,
+"t": 105.089
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 1 payload-1"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 79,
+"t": 105.188
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c10",
+"task": "main",
+"i": 80,
+"t": 105.388
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "1",
+"new": "2",
+"by": "c10",
+"task": "main",
+"i": 81,
+"t": 105.392
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 82,
+"t": 105.416
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 83,
+"t": 105.522
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "1"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"task": "main",
+"i": 84,
+"t": 105.612
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 85,
+"t": 105.624
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 86,
+"t": 105.629
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "client.fetch",
+"task": "main",
+"i": 87,
+"t": 105.632
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 88,
+"t": 105.734
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 89,
+"t": 105.794
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 90,
+"t": 105.85
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 91,
+"t": 105.919
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 92,
+"t": 105.923
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "client.fetch",
+"task": "main",
+"i": 93,
+"t": 105.926
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-1"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 1 payload-1\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "1"
+},
+{
+"t": "str",
+"v": "payload-1"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 94,
+"t": 106.088
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 95,
+"t": 106.22
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 96,
+"t": 106.485
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 97,
+"t": 106.543
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 98,
+"t": 106.597
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 99,
+"t": 106.768
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 100,
+"t": 106.772
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "main",
+"i": 101,
+"t": 106.775
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 102,
+"t": 106.881
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 103,
+"t": 106.936
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 104,
+"t": 107.015
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 105,
+"t": 107.276
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c13",
+"task": "main",
+"i": 106,
+"t": 107.342
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 107,
+"t": 107.357
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 108,
+"t": 107.369
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 109,
+"t": 107.374
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "main",
+"i": 110,
+"t": 107.377
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 111,
+"t": 107.489
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 112,
+"t": 107.53
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 113,
+"t": 107.571
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 114,
+"t": 107.595
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 115,
+"t": 107.668
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 116,
+"t": 157.823
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "server.MockServer.reply",
+"parent": "c13",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 117,
+"t": 158.06
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 2 payload-2"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 118,
+"t": 158.128
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c13",
+"task": "main",
+"i": 119,
+"t": 158.3
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "2",
+"new": "3",
+"by": "c13",
+"task": "main",
+"i": 120,
+"t": 158.305
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 121,
+"t": 158.326
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 122,
+"t": 158.413
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "2"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"task": "main",
+"i": 123,
+"t": 158.497
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 124,
+"t": 158.508
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 125,
+"t": 158.512
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "main",
+"i": 126,
+"t": 158.516
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 127,
+"t": 158.61
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 128,
+"t": 158.668
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 129,
+"t": 158.724
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 130,
+"t": 158.785
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 131,
+"t": 158.789
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "client.fetch",
+"task": "main",
+"i": 132,
+"t": 158.792
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-2"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 2 payload-2\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "2"
+},
+{
+"t": "str",
+"v": "payload-2"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 133,
+"t": 158.926
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 134,
+"t": 159.057
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 135,
+"t": 159.304
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 136,
+"t": 159.362
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 137,
+"t": 159.417
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 138,
+"t": 159.564
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 139,
+"t": 159.568
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "client.fetch",
+"task": "main",
+"i": 140,
+"t": 159.571
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 141,
+"t": 159.666
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 142,
+"t": 159.724
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 143,
+"t": 159.777
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 144,
+"t": 159.994
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c16",
+"task": "main",
+"i": 145,
+"t": 160.033
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 146,
+"t": 160.041
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 147,
+"t": 160.048
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 148,
+"t": 160.05
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "client.fetch",
+"task": "main",
+"i": 149,
+"t": 160.052
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 150,
+"t": 160.116
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 151,
+"t": 160.148
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 152,
+"t": 160.177
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 153,
+"t": 160.194
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 154,
+"t": 160.25
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 155,
+"t": 210.36
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "server.MockServer.reply",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 156,
+"t": 210.548
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 3 payload-3"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 157,
+"t": 210.619
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c16",
+"task": "main",
+"i": 158,
+"t": 210.752
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "3",
+"new": "4",
+"by": "c16",
+"task": "main",
+"i": 159,
+"t": 210.756
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 160,
+"t": 210.773
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 161,
+"t": 210.849
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "3"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"task": "main",
+"i": 162,
+"t": 210.929
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 163,
+"t": 210.938
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 164,
+"t": 210.943
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "client.fetch",
+"task": "main",
+"i": 165,
+"t": 210.946
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 166,
+"t": 211.076
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 167,
+"t": 211.134
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 168,
+"t": 211.189
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 169,
+"t": 211.252
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 170,
+"t": 211.256
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "client.fetch",
+"task": "main",
+"i": 171,
+"t": 211.258
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-3"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 3 payload-3\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "3"
+},
+{
+"t": "str",
+"v": "payload-3"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 172,
+"t": 211.39
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 173,
+"t": 211.501
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 174,
+"t": 211.733
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 175,
+"t": 211.791
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 176,
+"t": 211.847
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 177,
+"t": 212.007
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 178,
+"t": 212.012
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "client.fetch",
+"task": "main",
+"i": 179,
+"t": 212.015
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 180,
+"t": 212.114
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 181,
+"t": 212.171
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 182,
+"t": 212.222
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 183,
+"t": 212.465
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c19",
+"task": "main",
+"i": 184,
+"t": 212.53
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 185,
+"t": 212.545
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 186,
+"t": 212.557
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 187,
+"t": 212.561
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "client.fetch",
+"task": "main",
+"i": 188,
+"t": 212.563
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 189,
+"t": 212.672
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 190,
+"t": 212.726
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 191,
+"t": 212.777
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 192,
+"t": 212.807
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 193,
+"t": 212.895
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 194,
+"t": 263.053
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "server.MockServer.reply",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 195,
+"t": 263.256
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 4 payload-4"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 196,
+"t": 263.311
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c19",
+"task": "main",
+"i": 197,
+"t": 263.451
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "4",
+"new": "5",
+"by": "c19",
+"task": "main",
+"i": 198,
+"t": 263.453
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 199,
+"t": 263.469
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 200,
+"t": 263.535
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "4"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 4
+}
+]
+],
+"task": "main",
+"i": 201,
+"t": 263.592
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 202,
+"t": 263.601
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 203,
+"t": 263.604
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "client.fetch",
+"task": "main",
+"i": 204,
+"t": 263.607
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 205,
+"t": 263.673
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 206,
+"t": 263.713
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 207,
+"t": 263.751
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 208,
+"t": 263.796
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 209,
+"t": 263.799
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "client.fetch",
+"task": "main",
+"i": 210,
+"t": 263.801
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-4"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 4 payload-4\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "4"
+},
+{
+"t": "str",
+"v": "payload-4"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 211,
+"t": 263.891
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 212,
+"t": 263.977
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 213,
+"t": 264.173
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 214,
+"t": 264.211
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 215,
+"t": 264.247
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 216,
+"t": 264.357
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 217,
+"t": 264.36
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "client.fetch",
+"task": "main",
+"i": 218,
+"t": 264.363
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 219,
+"t": 264.43
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 220,
+"t": 264.467
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 221,
+"t": 264.5
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 222,
+"t": 264.667
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c22",
+"task": "main",
+"i": 223,
+"t": 264.709
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 224,
+"t": 264.717
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 225,
+"t": 264.725
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 226,
+"t": 264.727
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "client.fetch",
+"task": "main",
+"i": 227,
+"t": 264.729
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 228,
+"t": 264.799
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 229,
+"t": 264.835
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 230,
+"t": 264.868
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 231,
+"t": 264.887
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 232,
+"t": 264.949
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 233,
+"t": 315.11
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "server.MockServer.reply",
+"parent": "c22",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 234,
+"t": 315.281
+},
+{
+"k": "return",
+"id": "c23",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 5 payload-5"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 235,
+"t": 315.32
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c22",
+"task": "main",
+"i": 236,
+"t": 315.485
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "5",
+"new": "6",
+"by": "c22",
+"task": "main",
+"i": 237,
+"t": 315.488
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 238,
+"t": 315.508
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 239,
+"t": 315.583
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "5"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"task": "main",
+"i": 240,
+"t": 315.655
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 241,
+"t": 315.664
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 242,
+"t": 315.667
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "client.fetch",
+"task": "main",
+"i": 243,
+"t": 315.669
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 244,
+"t": 315.755
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 245,
+"t": 315.796
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 246,
+"t": 315.836
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 247,
+"t": 315.898
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 248,
+"t": 315.902
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "client.fetch",
+"task": "main",
+"i": 249,
+"t": 315.906
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-5"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 5 payload-5\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "5"
+},
+{
+"t": "str",
+"v": "payload-5"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 250,
+"t": 316.028
+},
+{
+"k": "call",
+"id": "c24",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 6
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 251,
+"t": 316.097
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 252,
+"t": 316.254
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 253,
+"t": 316.281
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 254,
+"t": 316.304
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 255,
+"t": 316.391
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 256,
+"t": 316.393
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "main",
+"i": 257,
+"t": 316.395
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 258,
+"t": 316.442
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 259,
+"t": 316.468
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 260,
+"t": 316.492
+},
+{
+"k": "call",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 261,
+"t": 316.618
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c25",
+"task": "main",
+"i": 262,
+"t": 316.663
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 263,
+"t": 316.672
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 264,
+"t": 316.678
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 265,
+"t": 316.68
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "main",
+"i": 266,
+"t": 316.682
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 267,
+"t": 316.735
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 268,
+"t": 316.759
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 269,
+"t": 316.783
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 270,
+"t": 316.797
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 271,
+"t": 316.841
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 272,
+"t": 366.994
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "server.MockServer.reply",
+"parent": "c25",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 6
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 273,
+"t": 367.17
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 6 payload-6"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 274,
+"t": 367.208
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c25",
+"task": "main",
+"i": 275,
+"t": 367.303
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "6",
+"new": "7",
+"by": "c25",
+"task": "main",
+"i": 276,
+"t": 367.305
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 277,
+"t": 367.315
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 278,
+"t": 367.366
+},
+{
+"k": "return",
+"id": "c25",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "6"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 6
+}
+]
+],
+"task": "main",
+"i": 279,
+"t": 367.405
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 280,
+"t": 367.412
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 281,
+"t": 367.414
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "main",
+"i": 282,
+"t": 367.417
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 283,
+"t": 367.464
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 284,
+"t": 367.491
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 285,
+"t": 367.516
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 286,
+"t": 367.551
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 287,
+"t": 367.553
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "client.fetch",
+"task": "main",
+"i": 288,
+"t": 367.554
+},
+{
+"k": "return",
+"id": "c24",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-6"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 6 payload-6\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "6"
+},
+{
+"t": "str",
+"v": "payload-6"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 289,
+"t": 367.616
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 7
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 290,
+"t": 367.67
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 291,
+"t": 367.809
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 292,
+"t": 367.835
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 293,
+"t": 367.859
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 294,
+"t": 367.942
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 295,
+"t": 367.944
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "client.fetch",
+"task": "main",
+"i": 296,
+"t": 367.946
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 297,
+"t": 368.002
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 298,
+"t": 368.027
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 299,
+"t": 368.05
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 300,
+"t": 368.169
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c28",
+"task": "main",
+"i": 301,
+"t": 368.206
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 302,
+"t": 368.216
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 303,
+"t": 368.225
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 304,
+"t": 368.227
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "client.fetch",
+"task": "main",
+"i": 305,
+"t": 368.228
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 306,
+"t": 368.308
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 307,
+"t": 368.35
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 308,
+"t": 368.388
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 309,
+"t": 368.41
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 310,
+"t": 368.469
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 311,
+"t": 418.603
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "server.MockServer.reply",
+"parent": "c28",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 7
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 312,
+"t": 418.772
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 7 payload-7"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 313,
+"t": 418.813
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c28",
+"task": "main",
+"i": 314,
+"t": 418.922
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "7",
+"new": "8",
+"by": "c28",
+"task": "main",
+"i": 315,
+"t": 418.924
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 316,
+"t": 418.935
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 317,
+"t": 419.002
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "7"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 7
+}
+]
+],
+"task": "main",
+"i": 318,
+"t": 419.044
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 319,
+"t": 419.05
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 320,
+"t": 419.053
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "client.fetch",
+"task": "main",
+"i": 321,
+"t": 419.055
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 322,
+"t": 419.105
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 323,
+"t": 419.132
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 324,
+"t": 419.157
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 325,
+"t": 419.194
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 326,
+"t": 419.196
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "client.fetch",
+"task": "main",
+"i": 327,
+"t": 419.197
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-7"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 7 payload-7\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "7"
+},
+{
+"t": "str",
+"v": "payload-7"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 328,
+"t": 419.264
+},
+{
+"k": "call",
+"id": "c30",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 329,
+"t": 419.317
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 330,
+"t": 419.471
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 331,
+"t": 419.503
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 332,
+"t": 419.53
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 333,
+"t": 419.613
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 334,
+"t": 419.615
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "client.fetch",
+"task": "main",
+"i": 335,
+"t": 419.616
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 336,
+"t": 419.664
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 337,
+"t": 419.691
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 338,
+"t": 419.715
+},
+{
+"k": "call",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 339,
+"t": 419.835
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c31",
+"task": "main",
+"i": 340,
+"t": 419.866
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 341,
+"t": 419.876
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 342,
+"t": 419.883
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 343,
+"t": 419.885
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "client.fetch",
+"task": "main",
+"i": 344,
+"t": 419.887
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 345,
+"t": 419.939
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 346,
+"t": 419.979
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 347,
+"t": 420.003
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 348,
+"t": 420.018
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 349,
+"t": 420.064
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 350,
+"t": 470.203
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "server.MockServer.reply",
+"parent": "c31",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 8
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 351,
+"t": 470.423
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 8 payload-8"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 352,
+"t": 470.488
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c31",
+"task": "main",
+"i": 353,
+"t": 470.637
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "8",
+"new": "9",
+"by": "c31",
+"task": "main",
+"i": 354,
+"t": 470.64
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 355,
+"t": 470.657
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 356,
+"t": 470.725
+},
+{
+"k": "return",
+"id": "c31",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "8"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 8
+}
+]
+],
+"task": "main",
+"i": 357,
+"t": 470.794
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 358,
+"t": 470.804
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 359,
+"t": 470.807
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "client.fetch",
+"task": "main",
+"i": 360,
+"t": 470.811
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 361,
+"t": 470.887
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 362,
+"t": 470.933
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 363,
+"t": 470.982
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 364,
+"t": 471.033
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 365,
+"t": 471.036
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "client.fetch",
+"task": "main",
+"i": 366,
+"t": 471.038
+},
+{
+"k": "return",
+"id": "c30",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-8"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 8 payload-8\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "8"
+},
+{
+"t": "str",
+"v": "payload-8"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 367,
+"t": 471.139
+},
+{
+"k": "call",
+"id": "c33",
+"fn": "client.fetch",
+"parent": "c5",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 9
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"host",
+{
+"t": "str",
+"v": "127.0.0.1"
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"def": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 10
+},
+"async": true,
+"task": "main",
+"i": 368,
+"t": 471.224
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 369,
+"t": 471.419
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 370,
+"t": 471.464
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 371,
+"t": 471.505
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 372,
+"t": 471.621
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 373,
+"t": 471.624
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "client.fetch",
+"task": "main",
+"i": 374,
+"t": 471.626
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 11,
+"text": "reader, writer = await asyncio.open_connection(host, port)"
+},
+"task": "main",
+"i": 375,
+"t": 471.7
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 376,
+"t": 471.742
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 377,
+"t": 471.78
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport fd=16 read=polling write=<idl\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part1.py",
+"line": 57,
+"text": "values, seconds, peak = asyncio.run(main())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 33
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 378,
+"t": 471.958
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "0",
+"new": "1",
+"by": "c34",
+"task": "main",
+"i": 379,
+"t": 471.992
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 39,
+"text": "words = (await reader.readline()).decode().split()"
+},
+"task": "main",
+"i": 380,
+"t": 472.0
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 381,
+"t": 472.007
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 382,
+"t": 472.008
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "client.fetch",
+"task": "main",
+"i": 383,
+"t": 472.01
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 15,
+"text": "line = (await reader.readline()).decode()"
+},
+"task": "main",
+"i": 384,
+"t": 472.069
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 385,
+"t": 472.097
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 386,
+"t": 472.123
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 387,
+"t": 472.139
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 44,
+"text": "await asyncio.sleep("
+},
+"task": "main",
+"i": 388,
+"t": 472.189
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 389,
+"t": 522.317
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "server.MockServer.reply",
+"parent": "c34",
+"via": null,
+"args": [
+[
+"job_id",
+{
+"t": "int",
+"v": 9
+}
+]
+],
+"site": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 47,
+"text": "writer.write((self.reply(job_id) + \"\\n\").encode())"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 26
+},
+"self": "o1",
+"task": "main",
+"i": 390,
+"t": 522.483
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "server.MockServer.reply",
+"value": {
+"t": "str",
+"v": "OK 9 payload-9"
+},
+"locals": [
+[
+"n",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"task": "main",
+"i": 391,
+"t": 522.519
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "in_flight",
+"old": "1",
+"new": "0",
+"by": "c34",
+"task": "main",
+"i": 392,
+"t": 522.624
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "served",
+"old": "9",
+"new": "10",
+"by": "c34",
+"task": "main",
+"i": 393,
+"t": 522.626
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"at": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 56,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 394,
+"t": 522.636
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"task": "main",
+"i": 395,
+"t": 522.686
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "server.MockServer.handle",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"words",
+{
+"t": "list",
+"n": 2,
+"items": [
+{
+"t": "str",
+"v": "GET"
+},
+{
+"t": "str",
+"v": "9"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 9
+}
+]
+],
+"task": "main",
+"i": 396,
+"t": 522.726
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 397,
+"t": 522.731
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 398,
+"t": 522.734
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "client.fetch",
+"task": "main",
+"i": 399,
+"t": 522.736
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "client.fetch",
+"at": {
+"file": "src/async_batch_fetcher/client.py",
+"line": 25,
+"text": "await writer.wait_closed()"
+},
+"task": "main",
+"i": 400,
+"t": 522.782
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "batch.run_serial",
+"at": {
+"file": "src/async_batch_fetcher/batch.py",
+"line": 18,
+"text": "payload = await fetch(job_id, port)"
+},
+"task": "main",
+"i": 401,
+"t": 522.809
+},
+{
+"k": "pause",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"at": {
+"file": "tests/test_part1.py",
+"line": 52,
+"text": "values = await run_serial(range(10), port)"
+},
+"task": "main",
+"i": 402,
+"t": 522.833
+},
+{
+"k": "resume",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"task": "main",
+"i": 403,
+"t": 522.868
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "batch.run_serial",
+"task": "main",
+"i": 404,
+"t": 522.87
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "client.fetch",
+"task": "main",
+"i": 405,
+"t": 522.871
+},
+{
+"k": "return",
+"id": "c33",
+"fn": "client.fetch",
+"value": {
+"t": "str",
+"v": "payload-9"
+},
+"locals": [
+[
+"reader",
+{
+"t": "StreamReader",
+"lib": "asyncio",
+"v": "<StreamReader eof transport=<_SelectorSocketTransport closed fd=15>>"
+}
+],
+[
+"writer",
+{
+"t": "StreamWriter",
+"lib": "asyncio",
+"v": "<StreamWriter transport=<_SelectorSocketTransport closed fd=15> reader=<StreamR\u2026"
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": "OK 9 payload-9\n"
+}
+],
+[
+"words",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": "OK"
+},
+{
+"t": "str",
+"v": "9"
+},
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 406,
+"t": 522.931
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "batch.run_serial",
+"value": {
+"t": "list",
+"n": 10,
+"items": [
+{
+"t": "str",
+"v": "payload-0"
+},
+{
+"t": "str",
+"v": "payload-1"
+},
+{
+"t": "str",
+"v": "payload-2"
+},
+{
+"t": "str",
+"v": "payload-3"
+},
+{
+"t": "str",
+"v": "payload-4"
+},
+{
+"t": "str",
+"v": "payload-5"
+},
+{
+"t": "str",
+"v": "payload-6"
+},
+{
+"t": "str",
+"v": "payload-7"
+},
+{
+"t": "str",
+"v": "payload-8"
+},
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+},
+"locals": [
+[
+"payloads",
+{
+"t": "list",
+"n": 10,
+"items": [
+{
+"t": "str",
+"v": "payload-0"
+},
+{
+"t": "str",
+"v": "payload-1"
+},
+{
+"t": "str",
+"v": "payload-2"
+},
+{
+"t": "str",
+"v": "payload-3"
+},
+{
+"t": "str",
+"v": "payload-4"
+},
+{
+"t": "str",
+"v": "payload-5"
+},
+{
+"t": "str",
+"v": "payload-6"
+},
+{
+"t": "str",
+"v": "payload-7"
+},
+{
+"t": "str",
+"v": "payload-8"
+},
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+}
+],
+[
+"job_id",
+{
+"t": "int",
+"v": 9
+}
+],
+[
+"payload",
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+],
+"task": "main",
+"i": 407,
+"t": 522.983
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "server.MockServer.stop",
+"parent": "c2",
+"via": null,
+"args": [],
+"site": {
+"file": "tests/test_part1.py",
+"line": 55,
+"text": "await server.stop()"
+},
+"def": {
+"file": "src/async_batch_fetcher/server.py",
+"line": 62
+},
+"self": "o1",
+"async": true,
+"task": "main",
+"i": 408,
+"t": 523.032
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "server",
+"old": "<Server sockets=(<asyncio.TransportSocket fd=14, family=2, type=1, proto=6, lad\u2026",
+"new": "None",
+"by": "c36",
+"task": "main",
+"i": 409,
+"t": 523.067
+},
+{
+"k": "return",
+"id": "c36",
+"fn": "server.MockServer.stop",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "main",
+"i": 410,
+"t": 523.07
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "test_part1.test_serial_waits_once_per_job.<main>",
+"value": {
+"t": "tuple",
+"n": 3,
+"items": [
+{
+"t": "list",
+"n": 10,
+"items": [
+{
+"t": "str",
+"v": "payload-0"
+},
+{
+"t": "str",
+"v": "payload-1"
+},
+{
+"t": "str",
+"v": "payload-2"
+},
+{
+"t": "str",
+"v": "payload-3"
+},
+{
+"t": "str",
+"v": "payload-4"
+},
+{
+"t": "str",
+"v": "payload-5"
+},
+{
+"t": "str",
+"v": "payload-6"
+},
+{
+"t": "str",
+"v": "payload-7"
+},
+{
+"t": "str",
+"v": "payload-8"
+},
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+},
+{
+"t": "float",
+"v": 0.521913
+},
+{
+"t": "int",
+"v": 1
+}
+]
+},
+"locals": [
+[
+"server",
+{
+"t": "MockServer",
+"obj": "o1",
+"name": "MockServer#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.05
+}
+],
+[
+"fail_every",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"slow",
+{
+"t": "frozenset",
+"lib": "builtins",
+"v": "frozenset()"
+}
+],
+[
+"slow_delay",
+{
+"t": "float",
+"v": 5.0
+}
+],
+[
+"in_flight",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"served",
+{
+"t": "int",
+"v": 10
+}
+],
+[
+"server",
+{
+"t": "None"
+}
+]
+]
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 35317
+}
+],
+[
+"start",
+{
+"t": "float",
+"v": 185286.904121
+}
+],
+[
+"values",
+{
+"t": "list",
+"n": 10,
+"items": [
+{
+"t": "str",
+"v": "payload-0"
+},
+{
+"t": "str",
+"v": "payload-1"
+},
+{
+"t": "str",
+"v": "payload-2"
+},
+{
+"t": "str",
+"v": "payload-3"
+},
+{
+"t": "str",
+"v": "payload-4"
+},
+{
+"t": "str",
+"v": "payload-5"
+},
+{
+"t": "str",
+"v": "payload-6"
+},
+{
+"t": "str",
+"v": "payload-7"
+},
+{
+"t": "str",
+"v": "payload-8"
+},
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+}
+]
+],
+"task": "main",
+"i": 411,
+"t": 523.114
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part1.test_serial_waits_once_per_job",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"main",
+{
+"t": "function",
+"v": "test_serial_waits_once_per_job.<locals>.main"
+}
+],
+[
+"values",
+{
+"t": "list",
+"n": 10,
+"items": [
+{
+"t": "str",
+"v": "payload-0"
+},
+{
+"t": "str",
+"v": "payload-1"
+},
+{
+"t": "str",
+"v": "payload-2"
+},
+{
+"t": "str",
+"v": "payload-3"
+},
+{
+"t": "str",
+"v": "payload-4"
+},
+{
+"t": "str",
+"v": "payload-5"
+},
+{
+"t": "str",
+"v": "payload-6"
+},
+{
+"t": "str",
+"v": "payload-7"
+},
+{
+"t": "str",
+"v": "payload-8"
+},
+{
+"t": "str",
+"v": "payload-9"
+}
+]
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.521913
+}
+],
+[
+"peak",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"task": "sync",
+"i": 412,
+"t": 523.267
+}
+],
+"objects": {
+"o1": {
+"cls": "server.MockServer",
+"name": "MockServer#1",
+"born": "c2"
+}
+},
+"tasks": [
+"main"
+]
+}

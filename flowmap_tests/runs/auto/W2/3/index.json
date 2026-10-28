@@ -1,0 +1,20 @@
+{
+ "commit": "727002e",
+ "picked": [
+  {
+   "file": "auto/W2/3/test_part3__test_one_failure_does_not_sink_the_batch.json",
+   "test": "tests/test_part3.py",
+   "fn": "test_one_failure_does_not_sink_the_batch",
+   "title": "One failure does not sink the batch",
+   "score": 15
+  },
+  {
+   "file": "auto/W2/3/test_part3_twist__test_progress_counts_the_failures_so_far.json",
+   "test": "tests/test_part3_twist.py",
+   "fn": "test_progress_counts_the_failures_so_far",
+   "title": "Progress counts the failures so far",
+   "score": 13
+  }
+ ],
+ "recorder": 6
+}

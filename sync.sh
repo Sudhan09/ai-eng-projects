@@ -16,9 +16,13 @@ for name in logparse async-batch-fetcher aiofetch; do
         git commit -q -m "Add projects/$name with its history"
     fi
 done
-mkdir -p projects/interview-notes flowmap
+# the flowmap copy was flowmap/ before it split into flowmap_tests/ and flowmap_playground/: rename it once, history kept
+if [ -d flowmap ] && [ ! -d flowmap_tests ]; then git mv flowmap flowmap_tests; fi
+mkdir -p projects/interview-notes flowmap_tests flowmap_playground
 cp -r "$WS/projects/interview-notes/." projects/interview-notes/
-rsync -a --delete --exclude exports/ --exclude .git "$WS/flowmap/" flowmap/
+rsync -a --delete --exclude exports/ --exclude .git "$WS/flowmap_tests/" flowmap_tests/
+# the playground's code only: your runs and its built page stay on your machine
+rsync -a --delete --exclude runs/ --exclude build/ --exclude __pycache__/ --exclude .git "$WS/flowmap_playground/" flowmap_playground/
 git add -A
 git diff --cached --quiet || git commit -q -m "Sync flowmap and interview notes"
 git log --oneline -1

@@ -1,0 +1,20 @@
+{
+ "commit": "751fd5a",
+ "picked": [
+  {
+   "file": "auto/W1/1/test_part1__test_equal_records_collapse_in_a_set.json",
+   "test": "tests/test_part1.py",
+   "fn": "test_equal_records_collapse_in_a_set",
+   "title": "Equal records collapse in a set",
+   "score": 5
+  },
+  {
+   "file": "auto/W1/1/test_part1__test_record_works_as_dict_key.json",
+   "test": "tests/test_part1.py",
+   "fn": "test_record_works_as_dict_key",
+   "title": "Record works as dict key",
+   "score": 5
+  }
+ ],
+ "recorder": 6
+}

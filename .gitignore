@@ -6,7 +6,10 @@ __pycache__/
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
-# flowmap: generated files (rebuild with flowmap/tools/flowmap.py build)
-flowmap/exports/
-flowmap/build/*
-!flowmap/build/flowmap.html
+# flowmap: generated files (rebuild with flowmap_tests/tools/flowmap.py build)
+flowmap_tests/exports/
+flowmap_tests/build/*
+!flowmap_tests/build/flowmap.html
+# the playground's runs and page (sync.sh doesn't copy them either)
+flowmap_playground/runs/
+flowmap_playground/build/
