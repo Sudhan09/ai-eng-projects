@@ -39,7 +39,7 @@ Found and fixed on the way (each with a test first): pytest's cached test files 
 
 # Plan 2: run on the selected Part, with suggested inputs (agreed 2026-10-28, "execute")
 
-- [x] ~~**Hook check:** a test for exactly the reported case (`hook WX` on a post-commit holding the old template and the old `flowmap/` path). It fails on the code before 8cb0297 and passes now (`flowmap_tests/tests/test_hooks.py`).~~
+- [x] ~~**Hook check:** a test for exactly the reported case (`hook WX` on a post-commit holding the old template and the old `flowmap/` path). It fails on the code before 42d702d and passes now (`flowmap_tests/tests/test_hooks.py`).~~
 - [x] ~~**One table per driver:**~~ `PARTS` lists each Part's entries and 2–4 scenarios (good, bad, up to two more), each with a one-line description. Drivers import your project's code inside each entry.
 - [x] ~~**W1:**~~ 1 `parse_line` · 2 `ParserConfig` + `parse_line` · 3 the filters · 4 `pipeline.run` · 5 the command on a file (and on stdin as a second entry).
 - [x] ~~**W2:**~~ each Part's own function on MockServer (`run_serial`, `run_gather`, `run_all`/`run_with_progress`, `Fetcher.stream`, `run_group` + the command); `--help` reaches `cli` in Parts 1–4.

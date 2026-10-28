@@ -46,7 +46,7 @@ class Hooks(unittest.TestCase):
         self.assertEqual(hooks(r), before)
 
 
-# the hook text flowmap/ installed before it became flowmap_tests/ (git show 399797e:flowmap/tools/flowmap.py)
+# the hook text flowmap/ installed before it became flowmap_tests/ (git show ff53f1c:flowmap/tools/flowmap.py)
 OLD_TEMPLATE = """#!/bin/sh
 # flowmap: keep the project map up to date (installed by flowmap/tools/flowmap.py hook; delete this file to stop it)
 python3 {root}/tools/flowmap.py note
