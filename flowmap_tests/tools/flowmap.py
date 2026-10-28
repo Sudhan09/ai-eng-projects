@@ -279,18 +279,23 @@ def hook(key):
     c = next((c for _, c in projects() if c["KEY"] == key), None)
     if not c:
         raise SystemExit(f"no project {key} in cfg/")
+    install_hooks(c["REPO"], ROOT)
+
+
+def install_hooks(repo, root):
+    """Our lines in the repo's hooks, pointing at this flowmap folder. Lines from an older flowmap folder (flowmap/ before
+    it became flowmap_tests/) are replaced; any other lines the hook has stay."""
+    ours = HOOK.format(root=root).split("\n", 1)[1]  # without the #!/bin/sh line
     for name in ("post-commit", "post-merge"):
-        path = os.path.join(c["REPO"], ".git", "hooks", name)
-        body = HOOK.format(root=ROOT)
-        if os.path.exists(path):
-            old = open(path).read()
-            if "flowmap" in old:
-                print(f"already installed: {path}")
-                continue
-            body = old.rstrip("\n") + "\n" + body.split("\n", 1)[1]  # keep the hook that was there, add ours after it
-        open(path, "w").write(body)
+        path = os.path.join(repo, ".git", "hooks", name)
+        old = open(path).read() if os.path.exists(path) else ""
+        if ours in old:
+            print(f"already installed: {path}")
+            continue
+        keep = [line for line in (old or "#!/bin/sh").splitlines() if not (line.startswith("# flowmap:") or "tools/flowmap.py" in line)]
+        open(path, "w").write("\n".join(keep).rstrip("\n") + "\n" + ours)
         os.chmod(path, 0o755)
-        print(f"installed: {path}")
+        print(f"{'updated (it pointed at another flowmap folder)' if 'tools/flowmap.py' in old else 'installed'}: {path}")
 
 
 def init(key, repo, week, practical, name):

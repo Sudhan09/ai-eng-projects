@@ -1,6 +1,6 @@
 {
  "commit": "d66d1e1",
- "recorder": 6,
+ "recorder": 7,
  "picked": [
   {
    "file": "auto/W1/5/test_cli__test_timing_goes_to_stderr.json",

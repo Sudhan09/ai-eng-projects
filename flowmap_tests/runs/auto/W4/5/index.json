@@ -1,6 +1,6 @@
 {
  "commit": "f952126",
- "recorder": 6,
+ "recorder": 7,
  "picked": [
   {
    "file": "auto/W4/5/test_w04_part5_main__test_main_exits_0_when_all_work_and_1_when_any_fails.json",

@@ -2,6 +2,7 @@
 import { spawn } from 'node:child_process';
 const url = process.argv[2];
 const chrome = spawn('google-chrome', ['--headless=new', '--no-sandbox', '--disable-gpu', '--remote-debugging-port=9336', '--window-size=1440,900', 'about:blank'], { stdio: 'ignore' });
+process.on('exit', () => chrome.kill());  // even when a check crashes, its browser closes
 const wait = ms => new Promise(r => setTimeout(r, ms));
 await wait(1500);
 const page = (await (await fetch('http://127.0.0.1:9336/json')).json()).find(t => t.type === 'page');

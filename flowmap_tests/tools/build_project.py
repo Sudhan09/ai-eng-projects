@@ -478,7 +478,7 @@ def clean_run(path, meta):
     objects = {k: {**v, "cls": node_alias(v["cls"].replace(".__init__", ""))} for k, v in d["objects"].items()}
     if meta.get("play"):  # a playground run: no test to read; what your code printed and its exit code instead
         return {**meta, "status": d["status"], "events": final, "objects": objects, "chapters": chapters, "tasks": d["tasks"], "endVars": [], "expects": [],
-                **{k: d[k] for k in ("printed", "stderr", "exit") if k in d}}
+                **{k: d[k] for k in ("printed", "stderr", "exit", "returned") if k in d}}
     return {**meta, "status": d["status"], "events": final, "objects": objects, "chapters": chapters, "tasks": d["tasks"], "endVars": end_vars(meta, final), "expects": expects(meta)}
 
 

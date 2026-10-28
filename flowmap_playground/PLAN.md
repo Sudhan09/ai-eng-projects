@@ -35,4 +35,18 @@ Found and fixed on the way (each with a test first): pytest's cached test files 
 
 - [x] ~~W4 by hand in the real page: `/v2/items/7`, `get_item 1500` (ItemMissing), `get_item 3007` (the moved detour), `/items/1=503,503,200` (retries).~~
 - [x] ~~The tests map is still unchanged (`build --check` ok, tool tests pass).~~
-- [ ] Hari re-runs `python3 flowmap_tests/tools/flowmap.py hook W2` and `hook W4`: the old hooks point at `flowmap/`.
+- [x] ~~Hari re-runs `python3 flowmap_tests/tools/flowmap.py hook W2` and `hook W4`: the old hooks point at `flowmap/`.~~ Done (2026-10-28). `hook` used to keep a stale post-commit ("already installed"); it now rewrites old flowmap lines (`tests/test_hooks.py`).
+
+# Plan 2: run on the selected Part, with suggested inputs (agreed 2026-10-28, "execute")
+
+- [x] ~~**Hook check:** a test for exactly the reported case (`hook WX` on a post-commit holding the old template and the old `flowmap/` path). It fails on the code before 8cb0297 and passes now (`flowmap_tests/tests/test_hooks.py`).~~
+- [x] ~~**One table per driver:**~~ `PARTS` lists each Part's entries and 2–4 scenarios (good, bad, up to two more), each with a one-line description. Drivers import your project's code inside each entry.
+- [x] ~~**W1:**~~ 1 `parse_line` · 2 `ParserConfig` + `parse_line` · 3 the filters · 4 `pipeline.run` · 5 the command on a file (and on stdin as a second entry).
+- [x] ~~**W2:**~~ each Part's own function on MockServer (`run_serial`, `run_gather`, `run_all`/`run_with_progress`, `Fetcher.stream`, `run_group` + the command); `--help` reaches `cli` in Parts 1–4.
+- [x] ~~**W3:**~~ 1 `get_json` · 2 `retry_call` · 3 `fetch_many` · 4 plus the limiter · 5 plus embeddings.
+- [x] ~~**W4:**~~ "W3" = W3 Part 5 · 1 the same · 2 `fetch_many` through the seam · 3 plus `get_item` · 4 plus `jsonl` · 5 plus `python -m aiofetch`.
+- [x] ~~**Server:**~~ reads the tables, records on the selected Part's export through that Part's entry, keeps each run under its Part. Each server serves its own page (from memory, its own secret), so a second server can't break the first.
+- [x] ~~**Page:**~~ the box follows the Part pill; a "Try:" dropdown fills the box (you press Run); "Nothing to run at Part X" when there's no entry.
+- [x] ~~**Proof:**~~ `tests/test_scenarios.py` records every scenario of every Part on that Part's code; fails if one doesn't run, a good one raises, or a component present at that Part is never reached. Server tests: Part chosen, nothing-to-run, two servers at once. W2 Parts 1–2 can't reach `results` (starter code nothing calls before Part 3): Hari chose a `"not yet"` note with its reason, which the test keeps true.
+- [x] ~~**Docs:**~~ the playground README and the handbook (a new week adds only its driver's table).
+- [x] ~~**Unchanged:**~~ the tests map (`build --check` ok), tool tests and playground tests pass; checked by hand on port 8798 (never 8765).

@@ -13,3 +13,15 @@ def scripted(text, path_of=lambda word: word):
         if answers:
             script[path_of(ask)] = [int(a) if a.isdigit() else a for a in answers.split(",") if a]
     return asks, script
+
+
+def options(text, *names):
+    """Pull settings out of your words: ("/items/1 rpm=120", "rpm") -> ("/items/1", {"rpm": "120"})."""
+    rest, found = [], {}
+    for word in text.split():
+        key, eq, value = word.partition("=")
+        if eq and key in names:
+            found[key] = value
+        else:
+            rest.append(word)
+    return " ".join(rest), found

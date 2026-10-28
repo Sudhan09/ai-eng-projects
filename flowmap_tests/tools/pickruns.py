@@ -51,7 +51,7 @@ def title(fn):
     return words if len(words) <= 42 else words[:41].rsplit(" ", 1)[0] + "…"
 
 
-RECORDER = 6  # raise it when trace.py records differently: saved runs are recorded again (the same tests)
+RECORDER = 7  # raise it when trace.py records differently: saved runs are recorded again (the same tests)
 
 
 def score(path):

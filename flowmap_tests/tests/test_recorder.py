@@ -46,10 +46,11 @@ def fns(d):
     return [e["fn"] for e in d["calls"]]
 
 
-def play(entry, text):
-    """A playground run: the sample driver's entry, called with your input."""
+def play(entry, text, part=None):
+    """A playground run: the sample driver's entry (of a Part, when given), called with your input."""
     out = os.path.join(OUT, f"play_{entry}.json")
-    subprocess.run([PY, os.path.join(ROOT, "tools", "trace.py"), SAMPLE, f"play:{os.path.join(ROOT, 'tests', 'sample_driver.py')}:{entry}", out, text],
+    spec = f"play:{os.path.join(ROOT, 'tests', 'sample_driver.py')}:" + (f"{part}:{entry}" if part else entry)
+    subprocess.run([PY, os.path.join(ROOT, "tools", "trace.py"), SAMPLE, spec, out, text],
                    capture_output=True, text=True, timeout=90, env=pickruns.safe_env())
     d = json.load(open(out))
     d["text"] = open(out).read()
@@ -77,6 +78,23 @@ class Playground(unittest.TestCase):
         both = next(e for e in d["calls"] if e["fn"] == "core.both")
         self.assertEqual((both["parent"], both["via"]), (d["calls"][0]["id"], "asyncio"))
         self.assertEqual([e["label"] for e in d["events"] if e["k"] == "task"], ["T1", "T2"])
+
+    def test_an_entry_returning_a_dict_is_kept_as_what_it_gave_back(self):
+        d = play("summary", "a bb")
+        self.assertEqual((d["returned"]["t"], [k for k, _ in d["returned"]["items"]]), ("dict", ["sizes", "item"]))
+        self.assertEqual(dict(d["returned"]["items"])["item"]["fields"][1], ["size", {"t": "int", "v": 4}])
+        self.assertNotIn("returned", play("sizes", "a"))  # an entry that returns an exit code keeps it as before
+
+    def test_a_parts_entry_from_another_driver_file_is_the_hidden_you_frame(self):
+        d = play("shared", "abc", part="1")
+        self.assertEqual(d["status"], "passed")
+        root = d["calls"][0]
+        self.assertEqual((root["fn"], root["def"]["file"]), ("test_playground.run_make", "tests/playground.py"))
+        self.assertEqual(fns(d)[1], "core.make")
+        self.assertEqual(d["run"], "play:sample_driver.py:1:shared")
+
+    def test_code_imported_while_recording_is_recorded(self):
+        self.assertEqual(fns(play("main_late", "x"))[1:3], ["__main__.main", "core.make"])
 
     def test_no_local_path_in_a_playground_run(self):
         for bad in ("/home/", "/tmp/", "sample_driver.py:"):

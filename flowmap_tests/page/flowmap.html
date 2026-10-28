@@ -259,6 +259,19 @@ button { cursor: pointer; }
 .insp { --bz: .8; }
 .insp > .panel-head, .insp-body { zoom: var(--bz); }
 .insp > .panel-head { flex-wrap: wrap; row-gap: 6px; }
+.insp .box-tools { display: inline-flex; align-items: center; gap: 4px; flex: none; margin-left: auto; }  /* reset size and close stay together */
+/* resizing the details box: its left edge (width), bottom edge (height), bottom-left corner (both) */
+.insp .grip { position: absolute; z-index: 3; background: none; border: 0; padding: 0; margin: 0; }
+.insp .grip::after { content: ''; position: absolute; border-radius: 2px; background: transparent; transition: background .2s ease; }
+.insp .grip-w { left: 0; top: 14px; bottom: 14px; width: 8px; cursor: ew-resize; }
+.insp .grip-w::after { left: 2px; top: 0; bottom: 0; width: 2px; }
+.insp .grip-h { left: 14px; right: 14px; bottom: 0; height: 8px; cursor: ns-resize; }
+.insp .grip-h::after { left: 0; right: 0; bottom: 2px; height: 2px; }
+.insp .grip-c { left: 0; bottom: 0; width: 14px; height: 14px; cursor: nesw-resize; }
+.insp .grip-c::after { left: 2px; bottom: 2px; width: 7px; height: 7px; border-left: 2px solid transparent; border-bottom: 2px solid transparent; border-radius: 0 0 0 4px; }
+.insp .grip:hover::after, .insp .grip.dragging::after, .insp .grip:focus-visible::after { background: var(--accent); }
+.insp .grip-c:hover::after, .insp .grip-c.dragging::after, .insp .grip-c:focus-visible::after { background: none; border-color: var(--accent); }
+.insp .grip:focus-visible { outline: none; }
 .tname { min-width: 0; }
 .fsz { display: inline-flex; flex: none; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
 .fsz button { height: 26px; padding: 0 8px; border: 0; background: none; color: var(--muted); font: 600 11px var(--font-code); }
@@ -427,7 +440,8 @@ details.f > .fields { margin: 4px 0 6px 6px; padding-left: 10px; border-left: 1p
 .playbox textarea { flex: 1; min-width: 0; resize: none; line-height: 18px; }
 .playbox textarea.multi { height: 96px; }
 .playbox button { height: 34px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); background: none; font-weight: 600; }
-.playbox button:disabled { opacity: .45; cursor: default; }
+.playbox button:disabled, .playbox select:disabled, .playbox textarea:disabled { opacity: .45; cursor: default; }
+.playbox #playTry { max-width: 300px; color: var(--muted); }
 .playnote { align-self: center; color: var(--muted); font-size: 12.5px; max-width: 34%; }
 .playnote.err { color: var(--t-err); }
 .prow { font: 12px var(--font-code); color: var(--text); overflow-wrap: anywhere; padding: 2px 0; }
@@ -597,6 +611,7 @@ details.more[open] > summary { margin-bottom: 8px; }
   .find input { width: 150px; }
 }
 @media (max-width: 760px) {
+  .insp .grip, #boxReset { display: none; }
   .stage.mapv .insp { right: var(--gutter-r); width: auto; top: auto; max-height: 62%; }
   .stack, .stack.collapsed { bottom: auto; width: auto; }
   .stack.collapsed .panel-head { flex-direction: row; padding: 9px 10px 9px 12px; }
@@ -663,11 +678,17 @@ details.more[open] > summary { margin-bottom: 8px; }
     </aside>
 
     <aside class="panel insp" id="insp" aria-label="Details" hidden>
+      <button class="grip grip-w" type="button" aria-label="Box width: drag, or Left and Right arrows; Home for the original size" title="Drag to resize · double-click: original size"></button>
+      <button class="grip grip-h" type="button" aria-label="Box height: drag, or Up and Down arrows; Home for the original size" title="Drag to resize · double-click: original size"></button>
+      <button class="grip grip-c" type="button" aria-label="Box size: drag, or the arrow keys; Home for the original size" title="Drag to resize · double-click: original size"></button>
       <div class="panel-head">
         <span class="panel-title" id="inspTitle">Details</span>
         <span class="fsz" role="group" aria-label="Text size in this box"><button id="fszDown" type="button" aria-label="Smaller text" title="Smaller text">A−</button><button id="fszUp" type="button" aria-label="Bigger text" title="Bigger text">A+</button></span>
         <button class="follow-chip" id="inspFollow" aria-pressed="true" title="On: the box follows the running code. Off: it stays on the node you clicked.">Follow</button>
-        <button class="icon-btn" id="inspClose" aria-label="Close details"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <span class="box-tools">
+          <button class="icon-btn" id="boxReset" type="button" aria-label="Back to the original size" title="Back to the original size"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 2.5H2.5V6M10 13.5h3.5V10M2.5 2.5l4.5 4.5M13.5 13.5L9 9" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+          <button class="icon-btn" id="inspClose" aria-label="Close details"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        </span>
       </div>
       <div class="insp-body" id="inspBody"></div>
     </aside>
@@ -700,6 +721,7 @@ details.more[open] > summary { margin-bottom: 8px; }
 
   <footer class="player">
     <div class="playbox" id="playbox" hidden>
+      <select id="playTry" aria-label="Suggested inputs for this Part"></select>
       <select id="playEntry" aria-label="What to run"></select>
       <textarea id="playText" rows="1" spellcheck="false" aria-label="Your input (Enter runs it, Shift+Enter starts a new line)"></textarea>
       <button id="playGo">Run</button>
@@ -924,21 +946,40 @@ function playLabel(r) {
   [RUN, EV, TREE] = keep;  // loadRun binds the map to whichever run shows next
   return label;
 }
-// END of a playground run: the exit code python -m would give, and what your code printed
+// END of a playground run: what an entry gave back (when it names it), the exit code python -m would give, what was printed
 function playedHTML() {
   if (!RUN || !RUN.play || idx < EV.length) return '';
   const rows = l => l.map(x => `<div class="prow">${esc(x)}</div>`).join('');
-  return (RUN.exit != null ? `<div class="io-l">exit code</div><div class="prow">↩ ${esc(String(RUN.exit))}</div>` : '')
+  return (RUN.returned ? `<div class="io-l">gave back</div>${valueHTML(RUN.returned)}` : '')
+    + (RUN.exit != null ? `<div class="io-l">exit code</div><div class="prow">↩ ${esc(String(RUN.exit))}</div>` : '')
     + (RUN.printed && RUN.printed.length ? `<div class="io-l">printed</div>${rows(RUN.printed)}` : '')
     + (RUN.stderr && RUN.stderr.length ? `<div class="io-l">printed to stderr</div>${rows(RUN.stderr)}` : '');
 }
+// the box follows the Part pill: that Part's entries and suggested inputs, run on that Part's code
+const partWord = label => (/^W/.test(label) ? label : 'Part ' + label);
 function renderPlaybox() {
-  const entries = PG && PG.entries[D.key];
-  $('#playbox').hidden = !entries;
-  if (!entries) return;
-  const sel = $('#playEntry'), text = $('#playText');
-  sel.innerHTML = Object.entries(entries).map(([k, e]) => `<option value="${esc(k)}">${esc(e.label)}</option>`).join('');
-  (sel.onchange = () => { text.placeholder = entries[sel.value].hint; })();
+  const week = PG && PG.parts[D.key];
+  $('#playbox').hidden = !week;
+  if (!week) return;
+  const label = PARTS[partIdx].label, part = week[label];
+  const tries = $('#playTry'), sel = $('#playEntry'), text = $('#playText'), note = $('#playNote');
+  [tries, sel, text, $('#playGo')].forEach(el => { el.disabled = !part; });
+  note.className = 'playnote'; note.textContent = '';
+  if (!part) {  // never another Part's code instead
+    tries.innerHTML = sel.innerHTML = ''; text.value = '';
+    text.placeholder = `Nothing to run at ${partWord(label)}`;
+    return;
+  }
+  tries.innerHTML = `<option value="">Try: a suggested input</option>` + part.scenarios.map((x, i) => `<option value="${i}">${esc(x.about)}</option>`).join('');
+  sel.innerHTML = Object.entries(part.entries).map(([k, e]) => `<option value="${esc(k)}">${esc(e.label)}</option>`).join('');
+  (sel.onchange = () => { text.placeholder = part.entries[sel.value].hint; })();
+  tries.onchange = () => {  // fills the box; you press Run
+    const x = part.scenarios[+tries.value];
+    if (!x || tries.value === '') return;
+    sel.value = x.entry; sel.onchange();
+    text.value = x.input; text.classList.toggle('multi', x.input.includes('\n'));
+    tries.value = ''; text.focus();
+  };
 }
 async function playRun() {
   const text = $('#playText').value.trim(), btn = $('#playGo'), note = $('#playNote');
@@ -946,7 +987,7 @@ async function playRun() {
   btn.disabled = true; note.className = 'playnote'; note.textContent = 'recording…';
   try {
     const res = await fetch('/play', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Flowmap-Token': PG.token },
-      body: JSON.stringify({ key: D.key, entry: $('#playEntry').value, input: text }) });
+      body: JSON.stringify({ key: D.key, part: PARTS[partIdx].label, entry: $('#playEntry').value, input: text }) });
     const got = await res.json();
     if (!res.ok || got.error) throw new Error(got.error || res.statusText);
     Object.assign(D.nodes, got.nodes || {});  // the hidden "you" frame of an entry this page hasn't seen yet
@@ -955,7 +996,7 @@ async function playRun() {
     D._play.push(r);
     if (D._map) D._map.partShown = null;  // draw the lines this run took
     note.textContent = '';
-    setPart(PIDX[r.part] ?? LAST, false);
+    setPart(PIDX[r.part] ?? partIdx, false);  // the Part it ran on: the one you picked
     if (!reduceMotion) play();
   } catch (e) { note.className = 'playnote err'; note.textContent = e.message; }
   finally { btn.disabled = false; }
@@ -1914,7 +1955,7 @@ const INSP_W = 300;
 let DOCK = { l: 0, r: 0 };
 function applyDock() {
   const [w] = stageSize(), st = $('#stack');
-  const d = w <= 760 ? { l: 0, r: 0 } : { l: st.offsetLeft + st.offsetWidth + 10, r: boxClosedByUser ? 0 : w - (insp.hidden ? w - 16 - INSP_W : insp.offsetLeft) + 10 };
+  const d = w <= 760 ? { l: 0, r: 0 } : { l: st.offsetLeft + st.offsetWidth + 10, r: boxClosedByUser ? 0 : w - (insp.hidden ? w - 16 - (boxSize.w || INSP_W) : insp.offsetLeft) + 10 };
   const changed = d.l !== DOCK.l || d.r !== DOCK.r;
   DOCK = d;
   stage.style.setProperty('--dock-l', d.l + 'px');
@@ -2128,6 +2169,7 @@ function renderState() {
 }
 // END is what the test checks: the names in its assert lines, with their values when it finished
 function endSummary() {
+  if (RUN && RUN.play && RUN.returned) return trunc('↩ ' + chipText(RUN.returned), 40);  // an entry that names its END
   if (RUN && RUN.play && RUN.exit != null) {  // the exit code, and the first printed line with words in it (not a lone "{")
     const row = (RUN.printed || []).find(x => /\w/.test(x));
     return trunc(`↩ ${RUN.exit}` + (row ? ' · ' + row.trim() : ''), 40);
@@ -2211,8 +2253,9 @@ function argVals(args) {
 }
 function captionFor(e) {
   if (TREE) {
-    if (!e || idx <= startIdx() || (e.k !== 'return' && topTest(e.fn || ''))) return `▶ ${code('you')} <span class="ar">→</span> ${code(firstCallText())}`;
-    if (e.k === 'return' && topTest(e.fn || '')) return `■ ${code('END')} ${code(endSummary())}`;
+    if (!e || idx <= startIdx() || (e.k !== 'return' && e.k !== 'raise' && topTest(e.fn || ''))) return `▶ ${code('you')} <span class="ar">→</span> ${code(firstCallText())}`;
+    // the run is over: what came back, or what was raised all the way out (a playground input that ends in an error)
+    if ((e.k === 'return' || e.k === 'raise') && topTest(e.fn || '')) return `■ ${code('END')} ${code(endSummary())}`;
   }
   if (!e) return `▶ ${code(labelOf(RUN.entry))}`;
   const c = RUN.calls.get(e.id);
@@ -2417,6 +2460,54 @@ function setBoxText(v) {
 $('#fszDown').onclick = () => setBoxText(BOX_TEXT[Math.max(0, BOX_TEXT.indexOf(boxText) - 1)]);
 $('#fszUp').onclick = () => setBoxText(BOX_TEXT[Math.min(BOX_TEXT.length - 1, BOX_TEXT.indexOf(boxText) + 1)]);
 setBoxText(boxText);
+// the box's size: drag its left edge (width), its bottom edge (height) or the corner between them; double-click a grip,
+// or the reset button, for the original size (300px wide, full height). Remembered in this browser; text size stays
+let boxSize = { w: null, h: null };  // null: the original
+try { const v = JSON.parse(localStorage.getItem('flowmap-boxsize') || '{}'); boxSize = { w: +v.w || null, h: +v.h || null }; } catch (e) { /* storage blocked: the original size */ }
+const clampBoxW = w => Math.round(Math.max(260, Math.min(w, stageSize()[0] * 0.6)));
+const clampBoxH = h => { const full = stageSize()[1] - 24; return h >= full - 4 ? null : Math.round(Math.max(220, h)); };  // near full: docked full height
+function setBoxSize(w, h, save = true) {
+  boxSize = { w, h };
+  insp.style.width = w ? w + 'px' : '';
+  insp.style.bottom = h ? 'auto' : '';
+  insp.style.height = h ? h + 'px' : '';
+  applyDock();  // the zoom buttons and the legend follow the box's edge
+  if (save) try { localStorage.setItem('flowmap-boxsize', JSON.stringify(boxSize)); } catch (e) { /* storage blocked: keep it for this visit */ }
+}
+function resetBoxSize() { setBoxSize(null, null); fit(); }
+const boxNow = () => { const cs = getComputedStyle(insp); return { width: parseFloat(cs.width), height: parseFloat(cs.height) }; };
+insp.querySelectorAll('.grip').forEach(grip => {
+  const wide = !grip.classList.contains('grip-h'), tall = !grip.classList.contains('grip-w');
+  grip.addEventListener('pointerdown', ev => {
+    if (ev.button !== 0) return;
+    ev.preventDefault();
+    const r = boxNow(), x0 = ev.clientX, y0 = ev.clientY;
+    grip.classList.add('dragging');
+    grip.setPointerCapture(ev.pointerId);
+    const move = e => setBoxSize(wide ? clampBoxW(r.width + x0 - e.clientX) : boxSize.w, tall ? clampBoxH(r.height + e.clientY - y0) : boxSize.h, false);
+    const up = () => {
+      grip.classList.remove('dragging');
+      grip.removeEventListener('pointermove', move);
+      setBoxSize(boxSize.w, boxSize.h);
+      fit();  // the map re-fits between the panels
+    };
+    grip.addEventListener('pointermove', move);
+    grip.addEventListener('pointerup', up, { once: true });
+    grip.addEventListener('pointercancel', up, { once: true });
+  });
+  grip.addEventListener('dblclick', resetBoxSize);
+  grip.addEventListener('keydown', ev => {
+    const r = boxNow(), step = { ArrowLeft: [20, 0], ArrowRight: [-20, 0], ArrowUp: [0, -20], ArrowDown: [0, 20] }[ev.key];
+    if (ev.key === 'Home') { ev.preventDefault(); ev.stopPropagation(); resetBoxSize(); return; }
+    if (!step || (!wide && step[0]) || (!tall && step[1])) return;
+    ev.preventDefault();
+    ev.stopPropagation();  // a focused grip's arrows resize the box; they don't also step the run
+    setBoxSize(wide ? clampBoxW(r.width + step[0]) : boxSize.w, tall ? clampBoxH(r.height + step[1]) : boxSize.h);
+    fit(0);
+  });
+});
+$('#boxReset').onclick = resetBoxSize;
+if (boxSize.w || boxSize.h) setBoxSize(boxSize.w && clampBoxW(boxSize.w), boxSize.h && clampBoxH(boxSize.h), false);
 function openInspector() { insp.hidden = false; if (applyDock()) fit(400); }
 function closeInspector() { insp.hidden = true; selected = null; tSel.classed('sel', false); markMapSel(null); }
 function userCloseBox() { boxClosedByUser = true; closeInspector(); if (applyDock()) fit(400); }
@@ -2621,6 +2712,7 @@ function setPart(i, autoplay) {
   fillRunSel();
   renderPills();
   renderPartDelta();
+  renderPlaybox();
   growNext = true;  // new pieces of this Part grow into the map
   loadRun(firstRun());
   runSel.value = firstRun();
@@ -2676,7 +2768,9 @@ find.onkeydown = ev => {
 };
 document.addEventListener('keydown', ev => {
   const t = ev.target;
-  if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+  const arrow = ev.key === 'ArrowRight' || ev.key === 'ArrowLeft';
+  // typing keeps its keys; a menu (run, speed, Try) keeps its own, except → / ←, which always step the run
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable || (t.tagName === 'SELECT' && !arrow))) return;
   if (ev.key === ' ' && !(t && t.tagName === 'BUTTON')) { ev.preventDefault(); playing ? stop() : play(); }
   else if (ev.key === 'ArrowRight') { ev.preventDefault(); stop(); resumeFollow(); stepForward(true); }
   else if (ev.key === 'ArrowLeft') { ev.preventDefault(); stop(); resumeFollow(); stepBack(true); }

@@ -34,25 +34,31 @@ class Playground(unittest.TestCase):
         cls.srv = server.serve(0)
         cls.url = f"http://127.0.0.1:{cls.srv.server_port}/"
         threading.Thread(target=cls.srv.serve_forever, daemon=True).start()
+        cls.newest = {k: flowmap.part_list(p["c"])[-1]["label"] for k, p in cls.srv.projects.items()}
 
     @classmethod
     def tearDownClass(cls):
         cls.srv.shutdown()
         shutil.rmtree(cls.home, ignore_errors=True)
 
-    def ask(self, body, token=None, host=None):
-        req = urllib.request.Request(self.url + "play", data=json.dumps(body).encode(), method="POST",
-                                     headers={"X-Flowmap-Token": token or server.TOKEN, "Content-Type": "application/json", **({"Host": host} if host else {})})
+    def ask(self, body, token=None, host=None, url=None):
+        req = urllib.request.Request((url or self.url) + "play", data=json.dumps(body).encode(), method="POST",
+                                     headers={"X-Flowmap-Token": token or self.srv.token, "Content-Type": "application/json", **({"Host": host} if host else {})})
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
                 return r.status, json.load(r)
         except urllib.error.HTTPError as e:
             return e.code, json.load(e)
 
-    def play(self, key, entry, text):
-        status, got = self.ask({"key": key, "entry": entry, "input": text})
+    def play(self, key, entry, text, part=None):
+        status, got = self.ask({"key": key, "part": part or self.newest[key], "entry": entry, "input": text})
         self.assertEqual(status, 200, got)
         return got["run"]
+
+    def in_page(self, *args):
+        r = subprocess.run(["node", os.path.join(HERE, "run_in_page.mjs"), self.url, *args], capture_output=True, text=True, timeout=300)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr[-500:])
+        return r.stdout
 
     @staticmethod
     def returned(run, suffix):
@@ -61,15 +67,63 @@ class Playground(unittest.TestCase):
     # the browser first: a fresh page and an entry it has never seen (the hidden "you" frame arrives with the run)
     @unittest.skipUnless(BROWSER, "needs Chrome and node")
     def test_a_typed_input_plays_to_its_end_in_the_page(self):
-        for entry, text, end in (("get_item", "1500", "ItemMissing"), ("main", "/v2/items/7", "↩ 0")):
-            r = subprocess.run(["node", os.path.join(HERE, "run_in_page.mjs"), self.url, "W4", entry, text], capture_output=True, text=True, timeout=300)
-            self.assertEqual(r.returncode, 0, r.stdout + r.stderr[-500:])
-            self.assertIn(end, r.stdout)
+        for entry, text, end in (("get_item", "1500", "ItemMissing"), ("main", "/v2/items/7", "↩ 0"), ("jsonl", "/items/1 /items/2 torn", "{rows, stats}")):
+            self.assertIn(end, self.in_page("W4", entry, text))
+
+    @unittest.skipUnless(BROWSER, "needs Chrome and node")
+    def test_b_a_run_that_ends_by_raising_shows_it_as_its_end(self):
+        self.assertIn("END ⚡ TransientError", self.in_page("W3", "get_json", "/items/7=503", "1"))
+
+    @unittest.skipUnless(BROWSER, "needs Chrome and node")
+    def test_b_a_suggested_input_on_an_older_part_fills_the_box_and_plays_there(self):
+        out = self.in_page("W3", "-", "try:0", "1")  # W3 Part 1's first suggestion: get_json /items/7
+        self.assertIn("W3 Part 1", out)
+        self.assertIn("/items/7", out)
+
+    @unittest.skipUnless(BROWSER, "needs Chrome and node")
+    def test_c_a_part_with_nothing_to_run_says_so(self):
+        week = self.srv.projects["W4"]["parts"]
+        saved = week.pop("1")
+        try:
+            self.srv.page = server.page(self.srv.projects, self.srv.token)
+            self.assertIn("Nothing to run at Part 1", self.in_page("W4", "-", "nothing", "1"))
+            status, got = self.ask({"key": "W4", "part": "1", "entry": "fetch_many", "input": "/items/1"})
+            self.assertEqual((status, got["error"]), (400, "Nothing to run at Part 1"))
+        finally:
+            week["1"] = saved
+            self.srv.page = server.page(self.srv.projects, self.srv.token)
+
+    @unittest.skipUnless(BROWSER, "needs Chrome and node")
+    def test_d_arrow_keys_step_the_run_but_the_text_box_keeps_its_own(self):
+        r = subprocess.run(["node", os.path.join(server.TESTS_MAP, "checks", "keys.mjs"), self.url + "#W4"], capture_output=True, text=True, timeout=300)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr[-500:])
+        self.assertIn("ok in the playground text box", r.stdout)
+
+    def test_a_run_uses_the_part_you_chose_and_its_own_entry(self):
+        run = self.play("W3", "get_json", "/items/7", part="1")  # W3 Part 1: make_client + get_json, no client yet
+        names = {e["fn"] for e in run["events"] if e["k"] in ("call", "new")}
+        self.assertEqual(run["part"], "1")
+        self.assertIn("transport.get_json", names)
+        self.assertFalse(any(n.startswith("client.") for n in names))
+        status, got = self.ask({"key": "W4", "part": "3", "entry": "jsonl", "input": "/items/1"})  # jsonl arrives in Part 4
+        self.assertEqual((status, got["error"]), (400, "jsonl isn't in Part 3 yet"))
+
+    def test_two_servers_each_keep_their_own_page_and_secret(self):
+        other = server.serve(0)  # rebuilds the same build/ files, as a second server on your machine would
+        threading.Thread(target=other.serve_forever, daemon=True).start()
+        try:
+            for srv in (self.srv, other):
+                page = urllib.request.urlopen(f"http://127.0.0.1:{srv.server_port}/", timeout=30).read().decode()
+                self.assertIn(srv.token, page)
+            status, _ = self.ask({"key": "W4", "part": "5", "entry": "get_item", "input": "7"})  # the first still works
+            self.assertEqual(status, 200)
+        finally:
+            other.shutdown()
 
     def test_only_its_own_page_can_ask(self):
-        self.assertEqual(self.ask({"key": "W4", "entry": "main", "input": "/v2/items/7"}, token="wrong")[0], 403)
-        self.assertEqual(self.ask({"key": "W4", "entry": "main", "input": "/v2/items/7"}, host="evil.example")[0], 403)
-        self.assertEqual(self.ask({"key": "W4", "entry": "nope", "input": "x"})[0], 400)
+        self.assertEqual(self.ask({"key": "W4", "part": "5", "entry": "main", "input": "/v2/items/7"}, token="wrong")[0], 403)
+        self.assertEqual(self.ask({"key": "W4", "part": "5", "entry": "main", "input": "/v2/items/7"}, host="evil.example")[0], 403)
+        self.assertEqual(self.ask({"key": "W4", "part": "5", "entry": "nope", "input": "x"})[0], 400)
 
     def test_w4_main_prints_its_row_and_exits_0(self):
         run = self.play("W4", "main", "/v2/items/7")
@@ -89,16 +143,30 @@ class Playground(unittest.TestCase):
         self.assertEqual(sum(1 for e in run["events"] if e["k"] == "call" and e["fn"].endswith("._attempt")), 3)
         self.assertEqual(run["exit"], 0)
 
+    def test_w4_jsonl_fetches_writes_and_reads_the_rows_back(self):
+        run = self.play("W4", "jsonl", "/items/1 /items/2")
+        firsts = [next(e["i"] for e in run["events"] if e["k"] == "call" and e["fn"].endswith(f)) for f in
+                  (".fetch_many", ".to_row", "storage.write_jsonl", "storage.read_jsonl")]
+        self.assertEqual(firsts, sorted(firsts))  # in that order
+        got = dict(run["returned"]["items"])
+        self.assertEqual(got["rows"]["n"], 2)
+        self.assertEqual(dict(got["stats"]["fields"]), {"records": {"t": "int", "v": 2}, "malformed": {"t": "int", "v": 0}})
+
+    def test_w4_jsonl_torn_skips_the_half_line_and_counts_it(self):
+        got = dict(self.play("W4", "jsonl", "/items/1 /items/2 torn")["returned"]["items"])
+        self.assertEqual(got["rows"]["n"], 2)
+        self.assertEqual(dict(got["stats"]["fields"])["malformed"], {"t": "int", "v": 1})
+
     def test_w1_w2_w3_run_too(self):
         self.assertEqual(self.play("W1", "cli", "--level WARNING")["exit"], 0)
         self.assertEqual(self.play("W2", "cli", "--jobs 5 --fail-every 3")["exit"], 0)
         self.assertEqual(self.returned(self.play("W3", "fetch_many", "/items/1 /items/3=404"), ".fetch_many")[-1]["value"]["n"], 2)
 
     def test_too_long_or_wrong_inputs_say_why(self):
-        status, got = self.ask({"key": "W2", "entry": "cli", "input": "--jobs 300"})
+        status, got = self.ask({"key": "W2", "part": "5", "entry": "cli", "input": "--jobs 300"})
         self.assertEqual(status, 400)
         self.assertIn("too long", got["error"])
-        status, got = self.ask({"key": "W4", "entry": "get_item", "input": "abc"})
+        status, got = self.ask({"key": "W4", "part": "5", "entry": "get_item", "input": "abc"})
         self.assertEqual((status, got["error"]), (400, "get_item takes item ids, e.g. 7 1500 3007"))
 
     # last: flowmap_tests' page guards (START, END, steps, panels, words, local paths) on the page with every run above

@@ -1,7 +1,7 @@
 """Record one test run as JSON events (every call, return, object change), so the map can show real values.
 
 usage: python trace.py <export_dir> <test_file>::<test_name> <out.json>   (a pytest id: tests/unit/test_a.py::test_b)
-       python trace.py <export_dir> play:<driver.py>:<entry> <out.json> "<your input>"   (a playground run)
+       python trace.py <export_dir> play:<driver.py>:<part>:<entry> <out.json> "<your input>"   (a playground run)
 Run it with the project's own Python. The package is the folder under src/ that has an __init__.py.
 pytest runs the test, so fixtures, autouse setup, async tests and parametrize all work. Only the test's body is
 recorded (a parametrized test: its first case). FLOWMAP_CODE_DIRS="scripts,examples" adds Python outside src/.
@@ -9,6 +9,7 @@ While recording, every connection that isn't to this machine is refused.
 """
 
 import asyncio
+import builtins
 import concurrent.futures
 import contextlib
 import dataclasses
@@ -45,10 +46,18 @@ EXTRA = [os.path.join(W3, d.strip()) for d in os.environ.get("FLOWMAP_CODE_DIRS"
 sys.path[:0] = [SRC, TESTS]
 _file, _, _name = RUN.partition("::")
 NODE = RUN if _file.endswith(".py") else f"tests/{_file}.py::{_name}"  # the old form: test_module::test_fn
-# a playground run calls one entry of a driver (flowmap_playground/drivers/w4.py) with your input instead of a test.
-# The entry is recorded as the test would be (hidden "you" frame, so START is your call); the rest of the driver isn't
+# a playground run calls one entry of a driver (flowmap_playground/drivers/w4.py) with your input instead of a test:
+# the entry of that Part (PARTS), or of the driver (ENTRIES) when no Part is named. The entry is recorded as the test
+# would be (a hidden "you" frame, so START is your call); the rest of the drivers' code isn't
 PLAY = RUN.startswith("play:")
-DRIVER, ENTRY = (os.path.abspath(RUN[len("play:"):].rsplit(":", 1)[0]), RUN.rsplit(":", 1)[1]) if PLAY else (None, None)
+_spec = RUN[len("play:"):].split(":") if PLAY else []
+DRIVER = os.path.abspath(_spec[0]) if PLAY else None
+PLAY_PART, ENTRY = (_spec[1], _spec[2]) if len(_spec) == 3 else (None, _spec[1]) if PLAY else (None, None)
+DRIVERS = os.path.dirname(DRIVER) + os.sep if PLAY else None  # every driver file (w4.py reuses w3.py's entries)
+
+
+def driver_code(path):
+    return PLAY and path.startswith(DRIVERS) and not path.startswith(W3 + os.sep)  # never the project itself
 
 try:
     import httpx  # noqa: E402
@@ -133,7 +142,7 @@ def collect():
 
 def mod_of(path):
     """A file's module as the map names it: batch, adapters.alpha (src/), test_part3 (tests/), scripts.seed."""
-    if path == DRIVER:
+    if driver_code(path):
         return "test_playground"
     if path.startswith(PKG_DIR + os.sep):
         rel = os.path.relpath(path, PKG_DIR)[:-3].replace(os.sep, ".")
@@ -365,7 +374,7 @@ def rel(path):
     """A file as the map names it: relative to the project; a playground driver counts as the test."""
     if path.startswith("<"):  # "<string>": the __init__ a dataclass writes is no file (relpath would add the folder we're in)
         return path
-    return "tests/playground.py" if path == DRIVER else os.path.relpath(path, W3)
+    return "tests/playground.py" if driver_code(path) else os.path.relpath(path, W3)
 
 
 def call_line(frame):
@@ -388,7 +397,7 @@ def live_call(f):
 def find_parent(frame):
     up = frame.f_back
     # the recorder's own wrapper (submit's job), and a driver's own helpers (only its entry is recorded)
-    while up is not None and up.f_code.co_filename in (__file__, DRIVER) and up.f_code not in codes:
+    while up is not None and (up.f_code.co_filename == __file__ or driver_code(up.f_code.co_filename)) and up.f_code not in codes:
         up = up.f_back
     via = None
     if up is not None and up.f_code not in codes:
@@ -683,9 +692,37 @@ T = mon.DEBUGGER_ID
 E = mon.events
 
 
+WATCH = E.PY_START | E.PY_RETURN | E.PY_YIELD | E.PY_RESUME
+_import = builtins.__import__
+_modules_seen = 0
+
+
+def import_and_watch(*args, **kwargs):
+    """An import while recording (your code's `from .x import y` inside a function, a driver's lazy import) can bring
+    new code of yours: it is watched from then on, like the code imported before the run."""
+    global _modules_seen
+    _tl.imports = getattr(_tl, "imports", 0) + 1
+    try:
+        module = _import(*args, **kwargs)
+    finally:
+        _tl.imports -= 1
+    # only once the outermost import is done: a module's own imports run before its functions exist
+    if recording and not _tl.imports and len(sys.modules) != _modules_seen:
+        _modules_seen = len(sys.modules)
+        before = set(codes)
+        collect()
+        for c in codes - before:
+            mon.set_local_events(T, c, WATCH)
+    return module
+
+
+builtins.__import__ = import_and_watch
+
+
 def start():
-    global recording, t0
+    global recording, t0, _modules_seen
     collect()
+    _modules_seen = len(sys.modules)
     mon.use_tool_id(T, "flowmap")
     for ev, cb in [
         (E.PY_START, on_start),
@@ -698,7 +735,7 @@ def start():
     ]:
         mon.register_callback(T, ev, cb)
     for c in codes:
-        mon.set_local_events(T, c, E.PY_START | E.PY_RETURN | E.PY_YIELD | E.PY_RESUME)
+        mon.set_local_events(T, c, WATCH)
     mon.set_events(T, E.PY_UNWIND | E.EXCEPTION_HANDLED | E.RAISE)
     t0 = time.perf_counter()
     recording = True
@@ -753,7 +790,7 @@ if PLAY:
     spec = importlib.util.spec_from_file_location("flowmap_driver", DRIVER)
     driver = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(driver)
-    entry = driver.ENTRIES[ENTRY]["run"]
+    entry = (driver.PARTS[PLAY_PART]["entries"] if PLAY_PART else driver.ENTRIES)[ENTRY]["run"]
     codes.add(entry.__code__)
     os.chdir(tempfile.mkdtemp(prefix="flowmap-play-"))  # an empty folder: no .env of yours is read, files land here
     printed, errors, result = io.StringIO(), io.StringIO(), None
@@ -770,7 +807,9 @@ if PLAY:
         stop()
     played = {"printed": [short(x, 300) for x in printed.getvalue().splitlines()[:20]],
               "stderr": [short(x, 300) for x in errors.getvalue().splitlines()[:20]],
-              "exit": result if isinstance(result, int) and not isinstance(result, bool) else None}
+              "exit": result if isinstance(result, int) and not isinstance(result, bool) else None,
+              # an entry that returns a dict names its END: {"rows": what read_jsonl gave, "stats": the ReadStats it filled}
+              **({"returned": snap(result, 3)} if isinstance(result, dict) else {})}
 else:
     os.chdir(W3)
     code = pytest.main([NODE, "-q", "-p", "no:cacheprovider", "-o", "addopts="], plugins=[Recorder()])
@@ -778,7 +817,7 @@ else:
         status = f"not run: pytest could not collect {NODE} (exit code {int(code)})"
 
 out = {
-    "run": f"play:{os.path.basename(DRIVER)}:{ENTRY}" if PLAY else RUN,
+    "run": f"play:{os.path.basename(DRIVER)}:{PLAY_PART + ':' if PLAY_PART else ''}{ENTRY}" if PLAY else RUN,
     "status": status,
     "events": events,
     "objects": {rec["id"]: {k: rec[k] for k in ("cls", "name", "born")} for rec in objs.values()},

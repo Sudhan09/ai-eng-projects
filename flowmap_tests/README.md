@@ -1,5 +1,7 @@
 # flowmap_tests
 
+**Start with [HANDBOOK.md](HANDBOOK.md):** what to do each week, how both maps stay up to date, and every rule.
+
 An animated map of how data moves through each week's project: from what you call (START) to what your call returns (END). A call travels a line as a signal, the values sit in the cards, and an answer rides back. It grows Part by Part as you commit.
 
 The runs are recorded by running the project's tests, because a test is a ready-made caller. But the map shows only your code (`src/`). The test code (`tests/`) stays hidden, except, from Week 5, the bits of it your code calls in the middle of a run (see [What the page shows](#what-the-page-shows)).
@@ -41,6 +43,7 @@ Pick the week in the project menu (top left), then a Part in the top bar.
   - At step 0, what the Part added is outlined in white. A dashed outline means changed.
   - Once the run moves, only a small corner square stays on those cards.
 - **A run (bottom bar):** ▶ plays, and ◀ / ▶| step. Every step shows one hand-off on the map. Stepping back undoes it exactly.
+  - **→ / ←** step too, wherever you last clicked (a menu, the slider, a button). Only while you type in a text box do they move the cursor instead.
   - Quiet events ride along with the step before them: a field changing, a wait, the test's own frames.
 - **Your code only:** everything from `src/` plays in the order it happened. For example, in W3:
   1. building the fake server (`chaos = ChaosAPI(script={"/items/3": [404]})`);
@@ -57,6 +60,7 @@ Pick the week in the project menu (top left), then a Part in the top bar.
   - an object shows with the name your code gives it (`client.get_json`, `breaker.call`, `limiter.acquire`), or its class in snake_case if the code names it nowhere (`flaky_api`);
   - "you" appears only where you act: the START card ("you call"), the caption before the run starts, and FROM / BACK TO in the box of a call you made.
 - **Details box (right):** for the running call it shows FROM → IN → function → OUT → BACK TO, plus the caller's line with the value filled in. **A− / A+** change its text size. **Follow** keeps it on the running call.
+  - **Resize it:** drag its left edge (width), bottom edge (height) or the corner between them. The ⤢ button next to × (or a double-click on an edge) puts it back to the original size. The size is remembered in this browser; the text size keeps its own buttons.
 - **Who's waiting (left rail):** the call stack, one tab per parallel task.
 - **Colours ("Ice" palette on black):**
   - your code's calls and waiting lines: ice blue;
@@ -197,7 +201,7 @@ The playground shares these steps: `trace.py` also records a playground driver's
 | `tools/` | The steps above; `flowmap.py` is the only one you run |
 | `cfg/` | One settings file per project |
 | `runs/` | Recorded runs (`runs/auto/` is made by the run picker) |
-| `checks/` | Browser checks: `smoke.js` (every rebuild), plus real-mouse checks `clicks.mjs`, `follow.mjs`, `stack.mjs` (by hand: `node flowmap_tests/checks/clicks.mjs file:///…/build/flowmap.html#W4`) |
+| `checks/` | Browser checks: `smoke.js` (every rebuild), plus real-mouse and real-keyboard checks `clicks.mjs`, `follow.mjs`, `stack.mjs`, `resize.mjs` (resizing the details box), `keys.mjs` (→ / ← step from anywhere) (by hand: `node flowmap_tests/checks/clicks.mjs file:///…/build/flowmap.html#W4`) |
 | `tests/` | The tool tests, and `tests/sample/`: a tiny project with one example of everything the recorder must handle (`tests/sample_driver.py` is its playground driver) |
 | `exports/` | Read-only copies of each Part's code (not in git, made again on build) |
 | `build/` | The built page, data, logs and check result (not in git) |
@@ -237,6 +241,7 @@ The playground shares these steps: `trace.py` also records a playground driver's
 | The claude.ai link shows an old map | It is a copy | Ask Claude to republish `build/flowmap.html` |
 | The hook's check says "problems" | A check failed (see [Checks](#checks)) | Look at `build/check.txt`, then ask for a fix |
 | No check runs | `google-chrome` is missing | Install Chrome, or skip `--check` |
+| A commit prints "can't open file …/flowmap/tools/flowmap.py" | The hook still points at an old folder (`flowmap/` before it became `flowmap_tests/`) | Run `hook` again: it replaces the old lines and keeps any others in the hook |
 | A test tries the real network or a paid API | While recording, every connection that isn't to this machine is refused, `*_API_KEY` / `*_TOKEN` are removed and every proxy points at a closed port. Such a test fails rather than spend money. Local Postgres or Ollama still work | Keep tests on fakes |
 | Real data in `runs/` | Recordings hold the real values your tests use | Don't record tests that read secrets or private files |
 | Map too small to read | Docked panels take room on narrow screens | Close-up button, close the details box, or A− / A+ for the box text |
