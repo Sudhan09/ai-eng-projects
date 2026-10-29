@@ -78,9 +78,9 @@ Pick the week in the project menu (top left), then a Part in the top bar.
 | `python3 flowmap_tests/tools/flowmap.py build --check` | Same, then check every Part and run in a browser, compare with the saved map, and run the tool tests if the tools changed (see [Checks](#checks)) |
 | `python3 flowmap_tests/tools/flowmap.py build --accept` | Same as `--check`, then save this map as the expected one: for when an old week changed on purpose |
 | `python3 flowmap_tests/tools/flowmap.py hook W4` | Install the git hooks in that project's repo: after each commit and after each `git pull` (once per repo) |
-| `python3 flowmap_tests/tools/flowmap.py update` | What the hook runs in the background after each commit: build and check, quietly |
+| `python3 flowmap_tests/tools/flowmap.py update` | What the hook runs in the background after each commit: build and check, quietly, then bring the playground up to the same commit (`flowmap_playground/server.py --refresh`) |
 | `python3 flowmap_tests/tools/flowmap.py note` | The one line the hook prints after a commit |
-| `python3 flowmap_tests/tools/flowmap.py init W5 projects/x --week 5 --practical w05_plan.md` | Start a map for a new project (`--week PF1` for the production bridge) |
+| `python3 flowmap_tests/tools/flowmap.py init W5 projects/x --week 5 --practical w05_plan.md` | Start a map for a new project, and install its git hooks (`--week PF1` for the production bridge) |
 | `python3 -m unittest discover -s flowmap_tests/tests` | The tool tests by hand (a rebuild runs them whenever the tools change) |
 
 ## How the map stays up to date
@@ -89,8 +89,7 @@ Pick the week in the project menu (top left), then a Part in the top bar.
 
 | When | You do | Why |
 |---|---|---|
-| **Once per week's project** | Run `init` for the week, or ask Claude to "add week 5 to the map" (see the table below) | The map only knows the weeks that have a settings file in `cfg/` |
-| **Once per new repo** | Run `python3 flowmap_tests/tools/flowmap.py hook W5` yourself. Claude isn't allowed to install git hooks | The hooks rebuild the map after each commit and each `git pull` |
+| **Once per week's project** | Run `init` for the week yourself (see the table below). It also installs the git hooks, and Claude isn't allowed to install them | The map only knows the weeks that have a settings file in `cfg/`. The hooks rebuild the map (and the playground) after each commit and each `git pull` |
 | **Every commit** | Name the Part in the message: `feat(w5p1): what it adds`. Any type works (`fix(w5p1)`, `test(w5p1)`, `docs(w5p1)`); a Stage is `(w16s2)`, the production bridge `(pf1p2)`. The old `Week 5 Part 1: …` still works | The Part is found from this message. A commit that names no Part joins the Part before it |
 | **Every Part** | Add tests for what the Part builds, anywhere under `tests/` (`tests/unit/test_x.py` too). Fixtures, `async def` tests and parametrize all work | The tests a Part adds become its runs on the map |
 | **When a Part is finished** | Merge it into `main`. When it is merged on GitHub (from Week 7), `git pull` it | The newest Part counts as *in progress* (a dashed pill) until `main` contains it. The pull hook updates the map |
@@ -128,12 +127,12 @@ Pick the week in the project menu (top left), then a Part in the top bar.
 
 ### Every week's project
 
-Each new week takes one or two commands, done once. After that, every commit updates the map as above.
+Each new week takes one command, done once. After that, every commit updates the map (and the playground) as above.
 
 | Where the week's code lives | Run once (from `ai_eng_workspace/`) | After that |
 |---|---|---|
 | The same repo as an earlier week (W4 carried on in `aiofetch`) | `python3 flowmap_tests/tools/flowmap.py init W5 projects/aiofetch --week 5 --practical w05_plan.md` | That repo's hook is already installed, so every commit updates the map |
-| A new repo | The same `init`, then `python3 flowmap_tests/tools/flowmap.py hook W5` | The same |
+| A new repo | The same `init`: it installs that repo's hooks too | The same |
 | Several repos in one week (W18 builds `llm-client-kit` and changes `aiofetch`) | One `init` per repo, each with its own key: `init W18-llm projects/llm-client-kit --week 18` and `init W18-aiofetch projects/aiofetch --week 18` | Each is its own entry in the project menu (`W18 · aiofetch`). A W18 commit in `aiofetch` never changes W3 or W4 |
 
 - **What `init` works out:** the Parts come from your commits, and their titles from the `--practical` plan's `Part N - …` or `Stage N - …` headings (or the commit messages without one). Columns, runs, START and END are worked out too, and the week is checked. It then appears in the project menu.

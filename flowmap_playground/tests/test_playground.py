@@ -31,7 +31,7 @@ class Playground(unittest.TestCase):
         cls.home = tempfile.mkdtemp(prefix="flowmap-playground-")
         os.symlink(os.path.join(PLAYGROUND, "drivers"), os.path.join(cls.home, "drivers"))
         server.HERE = cls.home  # runs/ and build/ go here, not into your playground
-        cls.srv = server.serve(0)
+        cls.srv = server.serve(0, suggest=False)  # the Try: lists made from your tests: test_follow.py, test_scenarios.py
         cls.url = f"http://127.0.0.1:{cls.srv.server_port}/"
         threading.Thread(target=cls.srv.serve_forever, daemon=True).start()
         cls.newest = {k: flowmap.part_list(p["c"])[-1]["label"] for k, p in cls.srv.projects.items()}
@@ -82,15 +82,15 @@ class Playground(unittest.TestCase):
 
     @unittest.skipUnless(BROWSER, "needs Chrome and node")
     def test_c_a_part_with_nothing_to_run_says_so(self):
-        week = self.srv.projects["W4"]["parts"]
-        saved = week.pop("1")
+        week = self.srv.projects["W4"]["parts"]  # no row for the W3 pill, and none before it to borrow
+        saved = week.pop("W3")
         try:
             self.srv.page = server.page(self.srv.projects, self.srv.token)
-            self.assertIn("Nothing to run at Part 1", self.in_page("W4", "-", "nothing", "1"))
-            status, got = self.ask({"key": "W4", "part": "1", "entry": "fetch_many", "input": "/items/1"})
-            self.assertEqual((status, got["error"]), (400, "Nothing to run at Part 1"))
+            self.assertIn("Nothing to run at W3", self.in_page("W4", "-", "nothing", "W3"))
+            status, got = self.ask({"key": "W4", "part": "W3", "entry": "fetch_many", "input": "/items/1"})
+            self.assertEqual((status, got["error"]), (400, "Nothing to run at W3"))
         finally:
-            week["1"] = saved
+            week["W3"] = saved
             self.srv.page = server.page(self.srv.projects, self.srv.token)
 
     @unittest.skipUnless(BROWSER, "needs Chrome and node")
@@ -109,7 +109,7 @@ class Playground(unittest.TestCase):
         self.assertEqual((status, got["error"]), (400, "jsonl isn't in Part 3 yet"))
 
     def test_two_servers_each_keep_their_own_page_and_secret(self):
-        other = server.serve(0)  # rebuilds the same build/ files, as a second server on your machine would
+        other = server.serve(0, suggest=False)  # rebuilds the same build/ files, as a second server on your machine would
         threading.Thread(target=other.serve_forever, daemon=True).start()
         try:
             for srv in (self.srv, other):

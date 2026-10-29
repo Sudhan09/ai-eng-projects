@@ -79,5 +79,56 @@ class OldFolder(unittest.TestCase):
         self.assertEqual(text, flowmap.HOOK.format(root=box))
 
 
+class Init(unittest.TestCase):
+    def test_init_installs_the_hook_too(self):
+        """A new week is one command: `init` writes its settings and installs the git hook (before the first build, so
+        a first build that fails still leaves the hook)."""
+        import subprocess
+        import tempfile
+        r = Repo()
+        r.commit("feat(w9p1): a first part")
+        box = tempfile.mkdtemp(prefix="flowmap-initbox-")
+        os.symlink(os.path.join(os.path.dirname(HERE), "tools"), os.path.join(box, "tools"))
+        os.makedirs(os.path.join(box, "cfg"))
+        subprocess.run([sys.executable, os.path.join(box, "tools", "flowmap.py"), "init", "WX", r.dir, "--week", "9"],
+                       capture_output=True, text=True, timeout=300)
+        self.assertTrue(os.path.exists(os.path.join(box, "cfg", "wx.py")))
+        for name, text in hooks(r).items():
+            self.assertEqual(text, flowmap.HOOK.format(root=box), name)
+
+
+class Update(unittest.TestCase):
+    def test_update_refreshes_the_playground_after_the_map(self):
+        """One commit updates both: the hook runs `update`, which rebuilds the tests map and then the playground
+        (flowmap_playground/server.py --refresh, next to flowmap_tests)."""
+        import tempfile
+        done = []
+        root, build, refresh = flowmap.ROOT, flowmap.build, flowmap.refresh_playground
+        flowmap.ROOT = tempfile.mkdtemp(prefix="flowmap-updatebox-")
+        flowmap.build = lambda **kw: done.append("map")
+        flowmap.refresh_playground = lambda log=print: done.append("playground")
+        try:
+            flowmap.update()
+        finally:
+            flowmap.ROOT, flowmap.build, flowmap.refresh_playground = root, build, refresh
+            os.chdir(root)
+        self.assertEqual(done, ["map", "playground"])
+
+    def test_the_playground_step_runs_the_playground_next_to_the_map(self):
+        import subprocess
+        import tempfile
+        workspace = tempfile.mkdtemp(prefix="flowmap-workspace-")
+        box = os.path.join(workspace, "flowmap_tests")
+        os.makedirs(box)
+        os.symlink(os.path.join(os.path.dirname(HERE), "tools"), os.path.join(box, "tools"))
+        os.makedirs(os.path.join(workspace, "flowmap_playground"))
+        open(os.path.join(workspace, "flowmap_playground", "server.py"), "w").write(
+            "import sys\nopen(__file__ + '.ran', 'w').write(' '.join(sys.argv[1:]))\nprint('playground up to date (W1)')\n")
+        out = subprocess.run([sys.executable, "-c", f"import sys; sys.path.insert(0, {os.path.join(box, 'tools')!r}); import flowmap; flowmap.refresh_playground()"],
+                             capture_output=True, text=True, timeout=60).stdout
+        self.assertEqual(open(os.path.join(workspace, "flowmap_playground", "server.py.ran")).read(), "--refresh")
+        self.assertIn("playground up to date (W1)", out)
+
+
 if __name__ == "__main__":
     unittest.main()

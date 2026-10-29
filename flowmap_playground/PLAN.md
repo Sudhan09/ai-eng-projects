@@ -50,3 +50,18 @@ Found and fixed on the way (each with a test first): pytest's cached test files 
 - [x] ~~**Proof:**~~ `tests/test_scenarios.py` records every scenario of every Part on that Part's code; fails if one doesn't run, a good one raises, or a component present at that Part is never reached. Server tests: Part chosen, nothing-to-run, two servers at once. W2 Parts 1–2 can't reach `results` (starter code nothing calls before Part 3): Hari chose a `"not yet"` note with its reason, which the test keeps true.
 - [x] ~~**Docs:**~~ the playground README and the handbook (a new week adds only its driver's table).
 - [x] ~~**Unchanged:**~~ the tests map (`build --check` ok), tool tests and playground tests pass; checked by hand on port 8798 (never 8765).
+
+# Plan 3: the playground follows every commit, with suggestions from your tests (agreed 2026-10-30, "execute")
+
+The crash of 2026-10-29: after `chore: release v0.2.0` joined W4 Part 5, the tests map's update deleted `exports/f952126`; the 10 W4 runs saved on it stopped the server from starting.
+
+- [x] ~~**Tests first:** a saved run whose code copy was deleted still builds (it failed with exactly that error); one whose commit is gone from git is dropped with a note; after a commit a saved run is played again on the new code; one that no longer runs stays on its old code; a page load with no commit rebuilds nothing; after a commit a Run asks for a reload and the reload rebuilds (`tests/test_follow.py`).~~
+- [x] ~~**Crash fix:** `build` makes a run's code copy again from git; drops a run only when its commit is gone.~~
+- [x] ~~**Saved runs follow their Part:** `follow` plays them again (the same entry and input) on the Part's new commit.~~
+- [x] ~~**Page load:** each week's signature (its Parts' commits, the tests map's build, the drivers, this code); a changed one is refreshed before the page is served. A stale page's Run gets 409 "reload the page".~~
+- [x] ~~**Suggestions from tests:** `harvest.py` (each Part's tests once, the values your functions got), each entry's `from` rule, the call entry for a new function with plain values, `suggest.py` (new tests first; one fine, one raising; played before shown; up to 4). Kept per commit in `build/`. The drivers' own suggestions are the fallback.~~
+- [x] ~~**A new Part without a row** borrows the row before it; its suggestions come from its own tests.~~
+- [x] ~~**One commit updates both:** `flowmap.py update` ends with `server.py --refresh` (`tests/test_hooks.py`: it runs after the map, and runs the playground next to `flowmap_tests`).~~
+- [x] ~~**`init` installs the hook** (before the first build), so a new week is one command (`tests/test_hooks.py`).~~
+- [x] ~~**Proof:** `tests/test_scenarios.py` also checks that every Part of every week gets suggestions from its tests (or a `"no suggestions"` note with its reason, which must stay true; none needed today).~~
+- [x] ~~**Unchanged:** the tests map (`build --check` ok); tool tests and playground tests pass; checked by hand on port 8798 (Try: on W4 Parts 3 and 5, the call entry on Part 4), never 8765. Your runs were backed up to `~/history-backups/2026-10-30/playground-runs` before their first refresh.~~

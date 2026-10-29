@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 
 import w3
-from _input import options, scripted
+from _input import few, last, options, scripted, with_call, words
 
 
 def fake_network(script):
@@ -96,10 +96,37 @@ def run_main(text):  # Part 5: python -m aiofetch, with your settings coming fro
     return asyncio.run(main(paths))
 
 
-FETCH_MANY = {"label": "client.fetch_many", "hint": "/items/1 /items/2=404   rpm=120", "run": run_fetch_many}
-GET_ITEM = {"label": "client.get_item", "hint": "7   1500   3007", "run": run_get_item}
-JSONL = {"label": "fetch → write → read jsonl", "hint": "/items/1 /items/2 torn", "run": run_jsonl}
-MAIN = {"label": "python -m aiofetch", "hint": "/v2/items/7   /items/1=503,503,200", "run": run_main}
+# your tests' values -> the words you'd type (suggest.py): the paths or ids, the fake's script, the rate limit
+FAKE = "flaky.FlakyAPI.__init__"
+
+
+def rpm(before):
+    n = last(before, "client.AiofetchClient.__init__", "requests_per_minute")
+    return f" rpm={n}" if isinstance(n, int) and n else ""
+
+
+def paths_typed(a, before):
+    paths = few(a.get("paths"))
+    return words(paths, last(before, FAKE, "script")) + rpm(before) if paths else None
+
+
+def item_typed(a, before):
+    i = a.get("item_id")
+    return words([i], last(before, FAKE, "script"), lambda i: f"/v2/items/{i}") + rpm(before) if type(i) is int else None
+
+
+def rows_typed(a, before):
+    rows = a.get("records")
+    urls = few([r.get("url") for r in rows if isinstance(r, dict)]) if isinstance(rows, list) and rows else None
+    return " ".join(urls) if urls and len(urls) == len(rows) else None
+
+
+FETCH_MANY = {"label": "client.fetch_many", "hint": "/items/1 /items/2=404   rpm=120", "run": run_fetch_many,
+              "from": {"client.AiofetchClient.fetch_many": paths_typed}}
+GET_ITEM = {"label": "client.get_item", "hint": "7   1500   3007", "run": run_get_item, "from": {"client.AiofetchClient.get_item": item_typed}}
+JSONL = {"label": "fetch → write → read jsonl", "hint": "/items/1 /items/2 torn", "run": run_jsonl, "from": {"storage.write_jsonl": rows_typed}}
+MAIN = {"label": "python -m aiofetch", "hint": "/v2/items/7   /items/1=503,503,200", "run": run_main,
+        "from": {"__main__.main": lambda a, before: words(few(a.get("paths")) or [], last(before, FAKE, "script")) or None}}
 
 GOOD = ("fetch_many", "/items/1 /items/2", "good", "Two items at once, through your real transport")
 BAD = ("fetch_many", "/items/1 /items/2=404", "bad", "One 404: a failed result, the other fine")
@@ -128,3 +155,4 @@ PARTS = {
         ("get_item", "1500 3007 rpm=120", "more", "A missing item and a moved one, paced by the rate limiter"),
     ]},
 }
+with_call(PARTS, 'storage.is_json_object({"url": "/items/1"})')

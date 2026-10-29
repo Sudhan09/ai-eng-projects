@@ -9,7 +9,7 @@ import shlex
 import sys
 from pathlib import Path
 
-from _input import options
+from _input import last, options, with_call
 
 SAMPLE = """2026-10-02T09:15:01Z DEBUG cache: warming up
 2026-10-02T09:15:02Z INFO auth: user login ok
@@ -87,12 +87,57 @@ def run_cli_stdin(text):  # Part 5: the same command, reading standard input ("-
     return main([*shlex.split(first), "-"])
 
 
-PARSE = {"label": "parse_line", "hint": "a log line per line, e.g. 2026-10-02T09:15:01Z ERROR db: connection refused", "run": run_parse}
-CONFIG = {"label": "ParserConfig + parse_line", "hint": "levels=ERROR,WARNING patterns=refused   (log lines below, or none for a sample)", "run": run_config}
-FILTERS = {"label": "the filters", "hint": "level=WARNING pattern=refused   (log lines below, or none for a sample)", "run": run_filters}
-PIPELINE = {"label": "pipeline.run", "hint": "levels=ERROR,WARNING patterns=refused   (log lines below, or none for a sample)", "run": run_pipeline}
-CLI = {"label": "logparse (a file)", "hint": "--level WARNING --json   (log lines below, or none for a sample)", "run": run_cli}
-CLI_STDIN = {"label": "logparse (standard input)", "hint": "--level WARNING   (log lines below, or none for a sample)", "run": run_cli_stdin}
+# your tests' values -> the words you'd type (suggest.py)
+def line_typed(a, before):
+    return a["line"] if isinstance(a.get("line"), str) and a["line"].strip() and "\n" not in a["line"] else None
+
+
+def listed(name, values):
+    ok = isinstance(values, list) and values and all(isinstance(v, str) and v and not set(v) & set(" ,=") for v in values)
+    return f"{name}={','.join(values)}" if ok else ""
+
+
+def lists_typed(a, before):
+    return " ".join(w for w in (listed("levels", a.get("levels")), listed("patterns", a.get("patterns"))) if w) or None
+
+
+def config_typed(a, before):  # pipeline.run: the ParserConfig the test made just before
+    made = last(before, "config.ParserConfig.from_lists")
+    return lists_typed(made, before) if made else None
+
+
+def level_typed(a, before):
+    level = (a.get("min_level") or {}).get("@enum", "") if isinstance(a.get("min_level"), dict) else ""
+    return f"level={level.split('.')[-1]}" if level else None
+
+
+def pattern_typed(a, before):
+    return listed("pattern", [a.get("pattern")]) or None
+
+
+def argv_typed(stdin):
+    """cli.main's arguments without the log file (the sample log stands in for your test's file)."""
+    def typed(a, before):
+        argv = a.get("argv")
+        if not isinstance(argv, list) or not all(isinstance(x, str) for x in argv) or ("-" in argv) != stdin:
+            return None
+        flags = [x for x in argv if x != "-" and "/" not in x and not x.endswith((".log", ".txt", ".jsonl"))]
+        return shlex.join(flags) if flags else None
+    return typed
+
+
+PARSE = {"label": "parse_line", "hint": "a log line per line, e.g. 2026-10-02T09:15:01Z ERROR db: connection refused", "run": run_parse,
+         "from": {"record.parse_line": line_typed}}
+CONFIG = {"label": "ParserConfig + parse_line", "hint": "levels=ERROR,WARNING patterns=refused   (log lines below, or none for a sample)", "run": run_config,
+          "from": {"config.ParserConfig.from_lists": lists_typed}}
+FILTERS = {"label": "the filters", "hint": "level=WARNING pattern=refused   (log lines below, or none for a sample)", "run": run_filters,
+           "from": {"filters.level_at_least": level_typed, "filters.matches": pattern_typed}}
+PIPELINE = {"label": "pipeline.run", "hint": "levels=ERROR,WARNING patterns=refused   (log lines below, or none for a sample)", "run": run_pipeline,
+            "from": {"pipeline.run": config_typed}}
+CLI = {"label": "logparse (a file)", "hint": "--level WARNING --json   (log lines below, or none for a sample)", "run": run_cli,
+       "from": {"cli.main": argv_typed(stdin=False)}}
+CLI_STDIN = {"label": "logparse (standard input)", "hint": "--level WARNING   (log lines below, or none for a sample)", "run": run_cli_stdin,
+             "from": {"cli.main": argv_typed(stdin=True)}}
 
 PARTS = {
     "1": {"entries": {"parse": PARSE}, "scenarios": [
@@ -121,3 +166,4 @@ PARTS = {
         ("cli_stdin", "--level ERROR", "more", "The same command, reading standard input"),
     ]},
 }
+with_call(PARTS, 'record.parse_line("2026-10-02T09:15:01Z ERROR db: down")')

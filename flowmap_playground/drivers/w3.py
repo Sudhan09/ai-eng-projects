@@ -7,7 +7,7 @@ Everything runs on ChaosAPI, the fake server, through httpx's MockTransport. You
 
 import asyncio
 
-from _input import options, scripted
+from _input import few, last, options, scripted, with_call, words
 
 
 def chaos(script):
@@ -68,10 +68,41 @@ def run_embed(text):  # Part 5: your words become vectors, then one similarity m
     return {"vectors": matrix, "similarity": cosine_matrix(matrix)}
 
 
-GET_JSON = {"label": "transport.get_json", "hint": "/items/7   /items/7=503", "run": run_get_json}
-RETRY = {"label": "retry_call(get_json)", "hint": "/items/7=503,503,200", "run": run_retry_call}
-FETCH_MANY = {"label": "client.fetch_many", "hint": "/items/1 /items/3=404   rpm=120   timeout=0.2", "run": run_fetch_many}
-EMBED = {"label": "embeddings", "hint": "cat dog car", "run": run_embed}
+# your tests' values -> the words you'd type (suggest.py): the paths, ChaosAPI's script, the client's settings
+CHAOS = "chaos.ChaosAPI.__init__"
+
+
+def path_typed(a, before):
+    return words([a["path"]], last(before, CHAOS, "script")) if isinstance(a.get("path"), str) and " " not in a["path"] else None
+
+
+def retried_typed(a, before):  # get_json inside retry_call: the test's retry
+    return path_typed(a, before) if last(before, "retry.retry_call") is not None else None
+
+
+def settings_typed(before):
+    o = last(before, "client.AiofetchClient.__init__") or {}
+    rpm, timeout = o.get("requests_per_minute"), o.get("timeout")
+    return (f" rpm={rpm}" if isinstance(rpm, int) and rpm else "") + (f" timeout={timeout}" if isinstance(timeout, (int, float)) and timeout < 1 else "")
+
+
+def paths_typed(a, before):
+    paths = few(a.get("paths"))
+    if not paths or any(p.startswith("/embed/") for p in paths):
+        return None
+    return words(paths, last(before, CHAOS, "script")) + settings_typed(before)
+
+
+def embed_typed(a, before):
+    paths = few(a.get("paths"))
+    return " ".join(p[len("/embed/"):] for p in paths) if paths and all(p.startswith("/embed/") for p in paths) else None
+
+
+GET_JSON = {"label": "transport.get_json", "hint": "/items/7   /items/7=503", "run": run_get_json, "from": {"transport.get_json": path_typed}}
+RETRY = {"label": "retry_call(get_json)", "hint": "/items/7=503,503,200", "run": run_retry_call, "from": {"transport.get_json": retried_typed}}
+FETCH_MANY = {"label": "client.fetch_many", "hint": "/items/1 /items/3=404   rpm=120   timeout=0.2", "run": run_fetch_many,
+              "from": {"client.AiofetchClient.fetch_many": paths_typed}}
+EMBED = {"label": "embeddings", "hint": "cat dog car", "run": run_embed, "from": {"client.AiofetchClient.fetch_many": embed_typed}}
 
 GOOD = ("fetch_many", "/items/1 /items/2 /items/3", "good", "Three items at once")
 BAD = ("fetch_many", "/items/1 /items/3=404", "bad", "One 404 among them: a failed result, the others fine")
@@ -95,3 +126,4 @@ PARTS = {
         GOOD, BAD, ("fetch_many", "/items/1=hang,200 /items/2 rpm=120 timeout=0.2", "more", "A timeout and the rate limiter in one batch"),
         ("embeddings", "cat dog car", "more", "Three words become vectors and a similarity matrix")]},
 }
+with_call(PARTS, 'transport.is_transient_status(503)')

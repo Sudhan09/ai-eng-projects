@@ -10,7 +10,7 @@ The details behind each part are in [`README.md`](README.md) (the tests map) and
 |---|---|---|
 | Shows | Each Part's code, and runs recorded from the tests that Part added | The same map, with runs of inputs you type |
 | Open it | `flowmap_tests/build/flowmap.html` in a browser | `python3 flowmap_playground/server.py`, then the link it prints (`http://127.0.0.1:8765/`) |
-| Updates | By itself after each commit and each `git pull` (git hooks) | Your runs: whenever you press Run. The map: when the server starts |
+| Updates | By itself after each commit and each `git pull` (git hooks) | By itself too, from the same hook: your saved runs are played again on the new code, and each Part's **Try:** suggestions are made again from its tests. Reload the page |
 | Shared copy | https://claude.ai/artifact/9riLY9Q6oGWwu4yECNCq3X (only when Claude republishes it) | None: it needs Python on your machine |
 | Holds the shared code | Yes: the recorder, the scanner and the page live here | No: it uses `flowmap_tests`' code |
 
@@ -29,7 +29,7 @@ Both read your project repos only through `git archive` copies. They never chang
 ### Part 1
 
 3. **Commit Part 1** with the Part in the message: `feat(w5p1): add the stream endpoint`.
-4. **Add the week to the map** (once per week). Ask Claude to "add week 5 to the map", or run:
+4. **Add the week to the map** (once per week). Hari runs it, because it also installs the git hooks:
 
    ```
    python3 flowmap_tests/tools/flowmap.py init W5 projects/stream-svc --week 5 --practical <the week's practical .md>
@@ -37,19 +37,17 @@ Both read your project repos only through `git archive` copies. They never chang
 
    - It needs at least one commit that names a Part (step 3), or it stops and says so.
    - The practical gives the Parts their titles (`### Part 2 - …`) and lists the Parts not started yet.
-5. **A new repo needs the git hooks**, and only Hari can install them (Claude isn't allowed to):
+5. **The git hooks come with `init`:** the hook for after a commit and the hook for after a `git pull`. Only Hari installs hooks (Claude isn't allowed to). To repair one later (for example, one that points at an old folder), run this. Running it again is always safe:
 
    ```
    python3 flowmap_tests/tools/flowmap.py hook W5
    ```
-
-   It installs the hook for after a commit and the hook for after a `git pull`. Running it again is always safe: it fixes a hook that points at an old folder.
 6. **The playground gets the week:** Claude writes `flowmap_playground/drivers/w5.py`. Its `PARTS` table lists, for each Part:
-   - its entries: how your input reaches that Part's code, with its fake;
-   - 2–4 suggested inputs: a good one, a bad one, and up to two more. Together they reach every component that Part has, and each has a one-line description.
+   - its entries: how your input reaches that Part's code, with its fake. Each entry also has a `from` rule: which of your functions it feeds, and how a test's values become the words you'd type (`client.AiofetchClient.get_item(1500)` → `1500`);
+   - 2–4 suggested inputs written by hand: a good one, a bad one, and up to two more. Together they reach every component that Part has. The page shows them only when the Part's tests give no suggestion.
 
-   `flowmap_playground/tests/test_scenarios.py` must pass. A component that no input can reach yet (starter code a later Part starts using) needs a `"not yet"` note with its reason in that Part's row, and only Hari decides when a note is OK. Then restart the server (section 4).
-   - **Every new Part gets its row** in the table too, or the box says "Nothing to run" at that Part.
+   `flowmap_playground/tests/test_scenarios.py` must pass. A component that no input can reach yet (starter code a later Part starts using) needs a `"not yet"` note with its reason in that Part's row, and only Hari decides when a note is OK.
+   - **A new Part without a row** borrows the row before it (its entries), and its suggestions still come from its own tests. It needs its own row only when it adds a new kind of entry (like `jsonl` in W4 Part 4).
 7. **Check once:** `python3 flowmap_tests/tools/flowmap.py build --check` should end with `ok` in `flowmap_tests/build/check.txt`. Then open the map and look at Part 1: START should be your first call, and END what it gave back.
 
 ### Every Part
@@ -75,7 +73,7 @@ Both read your project repos only through `git archive` copies. They never chang
     ```
 
     Use `update`, not `build`: only `update` (and `build --check`) runs the checks.
-13. **Refresh the page** to see the change. The map takes about a minute to rebuild.
+13. **Refresh the page** to see the change, in both maps. They take about a minute to rebuild.
 
 ### At the end of the week
 
@@ -108,7 +106,10 @@ Both read your project repos only through `git archive` copies. They never chang
 2. copies each Part's commit into `flowmap_tests/exports/`;
 3. records the tests each new Part added;
 4. rebuilds every week's map;
-5. runs every check (section 6) and writes `flowmap_tests/build/check.txt`. The log goes to `flowmap_tests/build/update.log`.
+5. runs every check (section 6) and writes `flowmap_tests/build/check.txt`;
+6. brings the playground up to the same commit (section 4).
+
+The log goes to `flowmap_tests/build/update.log`.
 
 **What doesn't update by itself:**
 
@@ -126,10 +127,21 @@ Both read your project repos only through `git archive` copies. They never chang
 
 - **Start it:** `python3 flowmap_playground/server.py`. Stop it with Ctrl+C.
 - **What it runs:** the Part selected in the top bar, on that Part's own code, through that Part's entry. **Try:** fills the box with one of that Part's suggestions; you press Run.
-- **When it rebuilds:** at start, it builds every week that has a driver.
-  - **After a new Part or a new week, restart it** and reload the page. The page's map comes from when the server started.
+- **After each commit, by itself:** the hook's `update` ends with `server.py --refresh`. It does three things:
+  1. plays your saved runs again (the same entry, the same input) on their Part's new code. A run that can't run there any more stays on its old code;
+  2. makes each Part's **Try:** suggestions again from its tests (below);
+  3. rebuilds the week's map.
+
+  The server keeps running: reload the page. If the hook was skipped, the first page load does the same work (a few seconds to a minute). A Run pressed on a page from before the commit says "Your code changed (a new commit) since this page loaded: reload the page".
+- **The Try: suggestions come from your tests:**
+  - The tests pass real values into your code, for example `get_item(1500)`. Each entry's `from` rule turns them into the words you'd type (`1500`).
+  - A function the Part added, whose tests gave it only plain values (text, numbers, lists), gets the **call** entry: `storage.is_json_object({"url": "/items/1"})`.
+  - The Part's own new tests come first. Each suggestion is played on that Part's code before it's shown; one that doesn't run is dropped.
+  - Up to 4: one that ends fine, one that raises (or exits non-zero), then different endings. Each names its test and how it ended: "Get item returns the shape the server sent: ↩ ItemMissing".
+  - Made once per commit and kept in `flowmap_playground/build/`.
+- **"a function of yours" (the call entry):** in every Part, type any function of your package with plain values: `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data, never run as code, and only your package's functions can be called.
 - **Your runs:** the last 20 per week are kept in `flowmap_playground/runs/<week>/`. They never go into git, sync or the tests map.
-- **A new week:** it has no input box until its driver exists (section 2, step 6).
+- **A new week:** it has no input box until its driver exists (section 2, step 6). Then restart the server.
 - **An entry point that changes in a later Part** (a renamed function, a new argument): the driver needs that Part's row updated. `python3 -m unittest discover -s flowmap_playground/tests` fails and names the week and Part. Run these tests after any change to a driver or to the shared code.
 - **Two servers at once** (yours on 8765, a check on another port) each keep their own page and secret. Claude uses `--port 8798` for checks and stops only that one.
 
@@ -210,7 +222,7 @@ A Part with no test like that is still on the map, without a run. `check.txt` ha
   - `build --check` says `ok`;
   - the tool tests pass (`python3 -m unittest discover -s flowmap_tests/tests`);
   - if shared code or a driver changed, the playground tests pass too.
-- **Never install git hooks:** Hari runs `hook`.
+- **Never install git hooks:** Hari runs `hook`, and `init` (it installs them too).
 - **Never edit Hari's project code** for the map. Drivers and flowmap code live in flowmap.
 - **Commit or push only when asked:**
   - branch first, then commit, merge into `main` with `--ff-only`, push, and delete the branch;
@@ -256,13 +268,14 @@ These are Hari's look rules. Each one came from his feedback.
 | `python3 flowmap_tests/tools/flowmap.py build` | Rebuild every map (no checks) |
 | `python3 flowmap_tests/tools/flowmap.py build --check` | Rebuild, then run every check |
 | `python3 flowmap_tests/tools/flowmap.py build --accept` | The same, then save this map as the expected one |
-| `python3 flowmap_tests/tools/flowmap.py update` | What the hooks run: build and check, quietly |
+| `python3 flowmap_tests/tools/flowmap.py update` | What the hooks run: build and check, quietly, then the playground's refresh |
 | `python3 flowmap_tests/tools/flowmap.py note` | The one line the hooks print |
 | `python3 flowmap_tests/tools/flowmap.py hook W5` | Install or repair the hooks in that week's repo (Hari only) |
-| `python3 flowmap_tests/tools/flowmap.py init W5 projects/x --week 5 --practical plan.md` | Add a week to the map |
+| `python3 flowmap_tests/tools/flowmap.py init W5 projects/x --week 5 --practical plan.md` | Add a week to the map, and install its hooks (Hari only) |
 | `python3 flowmap_playground/server.py [--port 8766]` | Start the playground |
+| `python3 flowmap_playground/server.py --refresh` | Bring the playground up to the newest commits, then stop (what `update` runs) |
 | `python3 -m unittest discover -s flowmap_tests/tests` | The tool tests (a rebuild also runs them when the tools changed) |
-| `python3 -m unittest discover -s flowmap_playground/tests` | The playground tests: every suggestion of every Part, the server, the page (about two minutes; needs Chrome and node) |
+| `python3 -m unittest discover -s flowmap_playground/tests` | The playground tests: every suggestion of every Part, the suggestions made from tests, following commits, the server, the page (about five minutes; needs Chrome and node) |
 | `node flowmap_tests/checks/clicks.mjs file://$PWD/flowmap_tests/build/flowmap.html#W4` | Real mouse clicks on every column of a week. The same for `resize.mjs` (resizing the details box) and `keys.mjs` (→ / ← step from anywhere) |
 
 ## 8. A week's settings file (`flowmap_tests/cfg/<key>.py`)
@@ -297,6 +310,7 @@ These are Hari's look rules. Each one came from his feedback.
 | `flowmap_tests/build/`, `exports/` | The built page, data, logs, check results and Part copies (not in git) |
 | `flowmap_tests/PLAN.md`, `flowmap_playground/PLAN.md` | The checklists the two were built from |
 | `flowmap_playground/server.py`, `drivers/` | The playground and how your input reaches each week |
+| `flowmap_playground/harvest.py`, `suggest.py` | What your tests pass into your code, and the Try: suggestions made from it |
 | `flowmap_playground/runs/`, `build/` | Your playground runs and its page (not in git, not synced) |
 
 ## 10. When something goes wrong
@@ -312,8 +326,10 @@ These are Hari's look rules. Each one came from his feedback.
 | A fake sits with the real code | Its name doesn't say "fake" | Add it to `FAKES` |
 | A function only appears in a later Part | It was a starter stub until then | Nothing: that's the Part that built it |
 | The playground says "too long to step through" | Over 5,000 events | A smaller input |
-| The playground's map misses the newest Part | The server was started before that commit | Restart `server.py` and reload |
-| The playground says "Nothing to run at Part 3" | The week's driver has no row for that Part | Ask Claude to add it (entries and suggestions) |
+| The playground's map misses the newest Part | The page is from before that commit | Reload the page. If it's still missing, run `flowmap.py update` (the hook may have been skipped) |
+| The playground says "reload the page" | A commit came in after the page loaded | Reload it |
+| The playground says "Nothing to run at W3" | The driver has no row for that Part, nor for any Part before it | Ask Claude to add a row |
+| A Part's Try: list shows the driver's own suggestions | None of its tests gave a value an entry can use | Ask Claude to add a `from` rule to an entry |
 | The claude.ai link shows an old map | It's a copy | Ask Claude to republish it |
 
 When asking Claude for a fix, give the week, Part, run and step, plus a screenshot. For example: "W4 Part 3, run 1, step 14: the box cuts off a value".

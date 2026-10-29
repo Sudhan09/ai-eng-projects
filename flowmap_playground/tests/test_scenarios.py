@@ -94,5 +94,35 @@ class EveryPart(unittest.TestCase):
                 self.assertTrue(all(why.strip() for why in not_yet.values()), f"{key} Part {part}: every 'not yet' needs its reason")
 
 
+class EveryPartsTests(unittest.TestCase):
+    def test_every_part_gets_suggestions_from_its_own_tests(self):
+        """The Try: lists the page shows (made from each Part's tests, see suggest.py): every Part gets at least one,
+        each one played on that Part's code. A Part whose tests give nothing usable says why under "no suggestions" in
+        its row (then the driver's own are shown); the note must stay true."""
+        import shutil
+        import server
+        home = tempfile.mkdtemp(prefix="flowmap-suggest-")
+        os.symlink(DRIVERS, os.path.join(home, "drivers"))
+        server.HERE = home
+        try:
+            for key, p in server.projects().items():
+                made = server.suggestions(key, p, log=lambda m: None)
+                for part, block in server.driver_module(p["driver"]).PARTS.items():
+                    with self.subTest(week=key, part=part):
+                        note = block.get("no suggestions")
+                        if note:
+                            self.assertTrue(note.strip(), f"{key} Part {part}: a 'no suggestions' note needs its reason")
+                            self.assertEqual(made.get(part), [], f"{key} Part {part}: its tests give suggestions now: remove the note")
+                            continue
+                        self.assertTrue(made.get(part), f"{key} Part {part}: none of its tests gave a suggestion that plays. Give an entry "
+                                                        f"a rule under 'from' (drivers/{key.lower()}.py), or the Part a 'no suggestions' note")
+                        for s in made[part]:
+                            self.assertIn(s["entry"], block["entries"])
+                            self.assertIn(s["kind"], ("good", "bad", "more"))
+                            self.assertTrue(s["about"] and s["input"].strip())
+        finally:
+            shutil.rmtree(home, ignore_errors=True)
+
+
 if __name__ == "__main__":
     unittest.main()

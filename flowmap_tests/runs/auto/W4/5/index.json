@@ -1,5 +1,5 @@
 {
- "commit": "f952126",
+ "commit": "d4b35cf",
  "recorder": 7,
  "picked": [
   {
@@ -22,7 +22,7 @@
  "skipped": [
   [
    "tests/test_w04_part5_cache.py::test_get_settings_reads_the_environment_once",
-   "touches only 0 of your functions"
+   "touches only 1 of your functions"
   ],
   [
    "tests/test_w04_part5_cycles.py::test_every_module_imports_first_without_a_cycle",

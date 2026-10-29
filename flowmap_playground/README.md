@@ -18,7 +18,24 @@ The run also stays in that Part's run menu as `/v2/items/7 · 82 steps · ↩ 0 
 
 ## What you can type
 
-**Each Part has its own entries,** because entry points change: W3 Part 1 only has `make_client` and `get_json`, while `fetch_many` arrives in Part 3. Its **Try:** suggestions are a good input, a bad one and up to two more. Together they reach every component that Part has, and each has a one-line description. They live in the week's driver (`drivers/w4.py`, its `PARTS` table).
+**Each Part has its own entries,** because entry points change: W3 Part 1 only has `make_client` and `get_json`, while `fetch_many` arrives in Part 3. They live in the week's driver (`drivers/w4.py`, its `PARTS` table). A new Part without a row of its own borrows the row before it.
+
+**Its Try: suggestions come from its tests,** made again after each commit:
+
+```
+test_get_item_returns_the_shape_the_server_sent      (W4 Part 3)
+└─ client.get_item(item_id = 1500)  →  ItemMissing
+      ↓ the get_item entry's "from" rule
+Try: "1500"     Get item returns the shape the server sent: ↩ ItemMissing
+```
+
+- `harvest.py` runs the Part's tests once and notes the values each of your functions got, and how it ended.
+- Each entry's `from` rule turns those values into the words you'd type, using what the test set up just before (its fake's script, `/items/2=404`; its client's `rpm=`).
+- A function the Part added, whose tests gave it only plain values, gets the **call** entry: `storage.is_json_object({"url": "/items/1"})`.
+- `suggest.py` keeps up to 4. The Part's new tests come first: one that ends fine, one that raises or exits non-zero, then different endings. Each is played on the Part's code before it's shown.
+- The driver's own suggestions (a good input, a bad one and up to two more, which together reach every component that Part has) are shown only when the tests give none.
+
+**"a function of yours"** is in every Part: type any function of your package with plain values, like `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data (text, numbers, lists, dicts, True/False/None), and only your package's functions can be called.
 
 Some examples, on each week's last Part:
 
@@ -47,6 +64,14 @@ Some examples, on each week's last Part:
    - Only the driver's entry is recorded, as a hidden "you" frame. START is your first call, END its output.
 3. The server rebuilds that week's map with `flowmap_tests/tools/build_project.py`, with your runs as a separate list. The page plays the new run.
 
+**After a commit,** the hook's `flowmap_tests/tools/flowmap.py update` ends with `server.py --refresh`:
+
+1. Your saved runs are played again (the same entry, the same input) on their Part's new code. One that can't run there any more stays on its old code, rebuilt from git when the tests map has deleted it.
+2. The suggestions are made again for each Part whose commit changed.
+3. The week's map is rebuilt.
+
+A running server notices on the next page load: reload the page. If the hook was skipped, that page load does the work itself. A Run pressed on a page from before the commit asks you to reload first.
+
 **Shared, not copied:** the recorder, the scanner and the page all come from `flowmap_tests`. Your runs only add a run menu, the input box and the lines your runs took; the map's cards are the same as on the tests map.
 
 ## Safety
@@ -64,14 +89,16 @@ Some examples, on each week's last Part:
 
 | Path | What it is |
 |---|---|
-| `server.py` | The local server: the page, the Run button, recording, keeping the last 20 runs per week |
-| `drivers/w1.py` … `w4.py` | How your input reaches each week's code: `PARTS`, per Part, its entries (label, hint, the function that runs it) and its suggested inputs |
-| `drivers/_input.py` | Reads `path=answers` words and `name=value` settings |
-| `tests/` | `test_scenarios.py` (every suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component), `test_playground.py` (a server in a throwaway folder: Parts, suggestions, two servers, the page in Chrome, every page guard), `run_in_page.mjs` (uses the real page) |
+| `server.py` | The local server: the page, the Run button, recording, keeping the last 20 runs per week; `--refresh` brings every week up to its newest commit |
+| `harvest.py` | Runs a Part's tests once and notes what they pass into your code |
+| `suggest.py` | Turns those values into each Part's Try: suggestions |
+| `drivers/w1.py` … `w4.py` | How your input reaches each week's code: `PARTS`, per Part, its entries (label, hint, the function that runs it, its `from` rule) and its hand-written suggestions |
+| `drivers/_input.py` | Reads `path=answers` words and `name=value` settings, writes them back from a test's values, and the call entry |
+| `tests/` | `test_scenarios.py` (every hand-written suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component; and every Part gets suggestions from its tests), `test_follow.py` (saved runs follow a commit, a page load after a commit, suggestions from tests, the call entry), `test_playground.py` (a server in a throwaway folder: Parts, two servers, the page in Chrome, every page guard), `run_in_page.mjs` (uses the real page) |
 | `runs/`, `build/` | Your runs and the page: on your machine only, not in git and not synced |
 | `PLAN.md` | The checklist this was built from |
 
-Run the tests with `python3 -m unittest discover -s flowmap_playground/tests` (about two minutes; needs Chrome and node for the page tests).
+Run the tests with `python3 -m unittest discover -s flowmap_playground/tests` (about five minutes; needs Chrome and node for the page tests).
 
 ## A new week
 
@@ -82,7 +109,8 @@ def run_stream(text):              # your input -> the week's entry point, on it
     from stream_svc.app import ...   # your project's code: imported inside the entry, so the driver loads at any Part
     ...
 
-STREAM = {"label": "stream", "hint": "/stream?n=3", "run": run_stream}
+STREAM = {"label": "stream", "hint": "/stream?n=3", "run": run_stream,
+          "from": {"app.stream": lambda a, before: f"/stream?n={a['n']}"}}   # a test's values -> what you'd type
 
 PARTS = {                          # every Part, with its own entries and 2-4 suggestions (a good one, a bad one)
     "1": {"entries": {"stream": STREAM}, "scenarios": [
@@ -90,9 +118,10 @@ PARTS = {                          # every Part, with its own entries and 2-4 su
         ("stream", "/stream?n=0", "bad", "Zero events: a 400"),
     ]},
 }
+with_call(PARTS, 'app.health()')   # every Part also gets "a function of yours" (from _input.py)
 ```
 
-Then `tests/test_scenarios.py` must pass: every suggestion runs, and each Part's suggestions together reach every component it has. A Part left out of `PARTS` gets "Nothing to run".
+Then `tests/test_scenarios.py` must pass: every suggestion runs, each Part's suggestions together reach every component it has, and every Part gets suggestions from its tests. A Part left out of `PARTS` borrows the row before it; the first Part needs a row.
 
 **A component nothing can reach yet** (starter code that a later Part starts using) is left out only with a reason in that Part's row: `"not yet": {"results": "starter code; run_all starts using it in Part 3"}` (W2 Parts 1–2). The test fails if the note goes stale: the component isn't in that Part, or a suggestion now reaches it.
 
@@ -102,7 +131,8 @@ Then `tests/test_scenarios.py` must pass: every suggestion runs, and each Part's
 |---|---|---|
 | The page says "too long to step through" | Over 5,000 events | A smaller input (fewer jobs, fewer paths) |
 | "get_item takes item ids" | The input didn't fit the entry | Type what the box's hint shows |
-| A new commit isn't in the playground | The page was built when the server started | Restart `server.py`, then reload the page |
-| "Nothing to run at Part 3" | The driver's `PARTS` table has no entry for that Part | Add one, with its suggestions, and run `tests/test_scenarios.py` |
+| A new commit isn't in the playground | The page is from before it | Reload the page. Still missing: `python3 flowmap_tests/tools/flowmap.py update` (the hook may have been skipped) |
+| "reload the page" after Run | A commit came in after the page loaded | Reload it |
+| "Nothing to run at W3" | No row for that Part, nor for any Part before it | Add one, with its suggestions, and run `tests/test_scenarios.py` |
 | The link doesn't open | The server isn't running, or another program has the port | `python3 flowmap_playground/server.py --port 8766` |
 | The claude.ai map has no input box | That copy can't run Python | Use the local page |

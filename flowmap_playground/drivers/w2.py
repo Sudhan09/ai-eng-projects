@@ -8,6 +8,8 @@ import asyncio
 import shlex
 import sys
 
+from _input import last, with_call
+
 
 def settings(text):
     import argparse
@@ -72,13 +74,39 @@ def run_cli(text):
     return main(shlex.split(text))
 
 
+# your tests' values -> the words you'd type (suggest.py): how many jobs, and how the test set MockServer up
+def server_typed(before):
+    s = last(before, "server.MockServer.__init__") or {}
+    every, delay = s.get("fail_every"), s.get("delay")
+    return (f" --fail-every {every}" if isinstance(every, int) and every else "") + (
+        f" --delay {delay}" if isinstance(delay, (int, float)) and delay != 0.05 else "")
+
+
+def jobs_typed(a, before):
+    ids = a.get("job_ids")
+    return f"--jobs {len(ids)}" + server_typed(before) if isinstance(ids, list) and ids else None  # too many: the play says "too long"
+
+
+def stream_typed(a, before):
+    jobs = jobs_typed(a, before)
+    n = last(before, "batch.Fetcher.__init__", "concurrency")
+    return jobs and jobs + (f" --concurrency {n}" if isinstance(n, int) else "")
+
+
+def group_typed(a, before):
+    jobs = jobs_typed(a, before)
+    n, t = a.get("concurrency"), a.get("timeout")
+    return jobs and jobs + (f" --concurrency {n}" if isinstance(n, int) and n != 20 else "") + (
+        f" --timeout {t}" if isinstance(t, (int, float)) else "") + (" --strict" if a.get("strict") is True else "")
+
+
 HINT = "--jobs 5 --fail-every 3"
-SERIAL = {"label": "run_serial", "hint": HINT, "run": run_serial}
-GATHER = {"label": "run_gather", "hint": HINT, "run": run_gather}
-ALL = {"label": "run_all", "hint": HINT, "run": run_all}
-PROGRESS = {"label": "run_with_progress", "hint": HINT, "run": run_with_progress}
-STREAM = {"label": "Fetcher.stream", "hint": "--jobs 6 --concurrency 2", "run": run_stream}
-GROUP = {"label": "run_group", "hint": "--jobs 5 --timeout 0.5 --strict", "run": run_group}
+SERIAL = {"label": "run_serial", "hint": HINT, "run": run_serial, "from": {"batch.run_serial": jobs_typed}}
+GATHER = {"label": "run_gather", "hint": HINT, "run": run_gather, "from": {"batch.run_gather": jobs_typed}}
+ALL = {"label": "run_all", "hint": HINT, "run": run_all, "from": {"batch.run_all": jobs_typed}}
+PROGRESS = {"label": "run_with_progress", "hint": HINT, "run": run_with_progress, "from": {"batch.run_with_progress": jobs_typed}}
+STREAM = {"label": "Fetcher.stream", "hint": "--jobs 6 --concurrency 2", "run": run_stream, "from": {"batch.Fetcher.stream": stream_typed}}
+GROUP = {"label": "run_group", "hint": "--jobs 5 --timeout 0.5 --strict", "run": run_group, "from": {"batch.run_group": group_typed}}
 CLI = {"label": "async-batch-fetcher", "hint": "--jobs 5 --fail-every 3", "run": run_cli}
 HELP = ("cli", "--help", "more", "The command's options (it runs batches from Part 5)")
 # starter code nothing can reach yet: run_serial and run_gather don't use it, and the command only through a stub
@@ -112,3 +140,4 @@ PARTS = {
         ("run_group", "--jobs 4 --delay 0.2 --timeout 0.05", "more", "Each job's own deadline: they all time out"),
     ]},
 }
+with_call(PARTS, 'batch.checksum("job-1")')

@@ -2,11 +2,12 @@
 
 usage (from anywhere):
   python3 flowmap_tests/tools/flowmap.py build [--check]     rebuild the map; record runs for Parts that need them
-  python3 flowmap_tests/tools/flowmap.py update              what the git hook runs in the background: build and check, quietly
+  python3 flowmap_tests/tools/flowmap.py update              what the git hook runs in the background: build and check, quietly,
+                                                       then bring the playground (flowmap_playground/) up to the same commit
   python3 flowmap_tests/tools/flowmap.py note                the one line the hook prints after a commit (fast)
   python3 flowmap_tests/tools/flowmap.py hook <project>      install the git hook in that project's repo (e.g. W4)
   python3 flowmap_tests/tools/flowmap.py init <key> <repo> --week N [--practical FILE] [--name NAME]
-                                                       start a map for another project
+                                                       start a map for another project, and install its git hook
 
 Every project is a settings file in cfg/. The map is build/flowmap.html: open it in a browser, and refresh it after
 an update.
@@ -262,8 +263,25 @@ def update():
                 print(time.strftime("%H:%M:%S"), f"map rebuilt in {time.time() - t0:.0f} s")
             except SystemExit as e:
                 print(time.strftime("%H:%M:%S"), "update failed:", e)
+            refresh_playground(log=lambda m: print(time.strftime("%H:%M:%S"), m))
             if not os.path.exists("build/.again"):
                 break
+
+
+def refresh_playground(log=print):
+    """The playground (flowmap_playground/, next to this folder) follows the same commit: your saved inputs are played
+    again on the new code and each Part's suggestions are made again from its tests. Its trouble never stops the map."""
+    server = os.path.join(WORKSPACE, "flowmap_playground", "server.py")
+    if not os.path.exists(server):
+        return
+    try:
+        r = subprocess.run([sys.executable, server, "--refresh"], capture_output=True, text=True, timeout=1800)
+    except subprocess.TimeoutExpired:
+        return log("playground: its refresh took over 30 minutes and was stopped")
+    for line in r.stdout.strip().splitlines():
+        log("playground: " + line)
+    if r.returncode:
+        log("playground: refresh failed: " + (r.stderr.strip().splitlines() or ["?"])[-1])
 
 
 HOOK = """#!/bin/sh
@@ -314,6 +332,7 @@ def init(key, repo, week, practical, name):
         f'REPO = "{os.path.relpath(repo, WORKSPACE)}"\n'
         f'WEEK_NUM, PRACTICAL = {week!r}, {practical and os.path.relpath(practical, WORKSPACE)!r}\n')  # None or a path
     print(f"wrote {path}: Parts {', '.join(p['label'] for p in ps)}" + (f", upcoming {', '.join(u for u, _ in upcoming)}" if upcoming else ""))
+    install_hooks(repo, ROOT)  # before the first build: a build that fails still leaves the hook
     build()
     data = json.load(open(f"build/proj_{key}.json"))
     last = [r for r in data["runs"] if r["part"] == ps[-1]["label"]]
