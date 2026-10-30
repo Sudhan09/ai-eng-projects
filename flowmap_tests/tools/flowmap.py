@@ -14,6 +14,7 @@ an update.
 """
 
 import argparse
+import contextlib
 import fcntl
 import glob
 import hashlib
@@ -23,6 +24,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -110,28 +112,100 @@ def build(check=False, quiet=False, log=print, accept=False):
     for old in glob.glob("exports/*"):  # copies of commits no Part uses any more (a Part redone, a branch dropped)
         if old not in used:
             shutil.rmtree(old)
+            # and what was kept for it: its compiled files (build/pyc/, by full path) and its scan (build/scan/)
+            shutil.rmtree(os.path.join("build", "pyc", os.path.abspath(old).lstrip(os.sep)), ignore_errors=True)
+            for kept in glob.glob(f"build/scan/{os.path.basename(old)}_*.json"):
+                os.remove(kept)
+    tmp = tempfile.gettempdir()  # compiled files of throwaway copies (the tool tests' sample projects) that are gone
+    for kept in glob.glob(os.path.join("build", "pyc", tmp.lstrip(os.sep), "*")):
+        if not os.path.exists(os.path.join(tmp, os.path.basename(kept))):
+            shutil.rmtree(kept, ignore_errors=True)
     state = {c["KEY"]: [p["label"] + ":" + p["commit"] for p in part_list(c)] for _, c in projects()}
     json.dump(state, open("build/state.json", "w"))
     if check:
-        run(sys.executable, "tools/inject.py", "page/flowmap.html", "build/data_all.js", "build/check.html", "--hook", "checks/smoke.js", quiet=True)
-        dom = subprocess.run(["timeout", "600", "google-chrome", "--headless=new", "--no-sandbox", "--disable-gpu", "--window-size=1440,900",
-                              "--virtual-time-budget=2500000", "--dump-dom", f"file://{ROOT}/build/check.html"], capture_output=True, text=True).stdout
-        m = re.search(r'<pre id="smoke">(.*?)</pre>', dom, re.S)
-        import html
-        text = html.unescape(m.group(1)) if m else "CHECK FAILED: no result"
+        text, summary = page_check(outs)
         print(text)
         found = problems(text) + norun
-        m = re.search(r'<pre id="summary">(.*?)</pre>', dom, re.S)
-        if m:
-            summary = json.loads(html.unescape(m.group(1)))
+        if summary is not None:
             json.dump(summary, open("build/summary.json", "w"), indent=1, ensure_ascii=False)
             found += compare(summary, accept)
         found += tool_tests()
-        for f in ("build/check.html", "build/check.html.app.js"):
-            os.remove(f)
         open("build/check.txt", "w").write((f"{len(found)} problems\n" + "\n".join(found) + "\n" if found else "ok\n")
                                            + "".join(f"note: {n}\n" for n in notes))
     return state
+
+
+CHECK_CODE = ["page/flowmap.html", "checks/smoke.js", "tools/inject.py", "tools/combine.py"]
+
+
+def page_check(outs):
+    """The browser check (checks/smoke.js) on the weeks whose map changed since their last clean check; a week that
+    hasn't changed keeps its result (build/check_cache.json). A change to the page or the check itself checks every week.
+    Returns (the check's text, every week's summary), as one full check would."""
+    import html
+    page = hashlib.md5(b"".join(open(f, "rb").read() for f in CHECK_CODE)).hexdigest()
+    try:
+        cache = json.load(open("build/check_cache.json"))
+    except (OSError, ValueError):
+        cache = {}
+    if cache.get("page") != page:
+        cache = {"page": page, "weeks": {}}
+    sig = {out: hashlib.md5(open(out, "rb").read()).hexdigest() for out in outs}
+    key_of = {out: json.load(open(out))["key"] for out in outs}
+    todo = [out for out in outs if cache["weeks"].get(key_of[out], {}).get("sig") != sig[out]]
+    fresh, header, extra, summary = {}, "SMOKE OK", [], {}
+    if todo:
+        run(sys.executable, "tools/combine.py", "build/data_check.js", *todo, quiet=True)
+        run(sys.executable, "tools/inject.py", "page/flowmap.html", "build/data_check.js", "build/check.html", "--hook", "checks/smoke.js", quiet=True)
+        dom = subprocess.run(["timeout", "600", "google-chrome", "--headless=new", "--no-sandbox", "--disable-gpu", "--window-size=1440,900",
+                              "--virtual-time-budget=2500000", "--dump-dom", f"file://{ROOT}/build/check.html"], capture_output=True, text=True).stdout
+        for f in ("build/check.html", "build/check.html.app.js", "build/data_check.js"):
+            with contextlib.suppress(OSError):
+                os.remove(f)
+        m = re.search(r'<pre id="smoke">(.*?)</pre>', dom, re.S)
+        if not m:
+            return "CHECK FAILED: no result", None
+        lines = html.unescape(m.group(1)).splitlines()
+        header, keys = lines[0], [key_of[out] for out in todo]
+        fresh, extra = by_week(lines[1:], keys)
+        m = re.search(r'<pre id="summary">(.*?)</pre>', dom, re.S)
+        summary = json.loads(html.unescape(m.group(1))) if m else None
+        for out in todo:  # a week checked clean is kept; one with a problem is checked again next time
+            key = key_of[out]
+            if summary is not None and header == "SMOKE OK" and not problems("SMOKE OK\n" + "\n".join(fresh.get(key, []))):
+                cache["weeks"][key] = {"sig": sig[out], "lines": fresh.get(key, []), "summary": summary.get(key, {})}
+            else:
+                cache["weeks"].pop(key, None)
+        if header == "SMOKE OK" and not problems("\n".join([header, *extra])):
+            cache["extra"] = [x for x in extra if not x.startswith(("ERROR ", "PROBLEM "))]  # the page as a whole
+        json.dump(cache, open("build/check_cache.json", "w"))
+    else:
+        extra = cache.get("extra", [])
+    checked = {key_of[out] for out in todo}
+    body = [x for x in extra if x.startswith(("ERROR ", "PROBLEM "))]
+    merged = None if summary is None else {}
+    for key in (key_of[out] for out in outs):
+        body += fresh.get(key, []) if key in checked else cache["weeks"][key]["lines"]
+        if merged is not None and (key in summary if key in checked else True):
+            merged[key] = summary[key] if key in checked else cache["weeks"][key]["summary"]
+    body += [x for x in extra if not x.startswith(("ERROR ", "PROBLEM "))]
+    return "\n".join([header, *body]), merged
+
+
+def by_week(lines, keys):
+    """A check's lines, each with its week ("W4 Part 2: ...", "PROBLEM W4 Part 2 ...", and the "   ▶" run lines under a
+    Part's line), and the lines of no week (the page as a whole)."""
+    weeks, rest, at = {}, [], None
+    for line in lines:
+        word = line.split(" ", 2)[1] if line.startswith(("PROBLEM ", "ERROR ")) and line.count(" ") >= 1 else line.split(" ", 1)[0]
+        if word in keys:
+            at = word
+            weeks.setdefault(word, []).append(line)
+        elif line.startswith("   ▶") and at:
+            weeks[at].append(line)
+        else:
+            rest.append(line)
+    return weeks, rest
 
 
 def problems(text):

@@ -213,8 +213,10 @@ class Suggestions(Home):
         run = server.play(self.found["W1"], "1", "call", 'record.parse_line("2026-10-02T09:15:01Z ERROR db: connection refused")')
         self.assertEqual(run["status"], "passed")
         self.assertTrue(any(e["k"] == "call" and e["fn"] == "record.parse_line" for e in run["events"]))
-        with self.assertRaisesRegex(ValueError, "plain values"):
+        with self.assertRaisesRegex(ValueError, "no function open in your code"):  # only your code can be called
             server.play(self.found["W1"], "1", "call", 'record.parse_line(open("/etc/passwd").read())')
+        with self.assertRaisesRegex(ValueError, "plain values"):
+            server.play(self.found["W1"], "1", "call", 'record.parse_line("a" + "b")')
         with self.assertRaisesRegex(ValueError, "no function"):
             server.play(self.found["W1"], "1", "call", 'record.nothing_here("x")')
 

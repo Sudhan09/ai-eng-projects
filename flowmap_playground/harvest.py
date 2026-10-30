@@ -15,9 +15,11 @@ import json
 import os
 import socket
 import sys
-import tempfile
+import threading
 
-sys.pycache_prefix = tempfile.mkdtemp(prefix="flowmap-pyc-")  # never pytest's cached files from another folder
+# compiled files are kept with the recorder's (flowmap_tests/build/pyc/), by each file's full path: each library is
+# compiled once, and pytest's compiled test files from another folder are never reused
+sys.pycache_prefix = os.environ.get("FLOWMAP_PYC") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "flowmap_tests", "build", "pyc")
 
 import pytest  # noqa: E402
 
@@ -62,13 +64,30 @@ def name_of(code):
     return os.path.relpath(code.co_filename, ROOT)[:-3].replace(os.sep, ".") + "." + code.co_qualname
 
 
+def made_by_python(code, frame):
+    """The __init__ Python writes for a dataclass of yours (no file): "record.LogRecord.__init__", else None."""
+    cls = type(frame.f_locals.get("self"))
+    if code.co_name != "__init__" or not (cls.__module__ == PKG or cls.__module__.startswith(PKG + ".")):
+        return None
+    mod = cls.__module__[len(PKG) + 1:] or "__init__"
+    return f"{mod}.{cls.__qualname__}.__init__" if "<" not in cls.__qualname__ else None
+
+
 def on_start(code, offset):
-    if not code.co_filename.startswith(ROOT) or test is None:
+    if code.co_filename == "<string>":  # one per dataclass: a library's is turned off, yours is kept
+        frame = sys._getframe(1)
+        fn = made_by_python(code, frame)
+        if not fn:
+            return sys.monitoring.DISABLE
+        if test is None:
+            return None
+    elif not code.co_filename.startswith(ROOT) or test is None:
         return sys.monitoring.DISABLE if not code.co_filename.startswith(ROOT) else None
-    fn = name_of(code)
-    if not fn:
-        return sys.monitoring.DISABLE
-    frame = sys._getframe(1)
+    else:
+        fn = name_of(code)
+        if not fn:
+            return sys.monitoring.DISABLE
+        frame = sys._getframe(1)
     n = code.co_argcount + code.co_kwonlyargcount + bool(code.co_flags & 0x04) + bool(code.co_flags & 0x08)
     names = code.co_varnames[:n]
     bound = names[0] if names and names[0] in ("self", "cls") else None
@@ -80,13 +99,18 @@ def on_start(code, offset):
     seen[(test, fn)] = seen.get((test, fn), 0) + 1
     rec = {"test": test, "fn": fn, "args": args, "bound": bound, "positional": code.co_argcount - (1 if bound else 0),
            "varargs": bool(code.co_flags & 0x0C), "async": bool(code.co_flags & 0x80), "end": None}
+    caller = frame.f_back
+    # called by the test itself (not from a thread or through other code): the plainest test to start from
+    rec["direct"] = threading.current_thread() is threading.main_thread() and caller is not None and caller.f_code.co_filename.startswith(TESTS + os.sep)
+    if bound == "self" and code.co_name == "__init__":  # an inherited __init__: the class it was making
+        rec["makes"] = type(frame.f_locals.get("self")).__qualname__
     calls.append(rec)
     pending[id(frame)] = rec
     return None
 
 
 def on_return(code, offset, value):
-    if not code.co_filename.startswith(ROOT):
+    if not code.co_filename.startswith(ROOT) and code.co_filename != "<string>":
         return sys.monitoring.DISABLE
     rec = pending.pop(id(sys._getframe(1)), None)
     if rec:

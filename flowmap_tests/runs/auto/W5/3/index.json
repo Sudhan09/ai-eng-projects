@@ -1,0 +1,28 @@
+{
+ "commit": "cb7db88",
+ "recorder": 7,
+ "picked": [
+  {
+   "file": "auto/W5/3/test_part3_frames__test_every_frame_ends_with_a_blank_line.json",
+   "test": "tests/test_part3_frames.py",
+   "name": "test_every_frame_ends_with_a_blank_line",
+   "fn": "test_every_frame_ends_with_a_blank_line",
+   "title": "Every frame ends with a blank line",
+   "score": 12
+  },
+  {
+   "file": "auto/W5/3/test_part3_headers__test_the_stream_headers_turn_off_caching_and_proxy_buffering.json",
+   "test": "tests/test_part3_headers.py",
+   "name": "test_the_stream_headers_turn_off_caching_and_proxy_buffering",
+   "fn": "test_the_stream_headers_turn_off_caching_and_proxy_buffering",
+   "title": "The stream headers turn off caching and\u2026",
+   "score": 12
+  }
+ ],
+ "skipped": [
+  [
+   "tests/test_part3_demo.py::test_the_demo_page_is_served_and_kept_out_of_the_schema",
+   "touches only 1 of your functions"
+  ]
+ ]
+}

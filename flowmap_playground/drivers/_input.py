@@ -77,28 +77,84 @@ def yours(name):
             continue
         for p in parts[i:]:
             obj = getattr(obj, p, None)
-        if (inspect.isfunction(obj) or inspect.ismethod(obj) or inspect.isclass(obj)) and (obj.__module__ or "").split(".")[0] == pkg:
+        if inspect.ismodule(obj) and parts[0] == "__init__":  # main() in __init__.py, and a main.py: Python gives the module
+            raise ValueError(f"{name} can't be called: your module {parts[1]}.py has the same name and hides it")
+        plain = inspect.isfunction(obj) or inspect.ismethod(obj) or inspect.isclass(obj)
+        cached = inspect.isfunction(getattr(obj, "__wrapped__", None))  # @lru_cache, @cache
+        if (plain or cached) and (getattr(obj, "__module__", None) or "").split(".")[0] == pkg:
             return obj
     raise ValueError(f"there's no function {name} in your code")
 
 
+HINT = 'call one of your functions with plain values, e.g. record.parse_line("some text", 3)'
+
+
 def run_call(text):
-    """record.parse_line("2026-10-02T09:15:01Z ERROR db: down"): one of your functions, called with plain values.
-    The values are read as data (text, numbers, lists, dicts, True/False/None), never run as code."""
+    """record.parse_line("2026-10-02T09:15:01Z ERROR db: down"): one of your functions, called with plain values (text,
+    numbers, lists, dicts, True/False/None, a member of an enum of yours) or with what other functions of yours give back:
+    client.AiofetchClient.from_settings(settings.get_settings()).get_item(7). Read as data, never run as code: only
+    your package's functions and classes can be called, and the methods of what they give back. A context manager one
+    of them makes (@contextmanager) is entered for the run; everything async runs on one event loop."""
     import ast
     import asyncio
+    import contextlib
     import inspect
     try:
         call = ast.parse(text.strip(), mode="eval").body
-        if not isinstance(call, ast.Call) or any(k.arg is None for k in call.keywords):
-            raise ValueError
-        args = [ast.literal_eval(a) for a in call.args]
-        kwargs = {k.arg: ast.literal_eval(k.value) for k in call.keywords}
-        name = ast.unparse(call.func)
-    except (SyntaxError, ValueError, TypeError):
-        raise ValueError('call one of your functions with plain values, e.g. record.parse_line("some text", 3)') from None
-    out = yours(name)(*args, **kwargs)
-    return asyncio.run(out) if inspect.iscoroutine(out) else out
+    except SyntaxError:
+        raise ValueError(HINT) from None
+    if not isinstance(call, ast.Call):
+        raise ValueError(HINT)
+    loop, stack, astack = None, contextlib.ExitStack(), contextlib.AsyncExitStack()
+
+    def on_loop(awaitable):
+        nonlocal loop
+        loop = loop or asyncio.new_event_loop()
+        return loop.run_until_complete(awaitable)
+
+    def done(value):  # a coroutine is awaited, a context manager made by @contextmanager is entered
+        if inspect.iscoroutine(value):
+            value = on_loop(value)
+        if isinstance(value, contextlib._AsyncGeneratorContextManager):
+            value = on_loop(astack.enter_async_context(value))
+        elif isinstance(value, contextlib._GeneratorContextManager):
+            value = stack.enter_context(value)
+        return value
+
+    def value(node):
+        try:
+            return ast.literal_eval(node)
+        except ValueError:
+            pass
+        if isinstance(node, ast.Attribute) and not node.attr.startswith("_"):  # a member of an enum of yours: LogLevel.ERROR
+            owner = yours(ast.unparse(node.value))
+            if isinstance(owner, type) and issubclass(owner, __import__("enum").Enum) and node.attr in owner.__members__:
+                return owner[node.attr]
+            raise ValueError(HINT)
+        if not isinstance(node, ast.Call) or any(k.arg is None for k in node.keywords) or any(isinstance(a, ast.Starred) for a in node.args):
+            raise ValueError(HINT)
+        f = callee(node.func)
+        return done(f(*[value(a) for a in node.args], **{k.arg: value(k.value) for k in node.keywords}))
+
+    def callee(func):
+        if isinstance(func, ast.Attribute) and isinstance(func.value, ast.Call):  # a method of what a call of yours gave back
+            if func.attr.startswith("_"):
+                raise ValueError(f"there's no method {func.attr} to call")
+            return getattr(value(func.value), func.attr)
+        return yours(ast.unparse(func))
+
+    try:
+        with stack:
+            try:
+                return value(call)
+            finally:
+                if loop is not None:
+                    loop.run_until_complete(astack.aclose())
+                    loop.close()
+    except BaseException as exc:
+        if type(exc).__name__ == "FlowmapStop":  # your function returned inside the caller that reached it
+            return exc.args[0] if exc.args else None
+        raise
 
 
 def with_call(parts, hint):

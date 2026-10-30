@@ -22,7 +22,8 @@ await send('Runtime.enable');
 ws.addEventListener('message', m => { const d = JSON.parse(m.data); if (d.method === 'Runtime.exceptionThrown') errors.push(d.params.exceptionDetails.exception?.description || d.params.exceptionDetails.text); });
 await send('Page.enable');
 await send('Page.navigate', { url: `${url}#${week}` });
-await wait(4000);
+// the page is ready when its input box shows (a busy machine can take longer than a few seconds)
+for (let t = 0; t < 60 && (await ev(`(document.getElementById('playbox') || { hidden: true }).hidden`)); t++) await wait(500);
 if (await ev(`document.getElementById('playbox').hidden`)) done(`${week}: no input box on the page`, true);
 const click = async rect => { for (const type of ['mousePressed', 'mouseReleased']) await send('Input.dispatchMouseEvent', { type, x: rect.left + Math.min(20, rect.width / 2), y: rect.top + rect.height / 2, button: 'left', buttons: type === 'mousePressed' ? 1 : 0, clickCount: 1 }); };
 if (part) {  // a real click on the Part's pill
@@ -64,4 +65,5 @@ const count = await ev(`document.getElementById('count').textContent`);
 const caption = await ev(`document.getElementById('ctext').textContent`);
 const noEnd = !/END\s+\S/.test(caption);
 const onPart = await ev(`document.querySelector('.pill[aria-pressed="true"]').textContent`);
-done(`${week} Part ${onPart} ${entry} "${text}": menu "${label}" | ${playing.startsWith('Pause') ? 'playing' : 'not playing'} | at the end ${count} | caption "${caption}"${noEnd ? ' | NO END' : ''}${errors.length ? ' | PAGE ERRORS: ' + errors.join(' / ') : ''}`, errors.length > 0 || noEnd || !playing.startsWith('Pause'));
+const said = await ev(`document.getElementById('playNote').textContent`);
+done(`${week} Part ${onPart} ${entry} "${text}": menu "${label}" | ${playing.startsWith('Pause') ? 'playing' : 'not playing'} | at the end ${count} | caption "${caption}"${said ? ` | note "${said}"` : ''}${noEnd ? ' | NO END' : ''}${errors.length ? ' | PAGE ERRORS: ' + errors.join(' / ') : ''}`, errors.length > 0 || noEnd || !playing.startsWith('Pause'));

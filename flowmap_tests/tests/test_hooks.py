@@ -1,6 +1,8 @@
 """The git hooks: installed fresh, rewritten when they point at another flowmap folder, left alone when up to date."""
 
+import atexit
 import os
+import shutil
 import sys
 import unittest
 
@@ -61,6 +63,7 @@ def hook_command(tools):
     import tempfile
     r = Repo()
     box = tempfile.mkdtemp(prefix="flowmap-hookbox-")
+    atexit.register(shutil.rmtree, box, True)  # gone when the tests end
     os.symlink(tools, os.path.join(box, "tools"))
     os.makedirs(os.path.join(box, "cfg"))
     open(os.path.join(box, "cfg", "wx.py"), "w").write(f'KEY, NAME, WEEK = "WX", "x", "WX"\nREPO = {r.dir!r}\nWEEK_NUM, PRACTICAL = 9, None\n')
@@ -88,6 +91,7 @@ class Init(unittest.TestCase):
         r = Repo()
         r.commit("feat(w9p1): a first part")
         box = tempfile.mkdtemp(prefix="flowmap-initbox-")
+        self.addCleanup(shutil.rmtree, box, True)
         os.symlink(os.path.join(os.path.dirname(HERE), "tools"), os.path.join(box, "tools"))
         os.makedirs(os.path.join(box, "cfg"))
         subprocess.run([sys.executable, os.path.join(box, "tools", "flowmap.py"), "init", "WX", r.dir, "--week", "9"],
@@ -105,6 +109,7 @@ class Update(unittest.TestCase):
         done = []
         root, build, refresh = flowmap.ROOT, flowmap.build, flowmap.refresh_playground
         flowmap.ROOT = tempfile.mkdtemp(prefix="flowmap-updatebox-")
+        self.addCleanup(shutil.rmtree, flowmap.ROOT, True)
         flowmap.build = lambda **kw: done.append("map")
         flowmap.refresh_playground = lambda log=print: done.append("playground")
         try:
@@ -118,6 +123,7 @@ class Update(unittest.TestCase):
         import subprocess
         import tempfile
         workspace = tempfile.mkdtemp(prefix="flowmap-workspace-")
+        self.addCleanup(shutil.rmtree, workspace, True)
         box = os.path.join(workspace, "flowmap_tests")
         os.makedirs(box)
         os.symlink(os.path.join(os.path.dirname(HERE), "tools"), os.path.join(box, "tools"))

@@ -3,6 +3,7 @@
 // usage: node flowmap_tests/checks/resize.mjs file:///…/flowmap_tests/build/flowmap.html#W4   (exit 1 on a problem)
 import { spawn } from 'node:child_process';
 import { mkdtempSync } from 'node:fs';
+import { rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const url = process.argv[2];
@@ -10,6 +11,12 @@ const port = 9800 + Math.floor(Math.random() * 100);
 const profile = mkdtempSync(join(tmpdir(), 'flowmap-resize-'));  // its own browser storage, so the size starts as the original
 const chrome = spawn('google-chrome', ['--headless=new', '--no-sandbox', '--disable-gpu', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--window-size=1440,900', 'about:blank'], { stdio: 'ignore' });
 process.on('exit', () => chrome.kill());  // even when a check crashes, its browser closes
+const close = async code => {  // the browser closes, then its storage is deleted (a leftover never fails the check)
+  chrome.kill();
+  if (chrome.exitCode === null && chrome.signalCode === null) await new Promise(r => chrome.once('exit', r));
+  await rm(profile, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }).catch(() => {});
+  process.exit(code);
+};
 const wait = ms => new Promise(r => setTimeout(r, ms));
 await wait(1500);
 const page = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(t => t.type === 'page');
@@ -67,4 +74,4 @@ const dbl = await box();
 expect(near(dbl.w, original.w) && near(dbl.h, original.h), `double-click on a grip: back to ${dbl.w} × ${dbl.h}`);
 expect(await under() === 0, 'no card under the box at the original size');
 console.log(line.join('\n'));
-ws.close(); chrome.kill(); process.exit(bad.length ? 1 : 0);
+ws.close(); await close(bad.length ? 1 : 0);

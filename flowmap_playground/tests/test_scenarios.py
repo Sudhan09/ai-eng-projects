@@ -7,10 +7,12 @@ why, under "not yet". The note must stay true: the test fails if that component 
 run: python3 -m unittest discover -s flowmap_playground/tests -p "test_scenarios.py"   (a few minutes)
 """
 
+import atexit
 import concurrent.futures
 import importlib
 import json
 import os
+import shutil
 import sys
 import tempfile
 import unittest
@@ -24,6 +26,7 @@ import flowmap  # noqa: E402
 import pickruns  # noqa: E402
 
 OUT = tempfile.mkdtemp(prefix="flowmap-scenarios-")
+atexit.register(shutil.rmtree, OUT, True)  # gone when the tests end
 
 
 def weeks():

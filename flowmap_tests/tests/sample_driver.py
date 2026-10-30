@@ -25,6 +25,12 @@ def run_main_late(text):
     return main()
 
 
+def run_pytest_loaded(text):
+    """Whether the recorder loaded pytest for a playground run (it needs it only for tests)."""
+    import sys
+    return {"pytest": "pytest" in sys.modules}
+
+
 def run_summary(text):
     """An entry that returns a dict: its keys become the run's END."""
     return {"sizes": list(core.sizes(words(text))), "item": core.make(text)}
@@ -38,4 +44,5 @@ ENTRIES = {
     "main_late": {"label": "python -m demo", "hint": "", "run": run_main_late},
     "sizes": {"label": "core.sizes", "hint": "a bb ccc", "run": run_sizes},
     "both": {"label": "core.both", "hint": "1 2", "run": run_both},
+    "pytest_loaded": {"label": "is pytest loaded", "hint": "", "run": run_pytest_loaded},
 }

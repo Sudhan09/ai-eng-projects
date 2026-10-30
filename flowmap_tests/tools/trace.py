@@ -31,11 +31,10 @@ import threading
 import time
 import types
 
-# compiled files go to a fresh folder for this recording only: pytest's cached test files keep the folder they were
-# made in, so after a move (flowmap/ became flowmap_tests/) the test code would look like it lives somewhere else
-sys.pycache_prefix = tempfile.mkdtemp(prefix="flowmap-pyc-")
-
-import pytest  # noqa: E402
+# compiled files are kept between recordings (build/pyc/), so each library is compiled once, not on every run. They are
+# kept by each file's full path: pytest's compiled test files keep the folder they were made in, so a project in a new
+# place (flowmap/ became flowmap_tests/) must never reuse the old place's files
+sys.pycache_prefix = os.environ.get("FLOWMAP_PYC") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "build", "pyc")
 
 W3 = os.path.abspath(sys.argv[1])
 RUN = sys.argv[2]
@@ -56,17 +55,60 @@ PLAY_PART, ENTRY = (_spec[1], _spec[2]) if len(_spec) == 3 else (None, _spec[1])
 DRIVERS = os.path.dirname(DRIVER) + os.sep if PLAY else None  # every driver file (w4.py reuses w3.py's entries)
 
 
+# a playground run of one function of yours (FLOWMAP_FOCUS): only that function and what it calls are recorded, under
+# the run's hidden frame (a driver's entry, or the test that reaches the function); your values go in as it starts; the
+# test (or the caller of yours that reached it) is stopped once it has returned
+FOCUS = json.loads(os.environ.get("FLOWMAP_FOCUS") or "null")  # {"fn": "client.AiofetchClient.get_item", "args": {"item_id": 1500}, "stop": true}
+TEST_FILE = os.path.join(W3, NODE.split("::")[0]) if FOCUS and not PLAY else None
+
+
 def driver_code(path):
+    if FOCUS and path == TEST_FILE:  # the test that sets your function up is the run's hidden frame, as a driver's entry is
+        return True
     return PLAY and path.startswith(DRIVERS) and not path.startswith(W3 + os.sep)  # never the project itself
 
-try:
-    import httpx  # noqa: E402
-except ImportError:  # a project without httpx: those value shapes simply never match
-    httpx = types.SimpleNamespace(Response=(), Request=(), AsyncClient=(), MockTransport=())
-try:
-    import numpy as np  # noqa: E402
-except ImportError:
-    np = types.SimpleNamespace(ndarray=(), generic=())
+# a value can only be of a library your code has loaded: those are looked up when a value is shown, never imported here
+NO_LIB = types.SimpleNamespace(Response=(), Request=(), AsyncClient=(), MockTransport=(), ndarray=(), generic=())
+
+
+def loaded(name):
+    return sys.modules.get(name) or NO_LIB
+
+# the playground's changes (Shrink: lab.load's requests=200 run as 20), made in memory as each module is read: the file
+# is never written, and the changed module never goes into the compiled-file cache. Same file name, same line numbers
+PATCHES = json.loads(os.environ.get("FLOWMAP_PATCHES") or "{}")  # {file under the export: [[line, col, end line, end col, text]]}
+
+
+def patched(path):
+    """A file's code with its changes: each [line, col, end line, end col, text] replaces that span (columns are bytes)."""
+    lines = open(path, "rb").read().split(b"\n")
+    for line, col, end_line, end_col, text in sorted(PATCHES[os.path.relpath(path, W3).replace(os.sep, "/")], reverse=True):
+        head, tail = lines[line - 1][:col], lines[end_line - 1][end_col:]
+        lines[line - 1:end_line] = (head + text.encode() + tail).split(b"\n")
+    return b"\n".join(lines).decode()
+
+
+if PATCHES:
+    import importlib.machinery
+
+    class Patched(importlib.machinery.SourceFileLoader):
+        def get_source(self, fullname):
+            return patched(self.path)
+
+        def get_code(self, fullname):
+            return compile(self.get_source(fullname), self.path, "exec", dont_inherit=True)
+
+    class PatchFinder:
+        files = {os.path.join(W3, f.replace("/", os.sep)) for f in PATCHES}
+
+        @classmethod
+        def find_spec(cls, name, path=None, target=None):
+            spec = importlib.machinery.PathFinder.find_spec(name, path, target)
+            if spec is not None and spec.origin in cls.files:
+                spec.loader = Patched(name, spec.origin)
+            return spec
+
+    sys.meta_path.insert(0, PatchFinder)
 
 # every module that exists in this snapshot of the repo (a mid-project commit has fewer), subpackages too
 PKG = next(d for d in sorted(os.listdir(SRC)) if os.path.isfile(os.path.join(SRC, d, "__init__.py")))
@@ -82,6 +124,44 @@ for _m in MODS:
         importlib.import_module(_m)
     except Exception as exc:  # e.g. an adapter whose library isn't installed: its code just isn't recorded
         print(f"skip module {_m}: {exc!r}"[:200], file=sys.stderr)
+
+
+
+class FlowmapStop(BaseException):
+    """Raised as the focused function returns: ends the test or the caller of yours that brought the run there."""
+
+
+focus_cls = [None]
+
+
+def focus_code(name):
+    """The code of a function of yours by the map's name (client.AiofetchClient.get_item; a class: its __init__)."""
+    parts = name.split(".")
+    for i in range(len(parts) - 1, 0, -1):
+        try:
+            obj = importlib.import_module(PKG if parts[:i] == ["__init__"] else ".".join([PKG, *parts[:i]]))
+        except ImportError:
+            continue
+        for p in parts[i:]:
+            obj = inspect.getattr_static(obj, p, None) if isinstance(obj, type) else getattr(obj, p, None)
+        if isinstance(obj, type):
+            focus_cls[0] = obj  # an __init__ it may share with other classes: start when it makes this one
+            obj = obj.__dict__.get("__init__") or obj.__init__
+        obj = getattr(obj, "__func__", None) or getattr(obj, "fget", None) or obj  # classmethod, staticmethod, property
+        for _ in range(10):  # a decorator: functools.wraps names the function inside; else it is in the wrapper's closure
+            inner = getattr(obj, "__wrapped__", None) or next((c.cell_contents for c in getattr(obj, "__closure__", None) or ()
+                                                               if isinstance(getattr(c, "cell_contents", None), types.FunctionType)
+                                                               and c.cell_contents.__name__ == parts[-1]), None)
+            if inner is None or inner is obj:
+                break
+            obj = inner
+        code = getattr(obj, "__code__", None)
+        if code is not None:
+            return code
+    return None
+
+
+focus = {"code": focus_code(FOCUS["fn"]) if FOCUS else None, "state": "waiting", "frame": None, "value": None, "stopped": False}
 
 # ---------------------------------------------------------------- which code is "yours"
 ROOTS = tuple(d + os.sep for d in (PKG_DIR, TESTS, *EXTRA))
@@ -232,7 +312,7 @@ def fields_of(v):
 
 
 def snap(v, depth=2):
-    t = type(v)
+    t, httpx, np = type(v), loaded("httpx"), loaded("numpy")
     if v is None:
         return {"t": "None"}
     if t is bool:
@@ -300,7 +380,7 @@ def field_view(v):
         return f"{v._value} permits free"
     if isinstance(v, asyncio.Lock):
         return "locked" if v.locked() else "unlocked"
-    if isinstance(v, httpx.AsyncClient):
+    if isinstance(v, loaded("httpx").AsyncClient):
         return f"AsyncClient(base_url='{v.base_url}')"
     if isinstance(v, float):
         return repr(round(v, 4))
@@ -445,6 +525,12 @@ def on_start(code, offset):
         return
     try:
         frame = sys._getframe(1)
+        if FOCUS and calls and focus["state"] != "on":  # the first call is the hidden frame; then only your function
+            if focus["state"] != "waiting" or code is not focus["code"] or (focus_cls[0] and type(frame.f_locals.get("self")) is not focus_cls[0]):
+                return
+            for k, v in FOCUS.get("args", {}).items():  # your values, in place of what the test or caller passed
+                frame.f_locals[k] = v
+            focus.update(state="on", frame=frame)
         node = node_of(code, frame)
         if code.co_name == "__init__" and is_repo_obj(frame.f_locals.get("self")):
             cls = type(frame.f_locals["self"])  # inherited __init__ still makes this class
@@ -516,16 +602,26 @@ def on_return(code, offset, retval):
     if not enter():
         return
     try:
-        finish(code, sys._getframe(1), "return", retval)
+        frame = sys._getframe(1)
+        finish(code, frame, "return", retval)
+        ended = focus["state"] == "on" and frame is focus["frame"]
+        if ended:
+            focus.update(state="done", value=(retval,), frame=None)
     finally:
         _tl.busy = False
+    if ended and FOCUS.get("stop"):
+        focus["stopped"] = True
+        raise FlowmapStop(retval)
 
 
 def on_unwind(code, offset, exc):
     if code not in codes or not enter():
         return
     try:
-        finish(code, sys._getframe(1), "raise", exc)
+        frame = sys._getframe(1)
+        finish(code, frame, "raise", exc)
+        if focus["state"] == "on" and frame is focus["frame"]:
+            focus.update(state="done", frame=None)
     finally:
         _tl.busy = False
 
@@ -759,8 +855,7 @@ class Recorder:
     def pytest_collection_modifyitems(self, items):
         del items[1:]  # a parametrized test runs once: its first case
 
-    @pytest.hookimpl(hookwrapper=True)
-    def pytest_runtest_call(self, item):
+    def pytest_runtest_call(self, item):  # a hook wrapper (marked below, when pytest is loaded)
         start()
         try:
             yield
@@ -774,7 +869,7 @@ class Recorder:
 
     def pytest_runtest_logreport(self, report):
         global status
-        if report.when == "call" and report.passed:
+        if report.when == "call" and (report.passed or focus["stopped"]):
             status = "passed"
         elif report.failed and report.when != "teardown":
             crash = getattr(report.longrepr, "reprcrash", None)
@@ -792,15 +887,20 @@ if PLAY:
     spec.loader.exec_module(driver)
     entry = (driver.PARTS[PLAY_PART]["entries"] if PLAY_PART else driver.ENTRIES)[ENTRY]["run"]
     codes.add(entry.__code__)
-    os.chdir(tempfile.mkdtemp(prefix="flowmap-play-"))  # an empty folder: no .env of yours is read, files land here
+    typed = sys.argv[4]
+    sys.argv[:] = [PKG]  # your code sees no command line but its name (a main() reading sys.argv gets none of ours)
+    WORK = tempfile.mkdtemp(prefix="flowmap-play-")
+    os.chdir(WORK)  # an empty folder: no .env of yours is read, files land here (and go when the run ends)
     printed, errors, result = io.StringIO(), io.StringIO(), None
     status = "passed"
     start()
     try:
         with contextlib.redirect_stdout(printed), contextlib.redirect_stderr(errors):
-            result = entry(sys.argv[4])
+            result = entry(typed)
     except SystemExit as exc:  # argparse refusing your arguments
         result = exc.code
+    except FlowmapStop as exc:  # your function returned inside the caller that reached it
+        result = exc.args[0]
     except BaseException as exc:
         status = f"raised {type(exc).__name__}: {short(str(exc), 140)}"
     finally:
@@ -811,11 +911,20 @@ if PLAY:
               # an entry that returns a dict names its END: {"rows": what read_jsonl gave, "stats": the ReadStats it filled}
               **({"returned": snap(result, 3)} if isinstance(result, dict) else {})}
 else:
+    import pytest  # only to run a test: a playground run never loads it
+
+    Recorder.pytest_runtest_call = pytest.hookimpl(hookwrapper=True)(Recorder.pytest_runtest_call)
     os.chdir(W3)
     code = pytest.main([NODE, "-q", "-p", "no:cacheprovider", "-o", "addopts="], plugins=[Recorder()])
     if status == "not run":
         status = f"not run: pytest could not collect {NODE} (exit code {int(code)})"
 
+if FOCUS:  # the run's END: what your function gave back (it raised: the run shows that instead)
+    played = {"printed": [], "stderr": [], "exit": None, **{k: v for k, v in played.items() if k != "returned"}}
+    if focus["value"] is not None:
+        played["returned"] = snap(focus["value"][0], 3)
+    if focus["state"] == "waiting":
+        status = f"never reached {FOCUS['fn']}"
 out = {
     "run": f"play:{os.path.basename(DRIVER)}:{PLAY_PART + ':' if PLAY_PART else ''}{ENTRY}" if PLAY else RUN,
     "status": status,
@@ -825,5 +934,7 @@ out = {
     **played,
 }
 json.dump(out, open(OUT, "w"), indent=0, default=str)
-shutil.rmtree(sys.pycache_prefix, ignore_errors=True)
+if PLAY:
+    os.chdir(os.path.dirname(OUT))
+    shutil.rmtree(WORK, ignore_errors=True)
 print(RUN, status, len(events), "events,", len(objs), "objects,", len(calls), "calls")

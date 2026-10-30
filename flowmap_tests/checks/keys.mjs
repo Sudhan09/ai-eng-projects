@@ -3,12 +3,20 @@
 // Real mouse, real keys. usage: node flowmap_tests/checks/keys.mjs <page url#W4>   (exit 1 on a problem)
 import { spawn } from 'node:child_process';
 import { mkdtempSync } from 'node:fs';
+import { rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const url = process.argv[2];
 const port = 9900 + Math.floor(Math.random() * 90);
-const chrome = spawn('google-chrome', ['--headless=new', '--no-sandbox', '--disable-gpu', `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'flowmap-keys-'))}`, '--window-size=1440,900', 'about:blank'], { stdio: 'ignore' });
+const profile = mkdtempSync(join(tmpdir(), 'flowmap-keys-'));
+const chrome = spawn('google-chrome', ['--headless=new', '--no-sandbox', '--disable-gpu', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--window-size=1440,900', 'about:blank'], { stdio: 'ignore' });
 process.on('exit', () => chrome.kill());  // even when a check crashes, its browser closes
+const close = async code => {  // the browser closes, then its storage is deleted (a leftover never fails the check)
+  chrome.kill();
+  if (chrome.exitCode === null && chrome.signalCode === null) await new Promise(r => chrome.once('exit', r));
+  await rm(profile, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 }).catch(() => {});
+  process.exit(code);
+};
 const wait = ms => new Promise(r => setTimeout(r, ms));
 await wait(1500);
 const page = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(t => t.type === 'page');
@@ -58,4 +66,4 @@ if (!(await ev(`document.getElementById('playbox').hidden`))) {  // the playgrou
   expect(await step() === s0 && await ev(`document.getElementById('playText').selectionStart`) === c0 - 1, 'in the playground text box: ← moves the cursor, the run stays');
 }
 console.log(lines.join('\n'));
-ws.close(); chrome.kill(); process.exit(bad.length ? 1 : 0);
+ws.close(); await close(bad.length ? 1 : 0);

@@ -180,7 +180,7 @@ To shape a map by hand, add a `MAP` (columns, their questions, and edges), `RUN_
 `tools/flowmap.py build` runs these steps for every `cfg/*.py`:
 
 1. **Parts:** `tools/gitparts.py` reads the git history into Parts. Each Part's code is its last commit, or the cfg's `PARTS` when it has them.
-2. **Exports:** each Part's commit is copied read-only into `exports/<commit>/` with `git archive`. Your working tree is never touched.
+2. **Exports:** each Part's commit is copied read-only into `exports/<commit>/` with `git archive`. Your working tree is never touched. The files `build_project.py` scans are read straight from git (one `git cat-file --batch` for the whole history).
 3. **Conditions:** `tools/conds.py` scans the last export for the condition each call runs under (`if…`, `on error`, `in loop`).
 4. **Runs:** for each Part without hand-picked runs, `tools/pickruns.py`:
    - takes the tests that Part added;
@@ -188,9 +188,11 @@ To shape a map by hand, add a `MAP` (columns, their questions, and edges), `RUN_
    - keeps the two that pass through the most project functions, from different test files, preferring the shorter run. A run over 5,000 events is too long to step through and is skipped.
 
    Results are cached in `runs/auto/` until the Part's commit changes. When the recorder itself changes (`RECORDER` in `pickruns.py`), the same tests are recorded again, so a Part's stories don't change under you.
-5. **Map data:** `tools/build_project.py` scans every Part's code (functions, classes, calls, imports, docstrings) and works out the columns, lines, what is new or changed per Part, test fakes and assert-only checks. Starter stubs don't count as built. It writes `build/proj_<key>.json`.
+5. **Map data:** `tools/build_project.py` scans every Part's code (`tools/scan.py`: functions, classes, calls, imports, docstrings) and works out the columns, lines, what is new or changed per Part, test fakes and assert-only checks. Starter stubs don't count as built. It writes `build/proj_<key>.json`. A commit's scan is kept in `build/scan/` (a commit never changes), so only new commits are scanned. The playground's `index.py` uses the same scanner.
 6. **The page:** `tools/combine.py` joins the projects into `build/data_all.js`. `tools/inject.py` puts it into `page/flowmap.html`, which gives `build/flowmap.html`.
-7. **Check (`--check` and the hook):** see [Checks](#checks).
+7. **Check (`--check` and the hook):** see [Checks](#checks). Chrome checks only the weeks whose map data changed; the others' results are kept in `build/check_cache.json`, and every week is checked again when the page or the checks change.
+
+**Compiled files** of your code and of the libraries are kept in `build/pyc/`, by each file's full path, so each one is compiled once, not at every run.
 
 When the page loads a run, it keeps only your code and drops the test code (`flowOnly` in the page), then groups the events into steps you can see (`STEPS`).
 
@@ -205,7 +207,7 @@ The playground shares these steps: `trace.py` also records a playground driver's
 | `checks/` | Browser checks: `smoke.js` (every rebuild), plus real-mouse and real-keyboard checks `clicks.mjs`, `follow.mjs`, `stack.mjs`, `resize.mjs` (resizing the details box), `keys.mjs` (→ / ← step from anywhere) (by hand: `node flowmap_tests/checks/clicks.mjs file:///…/build/flowmap.html#W4`) |
 | `tests/` | The tool tests, and `tests/sample/`: a tiny project with one example of everything the recorder must handle (`tests/sample_driver.py` is its playground driver) |
 | `exports/` | Read-only copies of each Part's code (not in git, made again on build) |
-| `build/` | The built page, data, logs and check result (not in git) |
+| `build/` | The built page, data, logs and check result; `scan/` (each commit's scan), `pyc/` (compiled files) and `check_cache.json` (each week's last check). Not in git: delete it any time, it's made again |
 
 ## Checks
 

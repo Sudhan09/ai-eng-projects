@@ -1,6 +1,8 @@
 """Parts from commit messages: every format the curriculum uses finds the right Part (tools/gitparts.py)."""
 
+import atexit
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -15,6 +17,7 @@ class Repo:
 
     def __init__(self):
         self.dir = tempfile.mkdtemp(prefix="flowmap-parts-")
+        atexit.register(shutil.rmtree, self.dir, True)  # gone when the tests end
         self.git("init", "-q", "-b", "main")
         self.n = 0
 

@@ -146,7 +146,9 @@ The log goes to `flowmap_tests/build/update.log`.
   - The Part's own new tests come first. Each suggestion is played on that Part's code before it's shown; one that doesn't run is dropped.
   - Up to 4: one that ends fine, one that raises (or exits non-zero), then different endings. Each names its test and how it ended: "Get item returns the shape the server sent: ↩ ItemMissing".
   - Made once per commit and kept in `flowmap_playground/build/`.
-- **"a function of yours" (the call entry):** in every Part, type any function of your package with plain values: `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data, never run as code, and only your package's functions can be called.
+- **"a function of yours" (the call entry):** in every Part, type any function of your package: `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data, never run as code (plain values, your enums' members, calls of your own functions and their methods), and only your package's functions can be called.
+  - **Leave out what it needs** (a method's object, a parameter): the playground tries, in order, (1) a test that reaches it, with your values put in as it starts; (2) your code that calls it; (3) building it from type hints; (4) asking you. The note under the box says which. An answer you give is kept for the week until **Clear**.
+- **Shrink, for a run too long to step through** (over 5,000 events): the Shrink box names the value in your code that made it long, with a suggestion (`lab.load · requests 200 → 20`, the value your test uses). Press Enter to run with it, or type your own; `lab.main(requests=5)` works too. The change is made only in the run's own copy, in memory: your code is never changed. It stays for every run of that week until you press **Clear**.
 - **Your runs:** the last 20 per week are kept in `flowmap_playground/runs/<week>/`. They never go into git, sync or the tests map.
 - **A new week:** it's in the playground from the next page load, without a restart. Until its own driver exists (section 2, step 6), every Part has "a function of yours" and the suggestions its tests give.
 - **An entry point that changes in a later Part** (a renamed function, a new argument): the driver needs that Part's row updated. `python3 -m unittest discover -s flowmap_playground/tests` fails and names the week and Part. Run these tests after any change to a driver or to the shared code.
@@ -282,7 +284,8 @@ These are Hari's look rules. Each one came from his feedback.
 | `python3 flowmap_playground/server.py [--port 8766]` | Start the playground |
 | `python3 flowmap_playground/server.py --refresh` | Bring the playground up to the newest commits, then stop (what `update` runs) |
 | `python3 -m unittest discover -s flowmap_tests/tests` | The tool tests (a rebuild also runs them when the tools changed) |
-| `python3 -m unittest discover -s flowmap_playground/tests` | The playground tests: every suggestion of every Part, the suggestions made from tests, following commits, the server, the page (about five minutes; needs Chrome and node) |
+| `python3 -m unittest discover -s flowmap_playground/tests` | The playground tests: every suggestion of every Part, the suggestions made from tests, following commits, the server, Shrink and Clear, setting up any function, the page (about six minutes; needs Chrome and node) |
+| `python3 flowmap_playground/tests/proof_setup.py [W4]` | Every public function of every Part, typed with nothing given: how each was set up, and each run too long with Shrink's suggestion (about seven minutes for all weeks) |
 | `node flowmap_tests/checks/clicks.mjs file://$PWD/flowmap_tests/build/flowmap.html#W4` | Real mouse clicks on every column of a week. The same for `resize.mjs` (resizing the details box) and `keys.mjs` (→ / ← step from anywhere) |
 
 ## 8. A week's settings file (`flowmap_tests/cfg/<key>.py`)
@@ -308,7 +311,7 @@ These are Hari's look rules. Each one came from his feedback.
 
 | Path | What it is |
 |---|---|
-| `flowmap_tests/tools/` | `flowmap.py` (the only command you run), `trace.py` (the recorder), `pickruns.py` (picks each Part's runs), `build_project.py` (the scanner), `gitparts.py` (Parts from commits) |
+| `flowmap_tests/tools/` | `flowmap.py` (the only command you run), `trace.py` (the recorder), `pickruns.py` (picks each Part's runs), `build_project.py` (the map data), `scan.py` (the scanner, shared with the playground), `gitparts.py` (Parts from commits) |
 | `flowmap_tests/page/flowmap.html` | The page both maps use |
 | `flowmap_tests/cfg/` | One settings file per week |
 | `flowmap_tests/runs/` | Recorded test runs (in git) |
@@ -318,7 +321,8 @@ These are Hari's look rules. Each one came from his feedback.
 | `flowmap_tests/PLAN.md`, `flowmap_playground/PLAN.md` | The checklists the two were built from |
 | `flowmap_playground/server.py`, `drivers/` | The playground and how your input reaches each week |
 | `flowmap_playground/harvest.py`, `suggest.py` | What your tests pass into your code, and the Try: suggestions made from it |
-| `flowmap_playground/runs/`, `build/` | Your playground runs and its page (not in git, not synced) |
+| `flowmap_playground/index.py` | Reads a Part's code for Shrink and for setting up any function: who calls whom, the loops, what makes each class |
+| `flowmap_playground/runs/`, `build/` | Your playground runs, each week's Shrink changes (`runs/<week>/changes.json`, until Clear) and its page (not in git, not synced) |
 
 ## 10. When something goes wrong
 
@@ -332,7 +336,9 @@ These are Hari's look rules. Each one came from his feedback.
 | A check from the test shows in a run | The assert spans several lines, or uses `self.assertEqual` | Put the assert on one line with `assert` |
 | A fake sits with the real code | Its name doesn't say "fake" | Add it to `FAKES` |
 | A function only appears in a later Part | It was a starter stub until then | Nothing: that's the Part that built it |
-| The playground says "too long to step through" | Over 5,000 events | A smaller input |
+| The playground says "too long to step through" | Over 5,000 events | Press Enter to run with Shrink's suggestion, or a smaller input |
+| Playground runs stay small after a big input | A Shrink change is still kept for that week | Press Clear |
+| The playground says "X needs y: … Give it below" | Nothing it tried could make y | Type a value or a call of yours in the Shrink box |
 | The playground's map misses the newest Part | The page is from before that commit | Reload the page. If it's still missing, run `flowmap.py update` (the hook may have been skipped) |
 | The playground says "reload the page" | A commit came in after the page loaded | Reload it |
 | The playground says "Nothing to run at W3" | The driver has no row for that Part, nor for any Part before it | Ask Claude to add a row |

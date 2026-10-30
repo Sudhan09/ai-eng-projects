@@ -1,5 +1,6 @@
 """The recorder on a tiny project (tests/sample): one test for each thing it must handle (tools/trace.py)."""
 
+import atexit
 import glob
 import json
 import os
@@ -30,6 +31,7 @@ def project_python(*libs):
 PY = project_python()
 PY_HTTPX = project_python("httpx")
 OUT = tempfile.mkdtemp(prefix="flowmap-rec-")
+atexit.register(shutil.rmtree, OUT, True)  # gone when the tests end
 
 
 def record(name, file="tests/unit/test_core.py", py=None, project=SAMPLE):
@@ -102,6 +104,52 @@ class Playground(unittest.TestCase):
 
 
 @unittest.skipUnless(PY, "no project Python with pytest")
+class Speed(unittest.TestCase):
+    """Compiled files are kept between recordings (each library compiled once, not on every run), by each file's full
+    path, so a project in a new place never reuses the old place's files."""
+
+    def setUp(self):
+        self.pyc = tempfile.mkdtemp(prefix="flowmap-pyc-test-")
+        self.addCleanup(shutil.rmtree, self.pyc, ignore_errors=True)
+
+    def run_test(self, project, name="test_fixture"):
+        out = os.path.join(OUT, "speed.json")
+        r = subprocess.run([PY, os.path.join(ROOT, "tools", "trace.py"), project, f"tests/unit/test_core.py::{name}", out],
+                           capture_output=True, text=True, timeout=90, env={**pickruns.safe_env(), "FLOWMAP_PYC": self.pyc})
+        self.assertEqual(r.returncode, 0, r.stderr[-800:])
+        d = json.load(open(out))
+        return d, [(e["fn"], e["def"]["file"]) for e in d["events"] if e["k"] in ("call", "new")]
+
+    def cached(self):
+        return sorted(os.path.relpath(os.path.join(d, f), self.pyc) for d, _, fs in os.walk(self.pyc) for f in fs)
+
+    def test_a_second_recording_compiles_nothing_new(self):
+        self.run_test(SAMPLE)
+        first = self.cached()
+        self.assertTrue(any("site-packages" in f for f in first), "the libraries' compiled files are kept")
+        self.run_test(SAMPLE)
+        self.assertEqual(self.cached(), first)
+
+    def test_a_moved_project_never_reuses_its_old_compiled_test_files(self):
+        # the bug the fresh folder per recording was for: pytest's compiled test files keep the folder they were made
+        # in, so after flowmap/ became flowmap_tests/ the test's code looked like it lived somewhere else
+        home = tempfile.mkdtemp(prefix="flowmap-move-")
+        self.addCleanup(shutil.rmtree, home, ignore_errors=True)
+        old, new = os.path.join(home, "flowmap", "sample"), os.path.join(home, "flowmap_tests", "sample")
+        shutil.copytree(SAMPLE, old, ignore=shutil.ignore_patterns("__pycache__"))
+        d, before = self.run_test(old)
+        os.makedirs(os.path.dirname(new))
+        os.rename(old, new)
+        d2, after = self.run_test(new)
+        self.assertEqual((d2["status"], after), (d["status"], before))
+        self.assertEqual(after[0], ("test_core.test_fixture", "tests/unit/test_core.py"))
+
+    def test_a_playground_run_never_loads_pytest(self):
+        d = play("pytest_loaded", "")
+        self.assertEqual(dict(d["returned"]["items"])["pytest"], {"t": "bool", "v": False})
+
+
+@unittest.skipUnless(PY, "no project Python with pytest")
 class Recorder(unittest.TestCase):
     def test_a_fixture_test_records_its_body_only(self):
         d = record("test_fixture")
@@ -143,6 +191,7 @@ class Recorder(unittest.TestCase):
     def test_a_moved_project_still_records_its_test(self):
         # pytest's cached test files keep the folder they were made in (flowmap/ became flowmap_tests/)
         here = os.path.join(tempfile.mkdtemp(prefix="flowmap-move-"), "a")
+        self.addCleanup(shutil.rmtree, os.path.dirname(here), ignore_errors=True)
         shutil.copytree(SAMPLE, here, ignore=shutil.ignore_patterns("__pycache__"))
         record("test_fixture", project=here)
         moved = here[:-1] + "b"

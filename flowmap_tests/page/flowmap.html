@@ -444,6 +444,20 @@ details.f > .fields { margin: 4px 0 6px 6px; padding-left: 10px; border-left: 1p
 .playbox #playTry { max-width: 300px; color: var(--muted); }
 .playnote { align-self: center; color: var(--muted); font-size: 12.5px; max-width: 34%; }
 .playnote.err { color: var(--t-err); }
+/* Shrink: the values in your code a run's length depends on; yours are used for every run of the week until Clear */
+.shrinkbox { display: flex; align-items: flex-start; gap: 10px; padding: 7px var(--gutter-r) 0 var(--gutter-l); font-size: 12.5px; }
+.shrinkbox .shrink-t { color: var(--accent); font-weight: 600; padding-top: 4px; }
+.shrink-list { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.srow { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.srow .sname { font: 500 12px var(--font-code); color: var(--text); }
+.srow .scode { font: 12px var(--font-code); }
+.srow input { width: 9ch; height: 24px; border-radius: 6px; border: 1px solid var(--line); background: #050505; color: var(--text); font: 12px var(--font-code); padding: 2px 6px; }
+.srow.long .sname::after { content: " made it long"; color: var(--t-err); font: 500 11px var(--font-body, inherit); }
+.srow.mine input { border-color: var(--accent); }
+.shrinkbox button { height: 26px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); background: none; }
+.shrinkbox .snote { color: var(--muted); padding-top: 4px; }
+.ctag.mine { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.mcard.mine .box { stroke: var(--accent); stroke-opacity: .9; stroke-width: 1; stroke-dasharray: 2 2; }
 .prow { font: 12px var(--font-code); color: var(--text); overflow-wrap: anywhere; padding: 2px 0; }
 .player-in { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; grid-template-areas: "run ctl scrub count" "cap cap cap cap"; gap: 6px 14px; align-items: center; padding-block: 8px 10px; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
 .run-pick { grid-area: run; display: flex; align-items: center; gap: 8px; min-width: 0; }
@@ -727,6 +741,12 @@ details.more[open] > summary { margin-bottom: 8px; }
       <button id="playGo">Run</button>
       <span class="playnote" id="playNote" aria-live="polite"></span>
     </div>
+    <div class="shrinkbox" id="shrinkbox" hidden>
+      <span class="shrink-t" title="Values in your code that decide how long a run is. Yours are used for every run of this week, in the run's own copy of your code, until you press Clear">Shrink</span>
+      <div class="shrink-list" id="shrinkList"></div>
+      <span class="snote" id="shrinkNote" aria-live="polite"></span>
+      <button id="shrinkClear" title="Every run of this week uses your code's own values again">Clear</button>
+    </div>
     <div class="player-in" id="playerIn">
       <div class="run-pick">
         <label for="runSel">Run</label>
@@ -960,6 +980,8 @@ const partWord = label => (/^W/.test(label) ? label : 'Part ' + label);
 function renderPlaybox() {
   const week = PG && PG.parts[D.key];
   $('#playbox').hidden = !week;
+  if (renderPlaybox.key !== D.key) { proposed = []; renderPlaybox.key = D.key; }
+  if (PG) renderShrink();
   if (!week) return;
   const label = PARTS[partIdx].label, part = week[label];
   const tries = $('#playTry'), sel = $('#playEntry'), text = $('#playText'), note = $('#playNote');
@@ -981,28 +1003,73 @@ function renderPlaybox() {
     tries.value = ''; text.focus();
   };
 }
+// Shrink: your changes for this week (kept by the server until Clear), and after a run too long to step through, the
+// values that made it long with a suggestion each. Every row's box is sent with the next Run; an emptied box drops it
+let proposed = [];
+const sameKnob = (a, b) => a.fn === b.fn && a.name === b.name;
+const showValue = v => (typeof v === 'string' ? JSON.stringify(v) : JSON.stringify(v).replace(/,/g, ', '));
+function renderShrink(note) {
+  const kept = (PG && PG.changes[D.key]) || [];
+  const rows = [...proposed.map(x => ({ ...x, mine: kept.find(k => sameKnob(k, x)) })),
+                ...kept.filter(k => !proposed.some(x => sameKnob(k, x))).map(k => ({ ...k, mine: k, ask: k.pick }))];
+  $('#shrinkbox').hidden = !rows.length && !note;
+  $('#shrinkNote').textContent = note || '';
+  $('#shrinkClear').hidden = !kept.length;
+  $('#shrinkList').innerHTML = rows.map((r, i) => {
+    // a piece nothing makes (ask): you give it as code, a value or a call of yours, kept as you typed it
+    const value = r.ask ? (r.mine ? r.mine.value : '') : r.suggest !== undefined ? showValue(r.suggest) : showValue(r.mine.value);
+    const why = r.ask ? (r.mine ? 'what you gave it, for every run of this week' : `nothing makes it${r.type ? ' (' + r.type + ')' : ''}: a value, or a call of yours`)
+      : r.suggest !== undefined ? r.why + (r.steps ? ` · ≈ ${r.steps.toLocaleString()} steps, estimated` : '') + (r.mine ? ` · yours: ${showValue(r.mine.value)}` : '') : 'yours, for every run of this week';
+    return `<label class="srow${r.long ? ' long' : ''}${r.mine ? ' mine' : ''}" data-i="${i}"><span class="sname">${esc(r.fn)} · ${esc(r.name)}</span>`
+      + (r.code ? `<span class="scode">${esc(r.code)} →</span>` : '')
+      + `<input value="${esc(value)}" spellcheck="false" aria-label="${esc(r.name)} in ${esc(r.fn)}"><span class="swhy">${esc(why)}</span></label>`;
+  }).join('');
+  $('#shrinkList').querySelectorAll('input').forEach(el => el.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); playRun(); } }));
+  renderShrink.rows = rows;
+}
+function shrinkSent() {
+  return (renderShrink.rows || []).map((r, i) => ({ fn: r.fn, name: r.name, text: $(`#shrinkList [data-i="${i}"] input`).value, ...(r.ask ? { pick: true } : {}) }));
+}
+async function clearShrink() {
+  const note = $('#playNote');
+  try {
+    const res = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Flowmap-Token': PG.token }, body: JSON.stringify({ key: D.key }) });
+    const got = await res.json();
+    if (!res.ok || got.error) throw new Error(got.error || res.statusText);
+    PG.changes[D.key] = got.changes; proposed = [];
+    renderShrink("your code's own values again");
+  } catch (e) { note.className = 'playnote err'; note.textContent = e.message; }
+}
+// a run that used your changes says so on the changed function's card and in its box
+const mineIn = fn => ((RUN && RUN.play && RUN.changes) || []).filter(ch => ch.fn === fn);
 async function playRun() {
   const text = $('#playText').value.trim(), btn = $('#playGo'), note = $('#playNote');
   if (!text || btn.disabled) return;
   btn.disabled = true; note.className = 'playnote'; note.textContent = 'recording…';
   try {
     const res = await fetch('/play', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Flowmap-Token': PG.token },
-      body: JSON.stringify({ key: D.key, part: PARTS[partIdx].label, entry: $('#playEntry').value, input: text }) });
+      body: JSON.stringify({ key: D.key, part: PARTS[partIdx].label, entry: $('#playEntry').value, input: text, changes: shrinkSent() }) });
     const got = await res.json();
+    if (got.changes) PG.changes[D.key] = got.changes;
+    proposed = got.shrink || (got.ask || []).map(x => ({ ...x, ask: true }));
+    renderShrink(got.note);
     if (!res.ok || got.error) throw new Error(got.error || res.statusText);
     Object.assign(D.nodes, got.nodes || {});  // the hidden "you" frame of an entry this page hasn't seen yet
     const r = prepareRun(got.run);
     r._label = playLabel(r);
     D._play.push(r);
     if (D._map) D._map.partShown = null;  // draw the lines this run took
-    note.textContent = '';
     setPart(PIDX[r.part] ?? partIdx, false);  // the Part it ran on: the one you picked
+    const how = got.run.setup;  // a function that needed its object or a value: where they came from
+    note.textContent = !how ? '' : how.how === 'test' ? `set up by ${how.via.split('::').pop()}, your values in`
+      : how.how === 'caller' ? `reached through ${how.via}, your values in` : `built: ${how.via}`;
     if (!reduceMotion) play();
   } catch (e) { note.className = 'playnote err'; note.textContent = e.message; }
   finally { btn.disabled = false; }
 }
 if (PG) {
   $('#playGo').onclick = playRun;
+  $('#shrinkClear').onclick = clearShrink;
   $('#playText').addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); playRun(); } });
   $('#playText').addEventListener('input', ev => ev.target.classList.toggle('multi', ev.target.value.includes('\n')));
 }
@@ -1607,7 +1674,7 @@ function mapPartLook() {
   const wasThere = col => partIdx > 0 && col.fns.some(f => !f.virtual && existsAt(f.fn, partIdx - 1));
   const fresh = c => !base && (c.isCol ? !c.col.single && c.col.spec.name !== 'END' && !wasThere(c.col) : !c.virtual && P.added.includes(c.fn));
   const changed = c => !base && !c.isCol && !c.virtual && !P.added.includes(c.fn) && (P.changed.includes(c.fn) || P.moved.includes(c.fn));
-  tSel.classed('isnew', fresh).classed('edited', changed).classed('future', false);
+  tSel.classed('isnew', fresh).classed('edited', changed).classed('future', false).classed('mine', c => PG && !c.isCol && !c.virtual && mineIn(c.fn).length > 0);
   tSel.select('.newtag').text(c => (c.isCol && fresh(c) ? 'new in Part ' + P.label : ''));
   tSel.filter(c => c.isCol).select('.mdots').selectAll('circle').classed('fresh', f => !base && P.added.includes(f.fn)).classed('future', false);
 }
@@ -1840,6 +1907,7 @@ function renderMapInspector(c) {
   if (!c.virtual) tags.push(`<span class="ctag">${esc(fileName(c.fn))}</span>`);
   if (!c.col.single && s.name !== 'END') tags.push(`<button class="ctag cl" data-col="${c.col.i}" style="--kc2:${c.col.color}">${esc((s.n ? s.n + ' · ' : '') + s.name)}</button>`);
   if (c.extra && s.note) tags.push(`<span class="ctag">${esc(noteOf(s))}</span>`);
+  if (PG && !c.virtual) mineIn(c.fn).forEach(ch => tags.push(`<span class="ctag mine">${esc(ch.name)} = ${esc(showValue(ch.value))} · yours (the code says ${esc(ch.code)})</span>`));
   if (!c.virtual && n.since) tags.push(`<span class="ctag${n.since === PARTS[partIdx].label && partIdx > 0 ? ' fresh' : ''}">${n.since === PARTS[partIdx].label && partIdx > 0 ? 'new in Part ' : 'since Part '}${esc(n.since)}</span>`);
   html += `<div class="ctags">${tags.join('')}</div>`;
   let run = '';

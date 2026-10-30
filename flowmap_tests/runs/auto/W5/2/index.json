@@ -1,0 +1,48 @@
+{
+ "commit": "0bd5e9f",
+ "recorder": 7,
+ "picked": [
+  {
+   "file": "auto/W5/2/test_part2_deps__test_settings_are_built_once_across_20_requests.json",
+   "test": "tests/test_part2_deps.py",
+   "name": "test_settings_are_built_once_across_20_requests",
+   "fn": "test_settings_are_built_once_across_20_requests",
+   "title": "Settings are built once across 20 requests",
+   "score": 13
+  },
+  {
+   "file": "auto/W5/2/test_part2_upstream__test_the_source_reads_pages_until_it_has_max_tokens.json",
+   "test": "tests/test_part2_upstream.py",
+   "name": "test_the_source_reads_pages_until_it_has_max_tokens",
+   "fn": "test_the_source_reads_pages_until_it_has_max_tokens",
+   "title": "The source reads pages until it has max\u2026",
+   "score": 6
+  }
+ ],
+ "skipped": [
+  [
+   "tests/test_part2_key.py::test_an_empty_key_is_refused",
+   "touches only 2 of your functions"
+  ],
+  [
+   "tests/test_part2_key.py::test_no_key_means_no_source",
+   "touches only 2 of your functions"
+  ],
+  [
+   "tests/test_part2_page.py::test_a_page_is_checked_where_it_enters",
+   "touches only 0 of your functions"
+  ],
+  [
+   "tests/test_part2_seam.py::test_a_fake_source_fits_the_seam_and_stops_at_max_tokens",
+   "touches only 0 of your functions"
+  ],
+  [
+   "tests/test_part2_settings.py::test_settings_come_from_the_stream_environment_and_are_built_once",
+   "touches only 1 of your functions"
+  ],
+  [
+   "tests/test_part2_upstream.py::test_the_source_stops_at_a_done_page_and_at_an_empty_one",
+   "touches only 2 of your functions"
+  ]
+ ]
+}

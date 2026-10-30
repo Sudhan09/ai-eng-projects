@@ -35,7 +35,40 @@ Try: "1500"     Get item returns the shape the server sent: ↩ ItemMissing
 - `suggest.py` keeps up to 4. The Part's new tests come first: one that ends fine, one that raises or exits non-zero, then different endings. Each is played on the Part's code before it's shown.
 - The driver's own suggestions (a good input, a bad one and up to two more, which together reach every component that Part has) are shown only when the tests give none.
 
-**"a function of yours"** is in every Part: type any function of your package with plain values, like `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data (text, numbers, lists, dicts, True/False/None), and only your package's functions can be called.
+**"a function of yours"** is in every Part: type any function of your package, like `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data, never run as code:
+
+- plain values (text, numbers, lists, dicts, True/False/None) and members of your enums (`record.LogLevel.ERROR`);
+- calls of your own functions, and the methods of what they give back: `client.AiofetchClient.from_settings(settings.get_settings()).get_item(7)`;
+- only your package's functions and classes can be called (never a name starting with `_`). Async ones are awaited, and a `@contextmanager` of yours is entered.
+
+**Leave out what it needs** (a method's object, a parameter): the playground finds it, trying these in order.
+
+```
+client.AiofetchClient.get_item(1500)          (W4 Part 5: get_item needs its client)
+1. a test that reaches it      test_get_item_returns_the_shape_the_server_sent builds the client;
+                               your 1500 goes in as get_item starts; the run starts there   → ↩ ItemMissing, 59 steps
+2. your code that calls it     the shortest way from a function that needs nothing (cli.main → cli.run → …)
+3. built from type hints       models.Cart.open(settings=models.get_settings(), store=models.FakeStore()).add(…)
+4. it asks you                 "models.HealthStatus needs version: … Give it below"
+```
+
+- The note under the box says which way it used.
+- What you give in step 4 is kept for that week until **Clear**.
+- A test that calls the function directly comes before one that reaches it from a thread.
+
+**Shrink: a run too long to step through.** Over 5,000 events, the run is refused, and the **Shrink** box names the value in your code that made it long, with a suggestion:
+
+```
+lab.main()                               5,661 events: too long
+Shrink   lab.load · requests   200 → [20]   your test uses 20 · ≈ 566 steps
+Enter    lab.main() runs with requests = 20: 597 steps
+```
+
+- The suggestion is the smallest smaller value your tests use, else 3 (a list: its first 2). The steps are estimated, then measured by the run.
+- Type your own value instead, or type it into the call: `lab.main(requests=5)` sends it down to `lab.load`.
+- The change lives only in the run's own copy, in memory. Your code and the map's copies are never changed. The card of a changed function is marked, and its box says `requests = 20 · yours (the code says 200)`.
+- A change is kept for that week, for every run, until you press **Clear**.
+- A size that comes from your input (`--jobs 300`) is named in the note, not changed: type a smaller one.
 
 Some examples, on each week's last Part:
 
@@ -54,7 +87,7 @@ Some examples, on each week's last Part:
 - **`=` scripts the fake server:** `/items/1=503,503,200` means the fake answers that path 503, then 503, then 200. Words it knows, like `timeout`, work too.
 - **END for `python -m …`:** the exit code (`↩ 0`, `1`, `2`) and the first printed line. The END box shows every printed line.
 - **END for an entry that gives back several things** (like `jsonl`): its names (`↩ {rows, stats}`). The END box shows each one in full. A driver entry does this by returning a dict.
-- **Too long:** a run over 5,000 events (e.g. `--jobs 300`) is refused, because it's too long to step through. Try a smaller input.
+- **Too long:** a run over 5,000 events is refused, because it's too long to step through. Shrink (above) offers the values that made it long.
 
 ## How it works
 
@@ -72,6 +105,16 @@ Some examples, on each week's last Part:
 
 A running server notices on the next page load: reload the page. If the hook was skipped, that page load does the work itself. A Run pressed on a page from before the commit asks you to reload first.
 
+**How Shrink and the setup find things:** `index.py` reads the Part's code once while the server runs (5 ms for W5 Part 1, 41 ms for W4 Part 5, measured):
+
+- who calls whom;
+- the loops around each call;
+- what makes each class.
+
+- **Shrink** starts from the call pair the long run repeated most, and walks back from the loop around it to where its size is set: a parameter's default, a module constant, a `range(N)`, an argparse default, or the call's argument.
+- **Step 2** is a breadth-first search from every function that needs nothing (under 0.2 ms).
+- **Step 3** builds each class from its builders (a test's call, a function of yours that gives one back, the class itself, a fake for an interface), the shortest chain first.
+
 **Shared, not copied:** the recorder, the scanner and the page all come from `flowmap_tests`. Your runs only add a run menu, the input box and the lines your runs took; the map's cards are the same as on the tests map.
 
 ## Safety
@@ -82,6 +125,7 @@ A running server notices on the next page load: reload the page. If the hook was
   - at most 90 seconds per run.
 - Your code runs in an empty throwaway folder, so it never reads your real `.env`. W4 gets a fake key, `playground-not-a-real-key`.
 - Your input is passed to the driver as text, never run as code.
+- Shrink's changes are made in memory, in the run's own process. No file of your project or of the map's code copies is written.
 - The server listens on 127.0.0.1 only. It answers only requests made to its own name, and runs only for its own page (a secret made at each start). So a website you visit can't trigger a run.
 - Each server keeps its own page and secret, so a second server (another port) never breaks the first one's page.
 
@@ -90,16 +134,17 @@ A running server notices on the next page load: reload the page. If the hook was
 | Path | What it is |
 |---|---|
 | `server.py` | The local server: the page, the Run button, recording, keeping the last 20 runs per week; `--refresh` brings every week up to its newest commit |
-| `harvest.py` | Runs a Part's tests once and notes what they pass into your code |
+| `harvest.py` | Runs a Part's tests once and notes what they pass into your code (and which test calls it directly) |
+| `index.py` | Reads a Part's code: who calls whom, the loops around each call, what makes each class. Shrink and the setup steps use it |
 | `suggest.py` | Turns those values into each Part's Try: suggestions |
 | `drivers/_auto.py` | The driver of a week that has none yet: "a function of yours" in every Part |
 | `drivers/w1.py` … `w4.py` | How your input reaches each week's code: `PARTS`, per Part, its entries (label, hint, the function that runs it, its `from` rule) and its hand-written suggestions |
-| `drivers/_input.py` | Reads `path=answers` words and `name=value` settings, writes them back from a test's values, and the call entry |
-| `tests/` | `test_scenarios.py` (every hand-written suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component; and every Part gets suggestions from its tests), `test_follow.py` (saved runs follow a commit, a page load after a commit, a new week without a driver, suggestions from tests, the call entry), `test_playground.py` (a server in a throwaway folder: Parts, two servers, the page in Chrome, every page guard), `run_in_page.mjs` (uses the real page) |
-| `runs/`, `build/` | Your runs and the page: on your machine only, not in git and not synced |
+| `drivers/_input.py` | Reads `path=answers` words and `name=value` settings, writes them back from a test's values, and the call entry (`run_call`) |
+| `tests/` | `test_scenarios.py` (every hand-written suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component; and every Part gets suggestions from its tests), `test_follow.py` (saved runs follow a commit, a page load after a commit, a new week without a driver, suggestions from tests, the call entry), `test_playground.py` (a server in a throwaway folder: Parts, two servers, the page in Chrome, every page guard), `test_shrink.py` (Shrink and Clear, on W2 and W5, and in the page), `test_setup.py` (every setup step, on `sample_setup/`, a tiny shop with each awkward case, on W4 and W5, and in the page), `run_in_page.mjs`, `shrink_in_page.mjs` and `ask_in_page.mjs` (use the real page). Not tests, run by hand: `proof_setup.py` (every public function of every Part, typed with nothing given: which way it was set up) and `bench.py` (how long each step takes) |
+| `runs/`, `build/` | Your runs and the page: on your machine only, not in git and not synced. `runs/<week>/changes.json` holds that week's Shrink changes and answers until Clear |
 | `PLAN.md` | The checklist this was built from |
 
-Run the tests with `python3 -m unittest discover -s flowmap_playground/tests` (about five minutes; needs Chrome and node for the page tests).
+Run the tests with `python3 -m unittest discover -s flowmap_playground/tests` (about six minutes; needs Chrome and node for the page tests).
 
 ## A new week
 
@@ -130,11 +175,15 @@ Then `tests/test_scenarios.py` must pass: every suggestion runs, each Part's sug
 
 | What you see | Why | What to do |
 |---|---|---|
-| The page says "too long to step through" | Over 5,000 events | A smaller input (fewer jobs, fewer paths) |
+| The page says "too long to step through" | Over 5,000 events | Press Enter to run with Shrink's suggestion, or type a smaller value. If Shrink has none, the note says where the size comes from (often your input: fewer jobs, fewer paths) |
+| The runs are small even with a big input | A Shrink change is still kept | Press Clear |
+| "X needs y: … Give it below" | No test reaches it, no code of yours gets there, and nothing makes it | Type a value, or a call of yours (`models.get_settings()`), in the Shrink box. It's kept until Clear |
+| "X() runs none of your code" | The class has no code of its own (a pydantic model, an exception, an enum) | Nothing to step through. Call a function that uses it |
 | "get_item takes item ids" | The input didn't fit the entry | Type what the box's hint shows |
 | A new commit isn't in the playground | The page is from before it | Reload the page. Still missing: `python3 flowmap_tests/tools/flowmap.py update` (the hook may have been skipped) |
 | "reload the page" after Run | A commit came in after the page loaded | Reload it |
 | "Nothing to run at W3" | No row for that Part, nor for any Part before it | Add one, with its suggestions, and run `tests/test_scenarios.py` |
 | "there's no function record.x in your code" (the call entry) | Only your package's functions can be called, and not a name starting with `_` | Type the map's name (`module.function`). A function hidden by a module of the same name (W5's `main()` in `__init__.py`, next to `main.py`) can't be reached |
+| A `test_z_…_untouched` test fails, naming a file of your project | You (or another session) changed that file while the tests ran: the check sees every change, not only the playground's | Run it again when you're not editing |
 | The link doesn't open | The server isn't running, or another program has the port | `python3 flowmap_playground/server.py --port 8766` |
 | The claude.ai map has no input box | That copy can't run Python | Use the local page |

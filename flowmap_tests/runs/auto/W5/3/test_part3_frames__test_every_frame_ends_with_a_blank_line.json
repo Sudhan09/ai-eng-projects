@@ -1,0 +1,1794 @@
+{
+"run": "tests/test_part3_frames.py::test_every_frame_ends_with_a_blank_line",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part3_frames.test_every_frame_ends_with_a_blank_line",
+"parent": null,
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "TestClient",
+"lib": "starlette",
+"v": "<starlette.testclient.TestClient object at 0x776d8efdf230>"
+}
+]
+],
+"site": null,
+"def": {
+"file": "tests/test_part3_frames.py",
+"line": 16
+},
+"task": "sync",
+"i": 0,
+"t": 0.231
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "settings.get_settings",
+"parent": "c1",
+"via": "anyio",
+"args": [],
+"site": {
+"file": "tests/test_part3_frames.py",
+"line": 17,
+"text": "body = client.get(\"/generate/stream\", params=PARAMS, headers=HEADERS).text"
+},
+"def": {
+"file": "src/stream_svc/settings.py",
+"line": 17
+},
+"task": "TH1",
+"i": 1,
+"t": 2.344
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "settings.get_settings",
+"value": {
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+},
+"locals": [],
+"task": "TH1",
+"i": 2,
+"t": 3.372
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "security.verify_api_key",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"setting",
+{
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+],
+[
+"x_api_key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+]
+],
+"site": {
+"file": "tests/test_part3_frames.py",
+"line": 17,
+"text": "body = client.get(\"/generate/stream\", params=PARAMS, headers=HEADERS).text"
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 6
+},
+"async": true,
+"task": "TH2",
+"i": 3,
+"t": 3.92
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "security.verify_api_key",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH2",
+"i": 4,
+"t": 3.95
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "deps.get_token_source",
+"parent": "c1",
+"via": "contextlib",
+"args": [
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part3_frames.py",
+"line": 17,
+"text": "body = client.get(\"/generate/stream\", params=PARAMS, headers=HEADERS).text"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 10
+},
+"task": "TH2",
+"i": 5,
+"t": 4.342
+},
+{
+"k": "new",
+"id": "c5",
+"fn": "fakes.FakeProvider",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.02
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+]
+],
+"site": {
+"file": "src/stream_svc/deps.py",
+"line": 13,
+"text": "transport = FakeProvider(delay=0.02)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 16
+},
+"self": "o2",
+"task": "TH2",
+"i": 6,
+"t": 4.567
+},
+{
+"k": "born",
+"id": "c5",
+"fn": "fakes.FakeProvider",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "FakeProvider",
+"obj": "o2",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.02
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"task": "TH2",
+"i": 7,
+"t": 4.657
+},
+{
+"k": "new",
+"id": "c6",
+"fn": "sources.UpstreamSource",
+"parent": "c4",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+],
+"site": {
+"file": "src/stream_svc/deps.py",
+"line": 21,
+"text": "yield UpstreamSource(client)"
+},
+"def": {
+"file": "src/stream_svc/sources.py",
+"line": 11
+},
+"self": "o3",
+"task": "TH2",
+"i": 8,
+"t": 4.86
+},
+{
+"k": "born",
+"id": "c6",
+"fn": "sources.UpstreamSource",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+]
+},
+"task": "TH2",
+"i": 9,
+"t": 4.963
+},
+{
+"k": "yield",
+"id": "c4",
+"fn": "deps.get_token_source",
+"value": {
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/deps.py",
+"line": 21,
+"text": "yield UpstreamSource(client)"
+},
+"task": "TH2",
+"i": 10,
+"t": 5.073
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "deps.get_token_source",
+"at": {
+"file": "src/stream_svc/deps.py",
+"line": 21,
+"text": "yield UpstreamSource(client)"
+},
+"task": "TH2",
+"i": 11,
+"t": 5.092
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "deps.get_authed_source",
+"parent": "c1",
+"via": "anyio",
+"args": [
+[
+"a",
+{
+"t": "None"
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part3_frames.py",
+"line": 17,
+"text": "body = client.get(\"/generate/stream\", params=PARAMS, headers=HEADERS).text"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 23
+},
+"task": "TH1",
+"i": 12,
+"t": 5.466
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "deps.get_authed_source",
+"value": {
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+]
+},
+"locals": [],
+"task": "TH1",
+"i": 13,
+"t": 5.516
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "main.create_app.<generate_stream>",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part3_frames.py",
+"line": 17,
+"text": "body = client.get(\"/generate/stream\", params=PARAMS, headers=HEADERS).text"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 43
+},
+"async": true,
+"task": "TH2",
+"i": 14,
+"t": 5.953
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "main.create_app.<generate_stream>",
+"value": {
+"t": "EventSourceResponse",
+"lib": "sse_starlette",
+"v": "<sse_starlette.sse.EventSourceResponse object at 0x776d8ee33b60>"
+},
+"locals": [],
+"task": "TH2",
+"i": 15,
+"t": 6.16
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "stream.frames",
+"parent": "c1",
+"via": "sse_starlette",
+"args": [
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+]
+]
+}
+],
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"site": {
+"file": "tests/test_part3_frames.py",
+"line": 17,
+"text": "body = client.get(\"/generate/stream\", params=PARAMS, headers=HEADERS).text"
+},
+"def": {
+"file": "src/stream_svc/stream.py",
+"line": 1
+},
+"task": "TH2",
+"i": 16,
+"t": 6.638
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"parent": "c9",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"site": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"def": {
+"file": "src/stream_svc/sources.py",
+"line": 15
+},
+"self": "o3",
+"task": "TH2",
+"i": 17,
+"t": 6.872
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "fakes.FakeProvider.get",
+"parent": "c10",
+"via": "aiofetch",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v1/tokens"
+}
+],
+[
+"params",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"count",
+{
+"t": "str",
+"v": "3"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/stream_svc/sources.py",
+"line": 20,
+"text": "data = await self.client.get_json(\"/v1/tokens\", params)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 23
+},
+"self": "o2",
+"async": true,
+"task": "TH2",
+"i": 18,
+"t": 7.284
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "calls",
+"old": "0",
+"new": "1",
+"by": "c11",
+"task": "TH2",
+"i": 19,
+"t": 7.344
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "fakes.FakeProvider.get",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 29,
+"text": "await asyncio.sleep(self.delay)"
+},
+"task": "TH2",
+"i": 20,
+"t": 7.473
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 20,
+"text": "data = await self.client.get_json(\"/v1/tokens\", params)"
+},
+"task": "TH2",
+"i": 21,
+"t": 7.517
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH2",
+"i": 22,
+"t": 7.574
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "stream.frames",
+"task": "TH2",
+"i": 23,
+"t": 28.237
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH2",
+"i": 24,
+"t": 28.244
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "fakes.FakeProvider.get",
+"task": "TH2",
+"i": 25,
+"t": 28.248
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "fakes.token_at",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 35,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 12
+},
+"task": "TH2",
+"i": 26,
+"t": 28.333
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " soon"
+},
+"locals": [],
+"task": "TH2",
+"i": 27,
+"t": 29.222
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "fakes.token_at",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 35,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 12
+},
+"task": "TH2",
+"i": 28,
+"t": 29.274
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " one"
+},
+"locals": [],
+"task": "TH2",
+"i": 29,
+"t": 29.307
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "fakes.token_at",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 35,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 12
+},
+"task": "TH2",
+"i": 30,
+"t": 29.344
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " by"
+},
+"locals": [],
+"task": "TH2",
+"i": 31,
+"t": 29.371
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "fakes.FakeProvider.get",
+"value": {
+"t": "Response",
+"lib": "aiofetch",
+"v": "Response(status=200, body=b'{\"tokens\": [\" soon\", \" one\", \" by\"], \"done\": false}\u2026"
+},
+"locals": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"tokens",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "str",
+"v": " soon"
+},
+{
+"t": "str",
+"v": " one"
+},
+{
+"t": "str",
+"v": " by"
+}
+]
+}
+],
+[
+"i",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"tokens\": [\" soon\", \" one\", \" by\"], \"done\": false}'"
+}
+]
+],
+"task": "TH2",
+"i": 32,
+"t": 29.452
+},
+{
+"k": "yield",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " soon"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 23,
+"text": "yield token"
+},
+"task": "TH2",
+"i": 33,
+"t": 29.562
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 23,
+"text": "yield token"
+},
+"task": "TH2",
+"i": 34,
+"t": 29.568
+},
+{
+"k": "throw",
+"id": "c9",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " soon",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH2",
+"i": 35,
+"t": 29.581
+},
+{
+"k": "yield",
+"id": "c9",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " soon"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 5,
+"text": "yield {\"event\": \"token\", \"id\": str(sent), \"data\": token}"
+},
+"task": "TH2",
+"i": 36,
+"t": 29.608
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 5,
+"text": "yield {\"event\": \"token\", \"id\": str(sent), \"data\": token}"
+},
+"task": "TH2",
+"i": 37,
+"t": 29.613
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "stream.frames",
+"task": "TH2",
+"i": 38,
+"t": 29.693
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH2",
+"i": 39,
+"t": 29.695
+},
+{
+"k": "yield",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " one"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 23,
+"text": "yield token"
+},
+"task": "TH2",
+"i": 40,
+"t": 29.72
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 23,
+"text": "yield token"
+},
+"task": "TH2",
+"i": 41,
+"t": 29.726
+},
+{
+"k": "throw",
+"id": "c9",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " one",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH2",
+"i": 42,
+"t": 29.736
+},
+{
+"k": "yield",
+"id": "c9",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " one"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 5,
+"text": "yield {\"event\": \"token\", \"id\": str(sent), \"data\": token}"
+},
+"task": "TH2",
+"i": 43,
+"t": 29.762
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 5,
+"text": "yield {\"event\": \"token\", \"id\": str(sent), \"data\": token}"
+},
+"task": "TH2",
+"i": 44,
+"t": 29.767
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "stream.frames",
+"task": "TH2",
+"i": 45,
+"t": 29.979
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH2",
+"i": 46,
+"t": 29.982
+},
+{
+"k": "yield",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " by"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 23,
+"text": "yield token"
+},
+"task": "TH2",
+"i": 47,
+"t": 30.01
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 23,
+"text": "yield token"
+},
+"task": "TH2",
+"i": 48,
+"t": 30.016
+},
+{
+"k": "throw",
+"id": "c9",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " by",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH2",
+"i": 49,
+"t": 30.024
+},
+{
+"k": "yield",
+"id": "c9",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "3"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " by"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 5,
+"text": "yield {\"event\": \"token\", \"id\": str(sent), \"data\": token}"
+},
+"task": "TH2",
+"i": 50,
+"t": 30.048
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 5,
+"text": "yield {\"event\": \"token\", \"id\": str(sent), \"data\": token}"
+},
+"task": "TH2",
+"i": 51,
+"t": 30.055
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "stream.frames",
+"task": "TH2",
+"i": 52,
+"t": 30.22
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH2",
+"i": 53,
+"t": 30.223
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"start",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"params",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"count",
+{
+"t": "str",
+"v": "3"
+}
+]
+]
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"tokens",
+{
+"t": "list",
+"n": 3
+}
+],
+[
+"done",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"page",
+{
+"t": "TokenPage",
+"obj": "o4",
+"name": "TokenPage#1",
+"fields": [
+[
+"tokens",
+{
+"t": "list",
+"n": 3
+}
+],
+[
+"done",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"token",
+{
+"t": "str",
+"v": " by"
+}
+]
+],
+"task": "TH2",
+"i": 54,
+"t": 30.279
+},
+{
+"k": "throw",
+"id": "c9",
+"fn": "stream.frames",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH2",
+"i": 55,
+"t": 30.29
+},
+{
+"k": "catch",
+"id": "c9",
+"fn": "stream.frames",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 3,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH2",
+"i": 56,
+"t": 30.299
+},
+{
+"k": "yield",
+"id": "c9",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": "[DONE]"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 6,
+"text": "yield {\"event\": \"done\", \"data\": \"[DONE]\"}"
+},
+"task": "TH2",
+"i": 57,
+"t": 30.326
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 6,
+"text": "yield {\"event\": \"done\", \"data\": \"[DONE]\"}"
+},
+"task": "TH2",
+"i": 58,
+"t": 30.331
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "stream.frames",
+"task": "TH2",
+"i": 59,
+"t": 30.486
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "stream.frames",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"sent",
+{
+"t": "int",
+"v": 3
+}
+],
+[
+"token",
+{
+"t": "str",
+"v": " by"
+}
+]
+],
+"task": "TH2",
+"i": 60,
+"t": 30.51
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "deps.get_token_source",
+"task": "TH2",
+"i": 61,
+"t": 30.841
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "fakes.FakeProvider.aclose",
+"parent": "c4",
+"via": "aiofetch",
+"args": [],
+"site": {
+"file": "src/stream_svc/deps.py",
+"line": 20,
+"text": "async with client:"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 39
+},
+"self": "o2",
+"async": true,
+"task": "TH2",
+"i": 62,
+"t": 30.896
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "closed",
+"old": "False",
+"new": "True",
+"by": "c15",
+"task": "TH2",
+"i": 63,
+"t": 30.908
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "fakes.FakeProvider.aclose",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH2",
+"i": 64,
+"t": 30.919
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "deps.get_token_source",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"transport",
+{
+"t": "FakeProvider",
+"obj": "o2",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.02
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+],
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x776d8ee33620>"
+}
+]
+],
+"task": "TH2",
+"i": 65,
+"t": 30.948
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part3_frames.test_every_frame_ends_with_a_blank_line",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"body",
+{
+"t": "str",
+"v": "id: 1\r\nevent: token\r\ndata:  soon\r\n\r\nid: 2\r\nevent: token\r\ndata:  one\r\n\r\nid: 3\r\ne\u2026"
+}
+]
+],
+"task": "sync",
+"i": 66,
+"t": 31.545
+}
+],
+"objects": {
+"o1": {
+"cls": "settings.Settings",
+"name": "Settings#1",
+"born": null
+},
+"o2": {
+"cls": "fakes.FakeProvider",
+"name": "FakeProvider#1",
+"born": "c4"
+},
+"o3": {
+"cls": "sources.UpstreamSource",
+"name": "UpstreamSource#1",
+"born": "c4"
+},
+"o4": {
+"cls": "models.TokenPage",
+"name": "TokenPage#1",
+"born": null
+}
+},
+"tasks": [
+"TH1",
+"TH2"
+]
+}
