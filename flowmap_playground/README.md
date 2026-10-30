@@ -14,7 +14,7 @@ Open the link it prints (`http://127.0.0.1:8765/`).
 2. Pick a suggestion from **Try:** (it fills the box), or pick what to run and type your own.
 3. Press **Run** (or Enter). A few seconds later your run plays.
 
-The run also stays in that Part's run menu as `/v2/items/7 · 82 steps · ↩ 0 · {"url": …}`, so you can switch between inputs and compare them. A Part with nothing to run says so ("Nothing to run at Part 2"), and it never uses another Part's code instead.
+The run also stays in that Part's run menu as `/v2/items/7 · 82 steps · ↩ 0 · {"url": …}`, so you can switch between inputs and compare them. A new Part without a row of its own in the driver borrows the entries of the Part before it, but always runs its own code. Only a Part with no row before it says "Nothing to run at W3".
 
 ## What you can type
 
@@ -95,7 +95,7 @@ A running server notices on the next page load: reload the page. If the hook was
 | `drivers/_auto.py` | The driver of a week that has none yet: "a function of yours" in every Part |
 | `drivers/w1.py` … `w4.py` | How your input reaches each week's code: `PARTS`, per Part, its entries (label, hint, the function that runs it, its `from` rule) and its hand-written suggestions |
 | `drivers/_input.py` | Reads `path=answers` words and `name=value` settings, writes them back from a test's values, and the call entry |
-| `tests/` | `test_scenarios.py` (every hand-written suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component; and every Part gets suggestions from its tests), `test_follow.py` (saved runs follow a commit, a page load after a commit, suggestions from tests, the call entry), `test_playground.py` (a server in a throwaway folder: Parts, two servers, the page in Chrome, every page guard), `run_in_page.mjs` (uses the real page) |
+| `tests/` | `test_scenarios.py` (every hand-written suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component; and every Part gets suggestions from its tests), `test_follow.py` (saved runs follow a commit, a page load after a commit, a new week without a driver, suggestions from tests, the call entry), `test_playground.py` (a server in a throwaway folder: Parts, two servers, the page in Chrome, every page guard), `run_in_page.mjs` (uses the real page) |
 | `runs/`, `build/` | Your runs and the page: on your machine only, not in git and not synced |
 | `PLAN.md` | The checklist this was built from |
 
@@ -135,5 +135,6 @@ Then `tests/test_scenarios.py` must pass: every suggestion runs, each Part's sug
 | A new commit isn't in the playground | The page is from before it | Reload the page. Still missing: `python3 flowmap_tests/tools/flowmap.py update` (the hook may have been skipped) |
 | "reload the page" after Run | A commit came in after the page loaded | Reload it |
 | "Nothing to run at W3" | No row for that Part, nor for any Part before it | Add one, with its suggestions, and run `tests/test_scenarios.py` |
+| "there's no function record.x in your code" (the call entry) | Only your package's functions can be called, and not a name starting with `_` | Type the map's name (`module.function`). A function hidden by a module of the same name (W5's `main()` in `__init__.py`, next to `main.py`) can't be reached |
 | The link doesn't open | The server isn't running, or another program has the port | `python3 flowmap_playground/server.py --port 8766` |
 | The claude.ai map has no input box | That copy can't run Python | Use the local page |

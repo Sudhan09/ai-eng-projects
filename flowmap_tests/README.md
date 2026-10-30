@@ -15,7 +15,8 @@ Open `build/flowmap.html` in a browser. Refresh it after a rebuild. To type your
 | W1 | logparse | `projects/logparse` | 1–5, set by hand in `cfg/w1.py` (its commits don't name their Part) | No hook: the week is finished |
 | W2 | async-batch-fetcher | `projects/async-batch-fetcher` | 1–5, from its `Week 2 Part N` commits | Yes (hook) |
 | W3 | aiofetch | `projects/aiofetch` | 1–5, from `Week 3 Part N` commits | Yes (hook) |
-| W4 | aiofetch | `projects/aiofetch` (same repo as W3) | W3 (where Week 3 ended), then 1–4 so far; 5 not started | Yes (the same hook) |
+| W4 | aiofetch | `projects/aiofetch` (same repo as W3) | W3 (where Week 3 ended), then 1–5 | Yes (the same hook) |
+| W5 | stream-svc | `projects/stream-svc` | From its `feat(w5pN)` commits (in progress) | Yes (hook) |
 
 Pick the week in the project menu (top left), then a Part in the top bar.
 
@@ -77,7 +78,7 @@ Pick the week in the project menu (top left), then a Part in the top bar.
 | `python3 flowmap_tests/tools/flowmap.py build` | Rebuild everything: export each Part's code, record runs where needed, build the page |
 | `python3 flowmap_tests/tools/flowmap.py build --check` | Same, then check every Part and run in a browser, compare with the saved map, and run the tool tests if the tools changed (see [Checks](#checks)) |
 | `python3 flowmap_tests/tools/flowmap.py build --accept` | Same as `--check`, then save this map as the expected one: for when an old week changed on purpose |
-| `python3 flowmap_tests/tools/flowmap.py hook W4` | Install the git hooks in that project's repo: after each commit and after each `git pull` (once per repo) |
+| `python3 flowmap_tests/tools/flowmap.py hook W4` | Repair the git hooks in that project's repo (after each commit and after each `git pull`). `init` installs them; this rewrites one that points at an old folder |
 | `python3 flowmap_tests/tools/flowmap.py update` | What the hook runs in the background after each commit: build and check, quietly, then bring the playground up to the same commit (`flowmap_playground/server.py --refresh`) |
 | `python3 flowmap_tests/tools/flowmap.py note` | The one line the hook prints after a commit |
 | `python3 flowmap_tests/tools/flowmap.py init W5 projects/x --week 5 --practical w05_plan.md` | Start a map for a new project, and install its git hooks (`--week PF1` for the production bridge) |
@@ -109,7 +110,8 @@ Pick the week in the project menu (top left), then a Part in the top bar.
    - copies that commit's code into `exports/` (your working tree is not touched);
    - records the tests the Part added on that code and keeps the best two;
    - rebuilds every project's map;
-   - runs the [checks](#checks).
+   - runs the [checks](#checks);
+   - brings the playground up to the same commit: your saved runs play again on the new code, and each Part's Try: suggestions are made again from its tests (see [`../flowmap_playground/`](../flowmap_playground/README.md)).
 
    The log goes to `build/update.log`, and the check result to `build/check.txt`.
 3. **On the map:** refresh the page and the new Part has its own pill. At step 0 its new pieces glow white (dashed means changed), and its runs play.
@@ -136,7 +138,7 @@ Each new week takes one command, done once. After that, every commit updates the
 | Several repos in one week (W18 builds `llm-client-kit` and changes `aiofetch`) | One `init` per repo, each with its own key: `init W18-llm projects/llm-client-kit --week 18` and `init W18-aiofetch projects/aiofetch --week 18` | Each is its own entry in the project menu (`W18 · aiofetch`). A W18 commit in `aiofetch` never changes W3 or W4 |
 
 - **What `init` works out:** the Parts come from your commits, and their titles from the `--practical` plan's `Part N - …` or `Stage N - …` headings (or the commit messages without one). Columns, runs, START and END are worked out too, and the week is checked. It then appears in the project menu.
-- **Hooks installed so far:** `aiofetch` (W3, W4) and `async-batch-fetcher` (W2), after each commit. Run `hook` once more in each to add the `git pull` hook. `logparse` (W1) is finished and has none.
+- **Hooks installed:** `aiofetch` (W3, W4), `async-batch-fetcher` (W2) and `stream-svc` (W5), each with both hooks (after a commit and after a `git pull`). `logparse` (W1) is finished and has none. Each new week's `init` adds its repo.
 
 ### What does not update by itself
 
@@ -228,7 +230,7 @@ The playground shares these steps: `trace.py` also records a playground driver's
 
 | What you might see | Why | What to do |
 |---|---|---|
-| A project has no Parts, or `init` fails | Commits aren't named `Week N Part X: …` | List the Parts by hand in its cfg (`PARTS`, `COMMIT`, `BRANCH`), like `cfg/w1.py` |
+| A project has no Parts, or `init` fails | No commit names a Part (`feat(w5p1): …`, or the older `Week N Part X: …`) | Commit with the Part in the message; for old commits, list the Parts by hand in its cfg (`PARTS`, `COMMIT`, `BRANCH`), like `cfg/w1.py` |
 | A Part has no run | `build/check.txt` says why: its new tests touch fewer than 3 of your functions, failed, were skipped, or are over 5,000 events | Add a test that goes through more of the Part's code, or record one by hand and list it in `RUN_META` |
 | `check.txt`: "W2 Part 3 changed by itself" | An old week's map changed although its code didn't, so a tool change did it | If you meant it, `build --accept`. If not, it's a bug: ask for a fix |
 | A check from the test shows up in a run | The test's assert spans several lines or uses `self.assertEqual`, so its calls aren't seen as being on an `assert` line | Assert on one line with `assert` |

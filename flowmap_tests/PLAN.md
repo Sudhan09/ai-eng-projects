@@ -66,9 +66,9 @@ Nothing here starts until Hari says **execute**.
 - [x] ~~All checks green: tool tests, page check on every Part and run, real-mouse clicks, stepping back, panels.~~
 - [x] ~~README updated: the commit format, the post-merge hook, the "from the test" column, the new checks. Also the rule: **a new bug gets a test before it's fixed.**~~
 - [x] ~~Republish the map on claude.ai.~~
-- [ ] Commit, merge, push, delete the branch.
-- [ ] Hari re-runs `python3 flowmap_tests/tools/flowmap.py hook <week>` once for `aiofetch` and `async-batch-fetcher` (adds the pull hook).
-- [ ] Tell the teaching session the commit format, and to run `flowmap.py update` after committing.
+- [x] ~~Commit, merge, push, delete the branch.~~ Pushed as ff53f1c (2026-10-27).
+- [x] ~~Hari re-runs `python3 flowmap_tests/tools/flowmap.py hook <week>` once for `aiofetch` and `async-batch-fetcher` (adds the pull hook).~~ Done (2026-10-28); both hooks are in both repos.
+- [x] ~~Tell the teaching session the commit format, and to run `flowmap.py update` after committing.~~ `HANDBOOK.md` has both (sections 2 and 5).
 
 ## Not doing (too much for a study tool)
 

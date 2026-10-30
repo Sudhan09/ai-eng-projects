@@ -2,6 +2,8 @@
 
 When a task is done, tick it and strike it through: `- [x] ~~the task~~`.
 
+Plans 1–3 are the history of how the playground was built; a later plan can change an earlier one (Plan 2 made the box run the selected Part, not the newest). How it works now: [README.md](README.md) and [the handbook](../flowmap_tests/HANDBOOK.md).
+
 Agreed with Hari on 2026-10-28 ("execute"). The shared code stays inside `flowmap_tests` (no `flowmap_core`).
 
 ## 1. Split the folder
