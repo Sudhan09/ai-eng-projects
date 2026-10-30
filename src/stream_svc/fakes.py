@@ -38,4 +38,15 @@ class FakeProvider:
 
     async def aclose(self):
         self.closed = True
-        
+
+class FakeStreamingLLM:
+    def __init__(self, delay=0.005, jitter=0.002, seed=0):
+        self.delay = delay
+        self.jitter = jitter
+        self.seed = seed
+
+    async def stream(self, prompt, max_tokens):
+        rng = random.Random(self.seed)
+        for i in range(max_tokens):
+            await asyncio.sleep(self.delay + rng.uniform(0, self.jitter))
+            yield token_at(prompt, i)

@@ -44,6 +44,22 @@ async def load(url, path, requests=200, concurrency=50):
         return await asyncio.gather(*(one() for _ in range(requests)))
 
 
+async def time_stream(url, prompt, max_tokens, headers=None):
+    params = {"prompt": prompt, "max_tokens": max_tokens}
+    arrivals = []
+    async with httpx2.AsyncClient(base_url=url, timeout=30) as client:
+        start = time.perf_counter()
+        async with client.stream("GET", "/generate/stream", params=params, headers=headers) as answer:
+            async for line in answer.aiter_lines():
+                if line == "event: token":
+                    arrivals.append(time.perf_counter())
+    first = arrivals[0] - start
+    gaps = []
+    for i in range(1, len(arrivals)):
+        gaps.append(arrivals[i] - arrivals[i - 1])
+    return first, gaps
+
+
 def main():
     start = time.perf_counter()
     total = 0
