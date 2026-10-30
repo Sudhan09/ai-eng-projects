@@ -1,11 +1,56 @@
 {
- "commit": "2c16c11",
+ "commit": "3dc41e2",
  "recorder": 7,
- "picked": [],
+ "picked": [
+  {
+   "file": "auto/W5/1/test_part1_load__test_load_times_every_request.json",
+   "test": "tests/test_part1_load.py",
+   "name": "test_load_times_every_request",
+   "fn": "test_load_times_every_request",
+   "title": "Load times every request",
+   "score": 6
+  },
+  {
+   "file": "auto/W5/1/test_part1_twins__test_the_twins_all_answer.json",
+   "test": "tests/test_part1_twins.py",
+   "name": "test_the_twins_all_answer",
+   "fn": "test_the_twins_all_answer",
+   "title": "The twins all answer",
+   "score": 4
+  }
+ ],
  "skipped": [
   [
-   "",
-   "the Part added no tests"
+   "tests/test_part1_generate.py::test_bad_bodies_are_422",
+   "touches only 0 of your functions"
+  ],
+  [
+   "tests/test_part1_generate.py::test_generate_keeps_the_fields_clients_rely_on",
+   "touches only 2 of your functions"
+  ],
+  [
+   "tests/test_part1_generate.py::test_generate_returns_the_text_and_its_token_count",
+   "touches only 2 of your functions"
+  ],
+  [
+   "tests/test_part1_health.py::test_health_reports_ok_and_the_version",
+   "touches only 1 of your functions"
+  ],
+  [
+   "tests/test_part1_models.py::test_a_model_by_id_hides_its_notes_unless_verbose",
+   "touches only 1 of your functions"
+  ],
+  [
+   "tests/test_part1_models.py::test_an_unknown_model_is_404_and_a_bad_flag_is_422",
+   "touches only 1 of your functions"
+  ],
+  [
+   "tests/test_part1_models.py::test_the_docs_list_the_model_route",
+   "touches only 0 of your functions"
+  ],
+  [
+   "tests/test_part1_serving.py::test_running_raises_when_the_server_cannot_start",
+   "touches only 1 of your functions"
   ]
  ]
 }

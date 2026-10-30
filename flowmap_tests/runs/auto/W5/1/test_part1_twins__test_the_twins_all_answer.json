@@ -1,0 +1,300 @@
+{
+"run": "tests/test_part1_twins.py::test_the_twins_all_answer",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part1_twins.test_the_twins_all_answer",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part1_twins.py",
+"line": 6
+},
+"task": "sync",
+"i": 0,
+"t": 0.087
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "lab.lab_app",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"site": {
+"file": "tests/test_part1_twins.py",
+"line": 7,
+"text": "lab = TestClient(lab_app(delay=0.0))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 11
+},
+"task": "sync",
+"i": 1,
+"t": 0.175
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "lab.lab_app",
+"value": {
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x78e54a6bd940>"
+},
+"locals": [
+[
+"lab",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x78e54a6bd940>"
+}
+],
+[
+"slow_async",
+{
+"t": "function",
+"v": "lab_app.<locals>.slow_async"
+}
+],
+[
+"slow_sync",
+{
+"t": "function",
+"v": "lab_app.<locals>.slow_sync"
+}
+],
+[
+"slow_blocking",
+{
+"t": "function",
+"v": "lab_app.<locals>.slow_blocking"
+}
+]
+],
+"task": "sync",
+"i": 2,
+"t": 0.861
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_twins.py",
+"line": 9,
+"text": "assert lab.get(path).json() == {\"slept\": 0.0}"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 3,
+"t": 3.394
+},
+{
+"k": "pause",
+"id": "c3",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 4,
+"t": 3.412
+},
+{
+"k": "resume",
+"id": "c3",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 5,
+"t": 3.468
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 6,
+"t": 3.482
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "lab.lab_app.<slow_sync>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_twins.py",
+"line": 9,
+"text": "assert lab.get(path).json() == {\"slept\": 0.0}"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 19
+},
+"task": "TH2",
+"i": 7,
+"t": 8.056
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "lab.lab_app.<slow_sync>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH2",
+"i": 8,
+"t": 8.231
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "lab.lab_app.<slow_blocking>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_twins.py",
+"line": 9,
+"text": "assert lab.get(path).json() == {\"slept\": 0.0}"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 24
+},
+"async": true,
+"task": "TH1",
+"i": 9,
+"t": 10.67
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "lab.lab_app.<slow_blocking>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 10,
+"t": 10.744
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part1_twins.test_the_twins_all_answer",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"lab",
+{
+"t": "TestClient",
+"lib": "starlette",
+"v": "<starlette.testclient.TestClient object at 0x78e54a6be270>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_blocking"
+}
+]
+],
+"task": "sync",
+"i": 11,
+"t": 11.446
+}
+],
+"objects": {},
+"tasks": [
+"TH1",
+"TH2"
+]
+}

@@ -1,0 +1,5978 @@
+{
+"run": "tests/test_part1_load.py::test_load_times_every_request",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part1_load.test_load_times_every_request",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_part1_load.py",
+"line": 7
+},
+"task": "sync",
+"i": 0,
+"t": 0.093
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "lab.lab_app",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 8,
+"text": "with running(lab_app(delay=0.0)) as url:"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 11
+},
+"task": "sync",
+"i": 1,
+"t": 0.197
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "lab.lab_app",
+"value": {
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x74668131d7f0>"
+},
+"locals": [
+[
+"lab",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x74668131d7f0>"
+}
+],
+[
+"slow_async",
+{
+"t": "function",
+"v": "lab_app.<locals>.slow_async"
+}
+],
+[
+"slow_sync",
+{
+"t": "function",
+"v": "lab_app.<locals>.slow_sync"
+}
+],
+[
+"slow_blocking",
+{
+"t": "function",
+"v": "lab_app.<locals>.slow_blocking"
+}
+]
+],
+"task": "sync",
+"i": 2,
+"t": 0.965
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "serving.running",
+"parent": "c1",
+"via": "contextlib",
+"args": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x74668131d7f0>"
+}
+]
+],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 8,
+"text": "with running(lab_app(delay=0.0)) as url:"
+},
+"def": {
+"file": "src/stream_svc/serving.py",
+"line": 8
+},
+"task": "sync",
+"i": 3,
+"t": 1.07
+},
+{
+"k": "yield",
+"id": "c3",
+"fn": "serving.running",
+"value": {
+"t": "str",
+"v": "http://127.0.0.1:43733"
+},
+"at": {
+"file": "src/stream_svc/serving.py",
+"line": 20,
+"text": "yield f\"http://127.0.0.1:{port}\""
+},
+"task": "sync",
+"i": 4,
+"t": 43.527
+},
+{
+"k": "pause",
+"id": "c3",
+"fn": "serving.running",
+"at": {
+"file": "src/stream_svc/serving.py",
+"line": 20,
+"text": "yield f\"http://127.0.0.1:{port}\""
+},
+"task": "sync",
+"i": 5,
+"t": 43.548
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "lab.load",
+"parent": "c1",
+"via": "asyncio",
+"args": [
+[
+"url",
+{
+"t": "str",
+"v": "http://127.0.0.1:43733"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+],
+[
+"requests",
+{
+"t": "int",
+"v": 20
+}
+],
+[
+"concurrency",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 32
+},
+"async": true,
+"task": "main",
+"i": 6,
+"t": 43.803
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"parent": "c4",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "range_iterator",
+"lib": "builtins",
+"v": "<range_iterator object at 0x746681cca460>"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 44
+},
+"task": "main",
+"i": 7,
+"t": 98.947
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 8,
+"t": 98.964
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 9,
+"t": 98.969
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 10,
+"t": 98.976
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 11,
+"t": 98.978
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 12,
+"t": 98.984
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 13,
+"t": 98.985
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 14,
+"t": 98.99
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 15,
+"t": 98.992
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 16,
+"t": 98.996
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 17,
+"t": 98.998
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 18,
+"t": 99.003
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 19,
+"t": 99.004
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 20,
+"t": 99.008
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 21,
+"t": 99.009
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 22,
+"t": 99.013
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 23,
+"t": 99.015
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 24,
+"t": 99.019
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 25,
+"t": 99.02
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 26,
+"t": 99.024
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 27,
+"t": 99.026
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 28,
+"t": 99.03
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 29,
+"t": 99.032
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 30,
+"t": 99.036
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 31,
+"t": 99.037
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 32,
+"t": 99.041
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 33,
+"t": 99.043
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 34,
+"t": 99.047
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 35,
+"t": 99.048
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 36,
+"t": 99.053
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 37,
+"t": 99.054
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 38,
+"t": 99.059
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 39,
+"t": 99.06
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 40,
+"t": 99.064
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 41,
+"t": 99.065
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 42,
+"t": 99.07
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 43,
+"t": 99.071
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 44,
+"t": 99.076
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 45,
+"t": 99.077
+},
+{
+"k": "pause",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 46,
+"t": 99.081
+},
+{
+"k": "resume",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"task": "main",
+"i": 47,
+"t": 99.082
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "lab.load.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"_",
+{
+"t": "int",
+"v": 19
+}
+],
+[
+"one",
+{
+"t": "function",
+"v": "load.<locals>.one"
+}
+]
+],
+"task": "main",
+"i": 48,
+"t": 99.098
+},
+{
+"k": "task",
+"task": "main",
+"label": "T1",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 49,
+"t": 99.144
+},
+{
+"k": "task",
+"task": "main",
+"label": "T2",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 50,
+"t": 99.168
+},
+{
+"k": "task",
+"task": "main",
+"label": "T3",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 51,
+"t": 99.184
+},
+{
+"k": "task",
+"task": "main",
+"label": "T4",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 52,
+"t": 99.197
+},
+{
+"k": "task",
+"task": "main",
+"label": "T5",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 53,
+"t": 99.21
+},
+{
+"k": "task",
+"task": "main",
+"label": "T6",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 54,
+"t": 99.223
+},
+{
+"k": "task",
+"task": "main",
+"label": "T7",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 55,
+"t": 99.236
+},
+{
+"k": "task",
+"task": "main",
+"label": "T8",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 56,
+"t": 99.253
+},
+{
+"k": "task",
+"task": "main",
+"label": "T9",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 57,
+"t": 99.264
+},
+{
+"k": "task",
+"task": "main",
+"label": "T10",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 58,
+"t": 99.278
+},
+{
+"k": "task",
+"task": "main",
+"label": "T11",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 59,
+"t": 99.291
+},
+{
+"k": "task",
+"task": "main",
+"label": "T12",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 60,
+"t": 99.305
+},
+{
+"k": "task",
+"task": "main",
+"label": "T13",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 61,
+"t": 99.317
+},
+{
+"k": "task",
+"task": "main",
+"label": "T14",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 62,
+"t": 99.329
+},
+{
+"k": "task",
+"task": "main",
+"label": "T15",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 63,
+"t": 99.342
+},
+{
+"k": "task",
+"task": "main",
+"label": "T16",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 64,
+"t": 99.354
+},
+{
+"k": "task",
+"task": "main",
+"label": "T17",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 65,
+"t": 99.367
+},
+{
+"k": "task",
+"task": "main",
+"label": "T18",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 66,
+"t": 99.379
+},
+{
+"k": "task",
+"task": "main",
+"label": "T19",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 67,
+"t": 99.392
+},
+{
+"k": "task",
+"task": "main",
+"label": "T20",
+"by": "c4",
+"coro": {
+"fn": "lab.load.<one>",
+"args": []
+},
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"i": 68,
+"t": 99.404
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "lab.load",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 69,
+"t": 99.419
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T1",
+"i": 70,
+"t": 99.458
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T1",
+"i": 71,
+"t": 100.161
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T2",
+"i": 72,
+"t": 100.191
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T2",
+"i": 73,
+"t": 100.454
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T3",
+"i": 74,
+"t": 100.481
+},
+{
+"k": "pause",
+"id": "c8",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T3",
+"i": 75,
+"t": 100.66
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T4",
+"i": 76,
+"t": 100.684
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T4",
+"i": 77,
+"t": 100.848
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T5",
+"i": 78,
+"t": 100.872
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T5",
+"i": 79,
+"t": 101.034
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T6",
+"i": 80,
+"t": 101.058
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T6",
+"i": 81,
+"t": 101.069
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T7",
+"i": 82,
+"t": 101.086
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T7",
+"i": 83,
+"t": 101.093
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T8",
+"i": 84,
+"t": 101.109
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T8",
+"i": 85,
+"t": 101.114
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T9",
+"i": 86,
+"t": 101.128
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T9",
+"i": 87,
+"t": 101.133
+},
+{
+"k": "call",
+"id": "c15",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T10",
+"i": 88,
+"t": 101.146
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T10",
+"i": 89,
+"t": 101.151
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T11",
+"i": 90,
+"t": 101.164
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T11",
+"i": 91,
+"t": 101.17
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T12",
+"i": 92,
+"t": 101.183
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T12",
+"i": 93,
+"t": 101.189
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T13",
+"i": 94,
+"t": 101.203
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T13",
+"i": 95,
+"t": 101.208
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T14",
+"i": 96,
+"t": 101.221
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T14",
+"i": 97,
+"t": 101.226
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T15",
+"i": 98,
+"t": 101.239
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T15",
+"i": 99,
+"t": 101.244
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T16",
+"i": 100,
+"t": 101.265
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T16",
+"i": 101,
+"t": 101.272
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T17",
+"i": 102,
+"t": 101.288
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T17",
+"i": 103,
+"t": 101.293
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T18",
+"i": 104,
+"t": 101.306
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T18",
+"i": 105,
+"t": 101.311
+},
+{
+"k": "call",
+"id": "c24",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T19",
+"i": 106,
+"t": 101.324
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T19",
+"i": 107,
+"t": 101.329
+},
+{
+"k": "call",
+"id": "c25",
+"fn": "lab.load.<one>",
+"parent": "c4",
+"via": "asyncio",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 37
+},
+"async": true,
+"task": "T20",
+"i": 108,
+"t": 101.342
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 38,
+"text": "async with gate:"
+},
+"task": "T20",
+"i": 109,
+"t": 101.346
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "lab.load.<one>",
+"task": "T1",
+"i": 110,
+"t": 103.434
+},
+{
+"k": "pause",
+"id": "c6",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T1",
+"i": 111,
+"t": 103.875
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "lab.load.<one>",
+"task": "T2",
+"i": 112,
+"t": 103.885
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c7",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 113,
+"t": 104.091
+},
+{
+"k": "pause",
+"id": "c26",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 114,
+"t": 104.104
+},
+{
+"k": "resume",
+"id": "c26",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 115,
+"t": 104.117
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 116,
+"t": 104.131
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T2",
+"i": 117,
+"t": 104.403
+},
+{
+"k": "resume",
+"id": "c8",
+"fn": "lab.load.<one>",
+"task": "T3",
+"i": 118,
+"t": 104.407
+},
+{
+"k": "pause",
+"id": "c8",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T3",
+"i": 119,
+"t": 104.5
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "lab.load.<one>",
+"task": "T4",
+"i": 120,
+"t": 104.504
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c9",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 121,
+"t": 104.787
+},
+{
+"k": "pause",
+"id": "c27",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 122,
+"t": 104.799
+},
+{
+"k": "resume",
+"id": "c27",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 123,
+"t": 104.918
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 124,
+"t": 104.93
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T4",
+"i": 125,
+"t": 105.085
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "lab.load.<one>",
+"task": "T5",
+"i": 126,
+"t": 105.088
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T5",
+"i": 127,
+"t": 105.173
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 128,
+"t": 105.343
+},
+{
+"k": "pause",
+"id": "c28",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 129,
+"t": 105.354
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 130,
+"t": 105.429
+},
+{
+"k": "pause",
+"id": "c29",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 131,
+"t": 105.437
+},
+{
+"k": "resume",
+"id": "c28",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 132,
+"t": 105.451
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 133,
+"t": 105.461
+},
+{
+"k": "resume",
+"id": "c6",
+"fn": "lab.load.<one>",
+"task": "T1",
+"i": 134,
+"t": 105.528
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.006406
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.948219
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:15]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T1",
+"i": 135,
+"t": 105.922
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "lab.load.<one>",
+"task": "T2",
+"i": 136,
+"t": 105.928
+},
+{
+"k": "resume",
+"id": "c29",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 137,
+"t": 105.972
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 138,
+"t": 105.984
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.006079
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.948948
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:15]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T2",
+"i": 139,
+"t": 106.311
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "lab.load.<one>",
+"task": "T6",
+"i": 140,
+"t": 106.327
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T6",
+"i": 141,
+"t": 106.556
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "lab.load.<one>",
+"task": "T7",
+"i": 142,
+"t": 106.565
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T7",
+"i": 143,
+"t": 106.742
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "lab.load.<one>",
+"task": "T6",
+"i": 144,
+"t": 106.761
+},
+{
+"k": "pause",
+"id": "c11",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T6",
+"i": 145,
+"t": 106.867
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "lab.load.<one>",
+"task": "T7",
+"i": 146,
+"t": 106.871
+},
+{
+"k": "pause",
+"id": "c12",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T7",
+"i": 147,
+"t": 107.082
+},
+{
+"k": "resume",
+"id": "c8",
+"fn": "lab.load.<one>",
+"task": "T3",
+"i": 148,
+"t": 107.086
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.006807
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.949237
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:13]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T3",
+"i": 149,
+"t": 107.328
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "lab.load.<one>",
+"task": "T4",
+"i": 150,
+"t": 107.334
+},
+{
+"k": "call",
+"id": "c30",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c9",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 151,
+"t": 107.57
+},
+{
+"k": "pause",
+"id": "c30",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 152,
+"t": 107.581
+},
+{
+"k": "resume",
+"id": "c30",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 153,
+"t": 107.719
+},
+{
+"k": "return",
+"id": "c30",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 154,
+"t": 107.731
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T4",
+"i": 155,
+"t": 107.81
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "lab.load.<one>",
+"task": "T8",
+"i": 156,
+"t": 107.825
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T8",
+"i": 157,
+"t": 108.022
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "lab.load.<one>",
+"task": "T8",
+"i": 158,
+"t": 108.043
+},
+{
+"k": "pause",
+"id": "c13",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T8",
+"i": 159,
+"t": 108.135
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "lab.load.<one>",
+"task": "T4",
+"i": 160,
+"t": 108.139
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.007569
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.94944
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:12]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T4",
+"i": 161,
+"t": 108.292
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "lab.load.<one>",
+"task": "T5",
+"i": 162,
+"t": 108.297
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T5",
+"i": 163,
+"t": 108.426
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "lab.load.<one>",
+"task": "T9",
+"i": 164,
+"t": 108.437
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T9",
+"i": 165,
+"t": 108.626
+},
+{
+"k": "call",
+"id": "c31",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 166,
+"t": 108.76
+},
+{
+"k": "pause",
+"id": "c31",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 167,
+"t": 108.771
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 168,
+"t": 108.843
+},
+{
+"k": "pause",
+"id": "c32",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 169,
+"t": 108.851
+},
+{
+"k": "resume",
+"id": "c31",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 170,
+"t": 108.865
+},
+{
+"k": "return",
+"id": "c31",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 171,
+"t": 108.875
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "lab.load.<one>",
+"task": "T9",
+"i": 172,
+"t": 108.947
+},
+{
+"k": "resume",
+"id": "c32",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 173,
+"t": 109.101
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 174,
+"t": 109.112
+},
+{
+"k": "pause",
+"id": "c14",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T9",
+"i": 175,
+"t": 109.182
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "lab.load.<one>",
+"task": "T5",
+"i": 176,
+"t": 109.186
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.008435
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.949627
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:11]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T5",
+"i": 177,
+"t": 109.346
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "lab.load.<one>",
+"task": "T10",
+"i": 178,
+"t": 109.357
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T10",
+"i": 179,
+"t": 109.542
+},
+{
+"k": "call",
+"id": "c33",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 180,
+"t": 109.752
+},
+{
+"k": "pause",
+"id": "c33",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 181,
+"t": 109.761
+},
+{
+"k": "resume",
+"id": "c33",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 182,
+"t": 109.834
+},
+{
+"k": "return",
+"id": "c33",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 183,
+"t": 109.844
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "lab.load.<one>",
+"task": "T10",
+"i": 184,
+"t": 109.909
+},
+{
+"k": "pause",
+"id": "c15",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T10",
+"i": 185,
+"t": 110.0
+},
+{
+"k": "resume",
+"id": "c11",
+"fn": "lab.load.<one>",
+"task": "T6",
+"i": 186,
+"t": 110.005
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.003866
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.955084
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:10]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T6",
+"i": 187,
+"t": 110.233
+},
+{
+"k": "resume",
+"id": "c12",
+"fn": "lab.load.<one>",
+"task": "T7",
+"i": 188,
+"t": 110.239
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.003864
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.955321
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:10]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T7",
+"i": 189,
+"t": 110.464
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "lab.load.<one>",
+"task": "T11",
+"i": 190,
+"t": 110.477
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T11",
+"i": 191,
+"t": 110.674
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "lab.load.<one>",
+"task": "T12",
+"i": 192,
+"t": 110.681
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T12",
+"i": 193,
+"t": 110.852
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 194,
+"t": 110.972
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 195,
+"t": 110.982
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 196,
+"t": 110.996
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 197,
+"t": 111.005
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "lab.load.<one>",
+"task": "T11",
+"i": 198,
+"t": 111.078
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c16",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 199,
+"t": 111.344
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 200,
+"t": 111.353
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 201,
+"t": 111.425
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 202,
+"t": 111.436
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T11",
+"i": 203,
+"t": 111.522
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "lab.load.<one>",
+"task": "T12",
+"i": 204,
+"t": 111.531
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T12",
+"i": 205,
+"t": 111.623
+},
+{
+"k": "resume",
+"id": "c13",
+"fn": "lab.load.<one>",
+"task": "T8",
+"i": 206,
+"t": 111.626
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.003995
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.956581
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:8]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T8",
+"i": 207,
+"t": 111.858
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 208,
+"t": 111.981
+},
+{
+"k": "pause",
+"id": "c36",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 209,
+"t": 111.991
+},
+{
+"k": "resume",
+"id": "c36",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 210,
+"t": 112.005
+},
+{
+"k": "return",
+"id": "c36",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 211,
+"t": 112.014
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "lab.load.<one>",
+"task": "T13",
+"i": 212,
+"t": 112.121
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T13",
+"i": 213,
+"t": 112.324
+},
+{
+"k": "resume",
+"id": "c14",
+"fn": "lab.load.<one>",
+"task": "T9",
+"i": 214,
+"t": 112.331
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004085
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.957192
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:7]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T9",
+"i": 215,
+"t": 112.56
+},
+{
+"k": "call",
+"id": "c37",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 216,
+"t": 112.727
+},
+{
+"k": "pause",
+"id": "c37",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 217,
+"t": 112.737
+},
+{
+"k": "resume",
+"id": "c37",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 218,
+"t": 112.746
+},
+{
+"k": "return",
+"id": "c37",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 219,
+"t": 112.755
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "lab.load.<one>",
+"task": "T13",
+"i": 220,
+"t": 112.84
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T13",
+"i": 221,
+"t": 112.958
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "lab.load.<one>",
+"task": "T14",
+"i": 222,
+"t": 112.963
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T14",
+"i": 223,
+"t": 113.154
+},
+{
+"k": "resume",
+"id": "c15",
+"fn": "lab.load.<one>",
+"task": "T10",
+"i": 224,
+"t": 113.162
+},
+{
+"k": "return",
+"id": "c15",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.003999
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.958113
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:6]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T10",
+"i": 225,
+"t": 113.393
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "lab.load.<one>",
+"task": "T11",
+"i": 226,
+"t": 113.398
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.003104
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.959233
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:6]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T11",
+"i": 227,
+"t": 113.616
+},
+{
+"k": "call",
+"id": "c38",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 228,
+"t": 113.834
+},
+{
+"k": "pause",
+"id": "c38",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 229,
+"t": 113.844
+},
+{
+"k": "resume",
+"id": "c38",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 230,
+"t": 113.853
+},
+{
+"k": "return",
+"id": "c38",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 231,
+"t": 113.862
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "lab.load.<one>",
+"task": "T14",
+"i": 232,
+"t": 113.935
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T14",
+"i": 233,
+"t": 114.072
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "lab.load.<one>",
+"task": "T15",
+"i": 234,
+"t": 114.077
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T15",
+"i": 235,
+"t": 114.289
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "lab.load.<one>",
+"task": "T16",
+"i": 236,
+"t": 114.297
+},
+{
+"k": "call",
+"id": "c39",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c21",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 237,
+"t": 114.579
+},
+{
+"k": "pause",
+"id": "c39",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 238,
+"t": 114.589
+},
+{
+"k": "resume",
+"id": "c39",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 239,
+"t": 114.598
+},
+{
+"k": "return",
+"id": "c39",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 240,
+"t": 114.607
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T16",
+"i": 241,
+"t": 114.746
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "lab.load.<one>",
+"task": "T12",
+"i": 242,
+"t": 114.753
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004266
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.959436
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:4]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T12",
+"i": 243,
+"t": 114.987
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "lab.load.<one>",
+"task": "T15",
+"i": 244,
+"t": 115.081
+},
+{
+"k": "call",
+"id": "c40",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c20",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 245,
+"t": 115.344
+},
+{
+"k": "pause",
+"id": "c40",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 246,
+"t": 115.354
+},
+{
+"k": "resume",
+"id": "c40",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 247,
+"t": 115.366
+},
+{
+"k": "return",
+"id": "c40",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 248,
+"t": 115.376
+},
+{
+"k": "pause",
+"id": "c20",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T15",
+"i": 249,
+"t": 115.458
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "lab.load.<one>",
+"task": "T16",
+"i": 250,
+"t": 115.464
+},
+{
+"k": "call",
+"id": "c41",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c21",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 251,
+"t": 115.76
+},
+{
+"k": "pause",
+"id": "c41",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 252,
+"t": 115.77
+},
+{
+"k": "resume",
+"id": "c41",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 253,
+"t": 115.78
+},
+{
+"k": "return",
+"id": "c41",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 254,
+"t": 115.789
+},
+{
+"k": "pause",
+"id": "c21",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T16",
+"i": 255,
+"t": 115.863
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "lab.load.<one>",
+"task": "T17",
+"i": 256,
+"t": 115.868
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T17",
+"i": 257,
+"t": 116.293
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "lab.load.<one>",
+"task": "T13",
+"i": 258,
+"t": 116.306
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.00446
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.960877
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:3]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T13",
+"i": 259,
+"t": 116.636
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "lab.load.<one>",
+"task": "T17",
+"i": 260,
+"t": 116.698
+},
+{
+"k": "call",
+"id": "c42",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c22",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 261,
+"t": 116.897
+},
+{
+"k": "pause",
+"id": "c42",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 262,
+"t": 116.907
+},
+{
+"k": "resume",
+"id": "c42",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 263,
+"t": 116.916
+},
+{
+"k": "return",
+"id": "c42",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 264,
+"t": 116.925
+},
+{
+"k": "pause",
+"id": "c22",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T17",
+"i": 265,
+"t": 117.104
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "lab.load.<one>",
+"task": "T18",
+"i": 266,
+"t": 117.112
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T18",
+"i": 267,
+"t": 117.402
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "lab.load.<one>",
+"task": "T14",
+"i": 268,
+"t": 117.414
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004724
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.961718
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:2]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T14",
+"i": 269,
+"t": 117.742
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "lab.load.<one>",
+"task": "T18",
+"i": 270,
+"t": 117.869
+},
+{
+"k": "pause",
+"id": "c23",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T18",
+"i": 271,
+"t": 117.989
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "lab.load.<one>",
+"task": "T19",
+"i": 272,
+"t": 117.994
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T19",
+"i": 273,
+"t": 118.205
+},
+{
+"k": "resume",
+"id": "c20",
+"fn": "lab.load.<one>",
+"task": "T15",
+"i": 274,
+"t": 118.213
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004353
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.962832
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:1]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T15",
+"i": 275,
+"t": 118.472
+},
+{
+"k": "resume",
+"id": "c21",
+"fn": "lab.load.<one>",
+"task": "T16",
+"i": 276,
+"t": 118.478
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004378
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.963052
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [locked, waiters:1]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T16",
+"i": 277,
+"t": 118.711
+},
+{
+"k": "call",
+"id": "c43",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c1",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 9,
+"text": "seconds = asyncio.run(load(url, \"/slow_async\", requests=20, concurrency=5))"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 278,
+"t": 118.881
+},
+{
+"k": "pause",
+"id": "c43",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 279,
+"t": 118.891
+},
+{
+"k": "resume",
+"id": "c43",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 280,
+"t": 118.9
+},
+{
+"k": "return",
+"id": "c43",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 281,
+"t": 118.909
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "lab.load.<one>",
+"task": "T19",
+"i": 282,
+"t": 119.021
+},
+{
+"k": "call",
+"id": "c44",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c24",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 283,
+"t": 119.26
+},
+{
+"k": "pause",
+"id": "c44",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 284,
+"t": 119.27
+},
+{
+"k": "resume",
+"id": "c44",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 285,
+"t": 119.279
+},
+{
+"k": "return",
+"id": "c44",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 286,
+"t": 119.288
+},
+{
+"k": "pause",
+"id": "c24",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T19",
+"i": 287,
+"t": 119.397
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "lab.load.<one>",
+"task": "T20",
+"i": 288,
+"t": 119.413
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T20",
+"i": 289,
+"t": 119.994
+},
+{
+"k": "resume",
+"id": "c22",
+"fn": "lab.load.<one>",
+"task": "T17",
+"i": 290,
+"t": 120.016
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004623
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.964624
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [unlocked, value:2]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T17",
+"i": 291,
+"t": 120.575
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "lab.load.<one>",
+"task": "T20",
+"i": 292,
+"t": 120.641
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "lab.load.<one>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"task": "T20",
+"i": 293,
+"t": 120.836
+},
+{
+"k": "resume",
+"id": "c23",
+"fn": "lab.load.<one>",
+"task": "T18",
+"i": 294,
+"t": 120.849
+},
+{
+"k": "call",
+"id": "c45",
+"fn": "lab.lab_app.<slow_async>",
+"parent": "c23",
+"via": "fastapi",
+"args": [],
+"site": {
+"file": "src/stream_svc/lab.py",
+"line": 40,
+"text": "response = await client.get(path)"
+},
+"def": {
+"file": "src/stream_svc/lab.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 295,
+"t": 121.023
+},
+{
+"k": "pause",
+"id": "c45",
+"fn": "lab.lab_app.<slow_async>",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 16,
+"text": "await asyncio.sleep(delay)"
+},
+"task": "TH1",
+"i": 296,
+"t": 121.033
+},
+{
+"k": "resume",
+"id": "c45",
+"fn": "lab.lab_app.<slow_async>",
+"task": "TH1",
+"i": 297,
+"t": 121.042
+},
+{
+"k": "return",
+"id": "c45",
+"fn": "lab.lab_app.<slow_async>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"slept",
+{
+"t": "float",
+"v": 0.0
+}
+]
+]
+},
+"locals": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+]
+],
+"task": "TH1",
+"i": 298,
+"t": 121.051
+},
+{
+"k": "return",
+"id": "c23",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004451
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.965868
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [unlocked, value:3]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T18",
+"i": 299,
+"t": 121.643
+},
+{
+"k": "resume",
+"id": "c24",
+"fn": "lab.load.<one>",
+"task": "T19",
+"i": 300,
+"t": 121.74
+},
+{
+"k": "return",
+"id": "c24",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.004209
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.96675
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [unlocked, value:4]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T19",
+"i": 301,
+"t": 122.282
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "lab.load.<one>",
+"task": "T20",
+"i": 302,
+"t": 122.332
+},
+{
+"k": "return",
+"id": "c25",
+"fn": "lab.load.<one>",
+"value": {
+"t": "float",
+"v": 0.003338
+},
+"locals": [
+[
+"start",
+{
+"t": "float",
+"v": 363247.968174
+}
+],
+[
+"response",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [unlocked, value:5]>"
+}
+],
+[
+"path",
+{
+"t": "str",
+"v": "/slow_async"
+}
+]
+],
+"task": "T20",
+"i": 303,
+"t": 122.825
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "lab.load",
+"task": "main",
+"i": 304,
+"t": 122.865
+},
+{
+"k": "throw",
+"id": "c4",
+"fn": "lab.load",
+"exc": {
+"t": "StopIteration",
+"msg": "[0.006405703024938703, 0.006079206999856979, 0.006807269004639238, 0.0075692509999498725,\u2026",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 44,
+"text": "return await asyncio.gather(*(one() for _ in range(requests)))"
+},
+"task": "main",
+"i": 305,
+"t": 122.96
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "lab.load",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 35,
+"text": "async with httpx2.AsyncClient(base_url=url, timeout=60, limits=limits) as client:"
+},
+"task": "main",
+"i": 306,
+"t": 123.06
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "lab.load",
+"task": "main",
+"i": 307,
+"t": 123.126
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "lab.load",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 35,
+"text": "async with httpx2.AsyncClient(base_url=url, timeout=60, limits=limits) as client:"
+},
+"task": "main",
+"i": 308,
+"t": 123.199
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "lab.load",
+"task": "main",
+"i": 309,
+"t": 123.246
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "lab.load",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 35,
+"text": "async with httpx2.AsyncClient(base_url=url, timeout=60, limits=limits) as client:"
+},
+"task": "main",
+"i": 310,
+"t": 123.307
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "lab.load",
+"task": "main",
+"i": 311,
+"t": 123.328
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "lab.load",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 35,
+"text": "async with httpx2.AsyncClient(base_url=url, timeout=60, limits=limits) as client:"
+},
+"task": "main",
+"i": 312,
+"t": 123.384
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "lab.load",
+"task": "main",
+"i": 313,
+"t": 123.416
+},
+{
+"k": "pause",
+"id": "c4",
+"fn": "lab.load",
+"at": {
+"file": "src/stream_svc/lab.py",
+"line": 35,
+"text": "async with httpx2.AsyncClient(base_url=url, timeout=60, limits=limits) as client:"
+},
+"task": "main",
+"i": 314,
+"t": 123.454
+},
+{
+"k": "resume",
+"id": "c4",
+"fn": "lab.load",
+"task": "main",
+"i": 315,
+"t": 123.485
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "lab.load",
+"value": {
+"t": "list",
+"n": 20,
+"items": [
+{
+"t": "float",
+"v": 0.006406
+},
+{
+"t": "float",
+"v": 0.006079
+},
+{
+"t": "float",
+"v": 0.006807
+},
+{
+"t": "float",
+"v": 0.007569
+},
+{
+"t": "float",
+"v": 0.008435
+},
+{
+"t": "float",
+"v": 0.003866
+},
+{
+"t": "float",
+"v": 0.003864
+},
+{
+"t": "float",
+"v": 0.003995
+},
+{
+"t": "float",
+"v": 0.004085
+},
+{
+"t": "float",
+"v": 0.003999
+},
+{
+"t": "float",
+"v": 0.003104
+},
+{
+"t": "float",
+"v": 0.004266
+}
+]
+},
+"locals": [
+[
+"limits",
+{
+"t": "Limits",
+"lib": "httpx2",
+"v": "Limits(max_connections=5, max_keepalive_connections=None, keepalive_expiry=5.0)"
+}
+],
+[
+"client",
+{
+"t": "AsyncClient",
+"lib": "httpx2",
+"v": "<httpx2.AsyncClient object at 0x7466811ad6a0>"
+}
+],
+[
+"gate",
+{
+"t": "Semaphore",
+"lib": "asyncio",
+"v": "<asyncio.locks.Semaphore object at 0x7466811ad550 [unlocked, value:5]>"
+}
+],
+[
+"one",
+{
+"t": "function",
+"v": "load.<locals>.one"
+}
+]
+],
+"task": "main",
+"i": 316,
+"t": 123.646
+},
+{
+"k": "resume",
+"id": "c3",
+"fn": "serving.running",
+"task": "sync",
+"i": 317,
+"t": 123.846
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "serving.running",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"config",
+{
+"t": "Config",
+"lib": "uvicorn",
+"v": "<uvicorn.config.Config object at 0x74668131e3c0>"
+}
+],
+[
+"server",
+{
+"t": "Server",
+"lib": "uvicorn",
+"v": "<uvicorn.server.Server object at 0x74668131eba0>"
+}
+],
+[
+"thread",
+{
+"t": "Thread",
+"lib": "threading",
+"v": "<Thread(Thread-1 (run), stopped daemon 127983596771008)>"
+}
+],
+[
+"port",
+{
+"t": "int",
+"v": 43733
+}
+]
+],
+"task": "sync",
+"i": 318,
+"t": 235.83
+},
+{
+"k": "call",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"parent": "c1",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "list_iterator",
+"lib": "builtins",
+"v": "<list_iterator object at 0x7466bd46b7f0>"
+}
+]
+],
+"site": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"def": {
+"file": "tests/test_part1_load.py",
+"line": 11
+},
+"task": "sync",
+"i": 319,
+"t": 235.953
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 320,
+"t": 235.974
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 321,
+"t": 235.98
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 322,
+"t": 235.993
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 323,
+"t": 235.997
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 324,
+"t": 236.007
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 325,
+"t": 236.01
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 326,
+"t": 236.02
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 327,
+"t": 236.023
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 328,
+"t": 236.032
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 329,
+"t": 236.036
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 330,
+"t": 236.046
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 331,
+"t": 236.049
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 332,
+"t": 236.059
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 333,
+"t": 236.062
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 334,
+"t": 236.072
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 335,
+"t": 236.075
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 336,
+"t": 236.084
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 337,
+"t": 236.088
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 338,
+"t": 236.097
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 339,
+"t": 236.101
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 340,
+"t": 236.11
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 341,
+"t": 236.114
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 342,
+"t": 236.123
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 343,
+"t": 236.127
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 344,
+"t": 236.137
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 345,
+"t": 236.14
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 346,
+"t": 236.149
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 347,
+"t": 236.152
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 348,
+"t": 236.162
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 349,
+"t": 236.165
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 350,
+"t": 236.175
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 351,
+"t": 236.178
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 352,
+"t": 236.188
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 353,
+"t": 236.192
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 354,
+"t": 236.203
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 355,
+"t": 236.206
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 356,
+"t": 236.215
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 357,
+"t": 236.218
+},
+{
+"k": "pause",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"at": {
+"file": "tests/test_part1_load.py",
+"line": 11,
+"text": "assert all(s > 0 for s in seconds)"
+},
+"task": "sync",
+"i": 358,
+"t": 236.229
+},
+{
+"k": "resume",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"task": "sync",
+"i": 359,
+"t": 236.232
+},
+{
+"k": "return",
+"id": "c46",
+"fn": "test_part1_load.test_load_times_every_request.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"s",
+{
+"t": "float",
+"v": 0.003338
+}
+]
+],
+"task": "sync",
+"i": 360,
+"t": 236.247
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part1_load.test_load_times_every_request",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"url",
+{
+"t": "str",
+"v": "http://127.0.0.1:43733"
+}
+],
+[
+"seconds",
+{
+"t": "list",
+"n": 20,
+"items": [
+{
+"t": "float",
+"v": 0.006406
+},
+{
+"t": "float",
+"v": 0.006079
+},
+{
+"t": "float",
+"v": 0.006807
+},
+{
+"t": "float",
+"v": 0.007569
+},
+{
+"t": "float",
+"v": 0.008435
+},
+{
+"t": "float",
+"v": 0.003866
+},
+{
+"t": "float",
+"v": 0.003864
+},
+{
+"t": "float",
+"v": 0.003995
+},
+{
+"t": "float",
+"v": 0.004085
+},
+{
+"t": "float",
+"v": 0.003999
+},
+{
+"t": "float",
+"v": 0.003104
+},
+{
+"t": "float",
+"v": 0.004266
+}
+]
+}
+]
+],
+"task": "sync",
+"i": 361,
+"t": 236.296
+}
+],
+"objects": {},
+"tasks": [
+"T1",
+"T10",
+"T11",
+"T12",
+"T13",
+"T14",
+"T15",
+"T16",
+"T17",
+"T18",
+"T19",
+"T2",
+"T20",
+"T3",
+"T4",
+"T5",
+"T6",
+"T7",
+"T8",
+"T9",
+"TH1",
+"main"
+]
+}
