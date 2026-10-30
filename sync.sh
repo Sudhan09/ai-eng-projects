@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 WS=..
-for name in logparse async-batch-fetcher aiofetch; do
+for name in logparse async-batch-fetcher aiofetch stream-svc; do
     if ! git remote | grep -qx "$name"; then
         git remote add "$name" "$WS/projects/$name"
     fi
