@@ -1,0 +1,15 @@
+<!doctype html>
+<title>stream-svc demo</title>
+<input id="key" type="password" placeholder="API key"> <input id="prompt" value="hello">
+<button onclick="go()">Stream</button>
+<pre id="out"></pre>
+<script>
+function go() {
+  document.cookie = "stream_key=" + key.value + "; SameSite=Strict";  // EventSource can't send headers
+  out.textContent = "";
+  const es = new EventSource("/generate/stream?prompt=" + encodeURIComponent(prompt.value));
+  es.addEventListener("token", (e) => { out.textContent += e.data; });
+  es.addEventListener("done", () => es.close());  // close, or the browser reconnects
+  es.addEventListener("error", (e) => { out.textContent += "\n" + (e.data || "connection lost"); es.close(); });
+}
+</script>
