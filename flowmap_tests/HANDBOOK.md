@@ -25,6 +25,7 @@ Both read your project repos only through `git archive` copies. They never chang
    - the code in `src/<package>/` with an `__init__.py`;
    - the tests anywhere under `tests/`;
    - its own `.venv` with Python 3.12 or newer and pytest. Add pytest-asyncio if the tests are `async def`.
+   - **its name in `ai-eng-projects/sync.sh`,** on the `for name in …` line (W5 added `stream-svc`). Otherwise the end-of-week sync never publishes it. Claude can add it.
 
 ### Part 1
 
@@ -42,7 +43,7 @@ Both read your project repos only through `git archive` copies. They never chang
    ```
    python3 flowmap_tests/tools/flowmap.py hook W5
    ```
-6. **The playground gets the week:** Claude writes `flowmap_playground/drivers/w5.py`. Its `PARTS` table lists, for each Part:
+6. **The playground gets the week by itself:** on the next page load (no restart), every Part has "a function of yours", and its Try: suggestions come from its tests (`drivers/_auto.py`). When the week's code has an entry point worth typing into (an endpoint, a command), Claude writes `flowmap_playground/drivers/w5.py`. Its `PARTS` table lists, for each Part:
    - its entries: how your input reaches that Part's code, with its fake. Each entry also has a `from` rule: which of your functions it feeds, and how a test's values become the words you'd type (`client.AiofetchClient.get_item(1500)` → `1500`);
    - 2–4 suggested inputs written by hand: a good one, a bad one, and up to two more. Together they reach every component that Part has. The page shows them only when the Part's tests give no suggestion.
 
@@ -66,6 +67,7 @@ Both read your project repos only through `git archive` copies. They never chang
 
     - `last check: 2 problems (see flowmap_tests/build/check.txt)`: read that file. Section 6 says what each problem means.
     - `the map was behind for W5`: an earlier update didn't run. This one catches up.
+    - When it's done, `flowmap_tests/build/update.log` ends with `map rebuilt in … s` and `playground: playground up to date (…)`: both maps follow the commit.
 12. **A commit made from a sandboxed session (like a Claude session) may skip the hooks.** Then run this right after committing:
 
     ```
@@ -85,7 +87,12 @@ Both read your project repos only through `git archive` copies. They never chang
     cd ai-eng-projects && ./sync.sh && git push
     ```
 
-    It copies `flowmap_tests/` and the playground's code (not your playground runs or its built page).
+    It does three things:
+    - publishes each project on its list (`for name in …`) with its history: the week's new commits, your project's code;
+    - copies `flowmap_tests/` and the playground's code (not your playground runs or its built page);
+    - copies the interview notes.
+
+    A new repo is published only once its name is on that list (step 2).
 
 ### Special weeks
 
@@ -141,7 +148,7 @@ The log goes to `flowmap_tests/build/update.log`.
   - Made once per commit and kept in `flowmap_playground/build/`.
 - **"a function of yours" (the call entry):** in every Part, type any function of your package with plain values: `record.parse_line("2026-10-02T09:15:01Z ERROR db: down")`. The values are read as data, never run as code, and only your package's functions can be called.
 - **Your runs:** the last 20 per week are kept in `flowmap_playground/runs/<week>/`. They never go into git, sync or the tests map.
-- **A new week:** it has no input box until its driver exists (section 2, step 6). Then restart the server.
+- **A new week:** it's in the playground from the next page load, without a restart. Until its own driver exists (section 2, step 6), every Part has "a function of yours" and the suggestions its tests give.
 - **An entry point that changes in a later Part** (a renamed function, a new argument): the driver needs that Part's row updated. `python3 -m unittest discover -s flowmap_playground/tests` fails and names the week and Part. Run these tests after any change to a driver or to the shared code.
 - **Two servers at once** (yours on 8765, a check on another port) each keep their own page and secret. Claude uses `--port 8798` for checks and stops only that one.
 

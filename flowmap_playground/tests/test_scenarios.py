@@ -106,6 +106,8 @@ class EveryPartsTests(unittest.TestCase):
         server.HERE = home
         try:
             for key, p in server.projects().items():
+                if p["driver"].endswith("_auto.py"):  # a week without its own driver yet (W5): no promise to keep
+                    continue
                 made = server.suggestions(key, p, log=lambda m: None)
                 for part, block in server.driver_module(p["driver"]).PARTS.items():
                     with self.subTest(week=key, part=part):

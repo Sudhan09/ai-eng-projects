@@ -65,3 +65,5 @@ The crash of 2026-10-29: after `chore: release v0.2.0` joined W4 Part 5, the tes
 - [x] ~~**`init` installs the hook** (before the first build), so a new week is one command (`tests/test_hooks.py`).~~
 - [x] ~~**Proof:** `tests/test_scenarios.py` also checks that every Part of every week gets suggestions from its tests (or a `"no suggestions"` note with its reason, which must stay true; none needed today).~~
 - [x] ~~**Unchanged:** the tests map (`build --check` ok); tool tests and playground tests pass; checked by hand on port 8798 (Try: on W4 Parts 3 and 5, the call entry on Part 4), never 8765. Your runs were backed up to `~/history-backups/2026-10-30/playground-runs` before their first refresh.~~
+- [x] ~~**A new week without a driver** (W5 today) is in the playground anyway: `drivers/_auto.py` gives every Part "a function of yours"; a running server shows a new week on the next page load (`tests/test_follow.py`, NewWeek).~~
+- [x] ~~**The handbook:** a new repo goes on `sync.sh`'s list; the sync publishes your project's code with its history; `update.log` shows both maps following a commit; a new week needs no restart.~~

@@ -55,32 +55,41 @@ def say(message):
 def driver_module(driver):
     """The driver as it is on disk now (an edit since the last load counts)."""
     folder = os.path.dirname(driver)
-    for name, module in list(sys.modules.items()):
-        if (getattr(module, "__file__", None) or "").startswith(folder + os.sep):
-            del sys.modules[name]
+    for f in glob.glob(os.path.join(folder, "*.py")):  # by name: one loaded from another folder counts too
+        sys.modules.pop(os.path.basename(f)[:-3], None)
     if folder in sys.path:
         sys.path.remove(folder)
     sys.path.insert(0, folder)
     return importlib.import_module(os.path.basename(driver)[:-3])
 
 
-def table(driver):
+def table(driver, labels=()):
     """A driver's PARTS: per Part, its entries (label, hint) and its suggested inputs. Drivers import your project's
-    code only inside their entries, so this Python (without the project's libraries) can read them."""
+    code only inside their entries, so this Python (without the project's libraries) can read them. The driver of a
+    week without its own (drivers/_auto.py) gives a row for each of `labels`."""
     module = driver_module(driver)
+    blocks = {label: module.PARTS[label] for label in labels} if getattr(module, "ANY_PART", False) else module.PARTS
     return {part: {"entries": {name: {"label": e["label"], "hint": e.get("hint", "")} for name, e in block["entries"].items()},
                    "scenarios": [{"entry": s[0], "input": s[1], "kind": s[2], "about": s[3]} for s in block["scenarios"]]}
-            for part, block in module.PARTS.items()}
+            for part, block in blocks.items()}
 
 
 def projects(only=None):
-    """Every week in flowmap_tests/cfg that has a driver here (or only those named)."""
+    """Every week in flowmap_tests/cfg (or only those named), each with its driver: its own (drivers/w4.py), or
+    drivers/_auto.py while it has none (a new week: "a function of yours" in every Part)."""
     os.chdir(TESTS_MAP)
     found = {}
     for cfg, c in flowmap.projects():
+        if only and c["KEY"] not in only:
+            continue
         driver = os.path.join(HERE, "drivers", c["KEY"].lower() + ".py")
-        if os.path.exists(driver) and (not only or c["KEY"] in only):
-            found[c["KEY"]] = {"cfg": os.path.join(TESTS_MAP, cfg), "c": c, "driver": driver, "parts": table(driver)}
+        if not os.path.exists(driver):
+            driver = os.path.join(HERE, "drivers", "_auto.py")
+        try:
+            labels = [x["label"] for x in flowmap.part_list(c)]
+        except subprocess.CalledProcessError:  # its repo isn't there (yet)
+            continue
+        found[c["KEY"]] = {"cfg": os.path.join(TESTS_MAP, cfg), "c": c, "driver": driver, "parts": table(driver, labels)}
     return found
 
 
@@ -336,7 +345,7 @@ def suggestions(key, p, log=say):
             picked = suggest.choose([(t, runs[(label, t)].result()) for t in tries[label]])
             out[label] = {"mark": mark, "scenarios": picked}
             log(f"{key} Part {label}: {len(picked)} suggestion{'s' if len(picked) != 1 else ''} from your tests" if picked else
-                f"{key} Part {label}: no suggestions from your tests; the driver's own are shown")
+                f"{key} Part {label}: no suggestions from its tests yet")
         os.makedirs(os.path.dirname(path), exist_ok=True)
         json.dump(out, open(path, "w"), indent=1, ensure_ascii=False)
     return {label: v["scenarios"] for label, v in out.items()}

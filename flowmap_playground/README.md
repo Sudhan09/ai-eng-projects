@@ -92,6 +92,7 @@ A running server notices on the next page load: reload the page. If the hook was
 | `server.py` | The local server: the page, the Run button, recording, keeping the last 20 runs per week; `--refresh` brings every week up to its newest commit |
 | `harvest.py` | Runs a Part's tests once and notes what they pass into your code |
 | `suggest.py` | Turns those values into each Part's Try: suggestions |
+| `drivers/_auto.py` | The driver of a week that has none yet: "a function of yours" in every Part |
 | `drivers/w1.py` … `w4.py` | How your input reaches each week's code: `PARTS`, per Part, its entries (label, hint, the function that runs it, its `from` rule) and its hand-written suggestions |
 | `drivers/_input.py` | Reads `path=answers` words and `name=value` settings, writes them back from a test's values, and the call entry |
 | `tests/` | `test_scenarios.py` (every hand-written suggestion of every Part, on that Part's code: each one runs, a good one doesn't raise, and together they reach every component; and every Part gets suggestions from its tests), `test_follow.py` (saved runs follow a commit, a page load after a commit, suggestions from tests, the call entry), `test_playground.py` (a server in a throwaway folder: Parts, two servers, the page in Chrome, every page guard), `run_in_page.mjs` (uses the real page) |
@@ -102,7 +103,7 @@ Run the tests with `python3 -m unittest discover -s flowmap_playground/tests` (a
 
 ## A new week
 
-A new week only adds its driver, `drivers/w5.py`, written when the week is added to the map:
+A new week is in the playground from the next page load, with no driver of its own: `drivers/_auto.py` gives every Part "a function of yours", and the suggestions its tests give. Once its code has an entry point worth typing into, it gets its own driver, `drivers/w5.py`:
 
 ```python
 def run_stream(text):              # your input -> the week's entry point, on its fake

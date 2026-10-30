@@ -152,6 +152,43 @@ class PageLoad(Home):
         self.assertEqual(self.ask({"key": "W4", "part": "5", "entry": "get_item", "input": "7"})[0], 200)
 
 
+class NewWeek(unittest.TestCase):
+    """A week on the map whose driver isn't written yet (W5 today) is in the playground anyway: every Part has "a
+    function of yours", and a running server shows the week on the next page load."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.home = tempfile.mkdtemp(prefix="flowmap-newweek-")
+        os.makedirs(os.path.join(cls.home, "drivers"))
+        for f in ("_input.py", "_auto.py"):  # no week has its own driver here, as W5 today
+            os.symlink(os.path.join(PLAYGROUND, "drivers", f), os.path.join(cls.home, "drivers", f))
+        server.HERE = cls.home
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.home, ignore_errors=True)
+
+    def test_a_week_without_a_driver_gets_the_call_entry_in_every_part(self):
+        w1 = server.projects(only=("W1",))["W1"]
+        labels = [x["label"] for x in flowmap.part_list(w1["c"])]
+        self.assertEqual(sorted(w1["parts"]), sorted(labels))
+        self.assertTrue(all(list(w1["parts"][label]["entries"]) == ["call"] for label in labels))
+        run = server.play(w1, "1", "call", 'record.parse_line("2026-10-02T09:15:01Z ERROR db: down")')
+        self.assertTrue(any(e["k"] == "call" and e["fn"] == "record.parse_line" for e in run["events"]))
+
+    def test_a_new_week_shows_up_on_the_next_page_load(self):
+        srv = server.serve(0, only=("W1",), suggest=False)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        try:
+            srv.only = ("W1", "W5")  # as if W5 had just been added to the map
+            page = urllib.request.urlopen(f"http://127.0.0.1:{srv.server_port}/", timeout=300).read().decode()
+            self.assertIn('"W5": {', page)
+            self.assertIn("W5", srv.projects)
+        finally:
+            srv.shutdown()
+            srv.server_close()
+
+
 class Suggestions(Home):
     def suggested(self, key, part):
         return server.suggestions(key, self.found[key], log=lambda m: None)[part]
