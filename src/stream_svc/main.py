@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 
-from stream_svc.fakes import token_at
+from stream_svc.deps import get_authed_source
 from stream_svc.models import (
     MODELS,
     GenerateRequest,
@@ -29,11 +29,10 @@ def create_app():
         return info.model_copy(update={"notes": None})
 
     @app.post("/generate", response_model=GenerateResponse, status_code=200)
-    async def generate(body: GenerateRequest):
+    async def generate(body: GenerateRequest, source=Depends(get_authed_source)):
         tokens = []
-        for i in range(body.max_tokens):
-            tokens.append(token_at(body.prompt, i))
+        async for token in source.stream(body.prompt, body.max_tokens):
+            tokens.append(token)
         return GenerateResponse(text="".join(tokens).strip(), tokens=len(tokens))
-    
     return app
 
