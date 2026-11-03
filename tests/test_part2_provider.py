@@ -15,6 +15,9 @@ def test_the_fake_provider_answers_pages_then_fails_on_cue():
         return first, second
 
     first, second = asyncio.run(main())
-    assert first.json() == {"tokens": [token_at("hello", i) for i in range(3)], "done": False}
+    assert first.json() == {
+        "tokens": [token_at("hello", i) for i in range(3)],
+        "done": False,
+    }
     assert second.status == 503
     assert (provider.calls, provider.closed) == (2, True)

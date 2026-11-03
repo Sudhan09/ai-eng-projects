@@ -7,10 +7,12 @@ from aiofetch.transport import Response
 WORDS = (
     "the", "model", "streams", "each", "token", "as", "soon", "as", "it", "is", "ready",
     "so", "you", "see", "words", "arrive", "one", "by", "one", "instead", "of", "waiting",
-) 
+)  # fmt: skip
+
 
 def token_at(prompt, index):
     return " " + random.Random(f"{prompt}|{index}").choice(WORDS)
+
 
 class FakeProvider:
     def __init__(self, delay=0.0, fail_from=None, status=503):
@@ -38,6 +40,7 @@ class FakeProvider:
 
     async def aclose(self):
         self.closed = True
+
 
 class FakeStreamingLLM:
     def __init__(self, delay=0.005, jitter=0.002, seed=0):

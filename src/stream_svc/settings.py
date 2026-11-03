@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     fake_upstream: bool = False
     upstream_timeout: float = Field(default=10.0, gt=0)
     upstream_attempts: int = Field(default=3, ge=1)
+    cors_origins: list[str] = []
+    heartbeat_seconds: float = Field(default=15.0, gt=0)
 
 
 @lru_cache

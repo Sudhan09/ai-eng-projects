@@ -46,5 +46,7 @@ def app():
 
 @pytest.fixture
 def client(app):
-    with TestClient(app) as client:  # `with` runs the lifespan: startup now, shutdown after
+    with TestClient(
+        app
+    ) as client:  # `with` runs the lifespan: startup now, shutdown after
         yield client

@@ -8,7 +8,9 @@ from stream_svc.sources import UpstreamSource
 
 
 async def collect(transport, prompt, max_tokens, **kwargs):
-    async with AiofetchClient("http://provider.test", attempts=1, transport=transport) as client:
+    async with AiofetchClient(
+        "http://provider.test", attempts=1, transport=transport
+    ) as client:
         source = UpstreamSource(client, **kwargs)
         return [token async for token in source.stream(prompt, max_tokens)]
 
@@ -26,7 +28,6 @@ def test_the_source_stops_at_a_done_page_and_at_an_empty_one():
     empty = FakeTransport({"/v1/tokens": {"tokens": [], "done": False}})
     assert asyncio.run(collect(empty, "x", 10)) == []
     assert (len(done.requests), len(empty.requests)) == (1, 1)
-
 
 
 def test_twenty_tokens_come_from_three_pages_of_eight():

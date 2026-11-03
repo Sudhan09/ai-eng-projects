@@ -1,9 +1,16 @@
 from pydantic import BaseModel, ConfigDict, Field
 
 
+class UpstreamStatus(BaseModel):
+    breaker_state: str
+    attempts: int
+    retries: int
+
+
 class HealthStatus(BaseModel):
     status: str = "ok"
     version: str
+    upstream: UpstreamStatus
 
 
 class ModelInfo(BaseModel):
