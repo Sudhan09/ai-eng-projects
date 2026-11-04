@@ -21,7 +21,9 @@ def test_settings_are_built_once_across_20_requests(monkeypatch):
     get_settings.cache_clear()
     with TestClient(create_app()) as client:
         for _ in range(20):
-            assert client.post("/generate", json=BODY, headers=HEADERS).status_code == 200
+            assert (
+                client.post("/generate", json=BODY, headers=HEADERS).status_code == 200
+            )
     assert len(built) == 1
 
 
@@ -40,7 +42,9 @@ def test_each_request_resolves_get_settings_once_however_many_need_it(app):
 
 
 def test_an_override_swaps_in_a_fake_token_source(app):
-    app.dependency_overrides[get_token_source] = lambda: FakeSource([" fake", " tokens"])
+    app.dependency_overrides[get_token_source] = lambda: FakeSource(
+        [" fake", " tokens"]
+    )
     with TestClient(app) as client:
         answer = client.post("/generate", json=BODY, headers=HEADERS)
     assert answer.json() == {"text": "fake tokens", "tokens": 2}

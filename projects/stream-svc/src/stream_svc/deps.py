@@ -1,24 +1,19 @@
-from aiofetch import AiofetchClient
-from fastapi import Depends
+from fastapi import Depends, Request
 
-from stream_svc.fakes import FakeProvider
 from stream_svc.security import verify_api_key
 from stream_svc.settings import get_settings
 from stream_svc.sources import UpstreamSource
 
 
-async def get_token_source(settings=Depends(get_settings)):
-    transport = None
-    if settings.fake_upstream:
-        transport = FakeProvider(delay=0.02)
-    client = AiofetchClient(
-        settings.upstream_url,
-        attempts=settings.upstream_attempts,
-        timeout=settings.upstream_timeout,
-        transport=transport,
-    )
-    async with client:
-        yield UpstreamSource(client)
+async def get_upstream(request: Request):
+    return request.app.state.upstream
+
+
+async def get_token_source(
+    upstream=Depends(get_upstream), settings=Depends(get_settings)
+):
+    return UpstreamSource(upstream, retry_after=settings.retry_after_seconds)
+
 
 def get_authed_source(a=Depends(verify_api_key), source=Depends(get_token_source)):
     return source

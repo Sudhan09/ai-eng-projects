@@ -12,6 +12,7 @@ def test_an_unknown_model_is_404_and_a_bad_flag_is_422(client):
     assert client.get("/models/tiny-9").status_code == 404
     assert client.get("/models/tiny-1", params={"verbose": "maybe"}).status_code == 422
 
+
 def test_the_docs_list_the_model_route(client):
     paths = client.get("/openapi.json").json()["paths"]
     assert "/models/{model_id}" in paths

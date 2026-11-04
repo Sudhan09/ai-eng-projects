@@ -36,5 +36,7 @@ def test_an_empty_source_sends_only_done(app, client):
 
 
 def test_zero_max_tokens_is_refused_before_any_frame(client):
-    answer = client.get("/generate/stream", params={"prompt": "hi", "max_tokens": 0}, headers=HEADERS)
+    answer = client.get(
+        "/generate/stream", params={"prompt": "hi", "max_tokens": 0}, headers=HEADERS
+    )
     assert answer.status_code == 422

@@ -49,7 +49,9 @@ async def time_stream(url, prompt, max_tokens, headers=None):
     arrivals = []
     async with httpx2.AsyncClient(base_url=url, timeout=30) as client:
         start = time.perf_counter()
-        async with client.stream("GET", "/generate/stream", params=params, headers=headers) as answer:
+        async with client.stream(
+            "GET", "/generate/stream", params=params, headers=headers
+        ) as answer:
             async for line in answer.aiter_lines():
                 if line == "event: token":
                     arrivals.append(time.perf_counter())
@@ -58,6 +60,22 @@ async def time_stream(url, prompt, max_tokens, headers=None):
     for i in range(1, len(arrivals)):
         gaps.append(arrivals[i] - arrivals[i - 1])
     return first, gaps
+
+
+async def read_then_leave(url, prompt, max_tokens, tokens, headers=None):
+    params = {"prompt": prompt, "max_tokens": max_tokens}
+    seen = 0
+    async with httpx2.AsyncClient(base_url=url, timeout=30) as client:  # noqa: SIM117
+        async with client.stream(
+            "GET", "/generate/stream", params=params, headers=headers
+        ) as answer:
+            async for line in answer.aiter_lines():
+                if line == "event: token":
+                    seen += 1
+                    if seen == tokens:
+                        left = time.perf_counter()
+                        break
+    return left
 
 
 def main():

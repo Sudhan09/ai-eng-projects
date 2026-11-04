@@ -21,4 +21,3 @@ def running(app):
     finally:
         server.should_exit = True
         thread.join()
-
