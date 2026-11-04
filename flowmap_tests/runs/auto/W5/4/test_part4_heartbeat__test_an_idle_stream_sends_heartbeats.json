@@ -1,0 +1,2717 @@
+{
+"run": "tests/test_part4_heartbeat.py::test_an_idle_stream_sends_heartbeats",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_part4_heartbeat.test_an_idle_stream_sends_heartbeats",
+"parent": null,
+"via": null,
+"args": [
+[
+"monkeypatch",
+{
+"t": "MonkeyPatch",
+"lib": "_pytest",
+"v": "<_pytest.monkeypatch.MonkeyPatch object at 0x7c30cb792b10>"
+}
+]
+],
+"site": null,
+"def": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 11
+},
+"task": "sync",
+"i": 0,
+"t": 0.403
+},
+{
+"k": "call",
+"id": "c2",
+"fn": "main.create_app",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"transport",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 14,
+"text": "app = create_app()"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 57
+},
+"task": "sync",
+"i": 1,
+"t": 0.709
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "settings.get_settings",
+"parent": "c2",
+"via": null,
+"args": [],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 58,
+"text": "settings = get_settings()"
+},
+"def": {
+"file": "src/stream_svc/settings.py",
+"line": 19
+},
+"task": "sync",
+"i": 2,
+"t": 1.112
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "settings.get_settings",
+"value": {
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 0.05
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 3,
+"t": 3.664
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "main.create_app.<__annotate__>",
+"parent": "c2",
+"via": "annotationlib",
+"args": [
+[
+"format",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 99,
+"text": "@app.get(\"/models/{model_id}\", response_model=ModelInfo)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 100
+},
+"task": "sync",
+"i": 4,
+"t": 50.263
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "main.create_app.<__annotate__>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"verbose",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'bool'>"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 5,
+"t": 50.411
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "main.create_app.<__annotate__>",
+"parent": "c2",
+"via": "annotationlib",
+"args": [
+[
+"format",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 108,
+"text": "@app.post(\"/generate\", response_model=GenerateResponse, status_code=200)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 109
+},
+"task": "sync",
+"i": 6,
+"t": 54.617
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "main.create_app.<__annotate__>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"body",
+{
+"t": "ModelMetaclass",
+"lib": "pydantic",
+"v": "<class 'stream_svc.models.GenerateRequest'>"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 7,
+"t": 54.678
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "main.create_app.<__annotate__>",
+"parent": "c2",
+"via": "annotationlib",
+"args": [
+[
+"format",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 115,
+"text": "@app.get(\"/generate/stream\", response_class=EventSourceResponse)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 116
+},
+"task": "sync",
+"i": 8,
+"t": 57.844
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "main.create_app.<__annotate__>",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"request",
+{
+"t": "ABCMeta",
+"lib": "abc",
+"v": "<class 'starlette.requests.Request'>"
+}
+],
+[
+"background",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'fastapi.background.BackgroundTasks'>"
+}
+],
+[
+"max_tokens",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'int'>"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 9,
+"t": 57.922
+},
+{
+"k": "return",
+"id": "c2",
+"fn": "main.create_app",
+"value": {
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7c30cb7efb60>"
+},
+"locals": [
+[
+"lifespan",
+{
+"t": "function",
+"v": "create_app.<locals>.lifespan"
+}
+],
+[
+"health",
+{
+"t": "function",
+"v": "create_app.<locals>.health"
+}
+],
+[
+"get_model",
+{
+"t": "function",
+"v": "create_app.<locals>.get_model"
+}
+],
+[
+"generate",
+{
+"t": "function",
+"v": "create_app.<locals>.generate"
+}
+],
+[
+"generate_stream",
+{
+"t": "function",
+"v": "create_app.<locals>.generate_stream"
+}
+],
+[
+"demo",
+{
+"t": "function",
+"v": "create_app.<locals>.demo"
+}
+],
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7c30cb7efb60>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 0.05
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 10,
+"t": 60.208
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "main.create_app.<lifespan>",
+"parent": "c1",
+"via": "contextlib",
+"args": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7c30cb7efb60>"
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 18,
+"text": "with TestClient(app) as client:"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 60
+},
+"task": "TH1",
+"i": 11,
+"t": 65.561
+},
+{
+"k": "new",
+"id": "c8",
+"fn": "fakes.FakeProvider",
+"parent": "c7",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.02
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 64,
+"text": "provider = FakeProvider(delay=0.02)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 18
+},
+"self": "o2",
+"task": "TH1",
+"i": 12,
+"t": 65.696
+},
+{
+"k": "born",
+"id": "c8",
+"fn": "fakes.FakeProvider",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "FakeProvider",
+"obj": "o2",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.02
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"task": "TH1",
+"i": 13,
+"t": 65.796
+},
+{
+"k": "yield",
+"id": "c7",
+"fn": "main.create_app.<lifespan>",
+"value": {
+"t": "None"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 74,
+"text": "yield"
+},
+"task": "TH1",
+"i": 14,
+"t": 65.938
+},
+{
+"k": "pause",
+"id": "c7",
+"fn": "main.create_app.<lifespan>",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 74,
+"text": "yield"
+},
+"task": "TH1",
+"i": 15,
+"t": 65.959
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "main.request_id_middleware",
+"parent": "c1",
+"via": "starlette",
+"args": [
+[
+"request",
+{
+"t": "_CachedRequest",
+"lib": "starlette",
+"v": "<starlette.middleware.base._CachedRequest object at 0x7c30cb4678c0>"
+}
+],
+[
+"call_next",
+{
+"t": "function",
+"v": "BaseHTTPMiddleware.__call__.<locals>.call_next"
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 33
+},
+"async": true,
+"task": "TH1",
+"i": 16,
+"t": 70.026
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 38,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 17,
+"t": 70.423
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 18,
+"t": 75.165
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 38,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 19,
+"t": 75.431
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "security.verify_api_key",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"setting",
+{
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 0.05
+}
+]
+]
+}
+],
+[
+"x_api_key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 6
+},
+"async": true,
+"task": "TH1",
+"i": 20,
+"t": 78.19
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "security.verify_api_key",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH1",
+"i": 21,
+"t": 78.267
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "test_part4_heartbeat.test_an_idle_stream_sends_heartbeats.<<lambda>>",
+"parent": "c1",
+"via": "anyio",
+"args": [],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 15
+},
+"task": "TH2",
+"i": 22,
+"t": 78.994
+},
+{
+"k": "new",
+"id": "c12",
+"fn": "fakes.FakeStreamingLLM",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 15,
+"text": "app.dependency_overrides[get_token_source] = lambda: FakeStreamingLLM("
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 46
+},
+"self": "o3",
+"task": "TH2",
+"i": 23,
+"t": 79.28
+},
+{
+"k": "born",
+"id": "c12",
+"fn": "fakes.FakeStreamingLLM",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "FakeStreamingLLM",
+"obj": "o3",
+"name": "FakeStreamingLLM#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"task": "TH2",
+"i": 24,
+"t": 79.515
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "test_part4_heartbeat.test_an_idle_stream_sends_heartbeats.<<lambda>>",
+"value": {
+"t": "FakeStreamingLLM",
+"obj": "o3",
+"name": "FakeStreamingLLM#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"locals": [],
+"task": "TH2",
+"i": 25,
+"t": 79.634
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "deps.get_authed_source",
+"parent": "c1",
+"via": "anyio",
+"args": [
+[
+"a",
+{
+"t": "None"
+}
+],
+[
+"source",
+{
+"t": "FakeStreamingLLM",
+"obj": "o3",
+"name": "FakeStreamingLLM#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 15
+},
+"task": "TH2",
+"i": 26,
+"t": 80.545
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "deps.get_authed_source",
+"value": {
+"t": "FakeStreamingLLM",
+"obj": "o3",
+"name": "FakeStreamingLLM#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+},
+"locals": [],
+"task": "TH2",
+"i": 27,
+"t": 80.652
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "main.create_app.<generate_stream>",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7c30cb48e5d0>"
+}
+],
+[
+"background",
+{
+"t": "BackgroundTasks",
+"lib": "fastapi",
+"v": "<fastapi.background.BackgroundTasks object at 0x7c30cb4c0590>"
+}
+],
+[
+"prompt",
+{
+"t": "str",
+"v": "hi"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"source",
+{
+"t": "FakeStreamingLLM",
+"obj": "o3",
+"name": "FakeStreamingLLM#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 115
+},
+"async": true,
+"task": "TH1",
+"i": 28,
+"t": 81.571
+},
+{
+"k": "new",
+"id": "c15",
+"fn": "stream.StreamRecord",
+"parent": "c14",
+"via": null,
+"args": [
+[
+"request_id",
+{
+"t": "str",
+"v": "0ec5c1d01ce84ed694315c6680843f22"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "_HAS_DEFAULT_FACTORY_CLASS",
+"lib": "dataclasses",
+"v": "<factory>"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 123,
+"text": "record = StreamRecord(request_id=request.state.request_id)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o4",
+"task": "TH1",
+"i": 29,
+"t": 81.889
+},
+{
+"k": "born",
+"id": "c15",
+"fn": "stream.StreamRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "StreamRecord",
+"obj": "o4",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "0ec5c1d01ce84ed694315c6680843f22"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795590.136857
+}
+]
+]
+},
+"task": "TH1",
+"i": 30,
+"t": 82.154
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "main.create_app.<generate_stream>",
+"value": {
+"t": "EventSourceResponse",
+"lib": "sse_starlette",
+"v": "<sse_starlette.sse.EventSourceResponse object at 0x7c30cb4c0980>"
+},
+"locals": [
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o4",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "0ec5c1d01ce84ed694315c6680843f22"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795590.136857
+}
+]
+]
+}
+],
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7c30cb7efb60>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 0.05
+}
+]
+]
+}
+]
+],
+"task": "TH1",
+"i": 31,
+"t": 82.799
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "stream.frames",
+"parent": "c1",
+"via": "sse_starlette",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7c30cb48e5d0>"
+}
+],
+[
+"source",
+{
+"t": "FakeStreamingLLM",
+"obj": "o3",
+"name": "FakeStreamingLLM#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.3
+}
+],
+[
+"jitter",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"seed",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"prompt",
+{
+"t": "str",
+"v": "hi"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o4",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "0ec5c1d01ce84ed694315c6680843f22"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795590.136857
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "src/stream_svc/stream.py",
+"line": 29
+},
+"task": "TH1",
+"i": 32,
+"t": 85.614
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"parent": "c16",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hi"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"site": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 51
+},
+"self": "o3",
+"task": "TH1",
+"i": 33,
+"t": 86.355
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 54,
+"text": "await asyncio.sleep(self.delay + rng.uniform(0, self.jitter))"
+},
+"task": "TH1",
+"i": 34,
+"t": 87.028
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 35,
+"t": 87.244
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 36,
+"t": 87.48
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "GET /generate/stream 200 17.4ms request_id=0ec5c1d01ce84ed694315c6680843f22",
+"task": "TH1",
+"i": 37,
+"t": 87.983
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "main.request_id_middleware",
+"value": {
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7c30cb4c0c20>"
+},
+"locals": [
+[
+"request_id",
+{
+"t": "str",
+"v": "0ec5c1d01ce84ed694315c6680843f22"
+}
+],
+[
+"start",
+{
+"t": "float",
+"v": 795590.12508
+}
+],
+[
+"response",
+{
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7c30cb4c0c20>"
+}
+],
+[
+"ms",
+{
+"t": "float",
+"v": 17.418482
+}
+]
+],
+"task": "TH1",
+"i": 38,
+"t": 88.498
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 39,
+"t": 387.366
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"task": "TH1",
+"i": 40,
+"t": 387.386
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "fakes.token_at",
+"parent": "c17",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hi"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 55,
+"text": "yield token_at(prompt, i)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 41,
+"t": 387.901
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " by"
+},
+"locals": [],
+"task": "TH1",
+"i": 42,
+"t": 391.207
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"value": {
+"t": "str",
+"v": " by"
+},
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 55,
+"text": "yield token_at(prompt, i)"
+},
+"task": "TH1",
+"i": 43,
+"t": 391.378
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 55,
+"text": "yield token_at(prompt, i)"
+},
+"task": "TH1",
+"i": 44,
+"t": 391.405
+},
+{
+"k": "throw",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " by",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 45,
+"t": 391.459
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 32,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 46,
+"t": 391.921
+},
+{
+"k": "throw",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 32,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 47,
+"t": 392.691
+},
+{
+"k": "catch",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 32,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 48,
+"t": 392.736
+},
+{
+"k": "set",
+"obj": "o4",
+"field": "tokens",
+"old": "0",
+"new": "1",
+"by": "c16",
+"task": "TH1",
+"i": 49,
+"t": 392.844
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " by"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 37,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 50,
+"t": 393.386
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 37,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 51,
+"t": 393.407
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 52,
+"t": 393.779
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"task": "TH1",
+"i": 53,
+"t": 393.795
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 54,
+"text": "await asyncio.sleep(self.delay + rng.uniform(0, self.jitter))"
+},
+"task": "TH1",
+"i": 54,
+"t": 393.92
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 55,
+"t": 393.993
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 56,
+"t": 694.683
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"task": "TH1",
+"i": 57,
+"t": 694.721
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "fakes.token_at",
+"parent": "c17",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hi"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 55,
+"text": "yield token_at(prompt, i)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 58,
+"t": 695.299
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " ready"
+},
+"locals": [],
+"task": "TH1",
+"i": 59,
+"t": 695.588
+},
+{
+"k": "yield",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"value": {
+"t": "str",
+"v": " ready"
+},
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 55,
+"text": "yield token_at(prompt, i)"
+},
+"task": "TH1",
+"i": 60,
+"t": 695.771
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 55,
+"text": "yield token_at(prompt, i)"
+},
+"task": "TH1",
+"i": 61,
+"t": 695.805
+},
+{
+"k": "throw",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " ready",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 62,
+"t": 695.872
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 32,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 63,
+"t": 696.502
+},
+{
+"k": "throw",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 32,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 64,
+"t": 697.272
+},
+{
+"k": "catch",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 32,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 65,
+"t": 697.337
+},
+{
+"k": "set",
+"obj": "o4",
+"field": "tokens",
+"old": "1",
+"new": "2",
+"by": "c16",
+"task": "TH1",
+"i": 66,
+"t": 697.483
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " ready"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 37,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 67,
+"t": 697.556
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 37,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 68,
+"t": 697.585
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 69,
+"t": 697.794
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"task": "TH1",
+"i": 70,
+"t": 697.812
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "fakes.FakeStreamingLLM.stream",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"rng",
+{
+"t": "Random",
+"lib": "random",
+"v": "<random.Random object at 0x7c30c4009990>"
+}
+],
+[
+"i",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"task": "TH1",
+"i": 71,
+"t": 698.001
+},
+{
+"k": "throw",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 72,
+"t": 698.077
+},
+{
+"k": "catch",
+"id": "c16",
+"fn": "stream.frames",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 31,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 73,
+"t": 698.122
+},
+{
+"k": "set",
+"obj": "o4",
+"field": "outcome",
+"old": "'running'",
+"new": "'done'",
+"by": "c16",
+"task": "TH1",
+"i": 74,
+"t": 698.252
+},
+{
+"k": "yield",
+"id": "c16",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": "[DONE]"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 39,
+"text": "yield {\"event\": \"done\", \"data\": \"[DONE]\"}"
+},
+"task": "TH1",
+"i": 75,
+"t": 698.309
+},
+{
+"k": "pause",
+"id": "c16",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 39,
+"text": "yield {\"event\": \"done\", \"data\": \"[DONE]\"}"
+},
+"task": "TH1",
+"i": 76,
+"t": 698.335
+},
+{
+"k": "resume",
+"id": "c16",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 77,
+"t": 698.862
+},
+{
+"k": "set",
+"obj": "o4",
+"field": "seconds",
+"old": "0.0",
+"new": "0.617",
+"by": "c16",
+"task": "TH1",
+"i": 78,
+"t": 699.004
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "stream.frames",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"token",
+{
+"t": "str",
+"v": " ready"
+}
+]
+],
+"task": "TH1",
+"i": 79,
+"t": 699.057
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "stream.record_stream",
+"parent": "c1",
+"via": "anyio",
+"args": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7c30cb7efb60>"
+}
+],
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o4",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "0ec5c1d01ce84ed694315c6680843f22"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.616971
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795590.136857
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 19,
+"text": "body = client.get("
+},
+"def": {
+"file": "src/stream_svc/stream.py",
+"line": 18
+},
+"task": "TH2",
+"i": 80,
+"t": 703.06
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "stream 0ec5c1d01ce84ed694315c6680843f22: done, 2 tokens, 0.62s",
+"task": "TH2",
+"i": 81,
+"t": 703.284
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "stream.record_stream",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH2",
+"i": 82,
+"t": 703.594
+},
+{
+"k": "resume",
+"id": "c7",
+"fn": "main.create_app.<lifespan>",
+"task": "TH1",
+"i": 83,
+"t": 705.97
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "fakes.FakeProvider.aclose",
+"parent": "c7",
+"via": "aiofetch",
+"args": [],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 71,
+"text": "async with client:"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 41
+},
+"self": "o2",
+"async": true,
+"task": "TH1",
+"i": 84,
+"t": 706.343
+},
+{
+"k": "set",
+"obj": "o2",
+"field": "closed",
+"old": "False",
+"new": "True",
+"by": "c21",
+"task": "TH1",
+"i": 85,
+"t": 706.413
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "fakes.FakeProvider.aclose",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH1",
+"i": 86,
+"t": 706.519
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "main.create_app.<lifespan>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"provider",
+{
+"t": "FakeProvider",
+"obj": "o2",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.02
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+],
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7c30cb466e40>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o1",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 0.05
+}
+]
+]
+}
+],
+[
+"transport",
+{
+"t": "None"
+}
+]
+],
+"task": "TH1",
+"i": 87,
+"t": 706.801
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "sse.frames",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"body",
+{
+"t": "str",
+"v": ": ping - 2026-11-04 08:12:46.978310+00:00\r\n\r\n: ping - 2026-11-04 08:12:47.02908\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_part4_heartbeat.py",
+"line": 25,
+"text": "assert [f[\"event\"] for f in frames(body)] == [\"token\", \"token\", \"done\"]"
+},
+"def": {
+"file": "tests/sse.py",
+"line": 8
+},
+"task": "sync",
+"i": 88,
+"t": 709.698
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "sse.frames",
+"value": {
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " by"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " ready"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": "[DONE]"
+}
+]
+]
+}
+]
+},
+"locals": [
+[
+"out",
+{
+"t": "list",
+"n": 3,
+"items": [
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 2
+}
+]
+}
+],
+[
+"fields",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": ""
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "data"
+}
+],
+[
+"_",
+{
+"t": "str",
+"v": ":"
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": " [DONE]"
+}
+]
+],
+"task": "sync",
+"i": 89,
+"t": 709.989
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_part4_heartbeat.test_an_idle_stream_sends_heartbeats",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7c30cb7efb60>"
+}
+],
+[
+"client",
+{
+"t": "TestClient",
+"lib": "starlette",
+"v": "<starlette.testclient.TestClient object at 0x7c30cb464440>"
+}
+],
+[
+"body",
+{
+"t": "str",
+"v": ": ping - 2026-11-04 08:12:46.978310+00:00\r\n\r\n: ping - 2026-11-04 08:12:47.02908\u2026"
+}
+]
+],
+"task": "sync",
+"i": 90,
+"t": 710.518
+}
+],
+"objects": {
+"o1": {
+"cls": "settings.Settings",
+"name": "Settings#1",
+"born": null
+},
+"o2": {
+"cls": "fakes.FakeProvider",
+"name": "FakeProvider#1",
+"born": "c7"
+},
+"o3": {
+"cls": "fakes.FakeStreamingLLM",
+"name": "FakeStreamingLLM#1",
+"born": "c11"
+},
+"o4": {
+"cls": "stream.StreamRecord",
+"name": "StreamRecord#1",
+"born": "c14"
+}
+},
+"tasks": [
+"TH1",
+"TH2"
+]
+}

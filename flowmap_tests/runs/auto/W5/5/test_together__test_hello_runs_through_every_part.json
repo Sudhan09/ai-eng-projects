@@ -1,0 +1,7276 @@
+{
+"run": "tests/test_together.py::test_hello_runs_through_every_part",
+"status": "passed",
+"events": [
+{
+"k": "call",
+"id": "c1",
+"fn": "test_together.test_hello_runs_through_every_part",
+"parent": null,
+"via": null,
+"args": [],
+"site": null,
+"def": {
+"file": "tests/test_together.py",
+"line": 11
+},
+"task": "sync",
+"i": 0,
+"t": 0.26
+},
+{
+"k": "new",
+"id": "c2",
+"fn": "fakes.FakeProvider",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 12,
+"text": "provider = FakeProvider()"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 18
+},
+"self": "o1",
+"task": "sync",
+"i": 1,
+"t": 0.634
+},
+{
+"k": "born",
+"id": "c2",
+"fn": "fakes.FakeProvider",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "FakeProvider",
+"obj": "o1",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+},
+"task": "sync",
+"i": 2,
+"t": 0.894
+},
+{
+"k": "call",
+"id": "c3",
+"fn": "main.create_app",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"transport",
+{
+"t": "FakeProvider",
+"obj": "o1",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 13,
+"text": "app = create_app(transport=provider)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 59
+},
+"task": "sync",
+"i": 3,
+"t": 1.109
+},
+{
+"k": "call",
+"id": "c4",
+"fn": "settings.get_settings",
+"parent": "c3",
+"via": null,
+"args": [],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 60,
+"text": "settings = get_settings()"
+},
+"def": {
+"file": "src/stream_svc/settings.py",
+"line": 21
+},
+"task": "sync",
+"i": 4,
+"t": 3.062
+},
+{
+"k": "return",
+"id": "c4",
+"fn": "settings.get_settings",
+"value": {
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 5,
+"t": 5.457
+},
+{
+"k": "call",
+"id": "c5",
+"fn": "errors.install",
+"parent": "c3",
+"via": null,
+"args": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 92,
+"text": "install(app)"
+},
+"def": {
+"file": "src/stream_svc/errors.py",
+"line": 112
+},
+"task": "sync",
+"i": 6,
+"t": 6.326
+},
+{
+"k": "return",
+"id": "c5",
+"fn": "errors.install",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "sync",
+"i": 7,
+"t": 6.387
+},
+{
+"k": "call",
+"id": "c6",
+"fn": "main.create_app.<__annotate__>",
+"parent": "c3",
+"via": "annotationlib",
+"args": [
+[
+"format",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 106,
+"text": "@app.get(\"/models/{model_id}\", response_model=ModelInfo)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 107
+},
+"task": "sync",
+"i": 8,
+"t": 55.951
+},
+{
+"k": "return",
+"id": "c6",
+"fn": "main.create_app.<__annotate__>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"verbose",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'bool'>"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 9,
+"t": 56.051
+},
+{
+"k": "call",
+"id": "c7",
+"fn": "main.create_app.<__annotate__>",
+"parent": "c3",
+"via": "annotationlib",
+"args": [
+[
+"format",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 115,
+"text": "@app.post(\"/generate\", response_model=GenerateResponse, status_code=200)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 116
+},
+"task": "sync",
+"i": 10,
+"t": 59.082
+},
+{
+"k": "return",
+"id": "c7",
+"fn": "main.create_app.<__annotate__>",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"body",
+{
+"t": "ModelMetaclass",
+"lib": "pydantic",
+"v": "<class 'stream_svc.models.GenerateRequest'>"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 11,
+"t": 59.196
+},
+{
+"k": "call",
+"id": "c8",
+"fn": "main.create_app.<__annotate__>",
+"parent": "c3",
+"via": "annotationlib",
+"args": [
+[
+"format",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 122,
+"text": "@app.get(\"/generate/stream\", response_class=EventSourceResponse)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 123
+},
+"task": "sync",
+"i": 12,
+"t": 64.634
+},
+{
+"k": "return",
+"id": "c8",
+"fn": "main.create_app.<__annotate__>",
+"value": {
+"t": "dict",
+"n": 4,
+"items": [
+[
+"request",
+{
+"t": "ABCMeta",
+"lib": "abc",
+"v": "<class 'starlette.requests.Request'>"
+}
+],
+[
+"background",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'fastapi.background.BackgroundTasks'>"
+}
+],
+[
+"prompt",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'str'>"
+}
+],
+[
+"max_tokens",
+{
+"t": "type",
+"lib": "builtins",
+"v": "<class 'int'>"
+}
+]
+]
+},
+"locals": [],
+"task": "sync",
+"i": 13,
+"t": 64.767
+},
+{
+"k": "return",
+"id": "c3",
+"fn": "main.create_app",
+"value": {
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+},
+"locals": [
+[
+"lifespan",
+{
+"t": "function",
+"v": "create_app.<locals>.lifespan"
+}
+],
+[
+"health",
+{
+"t": "function",
+"v": "create_app.<locals>.health"
+}
+],
+[
+"get_model",
+{
+"t": "function",
+"v": "create_app.<locals>.get_model"
+}
+],
+[
+"generate",
+{
+"t": "function",
+"v": "create_app.<locals>.generate"
+}
+],
+[
+"generate_stream",
+{
+"t": "function",
+"v": "create_app.<locals>.generate_stream"
+}
+],
+[
+"demo",
+{
+"t": "function",
+"v": "create_app.<locals>.demo"
+}
+],
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 14,
+"t": 68.416
+},
+{
+"k": "call",
+"id": "c9",
+"fn": "main.create_app.<lifespan>",
+"parent": "c1",
+"via": "contextlib",
+"args": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 14,
+"text": "with TestClient(app, headers={\"Origin\": \"http://web.test\"}) as client:"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 62
+},
+"task": "TH1",
+"i": 15,
+"t": 78.289
+},
+{
+"k": "yield",
+"id": "c9",
+"fn": "main.create_app.<lifespan>",
+"value": {
+"t": "None"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 76,
+"text": "yield"
+},
+"task": "TH1",
+"i": 16,
+"t": 78.543
+},
+{
+"k": "pause",
+"id": "c9",
+"fn": "main.create_app.<lifespan>",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 76,
+"text": "yield"
+},
+"task": "TH1",
+"i": 17,
+"t": 78.582
+},
+{
+"k": "call",
+"id": "c10",
+"fn": "main.request_id_middleware",
+"parent": "c1",
+"via": "starlette",
+"args": [
+[
+"request",
+{
+"t": "_CachedRequest",
+"lib": "starlette",
+"v": "<starlette.middleware.base._CachedRequest object at 0x7ffa6cd6b770>"
+}
+],
+[
+"call_next",
+{
+"t": "function",
+"v": "BaseHTTPMiddleware.__call__.<locals>.call_next"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 15,
+"text": "generated = client.post(\"/generate\", json=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 35
+},
+"async": true,
+"task": "TH1",
+"i": 18,
+"t": 83.838
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 19,
+"t": 84.152
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 20,
+"t": 85.677
+},
+{
+"k": "pause",
+"id": "c10",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 21,
+"t": 85.886
+},
+{
+"k": "call",
+"id": "c11",
+"fn": "security.verify_api_key",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+],
+[
+"x_api_key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+],
+[
+"stream_key",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 15,
+"text": "generated = client.post(\"/generate\", json=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 22,
+"t": 89.951
+},
+{
+"k": "call",
+"id": "c12",
+"fn": "security.key_hash",
+"parent": "c11",
+"via": null,
+"args": [
+[
+"key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/security.py",
+"line": 22,
+"text": "if not secrets.compare_digest(key_hash(key), settings.api_key_sha256):"
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 10
+},
+"task": "TH1",
+"i": 23,
+"t": 91.049
+},
+{
+"k": "return",
+"id": "c12",
+"fn": "security.key_hash",
+"value": {
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+},
+"locals": [],
+"task": "TH1",
+"i": 24,
+"t": 91.209
+},
+{
+"k": "return",
+"id": "c11",
+"fn": "security.verify_api_key",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+]
+],
+"task": "TH1",
+"i": 25,
+"t": 91.337
+},
+{
+"k": "call",
+"id": "c13",
+"fn": "deps.get_upstream",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cd7a850>"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 15,
+"text": "generated = client.post(\"/generate\", json=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 8
+},
+"async": true,
+"task": "TH1",
+"i": 26,
+"t": 91.819
+},
+{
+"k": "return",
+"id": "c13",
+"fn": "deps.get_upstream",
+"value": {
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+},
+"locals": [],
+"task": "TH1",
+"i": 27,
+"t": 91.96
+},
+{
+"k": "call",
+"id": "c14",
+"fn": "deps.get_token_source",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"upstream",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 15,
+"text": "generated = client.post(\"/generate\", json=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 12
+},
+"async": true,
+"task": "TH1",
+"i": 28,
+"t": 92.482
+},
+{
+"k": "new",
+"id": "c15",
+"fn": "sources.UpstreamSource",
+"parent": "c14",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "src/stream_svc/deps.py",
+"line": 15,
+"text": "return UpstreamSource(upstream, retry_after=settings.retry_after_seconds)"
+},
+"def": {
+"file": "src/stream_svc/sources.py",
+"line": 15
+},
+"self": "o3",
+"task": "TH1",
+"i": 29,
+"t": 97.562
+},
+{
+"k": "born",
+"id": "c15",
+"fn": "sources.UpstreamSource",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"task": "TH1",
+"i": 30,
+"t": 97.817
+},
+{
+"k": "return",
+"id": "c14",
+"fn": "deps.get_token_source",
+"value": {
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"locals": [],
+"task": "TH1",
+"i": 31,
+"t": 97.995
+},
+{
+"k": "call",
+"id": "c16",
+"fn": "deps.get_authed_source",
+"parent": "c1",
+"via": "anyio",
+"args": [
+[
+"a",
+{
+"t": "None"
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 15,
+"text": "generated = client.post(\"/generate\", json=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 18
+},
+"task": "TH2",
+"i": 32,
+"t": 99.0
+},
+{
+"k": "return",
+"id": "c16",
+"fn": "deps.get_authed_source",
+"value": {
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"locals": [],
+"task": "TH2",
+"i": 33,
+"t": 103.659
+},
+{
+"k": "call",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"body",
+{
+"t": "GenerateRequest",
+"obj": "o4",
+"name": "GenerateRequest#1",
+"fields": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o3",
+"name": "UpstreamSource#1",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 15,
+"text": "generated = client.post(\"/generate\", json=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 115
+},
+"async": true,
+"task": "TH1",
+"i": 34,
+"t": 104.555
+},
+{
+"k": "call",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"parent": "c17",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"def": {
+"file": "src/stream_svc/sources.py",
+"line": 20
+},
+"self": "o3",
+"task": "TH1",
+"i": 35,
+"t": 104.724
+},
+{
+"k": "call",
+"id": "c19",
+"fn": "fakes.FakeProvider.get",
+"parent": "c18",
+"via": "aiofetch",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v1/tokens"
+}
+],
+[
+"params",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"count",
+{
+"t": "str",
+"v": "5"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/stream_svc/sources.py",
+"line": 26,
+"text": "data = await self.client.get_json(\"/v1/tokens\", params)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 25
+},
+"self": "o1",
+"async": true,
+"task": "TH1",
+"i": 36,
+"t": 107.733
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "0",
+"new": "1",
+"by": "c19",
+"task": "TH1",
+"i": 37,
+"t": 107.854
+},
+{
+"k": "pause",
+"id": "c19",
+"fn": "fakes.FakeProvider.get",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 31,
+"text": "await asyncio.sleep(self.delay)"
+},
+"task": "TH1",
+"i": 38,
+"t": 108.372
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 26,
+"text": "data = await self.client.get_json(\"/v1/tokens\", params)"
+},
+"task": "TH1",
+"i": 39,
+"t": 108.58
+},
+{
+"k": "pause",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 40,
+"t": 108.719
+},
+{
+"k": "resume",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"task": "TH1",
+"i": 41,
+"t": 108.798
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 42,
+"t": 108.827
+},
+{
+"k": "resume",
+"id": "c19",
+"fn": "fakes.FakeProvider.get",
+"task": "TH1",
+"i": 43,
+"t": 108.843
+},
+{
+"k": "call",
+"id": "c20",
+"fn": "fakes.token_at",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 44,
+"t": 109.089
+},
+{
+"k": "return",
+"id": "c20",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " soon"
+},
+"locals": [],
+"task": "TH1",
+"i": 45,
+"t": 113.7
+},
+{
+"k": "call",
+"id": "c21",
+"fn": "fakes.token_at",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 46,
+"t": 114.028
+},
+{
+"k": "return",
+"id": "c21",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " one"
+},
+"locals": [],
+"task": "TH1",
+"i": 47,
+"t": 114.276
+},
+{
+"k": "call",
+"id": "c22",
+"fn": "fakes.token_at",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 48,
+"t": 114.534
+},
+{
+"k": "return",
+"id": "c22",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " by"
+},
+"locals": [],
+"task": "TH1",
+"i": 49,
+"t": 114.697
+},
+{
+"k": "call",
+"id": "c23",
+"fn": "fakes.token_at",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 50,
+"t": 114.896
+},
+{
+"k": "return",
+"id": "c23",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " waiting"
+},
+"locals": [],
+"task": "TH1",
+"i": 51,
+"t": 115.037
+},
+{
+"k": "call",
+"id": "c24",
+"fn": "fakes.token_at",
+"parent": "c19",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 4
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 52,
+"t": 115.209
+},
+{
+"k": "return",
+"id": "c24",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " of"
+},
+"locals": [],
+"task": "TH1",
+"i": 53,
+"t": 115.358
+},
+{
+"k": "return",
+"id": "c19",
+"fn": "fakes.FakeProvider.get",
+"value": {
+"t": "Response",
+"lib": "aiofetch",
+"v": "Response(status=200, body=b'{\"tokens\": [\" soon\", \" one\", \" by\", \" waiting\", \" o\u2026"
+},
+"locals": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"tokens",
+{
+"t": "list",
+"n": 5,
+"items": [
+{
+"t": "str",
+"v": " soon"
+},
+{
+"t": "str",
+"v": " one"
+},
+{
+"t": "str",
+"v": " by"
+},
+{
+"t": "str",
+"v": " waiting"
+},
+{
+"t": "str",
+"v": " of"
+}
+]
+}
+],
+[
+"i",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"tokens\": [\" soon\", \" one\", \" by\", \" waiting\", \" of\"], \"done\": false}'"
+}
+]
+],
+"task": "TH1",
+"i": 54,
+"t": 115.722
+},
+{
+"k": "yield",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " soon"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 55,
+"t": 116.134
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 56,
+"t": 116.182
+},
+{
+"k": "throw",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopIteration",
+"msg": " soon",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 57,
+"t": 116.265
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 58,
+"t": 116.291
+},
+{
+"k": "yield",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " one"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 59,
+"t": 116.457
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 60,
+"t": 116.486
+},
+{
+"k": "throw",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopIteration",
+"msg": " one",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 61,
+"t": 116.545
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 62,
+"t": 116.563
+},
+{
+"k": "yield",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " by"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 63,
+"t": 116.68
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 64,
+"t": 116.718
+},
+{
+"k": "throw",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopIteration",
+"msg": " by",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 65,
+"t": 116.765
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 66,
+"t": 116.781
+},
+{
+"k": "yield",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " waiting"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 67,
+"t": 116.899
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 68,
+"t": 116.926
+},
+{
+"k": "throw",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopIteration",
+"msg": " waiting",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 69,
+"t": 116.975
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 70,
+"t": 116.99
+},
+{
+"k": "yield",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " of"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 71,
+"t": 117.11
+},
+{
+"k": "pause",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 72,
+"t": 117.136
+},
+{
+"k": "throw",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopIteration",
+"msg": " of",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 73,
+"t": 117.176
+},
+{
+"k": "resume",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 74,
+"t": 117.192
+},
+{
+"k": "return",
+"id": "c18",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"start",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"params",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"count",
+{
+"t": "str",
+"v": "5"
+}
+]
+]
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"tokens",
+{
+"t": "list",
+"n": 5
+}
+],
+[
+"done",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"page",
+{
+"t": "TokenPage",
+"obj": "o5",
+"name": "TokenPage#1",
+"fields": [
+[
+"tokens",
+{
+"t": "list",
+"n": 5
+}
+],
+[
+"done",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"token",
+{
+"t": "str",
+"v": " of"
+}
+]
+],
+"task": "TH1",
+"i": 75,
+"t": 117.466
+},
+{
+"k": "throw",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 76,
+"t": 117.52
+},
+{
+"k": "catch",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 118,
+"text": "async for token in source.stream(body.prompt, body.max_tokens):"
+},
+"task": "TH1",
+"i": 77,
+"t": 117.576
+},
+{
+"k": "return",
+"id": "c17",
+"fn": "main.create_app.<generate>",
+"value": {
+"t": "GenerateResponse",
+"obj": "o6",
+"name": "GenerateResponse#1",
+"fields": [
+[
+"text",
+{
+"t": "str",
+"v": "soon one by waiting of"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"locals": [
+[
+"tokens",
+{
+"t": "list",
+"n": 5,
+"items": [
+{
+"t": "str",
+"v": " soon"
+},
+{
+"t": "str",
+"v": " one"
+},
+{
+"t": "str",
+"v": " by"
+},
+{
+"t": "str",
+"v": " waiting"
+},
+{
+"t": "str",
+"v": " of"
+}
+]
+}
+],
+[
+"token",
+{
+"t": "str",
+"v": " of"
+}
+]
+],
+"task": "TH1",
+"i": 78,
+"t": 117.842
+},
+{
+"k": "resume",
+"id": "c10",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 79,
+"t": 122.567
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "POST /generate 200 38.7ms request_id=6c2313c523484011bd48b0d2eb007cac",
+"task": "TH1",
+"i": 80,
+"t": 123.13
+},
+{
+"k": "return",
+"id": "c10",
+"fn": "main.request_id_middleware",
+"value": {
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6cd6ba10>"
+},
+"locals": [
+[
+"request_id",
+{
+"t": "str",
+"v": "6c2313c523484011bd48b0d2eb007cac"
+}
+],
+[
+"start",
+{
+"t": "float",
+"v": 795634.014608
+}
+],
+[
+"response",
+{
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6cd6ba10>"
+}
+],
+[
+"ms",
+{
+"t": "float",
+"v": 38.723743
+}
+]
+],
+"task": "TH1",
+"i": 81,
+"t": 123.695
+},
+{
+"k": "call",
+"id": "c25",
+"fn": "main.request_id_middleware",
+"parent": "c1",
+"via": "starlette",
+"args": [
+[
+"request",
+{
+"t": "_CachedRequest",
+"lib": "starlette",
+"v": "<starlette.middleware.base._CachedRequest object at 0x7ffa6cd7a490>"
+}
+],
+[
+"call_next",
+{
+"t": "function",
+"v": "BaseHTTPMiddleware.__call__.<locals>.call_next"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 35
+},
+"async": true,
+"task": "TH1",
+"i": 82,
+"t": 130.493
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 83,
+"t": 130.867
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 84,
+"t": 132.251
+},
+{
+"k": "pause",
+"id": "c25",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 85,
+"t": 133.129
+},
+{
+"k": "call",
+"id": "c26",
+"fn": "security.verify_api_key",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+],
+[
+"x_api_key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+],
+[
+"stream_key",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 86,
+"t": 137.854
+},
+{
+"k": "call",
+"id": "c27",
+"fn": "security.key_hash",
+"parent": "c26",
+"via": null,
+"args": [
+[
+"key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/security.py",
+"line": 22,
+"text": "if not secrets.compare_digest(key_hash(key), settings.api_key_sha256):"
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 10
+},
+"task": "TH1",
+"i": 87,
+"t": 138.208
+},
+{
+"k": "return",
+"id": "c27",
+"fn": "security.key_hash",
+"value": {
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+},
+"locals": [],
+"task": "TH1",
+"i": 88,
+"t": 138.444
+},
+{
+"k": "return",
+"id": "c26",
+"fn": "security.verify_api_key",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"key",
+{
+"t": "str",
+"v": "test-key-0000"
+}
+]
+],
+"task": "TH1",
+"i": 89,
+"t": 138.597
+},
+{
+"k": "call",
+"id": "c28",
+"fn": "deps.get_upstream",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cd7e520>"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 8
+},
+"async": true,
+"task": "TH1",
+"i": 90,
+"t": 139.055
+},
+{
+"k": "return",
+"id": "c28",
+"fn": "deps.get_upstream",
+"value": {
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+},
+"locals": [],
+"task": "TH1",
+"i": 91,
+"t": 139.239
+},
+{
+"k": "call",
+"id": "c29",
+"fn": "deps.get_token_source",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"upstream",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 12
+},
+"async": true,
+"task": "TH1",
+"i": 92,
+"t": 139.804
+},
+{
+"k": "new",
+"id": "c30",
+"fn": "sources.UpstreamSource",
+"parent": "c29",
+"via": null,
+"args": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "src/stream_svc/deps.py",
+"line": 15,
+"text": "return UpstreamSource(upstream, retry_after=settings.retry_after_seconds)"
+},
+"def": {
+"file": "src/stream_svc/sources.py",
+"line": 15
+},
+"self": "o7",
+"task": "TH1",
+"i": 93,
+"t": 140.097
+},
+{
+"k": "born",
+"id": "c30",
+"fn": "sources.UpstreamSource",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "UpstreamSource",
+"obj": "o7",
+"name": "UpstreamSource#2",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"task": "TH1",
+"i": 94,
+"t": 140.333
+},
+{
+"k": "return",
+"id": "c29",
+"fn": "deps.get_token_source",
+"value": {
+"t": "UpstreamSource",
+"obj": "o7",
+"name": "UpstreamSource#2",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"locals": [],
+"task": "TH1",
+"i": 95,
+"t": 140.622
+},
+{
+"k": "call",
+"id": "c31",
+"fn": "deps.get_authed_source",
+"parent": "c1",
+"via": "anyio",
+"args": [
+[
+"a",
+{
+"t": "None"
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o7",
+"name": "UpstreamSource#2",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 18
+},
+"task": "TH2",
+"i": 96,
+"t": 142.537
+},
+{
+"k": "return",
+"id": "c31",
+"fn": "deps.get_authed_source",
+"value": {
+"t": "UpstreamSource",
+"obj": "o7",
+"name": "UpstreamSource#2",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+},
+"locals": [],
+"task": "TH2",
+"i": 97,
+"t": 143.117
+},
+{
+"k": "call",
+"id": "c32",
+"fn": "main.create_app.<generate_stream>",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cd7e520>"
+}
+],
+[
+"background",
+{
+"t": "BackgroundTasks",
+"lib": "fastapi",
+"v": "<fastapi.background.BackgroundTasks object at 0x7ffa6cdc9160>"
+}
+],
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o7",
+"name": "UpstreamSource#2",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 122
+},
+"async": true,
+"task": "TH1",
+"i": 98,
+"t": 144.485
+},
+{
+"k": "new",
+"id": "c33",
+"fn": "stream.StreamRecord",
+"parent": "c32",
+"via": null,
+"args": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "_HAS_DEFAULT_FACTORY_CLASS",
+"lib": "dataclasses",
+"v": "<factory>"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 130,
+"text": "record = StreamRecord(request_id=request.state.request_id)"
+},
+"def": {
+"file": null,
+"line": 2
+},
+"self": "o8",
+"task": "TH1",
+"i": 99,
+"t": 144.798
+},
+{
+"k": "born",
+"id": "c33",
+"fn": "stream.StreamRecord",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "StreamRecord",
+"obj": "o8",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795634.075502
+}
+]
+]
+},
+"task": "TH1",
+"i": 100,
+"t": 145.028
+},
+{
+"k": "return",
+"id": "c32",
+"fn": "main.create_app.<generate_stream>",
+"value": {
+"t": "EventSourceResponse",
+"lib": "sse_starlette",
+"v": "<sse_starlette.sse.EventSourceResponse object at 0x7ffa6cdc9550>"
+},
+"locals": [
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o8",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795634.075502
+}
+]
+]
+}
+],
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+]
+],
+"task": "TH1",
+"i": 101,
+"t": 145.585
+},
+{
+"k": "call",
+"id": "c34",
+"fn": "stream.frames",
+"parent": "c1",
+"via": "sse_starlette",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cd7e520>"
+}
+],
+[
+"source",
+{
+"t": "UpstreamSource",
+"obj": "o7",
+"name": "UpstreamSource#2",
+"fields": [
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"page_size",
+{
+"t": "int",
+"v": 8
+}
+],
+[
+"retry_after",
+{
+"t": "int",
+"v": 5
+}
+]
+]
+}
+],
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o8",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "running"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795634.075502
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/stream.py",
+"line": 32
+},
+"task": "TH1",
+"i": 102,
+"t": 146.884
+},
+{
+"k": "call",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"parent": "c34",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"max_tokens",
+{
+"t": "int",
+"v": 5
+}
+]
+],
+"site": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"def": {
+"file": "src/stream_svc/sources.py",
+"line": 20
+},
+"self": "o7",
+"task": "TH1",
+"i": 103,
+"t": 147.446
+},
+{
+"k": "call",
+"id": "c36",
+"fn": "fakes.FakeProvider.get",
+"parent": "c35",
+"via": "aiofetch",
+"args": [
+[
+"path",
+{
+"t": "str",
+"v": "/v1/tokens"
+}
+],
+[
+"params",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"count",
+{
+"t": "str",
+"v": "5"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "src/stream_svc/sources.py",
+"line": 26,
+"text": "data = await self.client.get_json(\"/v1/tokens\", params)"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 25
+},
+"self": "o1",
+"async": true,
+"task": "TH1",
+"i": 104,
+"t": 147.904
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "calls",
+"old": "1",
+"new": "2",
+"by": "c36",
+"task": "TH1",
+"i": 105,
+"t": 147.947
+},
+{
+"k": "pause",
+"id": "c36",
+"fn": "fakes.FakeProvider.get",
+"at": {
+"file": "src/stream_svc/fakes.py",
+"line": 31,
+"text": "await asyncio.sleep(self.delay)"
+},
+"task": "TH1",
+"i": 106,
+"t": 148.04
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 26,
+"text": "data = await self.client.get_json(\"/v1/tokens\", params)"
+},
+"task": "TH1",
+"i": 107,
+"t": 148.161
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 108,
+"t": 148.54
+},
+{
+"k": "resume",
+"id": "c25",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 109,
+"t": 148.815
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "GET /generate/stream 200 18.3ms request_id=5e980f9a9cd446928da68dc595af6b63",
+"task": "TH1",
+"i": 110,
+"t": 149.366
+},
+{
+"k": "return",
+"id": "c25",
+"fn": "main.request_id_middleware",
+"value": {
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6ce087d0>"
+},
+"locals": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"start",
+{
+"t": "float",
+"v": 795634.061259
+}
+],
+[
+"response",
+{
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6ce087d0>"
+}
+],
+[
+"ms",
+{
+"t": "float",
+"v": 18.313357
+}
+]
+],
+"task": "TH1",
+"i": 111,
+"t": 149.888
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 112,
+"t": 150.22
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 113,
+"t": 150.244
+},
+{
+"k": "resume",
+"id": "c36",
+"fn": "fakes.FakeProvider.get",
+"task": "TH1",
+"i": 114,
+"t": 150.26
+},
+{
+"k": "call",
+"id": "c37",
+"fn": "fakes.token_at",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 0
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 115,
+"t": 150.668
+},
+{
+"k": "return",
+"id": "c37",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " soon"
+},
+"locals": [],
+"task": "TH1",
+"i": 116,
+"t": 150.955
+},
+{
+"k": "call",
+"id": "c38",
+"fn": "fakes.token_at",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 1
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 117,
+"t": 151.3
+},
+{
+"k": "return",
+"id": "c38",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " one"
+},
+"locals": [],
+"task": "TH1",
+"i": 118,
+"t": 151.561
+},
+{
+"k": "call",
+"id": "c39",
+"fn": "fakes.token_at",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 2
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 119,
+"t": 151.969
+},
+{
+"k": "return",
+"id": "c39",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " by"
+},
+"locals": [],
+"task": "TH1",
+"i": 120,
+"t": 152.233
+},
+{
+"k": "call",
+"id": "c40",
+"fn": "fakes.token_at",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 3
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 121,
+"t": 152.515
+},
+{
+"k": "return",
+"id": "c40",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " waiting"
+},
+"locals": [],
+"task": "TH1",
+"i": 122,
+"t": 152.747
+},
+{
+"k": "call",
+"id": "c41",
+"fn": "fakes.token_at",
+"parent": "c36",
+"via": null,
+"args": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"index",
+{
+"t": "int",
+"v": 4
+}
+]
+],
+"site": {
+"file": "src/stream_svc/fakes.py",
+"line": 37,
+"text": "tokens.append(token_at(prompt, i))"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 13
+},
+"task": "TH1",
+"i": 123,
+"t": 152.995
+},
+{
+"k": "return",
+"id": "c41",
+"fn": "fakes.token_at",
+"value": {
+"t": "str",
+"v": " of"
+},
+"locals": [],
+"task": "TH1",
+"i": 124,
+"t": 153.208
+},
+{
+"k": "return",
+"id": "c36",
+"fn": "fakes.FakeProvider.get",
+"value": {
+"t": "Response",
+"lib": "aiofetch",
+"v": "Response(status=200, body=b'{\"tokens\": [\" soon\", \" one\", \" by\", \" waiting\", \" o\u2026"
+},
+"locals": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "int",
+"v": 0
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"tokens",
+{
+"t": "list",
+"n": 5,
+"items": [
+{
+"t": "str",
+"v": " soon"
+},
+{
+"t": "str",
+"v": " one"
+},
+{
+"t": "str",
+"v": " by"
+},
+{
+"t": "str",
+"v": " waiting"
+},
+{
+"t": "str",
+"v": " of"
+}
+]
+}
+],
+[
+"i",
+{
+"t": "int",
+"v": 4
+}
+],
+[
+"body",
+{
+"t": "bytes",
+"lib": "builtins",
+"v": "b'{\"tokens\": [\" soon\", \" one\", \" by\", \" waiting\", \" of\"], \"done\": false}'"
+}
+]
+],
+"task": "TH1",
+"i": 125,
+"t": 153.704
+},
+{
+"k": "yield",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " soon"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 126,
+"t": 154.135
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 127,
+"t": 154.168
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " soon",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 128,
+"t": 154.229
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 129,
+"t": 154.95
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 130,
+"t": 157.915
+},
+{
+"k": "catch",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 131,
+"t": 158.002
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "tokens",
+"old": "0",
+"new": "1",
+"by": "c34",
+"task": "TH1",
+"i": 132,
+"t": 158.413
+},
+{
+"k": "yield",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " soon"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 133,
+"t": 158.506
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 134,
+"t": 158.541
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 135,
+"t": 158.914
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 136,
+"t": 158.937
+},
+{
+"k": "yield",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " one"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 137,
+"t": 159.225
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 138,
+"t": 159.259
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " one",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 139,
+"t": 159.333
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 140,
+"t": 159.851
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 141,
+"t": 160.767
+},
+{
+"k": "catch",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 142,
+"t": 160.872
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "tokens",
+"old": "1",
+"new": "2",
+"by": "c34",
+"task": "TH1",
+"i": 143,
+"t": 161.027
+},
+{
+"k": "yield",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " one"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 144,
+"t": 161.088
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 145,
+"t": 161.105
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 146,
+"t": 162.168
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 147,
+"t": 162.179
+},
+{
+"k": "yield",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " by"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 148,
+"t": 162.35
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 149,
+"t": 162.375
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " by",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 150,
+"t": 162.408
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 151,
+"t": 162.698
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 152,
+"t": 163.107
+},
+{
+"k": "catch",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 153,
+"t": 163.136
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "tokens",
+"old": "2",
+"new": "3",
+"by": "c34",
+"task": "TH1",
+"i": 154,
+"t": 163.242
+},
+{
+"k": "yield",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "3"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " by"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 155,
+"t": 163.281
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 156,
+"t": 163.295
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 157,
+"t": 163.871
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 158,
+"t": 163.88
+},
+{
+"k": "yield",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " waiting"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 159,
+"t": 164.031
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 160,
+"t": 164.048
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " waiting",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 161,
+"t": 164.08
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 162,
+"t": 164.353
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 163,
+"t": 164.744
+},
+{
+"k": "catch",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 164,
+"t": 164.774
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "tokens",
+"old": "3",
+"new": "4",
+"by": "c34",
+"task": "TH1",
+"i": 165,
+"t": 164.887
+},
+{
+"k": "yield",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " waiting"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 166,
+"t": 164.93
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 167,
+"t": 164.949
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 168,
+"t": 165.502
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 169,
+"t": 165.516
+},
+{
+"k": "yield",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "str",
+"v": " of"
+},
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 170,
+"t": 165.655
+},
+{
+"k": "pause",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"at": {
+"file": "src/stream_svc/sources.py",
+"line": 34,
+"text": "yield token"
+},
+"task": "TH1",
+"i": 171,
+"t": 165.672
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": " of",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 172,
+"t": 165.697
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 173,
+"t": 165.94
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 174,
+"t": 166.3
+},
+{
+"k": "catch",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopIteration",
+"msg": "False",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 35,
+"text": "if await request.is_disconnected():"
+},
+"task": "TH1",
+"i": 175,
+"t": 166.347
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "tokens",
+"old": "4",
+"new": "5",
+"by": "c34",
+"task": "TH1",
+"i": 176,
+"t": 166.465
+},
+{
+"k": "yield",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 3,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " of"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 177,
+"t": 166.504
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 40,
+"text": "yield {\"event\": \"token\", \"id\": str(record.tokens), \"data\": token}"
+},
+"task": "TH1",
+"i": 178,
+"t": 166.52
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 179,
+"t": 167.23
+},
+{
+"k": "resume",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"task": "TH1",
+"i": 180,
+"t": 167.239
+},
+{
+"k": "return",
+"id": "c35",
+"fn": "sources.UpstreamSource.stream",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"start",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"count",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"params",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"prompt",
+{
+"t": "str",
+"v": "hello"
+}
+],
+[
+"start",
+{
+"t": "str",
+"v": "0"
+}
+],
+[
+"count",
+{
+"t": "str",
+"v": "5"
+}
+]
+]
+}
+],
+[
+"data",
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"tokens",
+{
+"t": "list",
+"n": 5
+}
+],
+[
+"done",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"page",
+{
+"t": "TokenPage",
+"obj": "o9",
+"name": "TokenPage#2",
+"fields": [
+[
+"tokens",
+{
+"t": "list",
+"n": 5
+}
+],
+[
+"done",
+{
+"t": "bool",
+"v": false
+}
+]
+]
+}
+],
+[
+"token",
+{
+"t": "str",
+"v": " of"
+}
+]
+],
+"task": "TH1",
+"i": 181,
+"t": 167.463
+},
+{
+"k": "throw",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 182,
+"t": 167.501
+},
+{
+"k": "catch",
+"id": "c34",
+"fn": "stream.frames",
+"exc": {
+"t": "StopAsyncIteration",
+"msg": "",
+"lib": "builtins"
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 34,
+"text": "async for token in source.stream(prompt, max_tokens):"
+},
+"task": "TH1",
+"i": 183,
+"t": 167.524
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "outcome",
+"old": "'running'",
+"new": "'done'",
+"by": "c34",
+"task": "TH1",
+"i": 184,
+"t": 167.634
+},
+{
+"k": "set",
+"obj": "o8",
+"field": "seconds",
+"old": "0.0",
+"new": "0.0227",
+"by": "c34",
+"task": "TH1",
+"i": 185,
+"t": 167.643
+},
+{
+"k": "yield",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "dict",
+"n": 2,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": "[DONE]"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 53,
+"text": "yield {\"event\": \"done\", \"data\": \"[DONE]\"}"
+},
+"task": "TH1",
+"i": 186,
+"t": 167.682
+},
+{
+"k": "pause",
+"id": "c34",
+"fn": "stream.frames",
+"at": {
+"file": "src/stream_svc/stream.py",
+"line": 53,
+"text": "yield {\"event\": \"done\", \"data\": \"[DONE]\"}"
+},
+"task": "TH1",
+"i": 187,
+"t": 167.697
+},
+{
+"k": "resume",
+"id": "c34",
+"fn": "stream.frames",
+"task": "TH1",
+"i": 188,
+"t": 168.636
+},
+{
+"k": "return",
+"id": "c34",
+"fn": "stream.frames",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"token",
+{
+"t": "str",
+"v": " of"
+}
+]
+],
+"task": "TH1",
+"i": 189,
+"t": 168.774
+},
+{
+"k": "call",
+"id": "c42",
+"fn": "stream.record_stream",
+"parent": "c1",
+"via": "anyio",
+"args": [
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+}
+],
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o8",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.022726
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795634.075502
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 16,
+"text": "stream = client.get(\"/generate/stream\", params=HELLO, headers=HEADERS)"
+},
+"def": {
+"file": "src/stream_svc/stream.py",
+"line": 21
+},
+"task": "TH2",
+"i": 190,
+"t": 173.746
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "stream 5e980f9a9cd446928da68dc595af6b63: done, 5 tokens, 0.02s",
+"task": "TH2",
+"i": 191,
+"t": 173.919
+},
+{
+"k": "return",
+"id": "c42",
+"fn": "stream.record_stream",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH2",
+"i": 192,
+"t": 174.418
+},
+{
+"k": "call",
+"id": "c43",
+"fn": "main.request_id_middleware",
+"parent": "c1",
+"via": "starlette",
+"args": [
+[
+"request",
+{
+"t": "_CachedRequest",
+"lib": "starlette",
+"v": "<starlette.middleware.base._CachedRequest object at 0x7ffa6cd7bc50>"
+}
+],
+[
+"call_next",
+{
+"t": "function",
+"v": "BaseHTTPMiddleware.__call__.<locals>.call_next"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 17,
+"text": "refused = client.get("
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 35
+},
+"async": true,
+"task": "TH1",
+"i": 193,
+"t": 180.989
+},
+{
+"k": "pause",
+"id": "c43",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 194,
+"t": 181.513
+},
+{
+"k": "resume",
+"id": "c43",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 195,
+"t": 184.518
+},
+{
+"k": "pause",
+"id": "c43",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 196,
+"t": 184.792
+},
+{
+"k": "call",
+"id": "c44",
+"fn": "security.verify_api_key",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1,
+"items": [
+{
+"t": "str",
+"v": "http://web.test"
+}
+]
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+],
+[
+"x_api_key",
+{
+"t": "str",
+"v": "nope"
+}
+],
+[
+"stream_key",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 17,
+"text": "refused = client.get("
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 14
+},
+"async": true,
+"task": "TH1",
+"i": 197,
+"t": 186.408
+},
+{
+"k": "call",
+"id": "c45",
+"fn": "security.key_hash",
+"parent": "c44",
+"via": null,
+"args": [
+[
+"key",
+{
+"t": "str",
+"v": "nope"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/security.py",
+"line": 22,
+"text": "if not secrets.compare_digest(key_hash(key), settings.api_key_sha256):"
+},
+"def": {
+"file": "src/stream_svc/security.py",
+"line": 10
+},
+"task": "TH1",
+"i": 198,
+"t": 187.0
+},
+{
+"k": "return",
+"id": "c45",
+"fn": "security.key_hash",
+"value": {
+"t": "str",
+"v": "ca3704aa0b06f5954c79ee837faa152d84d6b2d42838f0637a15eda8337dbdce"
+},
+"locals": [],
+"task": "TH1",
+"i": 199,
+"t": 187.356
+},
+{
+"k": "new",
+"id": "c46",
+"fn": "errors.AuthError",
+"parent": "c44",
+"via": null,
+"args": [
+[
+"message",
+{
+"t": "None"
+}
+],
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/security.py",
+"line": 23,
+"text": "raise AuthError()"
+},
+"def": {
+"file": "src/stream_svc/errors.py",
+"line": 35
+},
+"self": "o10",
+"task": "TH1",
+"i": 200,
+"t": 188.019
+},
+{
+"k": "born",
+"id": "c46",
+"fn": "errors.AuthError",
+"value": {
+"t": "None"
+},
+"locals": [],
+"obj": {
+"t": "AuthError",
+"obj": "o10",
+"name": "AuthError#1",
+"msg": "A valid API key is required.",
+"fields": [
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+]
+},
+"task": "TH1",
+"i": 201,
+"t": 188.358
+},
+{
+"k": "throw",
+"id": "c44",
+"fn": "security.verify_api_key",
+"exc": {
+"t": "AuthError",
+"obj": "o10",
+"name": "AuthError#1",
+"msg": "A valid API key is required.",
+"fields": [
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/security.py",
+"line": 23,
+"text": "raise AuthError()"
+},
+"task": "TH1",
+"i": 202,
+"t": 188.46
+},
+{
+"k": "catch",
+"id": "c44",
+"fn": "security.verify_api_key",
+"exc": {
+"t": "AuthError",
+"obj": "o10",
+"name": "AuthError#1",
+"msg": "A valid API key is required.",
+"fields": [
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+]
+},
+"at": {
+"file": "src/stream_svc/security.py",
+"line": 23,
+"text": "raise AuthError()"
+},
+"task": "TH1",
+"i": 203,
+"t": 188.546
+},
+{
+"k": "raise",
+"id": "c44",
+"fn": "security.verify_api_key",
+"exc": {
+"t": "AuthError",
+"obj": "o10",
+"name": "AuthError#1",
+"msg": "A valid API key is required.",
+"fields": [
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+]
+},
+"locals": [
+[
+"key",
+{
+"t": "str",
+"v": "nope"
+}
+]
+],
+"task": "TH1",
+"i": 204,
+"t": 188.814
+},
+{
+"k": "call",
+"id": "c47",
+"fn": "errors.app_error",
+"parent": "c1",
+"via": "starlette",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cdadeb0>"
+}
+],
+[
+"exc",
+{
+"t": "AuthError",
+"obj": "o10",
+"name": "AuthError#1",
+"msg": "A valid API key is required.",
+"fields": [
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+]
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 17,
+"text": "refused = client.get("
+},
+"def": {
+"file": "src/stream_svc/errors.py",
+"line": 84
+},
+"async": true,
+"task": "TH1",
+"i": 205,
+"t": 189.599
+},
+{
+"k": "call",
+"id": "c48",
+"fn": "errors.error_response",
+"parent": "c47",
+"via": null,
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cdadeb0>"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 401
+}
+],
+[
+"code",
+{
+"t": "str",
+"v": "unauthorized"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "A valid API key is required."
+}
+],
+[
+"details",
+{
+"t": "None"
+}
+],
+[
+"retry_after",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/errors.py",
+"line": 85,
+"text": "return error_response("
+},
+"def": {
+"file": "src/stream_svc/errors.py",
+"line": 18
+},
+"task": "TH1",
+"i": 206,
+"t": 190.491
+},
+{
+"k": "call",
+"id": "c49",
+"fn": "errors.envelope",
+"parent": "c48",
+"via": null,
+"args": [
+[
+"code",
+{
+"t": "str",
+"v": "unauthorized"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "A valid API key is required."
+}
+],
+[
+"request_id",
+{
+"t": "str",
+"v": "13e34ae46a4d4dadb4fcd30ff428c104"
+}
+],
+[
+"details",
+{
+"t": "None"
+}
+]
+],
+"site": {
+"file": "src/stream_svc/errors.py",
+"line": 24,
+"text": "envelope(code, message, request_id, details),"
+},
+"def": {
+"file": "src/stream_svc/errors.py",
+"line": 7
+},
+"task": "TH1",
+"i": 207,
+"t": 190.869
+},
+{
+"k": "return",
+"id": "c49",
+"fn": "errors.envelope",
+"value": {
+"t": "dict",
+"n": 1,
+"items": [
+[
+"error",
+{
+"t": "dict",
+"n": 4,
+"items": [
+[
+"code",
+{
+"t": "str",
+"v": "unauthorized"
+}
+],
+[
+"message",
+{
+"t": "str",
+"v": "A valid API key is required."
+}
+],
+[
+"request_id",
+{
+"t": "str",
+"v": "13e34ae46a4d4dadb4fcd30ff428c104"
+}
+],
+[
+"details",
+{
+"t": "list",
+"n": 0
+}
+]
+]
+}
+]
+]
+},
+"locals": [],
+"task": "TH1",
+"i": 208,
+"t": 191.094
+},
+{
+"k": "return",
+"id": "c48",
+"fn": "errors.error_response",
+"value": {
+"t": "JSONResponse",
+"lib": "starlette",
+"v": "<starlette.responses.JSONResponse object at 0x7ffa6cd6b8c0>"
+},
+"locals": [
+[
+"request_id",
+{
+"t": "str",
+"v": "13e34ae46a4d4dadb4fcd30ff428c104"
+}
+],
+[
+"headers",
+{
+"t": "dict",
+"n": 1,
+"items": [
+[
+"X-Request-ID",
+{
+"t": "str",
+"v": "13e34ae46a4d4dadb4fcd30ff428c104"
+}
+]
+]
+}
+]
+],
+"task": "TH1",
+"i": 209,
+"t": 191.391
+},
+{
+"k": "return",
+"id": "c47",
+"fn": "errors.app_error",
+"value": {
+"t": "JSONResponse",
+"lib": "starlette",
+"v": "<starlette.responses.JSONResponse object at 0x7ffa6cd6b8c0>"
+},
+"locals": [],
+"task": "TH1",
+"i": 210,
+"t": 191.524
+},
+{
+"k": "resume",
+"id": "c43",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 211,
+"t": 191.644
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "GET /generate/stream 401 10.6ms request_id=13e34ae46a4d4dadb4fcd30ff428c104",
+"task": "TH1",
+"i": 212,
+"t": 191.866
+},
+{
+"k": "return",
+"id": "c43",
+"fn": "main.request_id_middleware",
+"value": {
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6ce0a350>"
+},
+"locals": [
+[
+"request_id",
+{
+"t": "str",
+"v": "13e34ae46a4d4dadb4fcd30ff428c104"
+}
+],
+[
+"start",
+{
+"t": "float",
+"v": 795634.111742
+}
+],
+[
+"response",
+{
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6ce0a350>"
+}
+],
+[
+"ms",
+{
+"t": "float",
+"v": 10.631841
+}
+]
+],
+"task": "TH1",
+"i": 213,
+"t": 192.236
+},
+{
+"k": "call",
+"id": "c50",
+"fn": "main.request_id_middleware",
+"parent": "c1",
+"via": "starlette",
+"args": [
+[
+"request",
+{
+"t": "_CachedRequest",
+"lib": "starlette",
+"v": "<starlette.middleware.base._CachedRequest object at 0x7ffa6cd7ed70>"
+}
+],
+[
+"call_next",
+{
+"t": "function",
+"v": "BaseHTTPMiddleware.__call__.<locals>.call_next"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 20,
+"text": "upstream = client.get(\"/health\").json()[\"upstream\"]"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 35
+},
+"async": true,
+"task": "TH1",
+"i": 214,
+"t": 199.449
+},
+{
+"k": "pause",
+"id": "c50",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 215,
+"t": 199.746
+},
+{
+"k": "call",
+"id": "c51",
+"fn": "deps.get_upstream",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"request",
+{
+"t": "Request",
+"lib": "starlette",
+"v": "<starlette.requests.Request object at 0x7ffa6cd82e00>"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 20,
+"text": "upstream = client.get(\"/health\").json()[\"upstream\"]"
+},
+"def": {
+"file": "src/stream_svc/deps.py",
+"line": 8
+},
+"async": true,
+"task": "TH1",
+"i": 216,
+"t": 200.857
+},
+{
+"k": "return",
+"id": "c51",
+"fn": "deps.get_upstream",
+"value": {
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+},
+"locals": [],
+"task": "TH1",
+"i": 217,
+"t": 201.019
+},
+{
+"k": "call",
+"id": "c52",
+"fn": "main.create_app.<health>",
+"parent": "c1",
+"via": "fastapi",
+"args": [
+[
+"upstream",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 20,
+"text": "upstream = client.get(\"/health\").json()[\"upstream\"]"
+},
+"def": {
+"file": "src/stream_svc/main.py",
+"line": 94
+},
+"async": true,
+"task": "TH1",
+"i": 218,
+"t": 201.292
+},
+{
+"k": "return",
+"id": "c52",
+"fn": "main.create_app.<health>",
+"value": {
+"t": "HealthStatus",
+"obj": "o11",
+"name": "HealthStatus#1",
+"fields": [
+[
+"status",
+{
+"t": "str",
+"v": "ok"
+}
+],
+[
+"version",
+{
+"t": "str",
+"v": "0.1.0"
+}
+],
+[
+"upstream",
+{
+"t": "UpstreamStatus",
+"obj": "o12",
+"name": "UpstreamStatus#1",
+"fields": [
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+]
+]
+},
+"locals": [
+[
+"stats",
+{
+"t": "Stats",
+"lib": "aiofetch",
+"v": "Stats(attempts=2, retries=0, breaker_state='CLOSED', seconds=[0.011174131999723\u2026"
+}
+]
+],
+"task": "TH1",
+"i": 219,
+"t": 201.647
+},
+{
+"k": "resume",
+"id": "c50",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 220,
+"t": 201.783
+},
+{
+"k": "pause",
+"id": "c50",
+"fn": "main.request_id_middleware",
+"at": {
+"file": "src/stream_svc/main.py",
+"line": 40,
+"text": "response = await call_next(request)"
+},
+"task": "TH1",
+"i": 221,
+"t": 202.011
+},
+{
+"k": "resume",
+"id": "c50",
+"fn": "main.request_id_middleware",
+"task": "TH1",
+"i": 222,
+"t": 202.255
+},
+{
+"k": "log",
+"level": "INFO",
+"msg": "GET /health 200 2.8ms request_id=c9c2de987a984098bbde164bc3515c3c",
+"task": "TH1",
+"i": 223,
+"t": 202.474
+},
+{
+"k": "return",
+"id": "c50",
+"fn": "main.request_id_middleware",
+"value": {
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6cd7e780>"
+},
+"locals": [
+[
+"request_id",
+{
+"t": "str",
+"v": "c9c2de987a984098bbde164bc3515c3c"
+}
+],
+[
+"start",
+{
+"t": "float",
+"v": 795634.130188
+}
+],
+[
+"response",
+{
+"t": "_StreamingResponse",
+"lib": "starlette",
+"v": "<starlette.middleware.base._StreamingResponse object at 0x7ffa6cd7e780>"
+}
+],
+[
+"ms",
+{
+"t": "float",
+"v": 2.788122
+}
+]
+],
+"task": "TH1",
+"i": 224,
+"t": 202.766
+},
+{
+"k": "resume",
+"id": "c9",
+"fn": "main.create_app.<lifespan>",
+"task": "TH1",
+"i": 225,
+"t": 205.615
+},
+{
+"k": "call",
+"id": "c53",
+"fn": "fakes.FakeProvider.aclose",
+"parent": "c9",
+"via": "aiofetch",
+"args": [],
+"site": {
+"file": "src/stream_svc/main.py",
+"line": 73,
+"text": "async with client:"
+},
+"def": {
+"file": "src/stream_svc/fakes.py",
+"line": 41
+},
+"self": "o1",
+"async": true,
+"task": "TH1",
+"i": 226,
+"t": 205.878
+},
+{
+"k": "set",
+"obj": "o1",
+"field": "closed",
+"old": "False",
+"new": "True",
+"by": "c53",
+"task": "TH1",
+"i": 227,
+"t": 205.921
+},
+{
+"k": "return",
+"id": "c53",
+"fn": "fakes.FakeProvider.aclose",
+"value": {
+"t": "None"
+},
+"locals": [],
+"task": "TH1",
+"i": 228,
+"t": 206.015
+},
+{
+"k": "return",
+"id": "c9",
+"fn": "main.create_app.<lifespan>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"provider",
+{
+"t": "FakeProvider",
+"obj": "o1",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+],
+[
+"client",
+{
+"t": "AiofetchClient",
+"lib": "aiofetch",
+"v": "<aiofetch.client.AiofetchClient object at 0x7ffa6cd6acf0>"
+}
+],
+[
+"settings",
+{
+"t": "Settings",
+"obj": "o2",
+"name": "Settings#1",
+"fields": [
+[
+"upstream_url",
+{
+"t": "str",
+"v": "http://localhost:9000"
+}
+],
+[
+"fake_upstream",
+{
+"t": "bool",
+"v": true
+}
+],
+[
+"upstream_timeout",
+{
+"t": "float",
+"v": 0.2
+}
+],
+[
+"upstream_attempts",
+{
+"t": "int",
+"v": 1
+}
+],
+[
+"cors_origins",
+{
+"t": "list",
+"n": 1
+}
+],
+[
+"heartbeat_seconds",
+{
+"t": "float",
+"v": 15.0
+}
+],
+[
+"retry_after_seconds",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"api_key_sha256",
+{
+"t": "str",
+"v": "fddb64be32cf1db279f744d953953ae182659d7b704026c6c4f89f399276e35e"
+}
+]
+]
+}
+],
+[
+"transport",
+{
+"t": "FakeProvider",
+"obj": "o1",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+]
+],
+"task": "TH1",
+"i": 229,
+"t": 206.241
+},
+{
+"k": "call",
+"id": "c54",
+"fn": "sse.frames",
+"parent": "c1",
+"via": null,
+"args": [
+[
+"body",
+{
+"t": "str",
+"v": "id: 1\r\nevent: token\r\ndata:  soon\r\n\r\nid: 2\r\nevent: token\r\ndata:  one\r\n\r\nid: 3\r\ne\u2026"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 25,
+"text": "got = frames(stream.text)  # Part 3"
+},
+"def": {
+"file": "tests/sse.py",
+"line": 8
+},
+"task": "sync",
+"i": 230,
+"t": 209.592
+},
+{
+"k": "return",
+"id": "c54",
+"fn": "sse.frames",
+"value": {
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " soon"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " one"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "3"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " by"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " waiting"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " of"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": "[DONE]"
+}
+]
+]
+}
+]
+},
+"locals": [
+[
+"out",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 3
+},
+{
+"t": "dict",
+"n": 2
+}
+]
+}
+],
+[
+"fields",
+{
+"t": "dict",
+"n": 0,
+"items": []
+}
+],
+[
+"line",
+{
+"t": "str",
+"v": ""
+}
+],
+[
+"name",
+{
+"t": "str",
+"v": "data"
+}
+],
+[
+"_",
+{
+"t": "str",
+"v": ":"
+}
+],
+[
+"value",
+{
+"t": "str",
+"v": " [DONE]"
+}
+]
+],
+"task": "sync",
+"i": 231,
+"t": 209.864
+},
+{
+"k": "call",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"parent": "c1",
+"via": null,
+"args": [
+[
+".0",
+{
+"t": "list_iterator",
+"lib": "builtins",
+"v": "<list_iterator object at 0x7ffa6f9e0400>"
+}
+]
+],
+"site": {
+"file": "tests/test_together.py",
+"line": 26,
+"text": "assert \"\".join(f[\"data\"] for f in got[:-1]) == \" soon one by waiting of\""
+},
+"def": {
+"file": "tests/test_together.py",
+"line": 26
+},
+"task": "sync",
+"i": 232,
+"t": 210.077
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"at": {
+"file": "tests/test_together.py",
+"line": 26,
+"text": "assert \"\".join(f[\"data\"] for f in got[:-1]) == \" soon one by waiting of\""
+},
+"task": "sync",
+"i": 233,
+"t": 210.192
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"task": "sync",
+"i": 234,
+"t": 210.2
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"at": {
+"file": "tests/test_together.py",
+"line": 26,
+"text": "assert \"\".join(f[\"data\"] for f in got[:-1]) == \" soon one by waiting of\""
+},
+"task": "sync",
+"i": 235,
+"t": 210.291
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"task": "sync",
+"i": 236,
+"t": 210.297
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"at": {
+"file": "tests/test_together.py",
+"line": 26,
+"text": "assert \"\".join(f[\"data\"] for f in got[:-1]) == \" soon one by waiting of\""
+},
+"task": "sync",
+"i": 237,
+"t": 210.399
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"task": "sync",
+"i": 238,
+"t": 210.405
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"at": {
+"file": "tests/test_together.py",
+"line": 26,
+"text": "assert \"\".join(f[\"data\"] for f in got[:-1]) == \" soon one by waiting of\""
+},
+"task": "sync",
+"i": 239,
+"t": 210.49
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"task": "sync",
+"i": 240,
+"t": 210.494
+},
+{
+"k": "pause",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"at": {
+"file": "tests/test_together.py",
+"line": 26,
+"text": "assert \"\".join(f[\"data\"] for f in got[:-1]) == \" soon one by waiting of\""
+},
+"task": "sync",
+"i": 241,
+"t": 210.586
+},
+{
+"k": "resume",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"task": "sync",
+"i": 242,
+"t": 210.592
+},
+{
+"k": "return",
+"id": "c55",
+"fn": "test_together.test_hello_runs_through_every_part.<<genexpr>>",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"f",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " of"
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 243,
+"t": 210.712
+},
+{
+"k": "return",
+"id": "c1",
+"fn": "test_together.test_hello_runs_through_every_part",
+"value": {
+"t": "None"
+},
+"locals": [
+[
+"provider",
+{
+"t": "FakeProvider",
+"obj": "o1",
+"name": "FakeProvider#1",
+"fields": [
+[
+"delay",
+{
+"t": "float",
+"v": 0.0
+}
+],
+[
+"fail_from",
+{
+"t": "None"
+}
+],
+[
+"status",
+{
+"t": "int",
+"v": 503
+}
+],
+[
+"calls",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"closed",
+{
+"t": "bool",
+"v": true
+}
+]
+]
+}
+],
+[
+"app",
+{
+"t": "FastAPI",
+"lib": "fastapi",
+"v": "<fastapi.applications.FastAPI object at 0x7ffa6d0ffb60>"
+}
+],
+[
+"client",
+{
+"t": "TestClient",
+"lib": "starlette",
+"v": "<starlette.testclient.TestClient object at 0x7ffa6cd68440>"
+}
+],
+[
+"generated",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"stream",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [200 OK]>"
+}
+],
+[
+"refused",
+{
+"t": "Response",
+"lib": "httpx2",
+"v": "<Response [401 Unauthorized]>"
+}
+],
+[
+"upstream",
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"breaker_state",
+{
+"t": "str",
+"v": "CLOSED"
+}
+],
+[
+"attempts",
+{
+"t": "int",
+"v": 2
+}
+],
+[
+"retries",
+{
+"t": "int",
+"v": 0
+}
+]
+]
+}
+],
+[
+"got",
+{
+"t": "list",
+"n": 6,
+"items": [
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "1"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " soon"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "2"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " one"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "3"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " by"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "4"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " waiting"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 3,
+"items": [
+[
+"id",
+{
+"t": "str",
+"v": "5"
+}
+],
+[
+"event",
+{
+"t": "str",
+"v": "token"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": " of"
+}
+]
+]
+},
+{
+"t": "dict",
+"n": 2,
+"items": [
+[
+"event",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"data",
+{
+"t": "str",
+"v": "[DONE]"
+}
+]
+]
+}
+]
+}
+],
+[
+"record",
+{
+"t": "StreamRecord",
+"obj": "o8",
+"name": "StreamRecord#1",
+"fields": [
+[
+"request_id",
+{
+"t": "str",
+"v": "5e980f9a9cd446928da68dc595af6b63"
+}
+],
+[
+"tokens",
+{
+"t": "int",
+"v": 5
+}
+],
+[
+"outcome",
+{
+"t": "str",
+"v": "done"
+}
+],
+[
+"seconds",
+{
+"t": "float",
+"v": 0.022726
+}
+],
+[
+"started",
+{
+"t": "float",
+"v": 795634.075502
+}
+]
+]
+}
+]
+],
+"task": "sync",
+"i": 244,
+"t": 211.14
+}
+],
+"objects": {
+"o1": {
+"cls": "fakes.FakeProvider",
+"name": "FakeProvider#1",
+"born": "c1"
+},
+"o2": {
+"cls": "settings.Settings",
+"name": "Settings#1",
+"born": null
+},
+"o3": {
+"cls": "sources.UpstreamSource",
+"name": "UpstreamSource#1",
+"born": "c14"
+},
+"o4": {
+"cls": "models.GenerateRequest",
+"name": "GenerateRequest#1",
+"born": null
+},
+"o5": {
+"cls": "models.TokenPage",
+"name": "TokenPage#1",
+"born": null
+},
+"o6": {
+"cls": "models.GenerateResponse",
+"name": "GenerateResponse#1",
+"born": null
+},
+"o7": {
+"cls": "sources.UpstreamSource",
+"name": "UpstreamSource#2",
+"born": "c29"
+},
+"o8": {
+"cls": "stream.StreamRecord",
+"name": "StreamRecord#1",
+"born": "c32"
+},
+"o9": {
+"cls": "models.TokenPage",
+"name": "TokenPage#2",
+"born": null
+},
+"o10": {
+"cls": "errors.AuthError",
+"name": "AuthError#1",
+"born": "c44"
+},
+"o11": {
+"cls": "models.HealthStatus",
+"name": "HealthStatus#1",
+"born": null
+},
+"o12": {
+"cls": "models.UpstreamStatus",
+"name": "UpstreamStatus#1",
+"born": null
+}
+},
+"tasks": [
+"TH1",
+"TH2"
+]
+}

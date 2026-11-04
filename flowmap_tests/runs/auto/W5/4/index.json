@@ -1,0 +1,28 @@
+{
+ "commit": "863a8c6",
+ "recorder": 7,
+ "picked": [
+  {
+   "file": "auto/W5/4/test_part4_disconnect__test_a_client_that_leaves_stops_the_stream_within_one_heartbeat.json",
+   "test": "tests/test_part4_disconnect.py",
+   "name": "test_a_client_that_leaves_stops_the_stream_within_one_heartbeat",
+   "fn": "test_a_client_that_leaves_stops_the_stream_within_one_heartbeat",
+   "title": "A client that leaves stops the stream\u2026",
+   "score": 21
+  },
+  {
+   "file": "auto/W5/4/test_part4_heartbeat__test_an_idle_stream_sends_heartbeats.json",
+   "test": "tests/test_part4_heartbeat.py",
+   "name": "test_an_idle_stream_sends_heartbeats",
+   "fn": "test_an_idle_stream_sends_heartbeats",
+   "title": "An idle stream sends heartbeats",
+   "score": 16
+  }
+ ],
+ "skipped": [
+  [
+   "tests/test_part4_cors.py::test_cors_answers_the_preflight_for_allowed_origins_only",
+   "touches only 0 of your functions"
+  ]
+ ]
+}
