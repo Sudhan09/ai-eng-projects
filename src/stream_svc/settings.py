@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     upstream_attempts: int = Field(default=3, ge=1)
     cors_origins: list[str] = []
     heartbeat_seconds: float = Field(default=15.0, gt=0)
+    retry_after_seconds: int = Field(default=5, ge=1)
+    api_key_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
 
 
 @lru_cache

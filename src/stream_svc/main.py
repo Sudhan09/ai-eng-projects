@@ -6,15 +6,17 @@ from contextlib import asynccontextmanager
 from importlib.resources import files
 
 from aiofetch import AiofetchClient
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request
+from fastapi import BackgroundTasks, Depends, FastAPI, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from sse_starlette import EventSourceResponse
 
 from stream_svc.deps import get_authed_source, get_upstream
-from stream_svc.errors import error_response
+from stream_svc.errors import ModelNotFound, error_response, install
 from stream_svc.fakes import FakeProvider
 from stream_svc.models import (
+    MAX_PROMPT_CHARS,
+    MAX_TOKENS,
     MODELS,
     GenerateRequest,
     GenerateResponse,
@@ -75,6 +77,10 @@ def create_app(transport=None):
 
     app = FastAPI(title="stream-svc", version=VERSION, lifespan=lifespan)
     log.setLevel(logging.INFO)
+    if not log.handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(logging.Formatter("%(levelname)s:     %(message)s"))
+        log.addHandler(handler)
     app.middleware("http")(request_id_middleware)
     app.add_middleware(
         CORSMiddleware,
@@ -83,6 +89,7 @@ def create_app(transport=None):
         allow_headers=["Content-Type", "X-API-Key"],
         expose_headers=["X-Request-ID", "Retry-After"],
     )
+    install(app)
 
     @app.get("/health", response_model=HealthStatus)
     async def health(upstream=Depends(get_upstream)):
@@ -99,7 +106,7 @@ def create_app(transport=None):
     @app.get("/models/{model_id}", response_model=ModelInfo)
     async def get_model(model_id, verbose: bool = False):
         if model_id not in MODELS:
-            raise HTTPException(404, "no model has that id")
+            raise ModelNotFound()
         info = MODELS[model_id]
         if verbose:
             return info
@@ -116,8 +123,8 @@ def create_app(transport=None):
     async def generate_stream(
         request: Request,
         background: BackgroundTasks,
-        prompt=Query(min_length=1),
-        max_tokens: int = Query(64, ge=1),
+        prompt: str = Query(min_length=1, max_length=MAX_PROMPT_CHARS),
+        max_tokens: int = Query(64, ge=1, le=MAX_TOKENS),
         source=Depends(get_authed_source),
     ):
         record = StreamRecord(request_id=request.state.request_id)

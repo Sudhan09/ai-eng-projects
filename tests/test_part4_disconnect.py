@@ -7,6 +7,7 @@ from stream_svc.fakes import FakeProvider
 from stream_svc.lab import read_then_leave
 from stream_svc.main import create_app
 from stream_svc.serving import running
+from stream_svc.stream import StreamRecord, frames
 
 
 def test_a_client_that_leaves_stops_the_stream_within_one_heartbeat(caplog):
@@ -26,3 +27,26 @@ def test_a_client_that_leaves_stops_the_stream_within_one_heartbeat(caplog):
     assert record.started + record.seconds - left < 15  # stopped within one heartbeat
     assert provider.calls <= 3  # counted at the source: 3 pages at most, not 25
     assert f"client disconnected after {record.tokens} tokens" in caplog.text
+
+
+class StillHere:
+    async def is_disconnected(self):
+        return False
+
+
+class Words:
+    async def stream(self, prompt, max_tokens):
+        for i in range(max_tokens):
+            yield f" w{i}"
+
+
+def test_a_stream_closed_from_outside_is_marked_disconnected():
+    async def main():
+        record = StreamRecord(request_id="abc")
+        stream = frames(StillHere(), Words(), "hi", 10, record)
+        await stream.__anext__()
+        await stream.aclose()  # what the server does when it just stops reading
+        return record
+
+    record = asyncio.run(main())
+    assert (record.outcome, record.tokens) == ("disconnected", 1)

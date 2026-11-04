@@ -29,3 +29,13 @@ def test_bad_bodies_are_422(client):
     )
     assert zero.status_code == 422
     assert extra.status_code == 422
+
+
+def test_generate_joins_the_providers_tokens_for_any_prompt(client):
+    from stream_svc.fakes import token_at
+
+    answer = client.post(
+        "/generate", json={"prompt": "bye", "max_tokens": 3}, headers=HEADERS
+    )
+    expected = "".join(token_at("bye", i) for i in range(3)).strip()
+    assert answer.json() == {"text": expected, "tokens": 3}

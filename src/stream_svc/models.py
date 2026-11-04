@@ -1,5 +1,8 @@
 from pydantic import BaseModel, ConfigDict, Field
 
+MAX_PROMPT_CHARS = 4000
+MAX_TOKENS = 512
+
 
 class UpstreamStatus(BaseModel):
     breaker_state: str
@@ -29,8 +32,8 @@ MODELS = {
 
 class GenerateRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    prompt: str = Field(min_length=1)
-    max_tokens: int = Field(default=64, ge=1)
+    prompt: str = Field(min_length=1, max_length=MAX_PROMPT_CHARS)
+    max_tokens: int = Field(default=64, ge=1, le=MAX_TOKENS)
 
 
 class GenerateResponse(BaseModel):
