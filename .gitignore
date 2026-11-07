@@ -6,7 +6,7 @@ __pycache__/
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
-# flowmap: generated files (rebuild with flowmap_tests/tools/flowmap.py build)
+# flowmap: generated files (rebuild with flowmap_tests/src/flowmap_tests/flowmap.py build)
 flowmap_tests/exports/
 flowmap_tests/build/*
 !flowmap_tests/build/flowmap.html
