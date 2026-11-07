@@ -75,13 +75,13 @@ Pick the week in the project menu (top left), then a Part in the top bar.
 
 | Command (run from anywhere) | What it does |
 |---|---|
-| `python3 flowmap_tests/tools/flowmap.py build` | Rebuild everything: export each Part's code, record runs where needed, build the page |
-| `python3 flowmap_tests/tools/flowmap.py build --check` | Same, then check every Part and run in a browser, compare with the saved map, and run the tool tests if the tools changed (see [Checks](#checks)) |
-| `python3 flowmap_tests/tools/flowmap.py build --accept` | Same as `--check`, then save this map as the expected one: for when an old week changed on purpose |
-| `python3 flowmap_tests/tools/flowmap.py hook W4` | Repair the git hooks in that project's repo (after each commit and after each `git pull`). `init` installs them; this rewrites one that points at an old folder |
-| `python3 flowmap_tests/tools/flowmap.py update` | What the hook runs in the background after each commit: build and check, quietly, then bring the playground up to the same commit (`flowmap_playground/server.py --refresh`) |
-| `python3 flowmap_tests/tools/flowmap.py note` | The one line the hook prints after a commit |
-| `python3 flowmap_tests/tools/flowmap.py init W5 projects/x --week 5 --practical w05_plan.md` | Start a map for a new project, and install its git hooks (`--week PF1` for the production bridge) |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py build` | Rebuild everything: export each Part's code, record runs where needed, build the page |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py build --check` | Same, then check every Part and run in a browser, compare with the saved map, and run the tool tests if the tools changed (see [Checks](#checks)) |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py build --accept` | Same as `--check`, then save this map as the expected one: for when an old week changed on purpose |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py hook W4` | Repair the git hooks in that project's repo (after each commit and after each `git pull`). `init` installs them; this rewrites one that points at an old folder |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py update` | What the hook runs in the background after each commit: build and check, quietly, then bring the playground up to the same commit (`flowmap_playground/src/flowmap_playground/server.py --refresh`) |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py note` | The one line the hook prints after a commit |
+| `python3 flowmap_tests/src/flowmap_tests/flowmap.py init W5 projects/x --week 5 --practical w05_plan.md` | Start a map for a new project, and install its git hooks (`--week PF1` for the production bridge) |
 | `python3 -m unittest discover -s flowmap_tests/tests` | The tool tests by hand (a rebuild runs them whenever the tools change) |
 
 ## How the map stays up to date
@@ -133,7 +133,7 @@ Each new week takes one command, done once. After that, every commit updates the
 
 | Where the week's code lives | Run once (from `ai_eng_workspace/`) | After that |
 |---|---|---|
-| The same repo as an earlier week (W4 carried on in `aiofetch`) | `python3 flowmap_tests/tools/flowmap.py init W5 projects/aiofetch --week 5 --practical w05_plan.md` | That repo's hook is already installed, so every commit updates the map |
+| The same repo as an earlier week (W4 carried on in `aiofetch`) | `python3 flowmap_tests/src/flowmap_tests/flowmap.py init W5 projects/aiofetch --week 5 --practical w05_plan.md` | That repo's hook is already installed, so every commit updates the map |
 | A new repo | The same `init`: it installs that repo's hooks too | The same |
 | Several repos in one week (W18 builds `llm-client-kit` and changes `aiofetch`) | One `init` per repo, each with its own key: `init W18-llm projects/llm-client-kit --week 18` and `init W18-aiofetch projects/aiofetch --week 18` | Each is its own entry in the project menu (`W18 · aiofetch`). A W18 commit in `aiofetch` never changes W3 or W4 |
 
@@ -144,7 +144,7 @@ Each new week takes one command, done once. After that, every commit updates the
 
 - **The claude.ai link:** ask Claude to republish it.
 - **A new week before `init` has run for it:** its commits don't show on the map. A hooked repo doesn't create a new week's settings by itself.
-- **A repo without a hook:** run `python3 flowmap_tests/tools/flowmap.py build --check` after committing, or install the hook.
+- **A repo without a hook:** run `python3 flowmap_tests/src/flowmap_tests/flowmap.py build --check` after committing, or install the hook.
 - **The check on a machine without `google-chrome`:** the map still rebuilds, but nothing is checked.
 
 ## Adding a project
@@ -177,19 +177,19 @@ To shape a map by hand, add a `MAP` (columns, their questions, and edges), `RUN_
 
 ## How it is built
 
-`tools/flowmap.py build` runs these steps for every `cfg/*.py`:
+`src/flowmap_tests/flowmap.py build` runs these steps for every `cfg/*.py`:
 
-1. **Parts:** `tools/gitparts.py` reads the git history into Parts. Each Part's code is its last commit, or the cfg's `PARTS` when it has them.
+1. **Parts:** `src/flowmap_tests/gitparts.py` reads the git history into Parts. Each Part's code is its last commit, or the cfg's `PARTS` when it has them.
 2. **Exports:** each Part's commit is copied read-only into `exports/<commit>/` with `git archive`. Your working tree is never touched. The files `build_project.py` scans are read straight from git (one `git cat-file --batch` for the whole history).
-3. **Conditions:** `tools/conds.py` scans the last export for the condition each call runs under (`if…`, `on error`, `in loop`).
-4. **Runs:** for each Part without hand-picked runs, `tools/pickruns.py`:
+3. **Conditions:** `src/flowmap_tests/conds.py` scans the last export for the condition each call runs under (`if…`, `on error`, `in loop`).
+4. **Runs:** for each Part without hand-picked runs, `src/flowmap_tests/pickruns.py`:
    - takes the tests that Part added;
-   - records them on that Part's code with `tools/trace.py`, using the project's own Python. pytest runs the test, and only its body is recorded (fixture setup isn't);
+   - records them on that Part's code with `src/flowmap_tests/trace.py`, using the project's own Python. pytest runs the test, and only its body is recorded (fixture setup isn't);
    - keeps the two that pass through the most project functions, from different test files, preferring the shorter run. A run over 5,000 events is too long to step through and is skipped.
 
    Results are cached in `runs/auto/` until the Part's commit changes. When the recorder itself changes (`RECORDER` in `pickruns.py`), the same tests are recorded again, so a Part's stories don't change under you.
-5. **Map data:** `tools/build_project.py` scans every Part's code (`tools/scan.py`: functions, classes, calls, imports, docstrings) and works out the columns, lines, what is new or changed per Part, test fakes and assert-only checks. Starter stubs don't count as built. It writes `build/proj_<key>.json`. A commit's scan is kept in `build/scan/` (a commit never changes), so only new commits are scanned. The playground's `index.py` uses the same scanner.
-6. **The page:** `tools/combine.py` joins the projects into `build/data_all.js`. `tools/inject.py` puts it into `page/flowmap.html`, which gives `build/flowmap.html`.
+5. **Map data:** `src/flowmap_tests/build_project.py` scans every Part's code (`src/flowmap_tests/scan.py`: functions, classes, calls, imports, docstrings) and works out the columns, lines, what is new or changed per Part, test fakes and assert-only checks. Starter stubs don't count as built. It writes `build/proj_<key>.json`. A commit's scan is kept in `build/scan/` (a commit never changes), so only new commits are scanned. The playground's `index.py` uses the same scanner.
+6. **The page:** `src/flowmap_tests/combine.py` joins the projects into `build/data_all.js`. `src/flowmap_tests/inject.py` puts it into `page/flowmap.html`, which gives `build/flowmap.html`.
 7. **Check (`--check` and the hook):** see [Checks](#checks). Chrome checks only the weeks whose map data changed; the others' results are kept in `build/check_cache.json`, and every week is checked again when the page or the checks change.
 
 **Compiled files** of your code and of the libraries are kept in `build/pyc/`, by each file's full path, so each one is compiled once, not at every run.
@@ -201,7 +201,8 @@ The playground shares these steps: `trace.py` also records a playground driver's
 | Path | What it is |
 |---|---|
 | `page/flowmap.html` | The page source: one file, HTML + CSS + JS (d3) |
-| `tools/` | The steps above; `flowmap.py` is the only one you run |
+| `pyproject.toml`, `uv.lock`, `.python-version` | A uv project on Python 3.14 with no packages: the tools run with `python3` by their path, from the hooks too |
+| `src/flowmap_tests/` | The steps above; `flowmap.py` is the only one you run |
 | `cfg/` | One settings file per project |
 | `runs/` | Recorded runs (`runs/auto/` is made by the run picker) |
 | `checks/` | Browser checks: `smoke.js` (every rebuild), plus real-mouse and real-keyboard checks `clicks.mjs`, `follow.mjs`, `stack.mjs`, `resize.mjs` (resizing the details box), `keys.mjs` (→ / ← step from anywhere) (by hand: `node flowmap_tests/checks/clicks.mjs file:///…/build/flowmap.html#W4`) |
@@ -244,7 +245,7 @@ The playground shares these steps: `trace.py` also records a playground driver's
 | The claude.ai link shows an old map | It is a copy | Ask Claude to republish `build/flowmap.html` |
 | The hook's check says "problems" | A check failed (see [Checks](#checks)) | Look at `build/check.txt`, then ask for a fix |
 | No check runs | `google-chrome` is missing | Install Chrome, or skip `--check` |
-| A commit prints "can't open file …/flowmap/tools/flowmap.py" | The hook still points at an old folder (`flowmap/` before it became `flowmap_tests/`) | Run `hook` again: it replaces the old lines and keeps any others in the hook |
+| A commit prints "can't open file …/tools/flowmap.py" | The hook still points at an old folder (`flowmap/tools/` or `flowmap_tests/tools/`; the code is in `src/` now) | Run `hook` again: it replaces the old lines and keeps any others in the hook |
 | A test tries the real network or a paid API | While recording, every connection that isn't to this machine is refused, `*_API_KEY` / `*_TOKEN` are removed and every proxy points at a closed port. Such a test fails rather than spend money. Local Postgres or Ollama still work | Keep tests on fakes |
 | Real data in `runs/` | Recordings hold the real values your tests use | Don't record tests that read secrets or private files |
 | Map too small to read | Docked panels take room on narrow screens | Close-up button, close the details box, or A− / A+ for the box text |

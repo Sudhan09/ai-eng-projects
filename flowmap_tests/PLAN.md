@@ -15,15 +15,15 @@ Nothing here starts until Hari says **execute**.
 ## Phase 1: bugs found in use
 
 - [x] ~~**14. Calls inside `assert` lines.**~~ Hide only real checks: building the expected value (`ReadStats(records=2, malformed=1)`), `==` comparisons, and yes/no reads like `r.ok`. Keep the call being tested (`ok.to_row()`, `read_jsonl(path, stats)`). This fixes W4 Part 4's 5-step runs. (`page/flowmap.html`, `flowOnly`)
-- [x] ~~**17. Yielded values show as answers**~~ (found while fixing 14). A generator's `yield`s are its output, but the recorder never saved them, so a streaming function's results never showed. Examples: `read_jsonl` (W4 Part 4), the W1 pipeline (`parse`, `keep`, `jsonl_chunks`), and W5's token streams. Each yielded value rides back to the code that asked for it, the card shows it, and END lists what was yielded. (`tools/trace.py`, `tools/build_project.py`, `page/flowmap.html`)
-- [x] ~~**15. The map falling behind git.**~~ If a commit's update didn't run (for example from a sandboxed session), the next note says `map is behind: run flowmap.py update`. (`tools/flowmap.py`, `note`)
+- [x] ~~**17. Yielded values show as answers**~~ (found while fixing 14). A generator's `yield`s are its output, but the recorder never saved them, so a streaming function's results never showed. Examples: `read_jsonl` (W4 Part 4), the W1 pipeline (`parse`, `keep`, `jsonl_chunks`), and W5's token streams. Each yielded value rides back to the code that asked for it, the card shows it, and END lists what was yielded. (`src/flowmap_tests/trace.py`, `src/flowmap_tests/build_project.py`, `page/flowmap.html`)
+- [x] ~~**15. The map falling behind git.**~~ If a commit's update didn't run (for example from a sandboxed session), the next note says `map is behind: run flowmap.py update`. (`src/flowmap_tests/flowmap.py`, `note`)
 
 ## Phase 2: fixes from the review
 
-- [x] ~~**11a.** The `transient` crash: read `transient`, `url` and `reason` only when the error class has them~~. (`tools/trace.py`, `fields_of`)
-- [x] ~~**11b.** Silent failures: log every test that couldn't be recorded, with the reason~~ ("failed", "needs Postgres running", "touches too few functions"). A Part left with no run is a problem in `build/check.txt`. (`tools/pickruns.py`)
-- [x] ~~**11c.** Real fake names: `MockTransport(handler=FlakyAPI)`, not always `ChaosAPI`~~. (`tools/trace.py`)
-- [x] ~~**11d.** Libraries worked out from what the code imports~~ (not the standard library, not your package, plus `asyncio`), instead of a fixed list. (`tools/build_project.py`, `LIBS`)
+- [x] ~~**11a.** The `transient` crash: read `transient`, `url` and `reason` only when the error class has them~~. (`src/flowmap_tests/trace.py`, `fields_of`)
+- [x] ~~**11b.** Silent failures: log every test that couldn't be recorded, with the reason~~ ("failed", "needs Postgres running", "touches too few functions"). A Part left with no run is a problem in `build/check.txt`. (`src/flowmap_tests/pickruns.py`)
+- [x] ~~**11c.** Real fake names: `MockTransport(handler=FlakyAPI)`, not always `ChaosAPI`~~. (`src/flowmap_tests/trace.py`)
+- [x] ~~**11d.** Libraries worked out from what the code imports~~ (not the standard library, not your package, plus `asyncio`), instead of a fixed list. (`src/flowmap_tests/build_project.py`, `LIBS`)
 - [x] ~~**11e.** Move the aiofetch summaries out of `build_project.py`~~ (`DESC`) into `cfg/w3.py` and `cfg/w4.py`.
 - [x] ~~**11f.** Repo and practical paths in `cfg/` relative to the workspace~~ (`projects/aiofetch`), so a synced copy on Windows still works.
 - [x] ~~**11g.** Cleanup after each build: remove `exports/` copies no Part or run uses, remove leftover check pages, keep `update.log` to its last 1,000 lines~~.
@@ -31,17 +31,17 @@ Nothing here starts until Hari says **execute**.
 
 ## Phase 3: ready for Weeks 5 to 21
 
-- [x] ~~**1. Record through pytest itself,**~~ so fixtures, autouse setup, async tests and parametrize all work. Only the test's body is recorded, so fixture setup stays hidden. (`tools/trace.py`, `tools/pickruns.py`)
-- [x] ~~**2. Find tests in subfolders:**~~ `tests/unit/`, `tests/integration/`, `tests/stage3/`, `tests/ops/`. (`tools/pickruns.py`)
-- [x] ~~**3. Parts from Conventional Commits:**~~ `feat(w7p1): …`, Stages `(w16s2)`, the bridge `(pf1p2)`; the old `Week N Part X: …` still works. Titles from `### Part N - …` and `## Stage N - …` headings. (`tools/gitparts.py`)
-- [x] ~~**4. Update after `git pull`**~~ too (a post-merge hook), because Parts are merged on GitHub. Re-run `hook` once per repo. (`tools/flowmap.py`, `hook`)
-- [x] ~~**5. A lane for every task and thread:**~~ `TaskGroup`, `create_task`, `gather`, `to_thread`, and FastAPI TestClient's thread. Then re-record W2. (`tools/trace.py`)
-- [x] ~~**6. Subpackages**~~ named by their full path (`adapters.alpha`), with one column per top-level subpackage. Python outside `src/` (`scripts/`, `examples/`) comes in through one settings line. (`tools/trace.py`, `tools/build_project.py`, `tools/conds.py`)
-- [x] ~~**7. A real network guard while recording:**~~ every non-local connection is refused, while local Postgres and Ollama still work. Drop the word filter that skipped offline OpenAI/Anthropic adapter tests. (`tools/pickruns.py`, `tools/trace.py`)
-- [x] ~~**8. Several repos per week:**~~ each repo gets its own map entry (`W18 · llm-client-kit`, `W18 · aiofetch`), and a W18 commit in aiofetch doesn't touch W3/W4. (`cfg/`, `tools/gitparts.py`)
-- [x] ~~**9. Stubs without `TODO`**~~ (`raise NotImplementedError("Stage 1")`) count as not built; abstract methods stay. (`tools/build_project.py`)
-- [x] ~~**10. Fakes by name**~~ (`Mock…`, `Fake…`, `Stub…`, `Dummy…`) or a list in the settings. Drop "imported by nothing", which misfires on W7–W9. (`tools/build_project.py`, `cfg/w3.py`, `cfg/w4.py`)
-- [x] ~~**13. From Week 5, test code in the middle of a run shows**~~ in its own column, "from the test": a stand-in your code calls, a function the test hands in, a monkeypatched function. START stays your call and END stays its output. Weeks 1–4 stay as they are. (`page/flowmap.html`, `tools/build_project.py`)
+- [x] ~~**1. Record through pytest itself,**~~ so fixtures, autouse setup, async tests and parametrize all work. Only the test's body is recorded, so fixture setup stays hidden. (`src/flowmap_tests/trace.py`, `src/flowmap_tests/pickruns.py`)
+- [x] ~~**2. Find tests in subfolders:**~~ `tests/unit/`, `tests/integration/`, `tests/stage3/`, `tests/ops/`. (`src/flowmap_tests/pickruns.py`)
+- [x] ~~**3. Parts from Conventional Commits:**~~ `feat(w7p1): …`, Stages `(w16s2)`, the bridge `(pf1p2)`; the old `Week N Part X: …` still works. Titles from `### Part N - …` and `## Stage N - …` headings. (`src/flowmap_tests/gitparts.py`)
+- [x] ~~**4. Update after `git pull`**~~ too (a post-merge hook), because Parts are merged on GitHub. Re-run `hook` once per repo. (`src/flowmap_tests/flowmap.py`, `hook`)
+- [x] ~~**5. A lane for every task and thread:**~~ `TaskGroup`, `create_task`, `gather`, `to_thread`, and FastAPI TestClient's thread. Then re-record W2. (`src/flowmap_tests/trace.py`)
+- [x] ~~**6. Subpackages**~~ named by their full path (`adapters.alpha`), with one column per top-level subpackage. Python outside `src/` (`scripts/`, `examples/`) comes in through one settings line. (`src/flowmap_tests/trace.py`, `src/flowmap_tests/build_project.py`, `src/flowmap_tests/conds.py`)
+- [x] ~~**7. A real network guard while recording:**~~ every non-local connection is refused, while local Postgres and Ollama still work. Drop the word filter that skipped offline OpenAI/Anthropic adapter tests. (`src/flowmap_tests/pickruns.py`, `src/flowmap_tests/trace.py`)
+- [x] ~~**8. Several repos per week:**~~ each repo gets its own map entry (`W18 · llm-client-kit`, `W18 · aiofetch`), and a W18 commit in aiofetch doesn't touch W3/W4. (`cfg/`, `src/flowmap_tests/gitparts.py`)
+- [x] ~~**9. Stubs without `TODO`**~~ (`raise NotImplementedError("Stage 1")`) count as not built; abstract methods stay. (`src/flowmap_tests/build_project.py`)
+- [x] ~~**10. Fakes by name**~~ (`Mock…`, `Fake…`, `Stub…`, `Dummy…`) or a list in the settings. Drop "imported by nothing", which misfires on W7–W9. (`src/flowmap_tests/build_project.py`, `cfg/w3.py`, `cfg/w4.py`)
+- [x] ~~**13. From Week 5, test code in the middle of a run shows**~~ in its own column, "from the test": a stand-in your code calls, a function the test hands in, a monkeypatched function. START stays your call and END stays its output. Weeks 1–4 stay as they are. (`page/flowmap.html`, `src/flowmap_tests/build_project.py`)
 
 ## Phase 4: safety net, so these bugs can't come back
 
@@ -67,7 +67,7 @@ Nothing here starts until Hari says **execute**.
 - [x] ~~README updated: the commit format, the post-merge hook, the "from the test" column, the new checks. Also the rule: **a new bug gets a test before it's fixed.**~~
 - [x] ~~Republish the map on claude.ai.~~
 - [x] ~~Commit, merge, push, delete the branch.~~ Pushed as ff53f1c (2026-10-27).
-- [x] ~~Hari re-runs `python3 flowmap_tests/tools/flowmap.py hook <week>` once for `aiofetch` and `async-batch-fetcher` (adds the pull hook).~~ Done (2026-10-28); both hooks are in both repos.
+- [x] ~~Hari re-runs `python3 flowmap_tests/src/flowmap_tests/flowmap.py hook <week>` once for `aiofetch` and `async-batch-fetcher` (adds the pull hook).~~ Done (2026-10-28); both hooks are in both repos.
 - [x] ~~Tell the teaching session the commit format, and to run `flowmap.py update` after committing.~~ `HANDBOOK.md` has both (sections 2 and 5).
 
 ## Not doing (too much for a study tool)

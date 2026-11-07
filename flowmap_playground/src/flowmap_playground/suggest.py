@@ -11,7 +11,7 @@
 import math
 import re
 
-import pickruns  # flowmap_tests/tools: a test's name as a title
+import pickruns  # flowmap_tests/src/flowmap_tests: a test's name as a title
 
 TRIES = 10  # played per Part, at most
 PER_ENTRY = 3  # tried per entry, at most (per function for "call")

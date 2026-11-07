@@ -1,0 +1,10 @@
+[project]
+name = "flowmap-playground"
+version = "0.1.0"
+description = "Run any Part of a week's project with your own input, on the project map's recorder."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv]
+package = false  # its scripts run by their path (the git hook's update starts the server with --refresh)

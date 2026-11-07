@@ -18,9 +18,9 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLAYGROUND = os.path.dirname(HERE)
-sys.path.insert(0, PLAYGROUND)
+sys.path.insert(0, os.path.join(PLAYGROUND, "src", "flowmap_playground"))
 import server  # noqa: E402
-import flowmap  # noqa: E402  (flowmap_tests/tools, put on the path by server)
+import flowmap  # noqa: E402  (flowmap_tests/src/flowmap_tests, put on the path by server)
 
 
 def git(repo, *args):

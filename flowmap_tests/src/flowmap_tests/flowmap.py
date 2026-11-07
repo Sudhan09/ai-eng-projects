@@ -1,12 +1,12 @@
 """flowmap: keep the project map in step with the code.
 
 usage (from anywhere):
-  python3 flowmap_tests/tools/flowmap.py build [--check]     rebuild the map; record runs for Parts that need them
-  python3 flowmap_tests/tools/flowmap.py update              what the git hook runs in the background: build and check, quietly,
+  python3 flowmap_tests/src/flowmap_tests/flowmap.py build [--check]     rebuild the map; record runs for Parts that need them
+  python3 flowmap_tests/src/flowmap_tests/flowmap.py update              what the git hook runs in the background: build and check, quietly,
                                                        then bring the playground (flowmap_playground/) up to the same commit
-  python3 flowmap_tests/tools/flowmap.py note                the one line the hook prints after a commit (fast)
-  python3 flowmap_tests/tools/flowmap.py hook <project>      install the git hook in that project's repo (e.g. W4)
-  python3 flowmap_tests/tools/flowmap.py init <key> <repo> --week N [--practical FILE] [--name NAME]
+  python3 flowmap_tests/src/flowmap_tests/flowmap.py note                the one line the hook prints after a commit (fast)
+  python3 flowmap_tests/src/flowmap_tests/flowmap.py hook <project>      install the git hook in that project's repo (e.g. W4)
+  python3 flowmap_tests/src/flowmap_tests/flowmap.py init <key> <repo> --week N [--practical FILE] [--name NAME]
                                                        start a map for another project, and install its git hook
 
 Every project is a settings file in cfg/. The map is build/flowmap.html: open it in a browser, and refresh it after
@@ -27,8 +27,8 @@ import sys
 import tempfile
 import time
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, "tools"))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))  # flowmap_tests/, above src/
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gitparts  # noqa: E402
 import pickruns  # noqa: E402
 
@@ -90,7 +90,7 @@ def build(check=False, quiet=False, log=print, accept=False):
         for _, meta in c.get("RUN_META", []):
             if meta.get("export"):
                 used.add(export(repo, meta["export"].split("/")[-1]))
-        run(sys.executable, "tools/conds.py", f"exports/{ps[-1]['commit']}", f"build/conds_{key}.json", *c.get("CODE_DIRS", []), quiet=True)
+        run(sys.executable, "src/flowmap_tests/conds.py", f"exports/{ps[-1]['commit']}", f"build/conds_{key}.json", *c.get("CODE_DIRS", []), quiet=True)
         # Parts with no runs of their own get the tests they added, recorded on their own code
         have = {m["part"] for _, m in c.get("RUN_META", [])}
         for i, p in enumerate(ps):
@@ -104,10 +104,10 @@ def build(check=False, quiet=False, log=print, accept=False):
                 fine = all(re.match(r"touches only|too long|skipped|the Part added no", w) for w in why)
                 (notes if fine else norun).append(f"{key} Part {p['label']}: no run ({'; '.join(why)})")
         out = f"build/proj_{key}.json"
-        run(sys.executable, "tools/build_project.py", repo, "runs", out, cfg, quiet=quiet)
+        run(sys.executable, "src/flowmap_tests/build_project.py", repo, "runs", out, cfg, quiet=quiet)
         outs.append(out)
-    run(sys.executable, "tools/combine.py", "build/data_all.js", *outs, quiet=True)
-    run(sys.executable, "tools/inject.py", "page/flowmap.html", "build/data_all.js", PAGE, quiet=True)
+    run(sys.executable, "src/flowmap_tests/combine.py", "build/data_all.js", *outs, quiet=True)
+    run(sys.executable, "src/flowmap_tests/inject.py", "page/flowmap.html", "build/data_all.js", PAGE, quiet=True)
     run("node", "--check", PAGE + ".app.js", quiet=True)
     for old in glob.glob("exports/*"):  # copies of commits no Part uses any more (a Part redone, a branch dropped)
         if old not in used:
@@ -135,7 +135,7 @@ def build(check=False, quiet=False, log=print, accept=False):
     return state
 
 
-CHECK_CODE = ["page/flowmap.html", "checks/smoke.js", "tools/inject.py", "tools/combine.py"]
+CHECK_CODE = ["page/flowmap.html", "checks/smoke.js", "src/flowmap_tests/inject.py", "src/flowmap_tests/combine.py"]
 
 
 def page_check(outs):
@@ -155,8 +155,8 @@ def page_check(outs):
     todo = [out for out in outs if cache["weeks"].get(key_of[out], {}).get("sig") != sig[out]]
     fresh, header, extra, summary = {}, "SMOKE OK", [], {}
     if todo:
-        run(sys.executable, "tools/combine.py", "build/data_check.js", *todo, quiet=True)
-        run(sys.executable, "tools/inject.py", "page/flowmap.html", "build/data_check.js", "build/check.html", "--hook", "checks/smoke.js", quiet=True)
+        run(sys.executable, "src/flowmap_tests/combine.py", "build/data_check.js", *todo, quiet=True)
+        run(sys.executable, "src/flowmap_tests/inject.py", "page/flowmap.html", "build/data_check.js", "build/check.html", "--hook", "checks/smoke.js", quiet=True)
         dom = subprocess.run(["timeout", "600", "google-chrome", "--headless=new", "--no-sandbox", "--disable-gpu", "--window-size=1440,900",
                               "--virtual-time-budget=2500000", "--dump-dom", f"file://{ROOT}/build/check.html"], capture_output=True, text=True).stdout
         for f in ("build/check.html", "build/check.html.app.js", "build/data_check.js"):
@@ -265,7 +265,7 @@ def tool_tests():
     """flowmap's own tests (tests/), run again whenever the tools changed since they last passed."""
     if not os.path.isdir("tests"):
         return []
-    files = sorted(glob.glob("tools/*.py") + glob.glob("page/*") + glob.glob("checks/*.js") + glob.glob("tests/**/*.py", recursive=True))
+    files = sorted(glob.glob("src/flowmap_tests/*.py") + glob.glob("page/*") + glob.glob("checks/*.js") + glob.glob("tests/**/*.py", recursive=True))
     stamp = hashlib.md5(b"".join(open(f, "rb").read() for f in files)).hexdigest()
     try:
         if open("build/.tested").read() == stamp:
@@ -308,7 +308,7 @@ def note():
     except OSError:
         last = ""
     checked = "" if not last else " · last check: ok" if last == "ok" else f" · last check: {last} (see flowmap_tests/build/check.txt)"
-    late = f" · the map was behind for {', '.join(sorted(behind))} (an earlier update didn't run); this update catches up. If it keeps happening, run: python3 {ROOT}/tools/flowmap.py update" if behind else ""
+    late = f" · the map was behind for {', '.join(sorted(behind))} (an earlier update didn't run); this update catches up. If it keeps happening, run: python3 {ROOT}/src/flowmap_tests/flowmap.py update" if behind else ""
     print("flowmap: " + ("; ".join(lines) if lines else "no new Part") + f" · updating {PAGE} in the background" + checked + late)
 
 
@@ -345,7 +345,7 @@ def update():
 def refresh_playground(log=print):
     """The playground (flowmap_playground/, next to this folder) follows the same commit: your saved inputs are played
     again on the new code and each Part's suggestions are made again from its tests. Its trouble never stops the map."""
-    server = os.path.join(WORKSPACE, "flowmap_playground", "server.py")
+    server = os.path.join(WORKSPACE, "flowmap_playground", "src", "flowmap_playground", "server.py")
     if not os.path.exists(server):
         return
     try:
@@ -359,9 +359,9 @@ def refresh_playground(log=print):
 
 
 HOOK = """#!/bin/sh
-# flowmap: keep the project map up to date (installed by flowmap_tests/tools/flowmap.py hook; delete this file to stop it)
-python3 {root}/tools/flowmap.py note
-( cd {root} && nohup python3 tools/flowmap.py update >> build/update.log 2>&1 & )
+# flowmap: keep the project map up to date (installed by flowmap_tests/src/flowmap_tests/flowmap.py hook; delete this file to stop it)
+python3 {root}/src/flowmap_tests/flowmap.py note
+( cd {root} && nohup python3 src/flowmap_tests/flowmap.py update >> build/update.log 2>&1 & )
 """
 
 
@@ -384,10 +384,10 @@ def install_hooks(repo, root):
         if ours in old:
             print(f"already installed: {path}")
             continue
-        keep = [line for line in (old or "#!/bin/sh").splitlines() if not (line.startswith("# flowmap:") or "tools/flowmap.py" in line)]
+        keep = [line for line in (old or "#!/bin/sh").splitlines() if not (line.startswith("# flowmap:") or "flowmap.py note" in line or "flowmap.py update" in line)]
         open(path, "w").write("\n".join(keep).rstrip("\n") + "\n" + ours)
         os.chmod(path, 0o755)
-        print(f"{'updated (it pointed at another flowmap folder)' if 'tools/flowmap.py' in old else 'installed'}: {path}")
+        print(f"{'updated (it pointed at another flowmap folder)' if 'flowmap.py note' in old else 'installed'}: {path}")
 
 
 def init(key, repo, week, practical, name):

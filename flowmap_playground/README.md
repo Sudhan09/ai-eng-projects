@@ -5,7 +5,7 @@
 Type an input, press Run, and watch that exact input travel from START to END on the week's map. It isn't a test's run: it's your own.
 
 ```
-python3 flowmap_playground/server.py
+python3 flowmap_playground/src/flowmap_playground/server.py
 ```
 
 Open the link it prints (`http://127.0.0.1:8765/`).
@@ -92,12 +92,12 @@ Some examples, on each week's last Part:
 ## How it works
 
 1. The page sends your input to `server.py`, on this machine only.
-2. The server records it with `flowmap_tests/tools/trace.py`, on the code of the Part you picked (`flowmap_tests/exports/<commit>`), through that Part's entry in the week's driver (`drivers/w4.py`).
+2. The server records it with `flowmap_tests/src/flowmap_tests/trace.py`, on the code of the Part you picked (`flowmap_tests/exports/<commit>`), through that Part's entry in the week's driver (`drivers/w4.py`).
    - The driver plugs the fake server in, as your tests do. For `python -m aiofetch`, only the network under httpx is faked, so your settings, `make_client` and `HttpxTransport` all really run.
    - Only the driver's entry is recorded, as a hidden "you" frame. START is your first call, END its output.
-3. The server rebuilds that week's map with `flowmap_tests/tools/build_project.py`, with your runs as a separate list. The page plays the new run.
+3. The server rebuilds that week's map with `flowmap_tests/src/flowmap_tests/build_project.py`, with your runs as a separate list. The page plays the new run.
 
-**After a commit,** the hook's `flowmap_tests/tools/flowmap.py update` ends with `server.py --refresh`:
+**After a commit,** the hook's `flowmap_tests/src/flowmap_tests/flowmap.py update` ends with `server.py --refresh`:
 
 1. Your saved runs are played again (the same entry, the same input) on their Part's new code. One that can't run there any more stays on its old code, rebuilt from git when the tests map has deleted it.
 2. The suggestions are made again for each Part whose commit changed.
@@ -133,10 +133,11 @@ A running server notices on the next page load: reload the page. If the hook was
 
 | Path | What it is |
 |---|---|
-| `server.py` | The local server: the page, the Run button, recording, keeping the last 20 runs per week; `--refresh` brings every week up to its newest commit |
-| `harvest.py` | Runs a Part's tests once and notes what they pass into your code (and which test calls it directly) |
-| `index.py` | Reads a Part's code: who calls whom, the loops around each call, what makes each class. Shrink and the setup steps use it |
-| `suggest.py` | Turns those values into each Part's Try: suggestions |
+| `pyproject.toml`, `uv.lock`, `.python-version` | A uv project on Python 3.14 with no packages: the server runs with `python3` by its path |
+| `src/flowmap_playground/server.py` | The local server: the page, the Run button, recording, keeping the last 20 runs per week; `--refresh` brings every week up to its newest commit |
+| `src/flowmap_playground/harvest.py` | Runs a Part's tests once and notes what they pass into your code (and which test calls it directly) |
+| `src/flowmap_playground/index.py` | Reads a Part's code: who calls whom, the loops around each call, what makes each class. Shrink and the setup steps use it |
+| `src/flowmap_playground/suggest.py` | Turns those values into each Part's Try: suggestions |
 | `drivers/_auto.py` | The driver of a week that has none yet: "a function of yours" in every Part |
 | `drivers/w1.py` … `w4.py` | How your input reaches each week's code: `PARTS`, per Part, its entries (label, hint, the function that runs it, its `from` rule) and its hand-written suggestions |
 | `drivers/_input.py` | Reads `path=answers` words and `name=value` settings, writes them back from a test's values, and the call entry (`run_call`) |
@@ -180,10 +181,10 @@ Then `tests/test_scenarios.py` must pass: every suggestion runs, each Part's sug
 | "X needs y: … Give it below" | No test reaches it, no code of yours gets there, and nothing makes it | Type a value, or a call of yours (`models.get_settings()`), in the Shrink box. It's kept until Clear |
 | "X() runs none of your code" | The class has no code of its own (a pydantic model, an exception, an enum) | Nothing to step through. Call a function that uses it |
 | "get_item takes item ids" | The input didn't fit the entry | Type what the box's hint shows |
-| A new commit isn't in the playground | The page is from before it | Reload the page. Still missing: `python3 flowmap_tests/tools/flowmap.py update` (the hook may have been skipped) |
+| A new commit isn't in the playground | The page is from before it | Reload the page. Still missing: `python3 flowmap_tests/src/flowmap_tests/flowmap.py update` (the hook may have been skipped) |
 | "reload the page" after Run | A commit came in after the page loaded | Reload it |
 | "Nothing to run at W3" | No row for that Part, nor for any Part before it | Add one, with its suggestions, and run `tests/test_scenarios.py` |
 | "there's no function record.x in your code" (the call entry) | Only your package's functions can be called, and not a name starting with `_` | Type the map's name (`module.function`). A function hidden by a module of the same name (W5's `main()` in `__init__.py`, next to `main.py`) can't be reached |
 | A `test_z_…_untouched` test fails, naming a file of your project | You (or another session) changed that file while the tests ran: the check sees every change, not only the playground's | Run it again when you're not editing |
-| The link doesn't open | The server isn't running, or another program has the port | `python3 flowmap_playground/server.py --port 8766` |
+| The link doesn't open | The server isn't running, or another program has the port | `python3 flowmap_playground/src/flowmap_playground/server.py --port 8766` |
 | The claude.ai map has no input box | That copy can't run Python | Use the local page |

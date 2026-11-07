@@ -1,4 +1,4 @@
-"""Parts from commit messages: every format the curriculum uses finds the right Part (tools/gitparts.py)."""
+"""Parts from commit messages: every format the curriculum uses finds the right Part (src/flowmap_tests/gitparts.py)."""
 
 import atexit
 import os
@@ -8,7 +8,7 @@ import sys
 import tempfile
 import unittest
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tools"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src", "flowmap_tests"))
 import gitparts  # noqa: E402
 
 

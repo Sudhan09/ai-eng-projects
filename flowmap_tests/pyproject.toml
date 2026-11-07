@@ -1,0 +1,10 @@
+[project]
+name = "flowmap-tests"
+version = "0.1.0"
+description = "The project map: every Part of a week's project, its tests and recorded runs, drawn as one page."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv]
+package = false  # its tools run by their path: from the git hooks, and the recorder inside each project's own Python

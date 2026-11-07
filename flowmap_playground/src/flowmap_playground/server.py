@@ -1,7 +1,7 @@
 """The flowmap playground: type an input on the page, press Run, and watch it travel START → END.
 
-usage: python3 flowmap_playground/server.py [--port 8765]
-       python3 flowmap_playground/server.py --refresh     bring every week up to its newest commit, then stop
+usage: python3 flowmap_playground/src/flowmap_playground/server.py [--port 8765]
+       python3 flowmap_playground/src/flowmap_playground/server.py --refresh     bring every week up to its newest commit, then stop
                                                            (flowmap_tests' update runs it after each commit)
 
 It serves a page on this machine only (127.0.0.1). A run records your input with flowmap_tests' recorder on the code of
@@ -35,10 +35,10 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))  # this folder: runs/, build/, drivers/
 TESTS_MAP = os.path.join(os.path.dirname(HERE), "flowmap_tests")
-sys.path.insert(0, os.path.join(TESTS_MAP, "tools"))
-import flowmap  # noqa: E402  (flowmap_tests/tools: settings, Parts, exports)
+sys.path.insert(0, os.path.join(TESTS_MAP, "src", "flowmap_tests"))
+import flowmap  # noqa: E402  (flowmap_tests/src/flowmap_tests: settings, Parts, exports)
 import pickruns  # noqa: E402  (the recording environment and the length cap)
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -424,7 +424,7 @@ def build(key, p, log=say):
         save_runs(key, keep)
     out = os.path.join(HERE, "build", f"proj_{key}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    r = subprocess.run([sys.executable, "tools/build_project.py", c["REPO"], "runs", out, p["cfg"], os.path.join(HERE, "runs", key)],
+    r = subprocess.run([sys.executable, "src/flowmap_tests/build_project.py", c["REPO"], "runs", out, p["cfg"], os.path.join(HERE, "runs", key)],
                        capture_output=True, text=True)
     if r.returncode:
         raise RuntimeError(f"building the {key} map failed: " + (r.stderr.strip().splitlines() or ["?"])[-1])
@@ -461,7 +461,7 @@ def page(all_projects, token):
     os.chdir(TESTS_MAP)
     outs = [os.path.join(HERE, "build", f"proj_{k}.json") for k in all_projects]
     data = os.path.join(HERE, "build", "data.js")
-    subprocess.run([sys.executable, "tools/combine.py", data, *outs], check=True)
+    subprocess.run([sys.executable, "src/flowmap_tests/combine.py", data, *outs], check=True)
     parts = {}
     for k, p in all_projects.items():
         try:
@@ -472,7 +472,7 @@ def page(all_projects, token):
     extra = {"token": token, "parts": parts, "changes": {k: week_changes(k) for k in all_projects}}
     open(data, "a").write("window.PLAYGROUND = " + json.dumps(extra) + ";\n")
     out = os.path.join(HERE, "build", "playground.html")
-    subprocess.run([sys.executable, "tools/inject.py", "page/flowmap.html", data, out], check=True, capture_output=True)
+    subprocess.run([sys.executable, "src/flowmap_tests/inject.py", "page/flowmap.html", data, out], check=True, capture_output=True)
     return open(out, "rb").read()
 
 
@@ -532,9 +532,9 @@ def run_plans(export, python, spec, typed, plans, env, out):
         if plan and plan["how"] == "ask":
             break
         if plan and plan["how"] == "test":  # the test that reaches your function, recorded from your function on
-            cmd = [python, os.path.join(TESTS_MAP, "tools", "trace.py"), export, plan["via"], out]
+            cmd = [python, os.path.join(TESTS_MAP, "src", "flowmap_tests", "trace.py"), export, plan["via"], out]
         else:
-            cmd = [python, os.path.join(TESTS_MAP, "tools", "trace.py"), export, spec, out, plan["text"] if plan else typed]
+            cmd = [python, os.path.join(TESTS_MAP, "src", "flowmap_tests", "trace.py"), export, spec, out, plan["text"] if plan else typed]
         try:
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=90, env={**env, **({"FLOWMAP_FOCUS": json.dumps(plan["focus"])} if plan and plan["focus"] else {})})
         except subprocess.TimeoutExpired:

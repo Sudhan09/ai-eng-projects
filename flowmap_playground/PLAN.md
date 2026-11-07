@@ -9,7 +9,7 @@ Agreed with Hari on 2026-10-28 ("execute"). The shared code stays inside `flowma
 ## 1. Split the folder
 
 - [x] ~~`git mv flowmap flowmap_tests`. Nothing inside it moves.~~
-- [x] ~~Fix the old `flowmap/` path in `flowmap_tests/README.md`, `PLAN.md`, `tools/flowmap.py` (its messages), the memory note and the teaching note.~~
+- [x] ~~Fix the old `flowmap/` path in `flowmap_tests/README.md`, `PLAN.md`, `flowmap_tests/src/flowmap_tests/flowmap.py` (its messages), the memory note and the teaching note.~~
 - [x] ~~`ai-eng-projects/sync.sh` copies from `flowmap_tests/`, and copies `flowmap_playground/`'s code (not its `runs/` or `build/`). Its `.gitignore` follows the new names.~~
 - [x] ~~The tests map is unchanged: `build --check` says ok (the saved map in `build/expected.json` matches) and every tool test passes.~~
 - [x] ~~List the other files that still mention the old `flowmap/` path.~~
@@ -37,7 +37,7 @@ Found and fixed on the way (each with a test first): pytest's cached test files 
 
 - [x] ~~W4 by hand in the real page: `/v2/items/7`, `get_item 1500` (ItemMissing), `get_item 3007` (the moved detour), `/items/1=503,503,200` (retries).~~
 - [x] ~~The tests map is still unchanged (`build --check` ok, tool tests pass).~~
-- [x] ~~Hari re-runs `python3 flowmap_tests/tools/flowmap.py hook W2` and `hook W4`: the old hooks point at `flowmap/`.~~ Done (2026-10-28). `hook` used to keep a stale post-commit ("already installed"); it now rewrites old flowmap lines (`tests/test_hooks.py`).
+- [x] ~~Hari re-runs `python3 flowmap_tests/src/flowmap_tests/flowmap.py hook W2` and `hook W4`: the old hooks point at `flowmap/`.~~ Done (2026-10-28). `hook` used to keep a stale post-commit ("already installed"); it now rewrites old flowmap lines (`tests/test_hooks.py`).
 
 # Plan 2: run on the selected Part, with suggested inputs (agreed 2026-10-28, "execute")
 
@@ -93,9 +93,9 @@ Python 3.14 in every project; changing a call's values as it starts (`frame.f_lo
 
 ## 2. Speed (each change kept only if a timing shows it faster and every test still passes)
 
-- [x] **A lasting bytecode cache** (`flowmap_tests/build/pyc/`, by each file's full path) in `tools/trace.py` and `harvest.py`, instead of a fresh folder per run. A renamed folder still can't reuse old files.
+- [x] **A lasting bytecode cache** (`flowmap_tests/build/pyc/`, by each file's full path) in `flowmap_tests/src/flowmap_tests/trace.py` and `harvest.py`, instead of a fresh folder per run. A renamed folder still can't reuse old files.
 - [x] **No pytest import** in a playground Run (it never runs a test there).
-- [x] **The map build reads each commit once:** one `git cat-file --batch` instead of 136 `git show` calls; the scan saved per commit; each function's code walked once (`tools/build_project.py`). `build --check` must still say ok: the tests map stays identical.
+- [x] **The map build reads each commit once:** one `git cat-file --batch` instead of 136 `git show` calls; the scan saved per commit; each function's code walked once (`flowmap_tests/src/flowmap_tests/build_project.py`). `build --check` must still say ok: the tests map stays identical.
 - [x] **Profile the hook's 29 s** tests-map rebuild, then fix what the profile shows.
 
 ## 3. The index (new `index.py`): read once per commit, kept in memory while the server runs

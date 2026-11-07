@@ -18,9 +18,9 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLAYGROUND = os.path.dirname(HERE)
-sys.path.insert(0, PLAYGROUND)
+sys.path.insert(0, os.path.join(PLAYGROUND, "src", "flowmap_playground"))
 import server  # noqa: E402
-import flowmap  # noqa: E402  (flowmap_tests/tools, put on the path by server)
+import flowmap  # noqa: E402  (flowmap_tests/src/flowmap_tests, put on the path by server)
 
 BROWSER = bool(shutil.which("google-chrome") and shutil.which("node"))
 
@@ -174,7 +174,7 @@ class Playground(unittest.TestCase):
     def test_z_every_guard_passes_on_the_playground_page(self):
         build = os.path.join(self.home, "build")
         os.chdir(server.TESTS_MAP)
-        subprocess.run([sys.executable, "tools/inject.py", "page/flowmap.html", os.path.join(build, "data.js"), os.path.join(build, "check.html"),
+        subprocess.run([sys.executable, "src/flowmap_tests/inject.py", "page/flowmap.html", os.path.join(build, "data.js"), os.path.join(build, "check.html"),
                         "--hook", "checks/smoke.js"], check=True, capture_output=True)
         dom = subprocess.run(["timeout", "900", "google-chrome", "--headless=new", "--no-sandbox", "--disable-gpu", "--window-size=1440,900",
                               "--virtual-time-budget=2500000", "--dump-dom", "file://" + os.path.join(build, "check.html")], capture_output=True, text=True).stdout

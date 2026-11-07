@@ -34,7 +34,7 @@ import types
 # compiled files are kept between recordings (build/pyc/), so each library is compiled once, not on every run. They are
 # kept by each file's full path: pytest's compiled test files keep the folder they were made in, so a project in a new
 # place (flowmap/ became flowmap_tests/) must never reuse the old place's files
-sys.pycache_prefix = os.environ.get("FLOWMAP_PYC") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "build", "pyc")
+sys.pycache_prefix = os.environ.get("FLOWMAP_PYC") or os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "build", "pyc"))
 
 W3 = os.path.abspath(sys.argv[1])
 RUN = sys.argv[2]

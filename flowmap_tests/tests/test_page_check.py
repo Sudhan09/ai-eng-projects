@@ -1,4 +1,4 @@
-"""The browser check after a commit looks again only at the weeks whose map changed (tools/flowmap.py, page_check).
+"""The browser check after a commit looks again only at the weeks whose map changed (src/flowmap_tests/flowmap.py, page_check).
 A week that didn't change keeps its last clean result; a change to the page or the check itself checks every week."""
 
 import json
@@ -46,7 +46,7 @@ class PageCheck(unittest.TestCase):
         real_run, real_sp = flowmap.run, subprocess.run
 
         def run(*cmd, quiet=False):  # combine.py: note which weeks the check page holds
-            if cmd[1] == "tools/combine.py":
+            if cmd[1] == "src/flowmap_tests/combine.py":
                 self.combined.append(sorted(json.load(open(o))["key"] for o in cmd[3:]))
             return ""
 

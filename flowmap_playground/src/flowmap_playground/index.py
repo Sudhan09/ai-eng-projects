@@ -1,6 +1,6 @@
 """What the playground knows about one commit's code without running it, read once per commit and kept in memory.
 
-- The call graph, from the map's own scan (flowmap_tests/tools/scan.py): calls[fn] and callers[fn], and where each
+- The call graph, from the map's own scan (flowmap_tests/src/flowmap_tests/scan.py): calls[fn] and callers[fn], and where each
   call is (file, line, column).
 - Where a value comes from (Shrink): a loop's count is traced back name by name (backward slicing), through the
   function and the calls into it, to a number in your code (a parameter's default, a module constant, a value in the
@@ -13,7 +13,7 @@ Names are the map's: "lab.load", "client.AiofetchClient.get_item", "lab.load.<on
 import ast
 import os
 
-import scan  # flowmap_tests/tools (on the path through server.py)
+import scan  # flowmap_tests/src/flowmap_tests (on the path through server.py)
 
 PASS_THROUGH = {"range", "len", "list", "tuple", "sorted", "reversed", "enumerate", "zip", "set", "frozenset", "min", "max",
                 "int", "abs", "iter", "islice"}

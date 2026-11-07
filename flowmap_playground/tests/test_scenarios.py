@@ -21,7 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PLAYGROUND = os.path.dirname(HERE)
 DRIVERS = os.path.join(PLAYGROUND, "drivers")
 TESTS_MAP = os.path.join(os.path.dirname(PLAYGROUND), "flowmap_tests")
-sys.path[:0] = [DRIVERS, os.path.join(TESTS_MAP, "tools")]
+sys.path[:0] = [DRIVERS, os.path.join(TESTS_MAP, "src", "flowmap_tests")]
 import flowmap  # noqa: E402
 import pickruns  # noqa: E402
 
@@ -46,7 +46,7 @@ def record(c, driver, part, commit, scenario):
     out = os.path.join(OUT, f"{c['KEY']}_{part}_{abs(hash(scenario))}.json")
     python = c.get("PYTHON") or os.path.join(c["REPO"], ".venv", "bin", "python")
     path = os.path.join(DRIVERS, c["KEY"].lower() + ".py")  # the real file (another test may have imported it elsewhere)
-    subprocess.run([python, os.path.join(TESTS_MAP, "tools", "trace.py"), export, f"play:{path}:{part}:{entry}", out, text],
+    subprocess.run([python, os.path.join(TESTS_MAP, "src", "flowmap_tests", "trace.py"), export, f"play:{path}:{part}:{entry}", out, text],
                    capture_output=True, text=True, timeout=120, env=pickruns.safe_env())
     return json.load(open(out)) if os.path.exists(out) else None
 

@@ -1,8 +1,8 @@
 """Turn one project's git history and recorded runs into the map's data.
 
 usage: python3 build_project.py <repo> <runs_dir> <out.json> <project_config.py>
-Settings that are missing are worked out: the Parts from commit messages (tools/gitparts.py), the runs from
-runs/auto/ (tools/pickruns.py), summaries from docstrings, fakes and assert-only calls from the code and the runs,
+Settings that are missing are worked out: the Parts from commit messages (src/flowmap_tests/gitparts.py), the runs from
+runs/auto/ (src/flowmap_tests/pickruns.py), summaries from docstrings, fakes and assert-only calls from the code and the runs,
 and a column for every function the settings don't place.
 """
 
@@ -109,7 +109,7 @@ if None in DATE.values():
 
 
 def scan_commit(commit):
-    """The map's scan of one commit (tools/scan.py), kept per commit and per library list."""
+    """The map's scan of one commit (src/flowmap_tests/scan.py), kept per commit and per library list."""
     libs = ",".join(sorted(LIBS))
     got = kept(commit, "scan")
     if got and got["libs"] == libs:
@@ -495,7 +495,7 @@ def tidy_conds(raw, labels):
 
 conds = tidy_conds(json.load(open(C["CONDS_JSON"])), LABELS)
 conds_of = {}  # each code copy's conditions, worked out once however many runs use it (and kept with its commit's scan)
-CONDS_STAMP = hashlib.md5(open("tools/conds.py", "rb").read() + json.dumps(CODE_DIRS).encode()).hexdigest()[:10]
+CONDS_STAMP = hashlib.md5(open("src/flowmap_tests/conds.py", "rb").read() + json.dumps(CODE_DIRS).encode()).hexdigest()[:10]
 for r in runs + play:
     exp = r.get("export")
     if exp and exp != C["EXPORT"]:
@@ -506,7 +506,7 @@ for r in runs + play:
                 raw = got["raw"]
             else:
                 tmp = f"build/.conds_{exp.replace('/', '_')}.json"
-                subprocess.run([sys.executable, "tools/conds.py", exp, tmp, *CODE_DIRS], check=True, capture_output=True)
+                subprocess.run([sys.executable, "src/flowmap_tests/conds.py", exp, tmp, *CODE_DIRS], check=True, capture_output=True)
                 raw = json.load(open(tmp))
                 keep(commit, conds={"stamp": CONDS_STAMP, "raw": raw})
             conds_of[exp] = tidy_conds(raw, {})

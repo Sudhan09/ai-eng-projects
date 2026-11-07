@@ -56,7 +56,7 @@ class SampleWeek(unittest.TestCase):
         # one run set by hand (like cfg/w3.py's RUN_META), recorded on Part 1's code
         hand = []
         for fn, title in (("test_assert_lines", "Assert lines"), ("test_asyncio_runs_your_coroutine", "asyncio.run")):
-            subprocess.run([PY, os.path.join(ROOT, "tools", "trace.py"), repo.dir, f"tests/unit/test_core.py::{fn}",
+            subprocess.run([PY, os.path.join(ROOT, "src", "flowmap_tests", "trace.py"), repo.dir, f"tests/unit/test_core.py::{fn}",
                             os.path.join(box, "runs", f"{fn}.json")], capture_output=True, timeout=90, env=pickruns.safe_env())
             hand.append((f"{fn}.json", {"key": fn, "part": "1", "export": f"exports/{first}", "title": title,
                                         "test": "tests/unit/test_core.py", "fn": fn}))
@@ -69,14 +69,16 @@ class SampleWeek(unittest.TestCase):
         open(core, "w").write(src)
         open(os.path.join(repo.dir, "tests/unit/test_later.py"), "w").write(TEST_LATER)
         repo.commit("feat(w5p2): later is built")
-        for d in ("tools", "page", "checks"):
+        for d in ("page", "checks"):
             os.symlink(os.path.join(ROOT, d), os.path.join(box, d))
+        os.makedirs(os.path.join(box, "src"))
+        os.symlink(os.path.join(ROOT, "src", "flowmap_tests"), os.path.join(box, "src", "flowmap_tests"))
         os.makedirs(os.path.join(box, "cfg"))
         for key, week in (("W4S", 4), ("W5S", 5)):
             open(os.path.join(box, "cfg", f"{key.lower()}.py"), "w").write(
                 f'KEY, NAME, WEEK = "{key}", "sample", "W{week}"\nREPO = {repo.dir!r}\nWEEK_NUM, PRACTICAL = {week}, None\nPYTHON = {PY!r}\n'
                 + (f"RUN_META = {hand!r}\n" if week == 4 else ""))
-        cls.result = subprocess.run([sys.executable, os.path.join(box, "tools", "flowmap.py"), "build", "--check"],
+        cls.result = subprocess.run([sys.executable, os.path.join(box, "src", "flowmap_tests", "flowmap.py"), "build", "--check"],
                                     capture_output=True, text=True, timeout=900)
         cls.check = open(os.path.join(box, "build", "check.txt")).read()
         cls.data = {k: json.load(open(os.path.join(box, "build", f"proj_{k}.json"))) for k in ("W4S", "W5S")}

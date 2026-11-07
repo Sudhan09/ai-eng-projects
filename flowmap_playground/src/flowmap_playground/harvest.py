@@ -19,7 +19,7 @@ import threading
 
 # compiled files are kept with the recorder's (flowmap_tests/build/pyc/), by each file's full path: each library is
 # compiled once, and pytest's compiled test files from another folder are never reused
-sys.pycache_prefix = os.environ.get("FLOWMAP_PYC") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "flowmap_tests", "build", "pyc")
+sys.pycache_prefix = os.environ.get("FLOWMAP_PYC") or os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "flowmap_tests", "build", "pyc"))
 
 import pytest  # noqa: E402
 

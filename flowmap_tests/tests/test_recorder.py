@@ -1,4 +1,4 @@
-"""The recorder on a tiny project (tests/sample): one test for each thing it must handle (tools/trace.py)."""
+"""The recorder on a tiny project (tests/sample): one test for each thing it must handle (src/flowmap_tests/trace.py)."""
 
 import atexit
 import glob
@@ -11,7 +11,7 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, "tools"))
+sys.path.insert(0, os.path.join(ROOT, "src", "flowmap_tests"))
 import flowmap  # noqa: E402
 import pickruns  # noqa: E402
 
@@ -36,7 +36,7 @@ atexit.register(shutil.rmtree, OUT, True)  # gone when the tests end
 
 def record(name, file="tests/unit/test_core.py", py=None, project=SAMPLE):
     out = os.path.join(OUT, name.replace("::", "__") + ".json")
-    subprocess.run([py or PY, os.path.join(ROOT, "tools", "trace.py"), project, f"{file}::{name}", out],
+    subprocess.run([py or PY, os.path.join(ROOT, "src", "flowmap_tests", "trace.py"), project, f"{file}::{name}", out],
                    capture_output=True, text=True, timeout=90, env=pickruns.safe_env())
     d = json.load(open(out))
     d["text"] = open(out).read()
@@ -52,7 +52,7 @@ def play(entry, text, part=None):
     """A playground run: the sample driver's entry (of a Part, when given), called with your input."""
     out = os.path.join(OUT, f"play_{entry}.json")
     spec = f"play:{os.path.join(ROOT, 'tests', 'sample_driver.py')}:" + (f"{part}:{entry}" if part else entry)
-    subprocess.run([PY, os.path.join(ROOT, "tools", "trace.py"), SAMPLE, spec, out, text],
+    subprocess.run([PY, os.path.join(ROOT, "src", "flowmap_tests", "trace.py"), SAMPLE, spec, out, text],
                    capture_output=True, text=True, timeout=90, env=pickruns.safe_env())
     d = json.load(open(out))
     d["text"] = open(out).read()
@@ -114,7 +114,7 @@ class Speed(unittest.TestCase):
 
     def run_test(self, project, name="test_fixture"):
         out = os.path.join(OUT, "speed.json")
-        r = subprocess.run([PY, os.path.join(ROOT, "tools", "trace.py"), project, f"tests/unit/test_core.py::{name}", out],
+        r = subprocess.run([PY, os.path.join(ROOT, "src", "flowmap_tests", "trace.py"), project, f"tests/unit/test_core.py::{name}", out],
                            capture_output=True, text=True, timeout=90, env={**pickruns.safe_env(), "FLOWMAP_PYC": self.pyc})
         self.assertEqual(r.returncode, 0, r.stderr[-800:])
         d = json.load(open(out))
